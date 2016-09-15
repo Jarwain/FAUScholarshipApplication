@@ -1,0 +1,358 @@
+Notes
+
+Operations:
+
+Get all scholarships
+	/scholarships/ 						GET
+Get Scholarships with Requirements
+	/scholarships/?a=1&b=2&				GET
+Get Specific Scholarship
+	/scholarships/:id 					GET
+Submit new scholarship
+	/scholarships/						POST
+Modify Scholarship
+	/scholarships/ 						PUT
+	/scholarships/:id 					PUT
+Delete Scholarship 
+	/scholarships/:id 					DELETE
+
+Get All questions
+	/questions/ 						GET
+Get Specific question
+	/questions/:id 						GET
+Submit Question
+	/questions/							POST
+Modify Question
+	/questions/							PUT
+	/questions/:id 						PUT
+Delete Question
+	/questions/:id 						DELETE
+
+Get random Application
+	/applications/ 						GET
+Get all applications for student
+	/applications/student/?znumber 		GET
+Get all applications for code
+	/applications/?code 				GET
+Get all applications for student with given first/last name
+	/applications/student/?first&last 	GET
+Submit Application
+	/applications/						POST
+Decide on Application
+	/applications/						PUT
+
+Get Possible Requirements
+	/requirement/						GET
+
+Return file with given ID
+	/files/:id 							GET
+
+
+
+"requirements":{
+	"GPA":min, (range)
+	"major":["majors","non-degree seeking"], (option)
+	"college":["colleges",], (option)
+	"FAFSA":true/false, (x-option)
+	"status":"freshman/sophmore/junior/senior","graduate", (option)
+	"credits":#0-something, (range)
+	"ethnicity":"", (field)
+	"residency":"", // Florida/US (field)
+	"gender":"", (x-option)
+	"age":"", (field)
+	
+}
+
+/scholarships/
+	GET
+		Returns 
+			[{
+				"code":"",
+				"name":"",
+				"description":"",
+				"active":true/false,
+				"counter":#,
+				"limit":#,
+				"question": // All Questions returned as question objects
+					[
+						{
+							"id":#,		// id represents the absolute question ID
+							"type":#,
+							"question":"",
+							"settings":{
+								"filetype":"",
+								"maxFileSize":#,
+								"minWordCount":#,
+								"maxWordCount":#,
+								"keyword_list":#
+							}
+						},
+					],
+				"requirements":
+					[
+						{
+
+						},
+					]
+
+			},]
+	POST
+		Parameters
+			{
+				"code":"",
+				"name":"",
+				"description":"",
+				"active":true/false,
+				"limit":#
+				"question": // Questions may be submitted as only id, or entire question objects. If question object already exists, it reuses
+				[
+					1?{
+						"id":#,
+						?"keyword_list":#
+					},
+					2?{
+						"type":#,
+						"question":"",
+						"settings":{
+						
+						}
+					},
+				]
+			}
+		Returns
+			{
+				"status":true/false,
+				"message":"",
+				"code":""
+			}
+	PUT
+		Parameters
+			{
+				"code":"",
+				?"name":"",
+				?"description":"",
+				?"active":true/false,
+				?"limit":#
+				?"question": // All Questions returned as question objects
+					[
+						1?id,
+						2?{
+							"qNum":#	// qNum represents the relative question number for the scholarship
+							"id":#,		// id represents the absolute question ID
+							"type":#,
+							"question":"",
+							1?"filetype":"",
+							1?"maxFileSize":#,
+							2?"minWordCount":#,
+							2?"maxWordCount":#
+						},
+					]
+			}
+		Returns
+			{
+				"status":true/false,
+				"message":"",
+				"code":""
+			}
+	DELETE
+		Do Nothing
+
+/scholarships/:id
+	GET
+		Returns
+			{
+				"code":"",
+				"name":"",
+				"description":"",
+				"active":true/false,
+				"counter":#,
+				"limit":#
+				"question": // All Questions returned as question objects
+					[{
+						"id":#,		// id represents the absolute question ID
+						"qNum":#	// qNum represents the relative question number for the scholarship
+						"type":#,
+						"question":"",
+						"filetype":"",
+						"maxFileSize":#,
+						"minWordCount":#,
+						"maxWordCount":#
+					},]
+			}
+	POST
+		Do Nothing
+	PUT
+		Parameters
+			{
+				?"code":"",
+				?"name":"",
+				?"description":"",
+				?"active":true/false,
+				?"counter":#,
+				?"limit":#
+				?"question": // All Questions returned as question objects
+					[{
+						"id":#,		// id represents the absolute question ID
+						"qNum":#,	// qNum represents the relative question number for the scholarship
+						?"type":#,
+						?"question":"",
+						1?"filetype":"",
+						1?"maxFileSize":#,
+						2?"minWordCount":#,
+						2?"maxWordCount":#
+					},]
+			}
+		Returns
+			{
+				"status":true/false,
+				"message":"",
+				"code":""
+			}
+	DELETE
+		Returns
+			{
+				"status":true/false,
+				"message":"",
+			}
+			 
+/questions/
+	GET
+		Returns
+			[{
+				"id":#,		// id represents the absolute question ID
+				"type":#,
+				"question":"",
+				"filetype":"",
+				"maxFileSize":#,
+				"minWordCount":#,
+				"maxWordCount":#
+			},]
+	POST 
+		Parameters
+			{
+				"type":#,
+				"question":"",
+				1?"filetype":"",
+				1?"maxFileSize":#,
+				2?"minWordCount":#,
+				2?"maxWordCount":#
+			} 
+		Returns
+			{
+				"status":true/false,
+				"message":"",
+				"id":#
+			}
+	PUT
+		Parameters
+			{
+				"id":#,
+				?"type":#,
+				?"question":"",
+				1?"filetype":"",
+				1?"maxFileSize":#,
+				2?"minWordCount":#,
+				2?"maxWordCount":#
+			} 
+		Returns
+			{
+				"status":true/false,
+				"message":"",
+				"id":#
+			}
+	DELETE
+		Do Nothing
+
+/questions/:id
+	GET
+		Returns
+			{
+				"type":#,
+				"question":"",
+				"filetype":"",
+				"maxFileSize":#,
+				"minWordCount":#,
+				"maxWordCount":#
+			}
+	POST
+		Do Nothing
+	PUT
+		Parameters
+			{
+				?"type":#,
+				?"question":"",
+				1?"filetype":"",
+				1?"maxFileSize":#,
+				2?"minWordCount":#,
+				2?"maxWordCount":#
+			}
+		Returns
+			{
+				"status":true/false,
+				"message":"",
+				"id":#
+			}
+	DELETE
+		Returns
+			{
+				"status":true/false,
+				"message":"",
+			}
+
+/applications/?code/student/?znumber&firstname&lastname
+	GET
+		Returns (if no params, random)(if znumber||(first&&last), all with znumber)(if code, all with code)(if combo, all with combo)
+			{ 
+				"znumber":"",
+				"code":"",
+				"accepted":#,
+				"ranking":#,
+				"note":"",
+				"answers":
+					[{
+						"question_id":#,
+						"type":#,
+						"question":"",
+						"response":"",
+						"summary":""
+					},]
+			}
+	POST
+		Parameters
+			{ 
+				"znumber":"",
+				"code":"",
+				"answers":
+					[{
+						"question_id":#,
+						"response":"",
+						"summary":""
+					},]
+			}
+		Returns
+			{
+				"status":true/false,
+				"message":"",
+				"id":#
+			}
+	PUT
+		Parameters
+			{
+				"znumber":"",
+				"code":"",
+				?"accepted":#,
+				?"ranking":#,
+				?"note":""
+			}
+		Returns
+			{
+				"status":true/false,
+				"message":"",
+				"id":#
+			}
+	DELETE
+		Do Nothing
+
+/files/:id	
+	GET
+		Returns file download
