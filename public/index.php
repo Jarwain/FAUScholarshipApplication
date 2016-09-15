@@ -33,14 +33,14 @@ require __DIR__ . '/../src/middleware.php';
 require __DIR__ . '/../src/routes.php';
 
 
-// autoload
+/*// autoload
 spl_autoload_register(function ($className){
 	if (file_exists(__DIR__ . '/../src/models/' . $className . '.php')) { 
 		require_once __DIR__ . '/../src/models/' . $className . '.php';
 		return true; 
 	}
 	return false;
-});
+});*/
 
 // Run app
 $app->run();
