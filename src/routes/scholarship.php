@@ -3,25 +3,22 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use Respect\Validation\Validator as v;
 
-require_once("/../controllers/ScholarshipController.php");
+require_once("/../models/scholarship.php");
 
 
 $this->group('/scholarships', function() {
 
 	$this->get('/[{code}/]', function($request, $response, $args){
-		$schcontrol = new ScholarshipController($this->db);
 		// Check for code to determine which scholarships to return
-		if(array_key_exists('code',$args) && !$schcontrol->exists($args['code'])){
-			throw new genException($args['code'] . " does not exist.".$schcontrol->exists($args['code'])."wat");
+		if(array_key_exists('code',$args) && !Scholarship::exists($args['code'])){
+			throw new genException($args['code'] . " does not exist.".Scholarship::exists($args['code']));
 		} else if(!array_key_exists('code',$args)){
 			$args['code'] = null;
 		}
+
+		$result = Scholarship::getScholarshipsAndQuestions($this->db, $args['code']);
 		
-		$result1 = $schcontrol->getScholarship($args['code']);
-		$result2 = $schcontrol->getScholarshipsAndQuestions($args['code']);
-		
-		// TODO: Decide on which implementation to use...
-		return $response->withJson(["R1"=>$result1, "R2"=>$result2]);
+		return $response->withJson($result);
 	});
 
 	$this->post('/', function($request, $response){

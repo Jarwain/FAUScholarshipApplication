@@ -1,0 +1,855 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"array",
+				"array_slice"
+			],
+			[
+				"array_replace",
+				"array_replace_recursive"
+			],
+			[
+				"array_merge",
+				"array_merge_recursive"
+			],
+			[
+				"for",
+				"foreach\tforeach …"
+			],
+			[
+				"json",
+				"json_decode"
+			],
+			[
+				"que",
+				"questionID"
+			],
+			[
+				"json_",
+				"json_encode"
+			],
+			[
+				"PUT",
+				"PUT"
+			],
+			[
+				"cou",
+				"counterIncrease"
+			],
+			[
+				"receipt",
+				"receiptSELECT"
+			],
+			[
+				"else",
+				"elseif\telseif …"
+			],
+			[
+				"L",
+				"Luhn_Verify"
+			],
+			[
+				"receiptModal",
+				"receiptModalBody"
+			],
+			[
+				"rece",
+				"receiptINSERT"
+			],
+			[
+				"this",
+				"this"
+			],
+			[
+				"root",
+				"ROOT"
+			],
+			[
+				"data",
+				"data-bind"
+			],
+			[
+				"scho",
+				"scholarships"
+			],
+			[
+				"log_",
+				"log_builder"
+			],
+			[
+				"dest",
+				"destinationQueue"
+			],
+			[
+				"des",
+				"destinationQueue"
+			],
+			[
+				"in",
+				"indexOf"
+			],
+			[
+				"decis",
+				"decisionPost"
+			],
+			[
+				"Effec",
+				"EFFECTIVEdate"
+			],
+			[
+				"PAY",
+				"PAYDATE"
+			],
+			[
+				"EFF",
+				"EFFECTIVEdate"
+			],
+			[
+				"EFFECTIVE",
+				"EFFECTIVEdate"
+			],
+			[
+				"EFFECTI",
+				"EFFECTIVEpivot"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"student",
+				"student_scholarship"
+			],
+			[
+				"limitUPD",
+				"limitUPDATEq"
+			],
+			[
+				"error",
+				"error"
+			],
+			[
+				"na",
+				"nameSELECT"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"array_ke",
+				"array_key_exists"
+			],
+			[
+				"application",
+				"applicationSELECT"
+			],
+			[
+				"applic",
+				"applicationSELECT"
+			],
+			[
+				"preg",
+				"preg_match"
+			],
+			[
+				"key",
+				"keyword_listSELECT"
+			],
+			[
+				"coun",
+				"counterUPDATE"
+			],
+			[
+				"schol",
+				"scholarship"
+			],
+			[
+				"ans",
+				"answerINSERT"
+			],
+			[
+				"ob_get",
+				"ob_get_contents"
+			],
+			[
+				"scholarshi",
+				"scholarship"
+			],
+			[
+				"scholarship",
+				"scholarship-selection"
+			],
+			[
+				"size",
+				"size"
+			],
+			[
+				"tmp",
+				"tmp_name"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"data-rule",
+				"data-rule-required"
+			],
+			[
+				"exe",
+				"execute"
+			],
+			[
+				"array_un",
+				"array_unshift"
+			],
+			[
+				"SC",
+				"scholarship"
+			],
+			[
+				"sch",
+				"sch_name"
+			],
+			[
+				"user",
+				"user"
+			],
+			[
+				"session_un",
+				"session_unset"
+			],
+			[
+				"session",
+				"session_destroy"
+			],
+			[
+				"htmlent",
+				"htmlentities"
+			],
+			[
+				"scholar",
+				"scholarshipFields"
+			],
+			[
+				"_",
+				"_SESSION"
+			],
+			[
+				"sub",
+				"submitted"
+			],
+			[
+				"degree",
+				"degree_arr"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "composer.json",
+			"settings":
+			{
+				"buffer_size": 628,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 58.0,
+		"last_filter": "add fol",
+		"selected_items":
+		[
+			[
+				"add fol",
+				"Project: Add Folder"
+			],
+			[
+				"php",
+				"Set Syntax: PHP"
+			],
+			[
+				"inden",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"indent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"ind",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package control",
+				"Package Control: List Packages"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"remove ",
+				"Package Control: Remove Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"diff",
+				"Set Syntax: Diff"
+			],
+			[
+				"side",
+				"View: Toggle Side Bar"
+			],
+			[
+				"view",
+				"View: Toggle Side Bar"
+			],
+			[
+				"doc",
+				"Snippet: Start Docblock"
+			],
+			[
+				"docb",
+				"Snippet: Start Docblock"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"javasc",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"hex",
+				"Hex Viewer: Toggle Hex View"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			],
+			[
+				"low",
+				"Convert Case: Lower Case"
+			],
+			[
+				"lower",
+				"Convert Case: Lower Case"
+			],
+			[
+				"foldr",
+				"Project: Add Folder"
+			],
+			[
+				"syn",
+				"Set Syntax: PHP"
+			],
+			[
+				"in",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"reind",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"folder",
+				"Project: Add Folder"
+			],
+			[
+				"syntax html",
+				"Set Syntax: HTML"
+			],
+			[
+				"syntax php",
+				"Set Syntax: PHP"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"css",
+				"Set Syntax: CSS"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 120.0,
+		"history":
+		[
+			"import urllib.request,os; pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app"
+	],
+	"file_history":
+	[
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/sch_app.sublime-project",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/src/models/question.php",
+		"/M/restriction map",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/src/routes.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/src/models/scholarship.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/src/messageResponse.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/src/middleware.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/src/genException.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/src/dependencies.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/logs/app.log",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/public/index.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/public/MessageResponse.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/public/index.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/public/Middleware.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/public/routes/scholarship.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/composer.json",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/slim_sch_app/src/settings.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/public/config.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim/public/index.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app/submit.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/logs/app.log",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/composer.json",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim/composer.json",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim/public/routes.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/public/routes.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/UniServerZ/core/apache2/conf/extra/httpd-vhosts.conf",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/public/temp.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/UniServerZ/www/index.php",
+		"/C/Users/dto1/AppData/Local/Temp/Temp1_slim-server-generated.zip/slim-server/SwaggerServer/index.php",
+		"/C/Users/dto1/AppData/Local/Temp/Temp1_slim-server-generated.zip/slim-server/SwaggerServer/README.md",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/public/.htaccess",
+		"/C/Users/dto1/Desktop/WebApplicationProject/UniServerZ/core/apache2/conf/httpd.conf",
+		"/C/Users/dto1/Desktop/WebApplicationProject/UniServerZ/vhosts/sch_app_slim3/.htaccess",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim3/src/.gitignore",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim/templates/cache/README.md",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim/propel.json",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim/generated-reversed-database/schema.xml",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_2/actions/scholarshipActions.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_2/models/Essay_Question.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_2/models/Question.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_2/models/File_Question.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_2/models/Student.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_2/models/Scholarship.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_2/models/Application.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_2/scholarship-selection.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_2/index.php",
+		"/C/Users/dto1/AppData/Local/Temp/Temp1_scholarship.zip/scholarship/scholarship-admin/index.php",
+		"/C/Users/dto1/AppData/Local/Temp/Temp1_scholarship.zip/scholarship/scholarship-search-frontend/index.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app/controller.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/scholarship_search/scholarship.json",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/checks/header.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/checks/view.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app/scholarship.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_laravel/config/app.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/checks/index.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/checks/receipt.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app/viewer.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app/settings.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_laravel/.env.example",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/std_tool/index.html",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/std_tool/js/logic.js",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/view.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/checks/footer.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app/scholarship-selection.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/checks/settings.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/scholarship_search/temp.js",
+		"/C/Users/dto1/Desktop/engine-seed-master/engine-seed-master/src/index.js",
+		"/C/Users/dto1/AppData/Roaming/Sublime Text 3/Packages/User/Javascript.sublime-build",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/checks/js/validate.js",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/STL/stl_step4.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_slim/api.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/STL/stl_step5.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/STL/defaultNW.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/STL/stl_step6.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app/index.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/STL/stl_step4ORIG.php",
+		"/M/stl_step4.php",
+		"/M/defaultNW.php",
+		"/M/stl_step6.php",
+		"/M/stl_step5.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_laravel/app/Student.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_laravel/app/File.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_laravel/app/Application.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_laravel/app/answer.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_laravel/config/database.php",
+		"/M/viewer.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app/header.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Table/StudentTable.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Table/AnswerTable.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/config/app.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/Version Changelog.txt",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Table/ApplicationTable.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/README.txt",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Table/ScholarshipTable.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Table/FileTable.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Entity/File.php",
+		"/C/Users/dto1/Downloads/scholarships&questions.sql",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Entity/Student.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/tests/Fixture/ScholarshipFixture.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/tests/TestCase/Controller/ScholarshipControllerTest.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/tests/TestCase/Controller/QuestionControllerTest.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Entity/Scholarship.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Entity/Question.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/tests/TestCase/Model/Table/ScholarshipTableTest.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/tests/TestCase/Model/Table/QuestionTableTest.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Table/QuestionTable.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/tests/Fixture/QuestionFixture.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/composer.json",
+		"/C/Users/dto1/Downloads/scholarship_applications-db_2015-05-26.sql",
+		"/C/Users/dto1/Downloads/scholarship_applications.sql",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/tests/TestCase/Controller/StudentControllerTest.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/tests/TestCase/Controller/FileControllerTest.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Controller/ApplicationController.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Controller/AppController.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Controller/StudentController.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/src/Model/Entity/Application.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_cake/tests/TestCase/Model/Table/ApplicationTableTest.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app/download.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/index.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_rest/download.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_rest/api/index.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_rest/api/.htaccess",
+		"/M/sch_app_rest/lib/index.php",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_rest/composer.json",
+		"/C/Users/dto1/AppData/Roaming/Sublime Text 3/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
+		"/C/Users/dto1/Desktop/WebApplicationProject/www/sch_app_rest/index.php",
+		"/M/sch_app_rest/vendor/autoload.php",
+		"/M/sch_app_rest/vendor/slim/slim/Slim/Environment.php"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"C:\\Users\\dto1\\Desktop\\WebApplicationProject\\www\\sch_app",
+			"C:\\Users\\dto1\\Desktop\\WebApplicationProject\\www",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"13",
+			"^\\d[\\s|]",
+			"^\\d\\s",
+			"^\\s",
+			"^\\w+",
+			"7",
+			"\t",
+			"/",
+			"}",
+			"\"Timer 2\"",
+			"{\n\t\"Timer 1\" : 0,\n{\n\t\"Timer 1\" : 0,\n{",
+			"{\n\t\"Timer 1\" : 0,\n{",
+			"{\n\t\"Timer 1\" : 0,",
+			"\"Timer 2\"",
+			"Timer 1",
+			"Timer 2",
+			"Timer 1",
+			"Timer ",
+			"array",
+			"exec_time",
+			"time_post",
+			"time_pre",
+			";\n",
+			"args['id']",
+			"this",
+			"$scholarship",
+			"scholarship['",
+			"id",
+			"this",
+			"item",
+			",",
+			"protected",
+			"public",
+			"protected",
+			"public",
+			"protected",
+			"this",
+			"$",
+			"$this->",
+			"bound",
+			"limit",
+			"id",
+			"/questions",
+			"$scholarship",
+			"scholarship",
+			"type",
+			"logger",
+			"Logger",
+			"logger",
+			"Logger",
+			"logger",
+			"Logger",
+			"logger",
+			"$this",
+			"success",
+			"result",
+			"localhost",
+			"Order all",
+			"version",
+			"lastName",
+			"description",
+			"name",
+			"code",
+			"name",
+			"code",
+			"include",
+			"Rotary",
+			"\"category_ref\": 1",
+			"2015",
+			"\"category_ref\": 1,",
+			"\"2015",
+			"name",
+			"code",
+			"public",
+			"$_SESSION['admin']",
+			"`question`",
+			"Broward",
+			"’",
+			"err .=",
+			"effectiveresult",
+			"paydate",
+			"2015/06/02",
+			"Kelly",
+			"Thomas ",
+			"'submit'",
+			"$_SESSION['admin",
+			"$_SESSION['admin']",
+			"session_",
+			"Boett",
+			"`question_new`",
+			"`question`",
+			"rank",
+			"`question` B",
+			"`question`",
+			"`question",
+			"\"",
+			"$json",
+			"$5",
+			"$",
+			",",
+			"Boett",
+			"staff",
+			"David",
+			"\\b\\d\\d\\d?",
+			"3.000",
+			"ÃƒÂ¢Ã",
+			"ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢",
+			"government",
+			"JSON.",
+			"deadline",
+			"...\\d\\d\\d",
+			"financial need",
+			"STEM",
+			"\t\t\n",
+			"stl_form",
+			"step5",
+			"Rotary ",
+			"$killsession",
+			"step5",
+			"$_POST['stl_form']",
+			"step5",
+			"$_SESSION['ContinueToConfirmationPg'] = true",
+			"ContinueToConfirmationPg",
+			"ContinueToCon",
+			"step5",
+			"\t\t\n",
+			"script",
+			"alert"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"'",
+			"&",
+			"",
+			"$_SESSION['scholarshipFields']['sch_essay1']",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "composer.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 628,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 76.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.hex_viewer_inspector":
+	{
+		"height": 94.0
+	},
+	"pinned_build_system": "",
+	"project": "sch_app.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 257.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
