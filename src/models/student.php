@@ -1,15 +1,14 @@
 <?php
 
 class Student {
-	public $id;
-	public $type;
-	public $question;
-	public $settings;
+	public $znumber;
+	public $name;
+	public $email;
+	public $qualifications;
 
 	function __construct(array $row){
-		$this->id = $row['id'];
-		$this->type = $row['type'];
-		$this->question = $row['question'];
-		$this->settings = json_decode($row['settings']);
+		$this->znumber = $row['znumber'];
+		$this->name = $row['name'];
+		$this->email = $row['email'];
 	}
 }
