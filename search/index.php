@@ -1,3 +1,17 @@
+<?php
+/*
+*
+* Version 1.1
+*
+ */
+// Tell PHP that we're using UTF-8 strings until the end of the script
+mb_internal_encoding('UTF-8');
+
+// Tell PHP that we'll be outputting UTF-8 to the browser
+mb_http_output('UTF-8');
+session_start();
+
+?>
 
 <!DOCTYPE HTML>
 <html lang="en" class="no-js">
@@ -75,7 +89,7 @@
       <h2>Student Information</h2>
       <p>Fill out as much as you can</p>
       <h3 class="bg-info text-center">Part 1: Qualifications</h3>
-      <form class="form-horizontal" role="form" action="scholarship-selection.php" method="post">
+      <form class="form-horizontal" role="form" action="search.php" method="post">
         <input type="hidden" name="submitted" value="true">
         <div class="form-group">
           <label for="gpa" class="hidden-xs col-sm-2 control-label">GPA</label>
@@ -87,7 +101,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <!--div class="form-group">
           <label for="area_of_study" class="hidden-xs col-sm-2 control-label">Area of Study</label>
           <div class="col-xs-12 col-sm-3 col-sm-push-7">
 
@@ -105,7 +119,7 @@
           <div class="col-xs-12 col-sm-7 col-sm-pull-3">
             <input  type="text" name="college" id="college" class="form-control" placeholder="Engineering, Education,...">
           </div>
-        </div>
+        </div-->
 
         <div class="form-group">
           <label for="fafsa" class="hidden-xs col-sm-2 control-label">Completed FAFSA</label>
@@ -122,7 +136,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <!--div class="form-group">
           <label for="standing" class="hidden-xs col-sm-2 control-label">University Standing</label>
           <div class="col-xs-12 col-sm-3 col-sm-push-7">
 
@@ -130,7 +144,7 @@
           <div class="col-xs-12 col-sm-7 col-sm-pull-3">
             <input  type="text" name="standing" id="standing" class="form-control" placeholder="University Standing">
           </div>
-        </div>
+        </div-->
 
         <div class="form-group">
           <label for="year" class="hidden-xs col-sm-2 control-label">Year</label>
@@ -142,7 +156,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <!--div class="form-group">
           <label for="credits" class="hidden-xs col-sm-2 control-label"># of Credits Currently Taking</label>
           <div class="col-xs-12 col-sm-3 col-sm-push-7">
 
@@ -150,7 +164,7 @@
           <div class="col-xs-12 col-sm-7 col-sm-pull-3">
             <input  type="text" name="credits" id="credits" class="form-control" placeholder="1-18">
           </div>
-        </div>
+        </div-->
 
         <div class="form-group">
           <label for="need" class="hidden-xs col-sm-2 control-label">Do you Qualify for Financial Need?</label>
