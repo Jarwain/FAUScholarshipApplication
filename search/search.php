@@ -7,14 +7,10 @@ mb_http_output('UTF-8');
 session_start();
 // If Session vars haven't been established, assign them
 if(isset($_POST['submitted'])){
-  $_SESSION['student']['znumber'] = $_POST['znumber'];
-  $_SESSION['student']['firstname'] = $_POST['firstname'];
-  $_SESSION['student']['lastname'] = $_POST['lastname'];
-  $_SESSION['student']['email'] = $_POST['email'];
+  $_SESSION['student']['fafsa'] = $_POST['fafsa'];
+  $_SESSION['student']['need'] = $_POST['need'];
   $_SESSION['student']['gpa'] = $_POST['gpa'];
   $_SESSION['student']['year'] = $_POST['year'];
-  $_SESSION['student']['school'] = $_POST['school'];
-  $_SESSION['student']['major'] = $_POST['major'];
 } else {
   header("location: index.php");
 }
@@ -94,9 +90,81 @@ if(isset($_POST['submitted'])){
         <img src="img/CENTYPECL.jpg" class="center-block">
         <h1>Financial Aid <small>Scholarship Search</small></h1>
       </div>
-      <h2>Student Information</h2>
+      <h2>Qualifying Scholarships:</h2>
       <p>Fill out as much as you can</p>
       <h3 class="bg-info text-center">Part 1: Qualifications</h3>
+      <?php
+      try{
+        // Include connection Settings
+        include "settings.php";
+        // Create a new connection.
+        // \PDO::ATTR_ERRMODE enables exceptions for errors.  This is optional but can be handy.
+        // \PDO::ATTR_PERSISTENT disables persistent connections, which can cause concurrency issues in certain cases.
+        $link = new \PDO( 'mysql:host='.$host.';dbname='.$dbname.';charset=utf8mb4',
+          $user,
+          $pass,
+          array(
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+            \PDO::ATTR_PERSISTENT => false
+          )
+        );
+      } catch (\PDOException $ex){
+        // echo "<script>console.log(\"There was an Exception in PhP. ".$ex->getMessage()."\")</script>";
+      } catch (Exception $ex){
+        echo $ex;
+        // echo "<script>console.log(\"There was an Exception in PhP. ".$ex->getMessage()."\")</script>";
+      }
+
+      /*
+        Select all scholarships, left join with all restrictions. Transform into a different format. Filter.
+      */
+      // Select all the scholarships, their codes, names, and whether they are active or not
+      foreach($link->query("SELECT `code`,`name`,`active`,`aid_year`,`counter`,`limit` FROM `scholarship`") as $row){
+        // if active and aid year is appropriate
+        // && $row['aid_year'] == $_SESSION['aid_year']
+        if($row['active']) {
+          echo "<option ";
+          // if the limit is hit, disable the option, then continue printing the option
+          if (!(($row['limit'] > 0 && $row['counter'] < $row['limit']) || $row['limit'] <= 0)) echo "disabled ";
+          // if the scholarship session variable was set by index and it matches one of the listings, select it
+          echo $_SESSION['scholarship']==$row['code']?"selected":"";
+          // print the listing into the dropdown
+          echo " value=\"".$row['code']."\">".$row['name'];
+          if (!(($row['limit'] > 0 && $row['counter'] < $row['limit']) || $row['limit'] <= 0)) echo " (Maximum Applications Reached)";
+          echo "</option>\n";
+        }
+      }
+      ?>
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Qualified Scholarships
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Unqualified Scholarships
+              </a>
+            </h4>
+          </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div> <!-- ./container -->
     <div id="footer">

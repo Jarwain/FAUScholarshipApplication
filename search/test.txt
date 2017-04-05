@@ -1,0 +1,22 @@
+Test Scholarships
+
+TST001
+TST002
+TST003
+TST004
+TST005
+TST006
+
+Test Qualifiers
+1 FAFSA
+2 Financial Need
+3 GPA
+4 Class Standing
+
+Test Restrictions
+
+TST001 ()
+TST002 (1)
+TST003 (1,2)
+TST004 (1,2,3)
+TST005 (4 && (1||2))
