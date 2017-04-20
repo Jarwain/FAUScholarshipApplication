@@ -95,45 +95,28 @@ if(isset($_POST['submitted'])){
       <h3 class="bg-info text-center">Part 1: Qualifications</h3>
       <?php
       try{
-        // Include connection Settings
-        include "settings.php";
-        // Create a new connection.
-        // \PDO::ATTR_ERRMODE enables exceptions for errors.  This is optional but can be handy.
-        // \PDO::ATTR_PERSISTENT disables persistent connections, which can cause concurrency issues in certain cases.
-        $link = new \PDO( 'mysql:host='.$host.';dbname='.$dbname.';charset=utf8mb4',
-          $user,
-          $pass,
+        $link = new \PDO( 'mysql:host=boc22finaid.fau.edu;dbname=scholarship_applications_test;charset=utf8mb4',
+          'schapp',
+          'schapp',
           array(
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
             \PDO::ATTR_PERSISTENT => false
           )
         );
       } catch (\PDOException $ex){
-        // echo "<script>console.log(\"There was an Exception in PhP. ".$ex->getMessage()."\")</script>";
+         echo "<script>console.log(\"There was an Exception in PhP. ".$ex->getMessage()."\")</script>";
       } catch (Exception $ex){
         echo $ex;
-        // echo "<script>console.log(\"There was an Exception in PhP. ".$ex->getMessage()."\")</script>";
+         echo "<script>console.log(\"There was an Exception in PhP. ".trim($ex->getMessage())."\")</script>";
       }
 
       /*
         Select all scholarships, left join with all restrictions. Transform into a different format. Filter.
       */
-      // Select all the scholarships, their codes, names, and whether they are active or not
-      foreach($link->query("SELECT `code`,`name`,`active`,`aid_year`,`counter`,`limit` FROM `scholarship`") as $row){
-        // if active and aid year is appropriate
-        // && $row['aid_year'] == $_SESSION['aid_year']
-        if($row['active']) {
-          echo "<option ";
-          // if the limit is hit, disable the option, then continue printing the option
-          if (!(($row['limit'] > 0 && $row['counter'] < $row['limit']) || $row['limit'] <= 0)) echo "disabled ";
-          // if the scholarship session variable was set by index and it matches one of the listings, select it
-          echo $_SESSION['scholarship']==$row['code']?"selected":"";
-          // print the listing into the dropdown
-          echo " value=\"".$row['code']."\">".$row['name'];
-          if (!(($row['limit'] > 0 && $row['counter'] < $row['limit']) || $row['limit'] <= 0)) echo " (Maximum Applications Reached)";
-          echo "</option>\n";
-        }
-      }
+      $wholething = $link->query("SELECT * FROM `scholarship` s 
+      	LEFT JOIN `restriction` r ON s.`code` = r.`sch_code` 
+      	WHERE s.`code` like 'TST%'");
+      print_r($wholething);
       ?>
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">

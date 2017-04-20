@@ -128,10 +128,10 @@ session_start();
           </div>
           <div class="col-xs-12 col-sm-7 col-sm-pull-3">
             <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Yes
+              <input type="radio" name="fafsa" value="true"> Yes
             </label>
             <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> No
+              <input type="radio" name="fafsa" value="false"> No
             </label>
           </div>
         </div>
@@ -173,10 +173,10 @@ session_start();
           </div>
           <div class="col-xs-12 col-sm-7 col-sm-pull-3">
             <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Yes
+              <input type="radio" name="need" value="true"> Yes
             </label>
             <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> No
+              <input type="radio" name="need" value="false"> No
             </label>
           </div>
         </div>
