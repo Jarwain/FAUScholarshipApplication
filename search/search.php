@@ -1,4 +1,5 @@
 <?php
+require_once("models/Scholarship.php");
 // Tell PHP that we're using UTF-8 strings until the end of the script
 mb_internal_encoding('UTF-8');
 
@@ -91,23 +92,8 @@ if(isset($_POST['submitted'])){
 			<h3 class="bg-info text-center">Part 1: Qualifications</h3>
 			<?php
 			try{
-				$link = new \PDO( 'mysql:host=boc22finaid.fau.edu;dbname=scholarship_applications_search;charset=utf8mb4',
-					'schapp',
-					'schapp',
-					array(
-						\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-						\PDO::ATTR_PERSISTENT => false
-					)
-				);
-			
-
-			/*
-				Select all scholarships, left join with all restrictions. Transform into a different format. Filter.
-			*/
-			$wholething = $link->query("SELECT * FROM `scholarship` s 
-				LEFT JOIN `restriction` r ON s.`code` = r.`sch_code` 
-				WHERE s.`code` like 'TST%'")->fetchAll();
-			print_r($wholething);
+				$scholarships = Scholarship::getScholarshipsRestrictions();
+				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
 				echo $ex->getMessage();
 				 echo "<script>console.log(\"There was an Exception in PhP. ".$ex->getMessage()."\")</script>";

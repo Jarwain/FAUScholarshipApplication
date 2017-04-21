@@ -22,7 +22,6 @@
 		public static function getQualifiers(){
 			try{
 				$settings = json_decode(file_get_contents(__DIR__ . "/../.config/database"));
-				print_r($settings);
 				$link = new \PDO( 'mysql:host='.$settings->host.';dbname='.$settings->dbname.';charset=utf8mb4',
 					$settings->user,
 					$settings->pass,
@@ -32,7 +31,7 @@
 					)
 				);
 			
-				$dbQualifiers = $link->query("SELECT `id`,`type`,`question`,`value` FROM `qualifier`")->fetchAll();
+				$dbQualifiers = $link->query("SELECT `id`,`name`,`type`,`question`,`value` FROM `qualifier`")->fetchAll();
 				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
 				return $qualifiers;
 			} catch (Exception $ex){
@@ -41,14 +40,15 @@
 		}
 
 		public function render(){
-			echo '<label for="'.$this->name.'" class="hidden-xs col-sm-2 control-label">'.$this->question.'</label>
+			echo '<div class="form-group">
+			<label for="'.$this->name.'" class="hidden-xs col-sm-2 control-label">'.$this->question.'</label>
 			<div class="col-xs-12 col-sm-3 col-sm-push-7">
-
+			<!-- Sidestuff -->
 			</div>
 			<div class="col-xs-12 col-sm-7 col-sm-pull-3">';
 
 			//	<input  type="text" name="gpa" id="gpa" class="form-control" placeholder="GPA">
-			echo '</div>';
+			echo '</div></div>';
 		}
 	}
 ?>

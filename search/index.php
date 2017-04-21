@@ -3,7 +3,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);?>
 
 <?php
-require_once("models/qualifier.php");
+require_once("models/Qualifier.php");
 // Tell PHP that we're using UTF-8 strings until the end of the script
 mb_internal_encoding('UTF-8');
 
@@ -87,11 +87,9 @@ session_start();
 			<h3 class="bg-info text-center">Part 1: Qualifications</h3>
 			<form class="form-horizontal" role="form" action="search.php" method="post">
 				<input type="hidden" name="submitted" value="true">
-				<div class="form-group">
-					
-					<?php
+				<?php
 					try{
-						print_r(qualifier::getQualifiers());
+						//print_r(qualifier::getQualifiers());
 					} catch (\PDOException $ex){
 						echo $ex->getMessage();
 						 echo "<script>console.log(\"There was an Exception in PhP. ".$ex->getMessage()."\")</script>";
@@ -99,8 +97,8 @@ session_start();
 						echo $ex->getMessage();
 						 echo "<script>console.log(\"There was an Exception in PhP. ".trim($ex->getMessage())."\")</script>";
 					}
-					?>
-				
+				?>
+				<div class="form-group">
 					<label for="gpa" class="hidden-xs col-sm-2 control-label">GPA</label>
 					<div class="col-xs-12 col-sm-3 col-sm-push-7">
 
