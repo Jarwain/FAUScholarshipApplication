@@ -89,7 +89,7 @@ session_start();
 				<input type="hidden" name="submitted" value="true">
 				<?php
 					try{
-						//print_r(qualifier::getQualifiers());
+						print_r(qualifier::getQualifiers());
 					} catch (\PDOException $ex){
 						echo $ex->getMessage();
 						 echo "<script>console.log(\"There was an Exception in PhP. ".$ex->getMessage()."\")</script>";
