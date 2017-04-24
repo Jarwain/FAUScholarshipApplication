@@ -42,11 +42,11 @@ require_once("models/Restriction.php");
 				$scholarships = array_reduce($dbRestrictions,function($carry, $val){
 					if(array_key_exists($val['code'],$carry)){
 						// Add Restriction to existing Scholarship inst
-						$carry[$val['code']]->restrictions[] = Restriction::array_to_restriction($val);
+						$carry[$val['code']]->restrictions[$val['category']][] = Restriction::array_to_restriction($val);
 					} else {
 						// Instantiate Scholarship 
 						$carry[$val['code']] = self::array_to_scholarship($val);
-						$carry[$val['code']]->restrictions[] = Restriction::array_to_restriction($val);
+						$carry[$val['code']]->restrictions[$val['category']][] = Restriction::array_to_restriction($val);
 					}
 					return $carry;
 				},array());
