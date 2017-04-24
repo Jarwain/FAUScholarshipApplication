@@ -23,22 +23,21 @@ require_once("models/Qualifier.php");
 							} else { return false; }
 							break;
 						case 2:
-							print_r($student->qualifications[$key]->value);
-							$param = json_decode($student->qualifications[$key]->value)->param;
+							$param = $student->qualifications[$key]->value->param;
 							$num = floatval($val);
 							if($num >= $param[0] && $num <= $param[1])
 								$student->qualifications[$key]->value = $val;
 							else return false;
 							break;
 						case 3:
-							$param = json_decode($student->qualifications[$key]->value)->param;
+							$param = $student->qualifications[$key]->value->param;
 							if(in_array($val,$param))
 								$student->qualifications[$key]->value = $val;
 							else 
 								return false;
 							break;
 						case 4:
-							$param = json_decode($student->qualifications[$key]->value)->param;
+							$param = $student->qualifications[$key]->value->param;
 							break;
 					}
 				}
