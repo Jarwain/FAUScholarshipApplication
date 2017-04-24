@@ -46,7 +46,9 @@ require_once("models/Restriction.php");
 					} else {
 						// Instantiate Scholarship 
 						$carry[$val['code']] = self::array_to_scholarship($val);
-						$carry[$val['code']]->restrictions[$val['category']][] = Restriction::array_to_restriction($val);
+						if($val['qualifier_id'])
+							$carry[$val['code']]->restrictions[$val['category']][] = Restriction::array_to_restriction($val);
+						else $carry[$val['code']]->restrictions = null;
 					}
 					return $carry;
 				},array());
