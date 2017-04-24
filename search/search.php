@@ -97,10 +97,10 @@ if(isset($_POST['submitted'])){
 			<?php
 			try{
 				print_r($_SESSION['student']);
-				$_SESSION['student'] = Student::validStudent("Z12345678",$_SESSION['student']);
+				$student = Student::validStudent("Z12345678",$_SESSION['student']);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
 				print_r($scholarships);
-				print_r($_SESSION['student']);
+				print_r($student);
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
 				echo $ex->getMessage();
