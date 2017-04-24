@@ -8,10 +8,11 @@ mb_http_output('UTF-8');
 session_start();
 // If Session vars haven't been established, assign them
 if(isset($_POST['submitted'])){
-	$_SESSION['student']['fafsa'] = $_POST['fafsa'];
+	$_SESSION['student'] = Student::validStudent("Z12345678",$_POST);
+/*	$_SESSION['student']['fafsa'] = $_POST['fafsa'];
 	$_SESSION['student']['need'] = $_POST['need'];
 	$_SESSION['student']['gpa'] = $_POST['gpa'];
-	$_SESSION['student']['year'] = $_POST['year'];
+	$_SESSION['student']['year'] = $_POST['year'];*/
 } else {
 	header("location: index.php");
 }
@@ -93,7 +94,7 @@ if(isset($_POST['submitted'])){
 			<?php
 			try{
 				$scholarships = Scholarship::getScholarshipsRestrictions();
-				print_r($_POST);
+				print_r($_SESSION['student']);
 				print_r($scholarships);
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
