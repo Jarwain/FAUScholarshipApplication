@@ -94,7 +94,7 @@ if(isset($_POST['submitted'])){
 			<?php
 			try{
 				print_r($_SESSION['student']);
-				$_SESSION['student'] = Student::validStudent("Z12345678",$_POST);
+				$_SESSION['student'] = Student::validStudent("Z12345678",$_SESSION['student']);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
 				print_r($scholarships);
 				print_r($_SESSION['student']);
