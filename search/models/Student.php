@@ -16,7 +16,9 @@ require_once("models/Qualifier.php");
 			$student->qualifications = Qualifier::getQualifiers();
 			echo "b";
 			foreach($qualifications as $key->$val){
+				echo "c";
 				if(array_key_exists($key,$student->qualifications)){
+					echo "d";
 					switch($student->qualifications[$key]->type){
 						case 1: 
 							if($val === 'true' || $val === 'false'){
@@ -42,6 +44,7 @@ require_once("models/Qualifier.php");
 							$param = json_decode($student->qualifications[$key]->value)->param;
 							break;
 					}
+					echo "e";	
 				}
 			}
 			return $student;
