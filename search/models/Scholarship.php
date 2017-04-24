@@ -50,7 +50,7 @@ require_once("models/Restriction.php");
 					}
 					return $carry;
 				},array());
-				$dbRestrictions->closeCursor();
+				$link->closeCursor();
 				return $scholarships;
 			} catch (Exception $ex){
 				throw $ex;
