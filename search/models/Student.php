@@ -11,8 +11,10 @@ require_once("models/Qualifier.php");
 
 		// returns student if qualifications are valid. else returns false
 		static function validStudent($znumber,$qualifications){
+			echo "a";
 			$student = new Student($znumber);
 			$student->qualifications = Qualifier::getQualifiers();
+			echo "b";
 			foreach($qualifications as $key->$val){
 				if(array_key_exists($key,$student->qualifications)){
 					switch($student->qualifications[$key]->type){
