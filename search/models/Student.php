@@ -11,14 +11,10 @@ require_once("models/Qualifier.php");
 
 		// returns student if qualifications are valid. else returns false
 		static function validStudent($znumber,$qualifications){
-			echo "a";
 			$student = new Student($znumber);
 			$student->qualifications = Qualifier::getQualifiers();
-			print_r($qualifications);
 			foreach($qualifications as $key=>$val){
-				echo "c";
 				if(array_key_exists($key,$student->qualifications)){
-					echo "d";
 					switch($student->qualifications[$key]->type){
 						case 1: 
 							if($val === 'true' || $val === 'false'){
@@ -27,6 +23,7 @@ require_once("models/Qualifier.php");
 							} else { return false; }
 							break;
 						case 2:
+							print_r($student->qualifications[$key]->value);
 							$param = json_decode($student->qualifications[$key]->value)->param;
 							$num = floatval($val);
 							if($num >= $param[0] && $num <= $param[1])
@@ -44,7 +41,6 @@ require_once("models/Qualifier.php");
 							$param = json_decode($student->qualifications[$key]->value)->param;
 							break;
 					}
-					echo "e";	
 				}
 			}
 			return $student;
