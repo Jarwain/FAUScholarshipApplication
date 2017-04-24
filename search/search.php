@@ -1,5 +1,6 @@
 <?php
 require_once("models/Scholarship.php");
+require_once("models/Student.php");
 // Tell PHP that we're using UTF-8 strings until the end of the script
 mb_internal_encoding('UTF-8');
 
