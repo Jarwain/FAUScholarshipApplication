@@ -12,10 +12,10 @@ mb_http_output('UTF-8');
 session_start();
 // If Session vars haven't been established, assign them
 if(isset($_POST['submitted'])){
-	$_SESSION['student']['fafsa'] = $_POST['fafsa'];
+/*	$_SESSION['student']['fafsa'] = $_POST['fafsa'];
 	$_SESSION['student']['need'] = $_POST['need'];
 	$_SESSION['student']['gpa'] = $_POST['gpa'];
-	$_SESSION['student']['year'] = $_POST['year'];
+	$_SESSION['student']['year'] = $_POST['year'];*/
 } else {
 	header("location: index.php");
 }
@@ -97,7 +97,7 @@ if(isset($_POST['submitted'])){
 			<?php
 			try{
 				print_r($_SESSION['student']);
-				$student = Student::validStudent("Z12345678",$_SESSION['student']);
+				$student = Student::validStudent("Z12345678",$_POST);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
 				print_r($scholarships);
 				print_r($student);
