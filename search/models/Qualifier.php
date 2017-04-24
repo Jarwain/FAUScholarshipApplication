@@ -33,6 +33,11 @@
 			
 				$dbQualifiers = $link->query("SELECT `id`,`name`,`type`,`question`,`value` FROM `qualifier`")->fetchAll();
 				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
+				$qualifiers = array_reduce(function($carry, $item){
+					$carry[name] = $item;
+					return $carry;
+				},
+				$qualifiers,array());
 				return $qualifiers;
 			} catch (Exception $ex){
 				throw $ex;
