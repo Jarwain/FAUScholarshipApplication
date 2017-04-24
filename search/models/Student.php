@@ -14,7 +14,7 @@ require_once("models/Qualifier.php");
 			echo "a";
 			$student = new Student($znumber);
 			$student->qualifications = Qualifier::getQualifiers();
-			echo "b";
+			print_r($qualifications);
 			foreach($qualifications as $key->$val){
 				echo "c";
 				if(array_key_exists($key,$student->qualifications)){
