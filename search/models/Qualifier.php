@@ -37,7 +37,6 @@
 					$carry[$item->name] = $item;
 					return $carry;
 				}, array());
-				$link->closeCursor();
 				return $qualifiers;
 			} catch (Exception $ex){
 				throw $ex;

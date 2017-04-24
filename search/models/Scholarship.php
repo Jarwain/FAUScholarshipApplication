@@ -50,7 +50,6 @@ require_once("models/Restriction.php");
 					}
 					return $carry;
 				},array());
-				$link->closeCursor();
 				return $scholarships;
 			} catch (Exception $ex){
 				throw $ex;
