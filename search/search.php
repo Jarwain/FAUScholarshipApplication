@@ -96,9 +96,15 @@ if(isset($_POST['submitted'])){
 			<h3 class="bg-info text-center">Part 1: Qualifications</h3>
 			<?php
 			try{
-				print_r($_SESSION['student']);
 				$student = Student::validStudent("Z12345678",$_POST);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
+				$valid = array_filter($scholarships,function($val){
+					$categories = array_reduce($val->restrictions, function($c, $v){
+						$c[$v['category']][] = $v;
+						return $c;
+					});
+					print_r($categories);
+				});
 				print_r($scholarships);
 				print_r($student);
 				// TODO: Filter $scholarships by student data
