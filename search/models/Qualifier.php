@@ -37,6 +37,7 @@
 					$carry[$item->name] = $item;
 					return $carry;
 				}, array());
+				$dbQualifiers->closeCursor();
 				return $qualifiers;
 			} catch (Exception $ex){
 				throw $ex;
