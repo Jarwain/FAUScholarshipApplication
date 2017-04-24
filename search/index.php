@@ -104,7 +104,7 @@ session_start();
 
 					</div>
 					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
-						<input  type="text" name="gpa" id="gpa" class="form-control" placeholder="GPA">
+						<input  type="text" name="3" id="gpa" class="form-control" placeholder="GPA">
 					</div>
 				</div>
 
@@ -135,10 +135,10 @@ session_start();
 					</div>
 					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
 						<label class="radio-inline">
-							<input type="radio" name="fafsa" value="true"> Yes
+							<input type="radio" name="1" value="true"> Yes
 						</label>
 						<label class="radio-inline">
-							<input type="radio" name="fafsa" value="false"> No
+							<input type="radio" name="1" value="false"> No
 						</label>
 					</div>
 				</div>
@@ -159,7 +159,7 @@ session_start();
 
 					</div>
 					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
-						<input  type="text" name="year" id="year" class="form-control" placeholder="Freshman, Sophomore, Junior, Senior, Graduate">
+						<input  type="text" name="4" id="year" class="form-control" placeholder="Freshman, Sophomore, Junior, Senior, Graduate">
 					</div>
 				</div>
 
@@ -180,10 +180,10 @@ session_start();
 					</div>
 					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
 						<label class="radio-inline">
-							<input type="radio" name="need" value="true"> Yes
+							<input type="radio" name="2" value="true"> Yes
 						</label>
 						<label class="radio-inline">
-							<input type="radio" name="need" value="false"> No
+							<input type="radio" name="2" value="false"> No
 						</label>
 					</div>
 				</div>
