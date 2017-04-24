@@ -93,6 +93,8 @@ if(isset($_POST['submitted'])){
 			<?php
 			try{
 				$scholarships = Scholarship::getScholarshipsRestrictions();
+				print_r($_POST);
+				print_r($scholarships);
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
 				echo $ex->getMessage();
