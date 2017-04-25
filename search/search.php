@@ -111,7 +111,7 @@ if(isset($_POST['submitted'])){
 										$valid[] = $scholarship;
 									break;
 								case 2:
-									$param = $value->valid;
+									$param = $value->valid->param;
 									if($student_val >= $param[0] && $student_val <= $param[1])
 										$valid[] = $scholarship;
 									break;
