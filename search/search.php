@@ -102,31 +102,11 @@ if(isset($_POST['submitted'])){
 				{
 					if(count($scholarship->restrictions) == 0){
 						$valid[] = $scholarship;
-					} else if (count($scholarship->restrictions) == 1 && array_key_exists('*', $scholarship->restrictions)){
-						foreach ($scholarship->restrictions['*'] as $key => $value) {
-							$student_val = $student->qualifications[$key]->value;
-							switch($student->qualifications[$key]->type){
-								case 1:
-									if(!($student_val == true))
-										continue 3;
-									break;
-								case 2:
-									$param = $value->valid->param;
-									if(!($student_val >= $param[0] && $student_val <= $param[1]))
-										continue 3;
-									break;
-								case 3:
-									if(!(in_array($student_val,$value->valid)))
-										continue 3;
-									break;
-								case 4:
-									break;
-							}
-						}
+					} else if (count($scholarship->restrictions) == 1 && array_key_exists('*', $scholarship->restrictions) && Restriction::restrictCategory($student->qualifications, $scholarship->restrictions['*'])){
+						$valid[] = $scholarship;	
 					} else {
 
 					}
-					$valid_sch[] = $scholarship;
 				}
 				print_r($student);
 				print_r($valid_sch);
