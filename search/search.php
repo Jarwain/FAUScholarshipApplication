@@ -107,17 +107,17 @@ if(isset($_POST['submitted'])){
 							$student_val = $student->qualifications[$key]->value;
 							switch($student->qualifications[$key]->type){
 								case 1:
-									if($student_val == true)
-										$valid[] = $scholarship;
+									if(!($student_val == true))
+										continue 3;
 									break;
 								case 2:
 									$param = $value->valid->param;
-									if($student_val >= $param[0] && $student_val <= $param[1])
-										$valid[] = $scholarship;
+									if(!($student_val >= $param[0] && $student_val <= $param[1]))
+										continue 3;
 									break;
 								case 3:
-									if(in_array($student_val,$value->valid))
-										$valid[] = $scholarship;
+									if(!(in_array($student_val,$value->valid)))
+										continue 3;
 									break;
 								case 4:
 									break;
@@ -126,10 +126,9 @@ if(isset($_POST['submitted'])){
 					} else {
 
 					}
+					$valid_sch[] = $scholarship;
 				}
-				print_r($valid);
-				print_r($scholarships);
-				print_r($student);
+				print_r($valid_sch);
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
 				echo $ex->getMessage();
