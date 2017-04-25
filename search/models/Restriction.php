@@ -10,7 +10,7 @@ class Restriction{
 		$this->qualifier_id = $qualifier_id;
 		$this->sch_code = $sch_code;
 		$this->category = $category;
-		$this->valid = $valid;
+		$this->valid = json_decode($valid);
 	}
 
 	public static function array_to_restriction($arr){
