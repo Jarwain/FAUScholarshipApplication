@@ -97,26 +97,28 @@ if(isset($_POST['submitted'])){
 			<?php
 			try{
 				$student = Student::validStudent("Z12345678",$_POST);
+				print_r($student);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
-				$valid = array_filter($scholarships, function($scholarship){
+				foreach($scholarships as $scholarship)
+				{
 					if(count($scholarship->restrictions) == 0){
-						return true;
+						$valid[] = $scholarship;
 					} else if (count($scholarship->restrictions) == 1 && array_key_exists('*', $scholarship->restrictions)){
 						foreach ($scholarship->restrictions['*'] as $key => $value) {
 							$student_val = $student->qualifications[$key]->type->value;
 							switch($student->qualifications[$key]->type){
 								case 1:
-									if($student_val != true)
-										return false;
+									if($student_val == true)
+										$valid[] = $scholarship;
 									break;
 								case 2:
 									$param = $value->valid;
-									if(!($student_val >= $param[0] && $student_val <= $param[1]))
-										return false;
+									if($student_val >= $param[0] && $student_val <= $param[1])
+										$valid[] = $scholarship;
 									break;
 								case 3:
-									if(!in_array($student_val,$value->valid))
-										return false;
+									if(in_array($student_val,$value->valid))
+										$valid[] = $scholarship;
 									break;
 								case 4:
 									break;
@@ -126,7 +128,7 @@ if(isset($_POST['submitted'])){
 
 					}
 					return true;
-				});
+				}
 				print_r($valid);
 				print_r($scholarships);
 				print_r($student);
