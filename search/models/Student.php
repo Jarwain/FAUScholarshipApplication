@@ -13,7 +13,7 @@ require_once("models/Restriction.php");
 		function isQualified($restrictions){
 			return array_reduce($restrictions, function($c,$i){
 				if($c === true)
-					return $i->qualifies($this->qualifications);
+					return $i->qualifies($this->qualifications[$i->qualifier_id]);
 				return false;
 			}, true);
 		}
