@@ -126,7 +126,6 @@ if(isset($_POST['submitted'])){
 					} else {
 
 					}
-					return true;
 				}
 				print_r($valid);
 				print_r($scholarships);
