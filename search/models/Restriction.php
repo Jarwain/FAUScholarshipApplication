@@ -20,12 +20,12 @@ class Restriction{
 					return false;
 				break;
 			case 2:
-				$param = $value->valid->param;
+				$param = $this->valid->param;
 				if(!($qualification->value >= $param[0] && $qualification->value <= $param[1]))
 					return false;
 				break;
 			case 3:
-				if(!(in_array($qualification->value,$value->valid)))
+				if(!(in_array($qualification->value,$this->valid)))
 					return false;
 				break;
 			case 4:
