@@ -128,6 +128,7 @@ if(isset($_POST['submitted'])){
 					}
 					$valid_sch[] = $scholarship;
 				}
+				print_r($student);
 				print_r($valid_sch);
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
