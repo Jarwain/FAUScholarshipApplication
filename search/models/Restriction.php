@@ -14,17 +14,18 @@ class Restriction{
 	}
 
 	function qualifies($qualification){
-		$param = $this->valid->param;
 		switch($qualification->type){
 			case 1:
 				if(!($qualification->value == true))
 					return false;
 				break;
 			case 2:
+				$param = $this->valid->param;
 				if(!($qualification->value >= $param[0] && $qualification->value <= $param[1]))
 					return false;
 				break;
 			case 3:
+				$param = $this->valid->param;
 				if(!(in_array($qualification->value,$param)))
 					return false;
 				break;
