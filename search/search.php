@@ -102,7 +102,7 @@ if(isset($_POST['submitted'])){
 				{
 					if(count($scholarship->restrictions) == 0){
 						$valid[] = $scholarship;
-					} else if (count($scholarship->restrictions) == 1 && array_key_exists('*', $scholarship->restrictions) && Restriction::restrictCategory($student->qualifications, $scholarship->restrictions['*'])){
+					} else if (count($scholarship->restrictions) == 1 && array_key_exists('*', $scholarship->restrictions) && $student->isQualified($scholarship->restrictions['*'])){
 						$valid[] = $scholarship;	
 					} else {
 

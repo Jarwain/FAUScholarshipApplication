@@ -37,14 +37,6 @@ class Restriction{
 	public static function array_to_restriction($arr){
 		return new Restriction($arr['qualifier_id'],$arr['sch_code'],$arr['category'],$arr['valid']);
 	}
-
-	public static function isQualified($qualifications,$restrictions){
-		return array_reduce($restrictions, function($c,$i){
-			if($c === true)
-				return $i->qualifies($qualifications);
-			return false;
-		}, true);
-	}
 }
 
 ?>
