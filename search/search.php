@@ -105,7 +105,7 @@ if(isset($_POST['submitted'])){
 						$valid[] = $scholarship;
 					} else if (count($scholarship->restrictions) == 1 && array_key_exists('*', $scholarship->restrictions)){
 						foreach ($scholarship->restrictions['*'] as $key => $value) {
-							$student_val = $student->qualifications[$key]->type->value;
+							$student_val = $student->qualifications[$key]->value;
 							switch($student->qualifications[$key]->type){
 								case 1:
 									if($student_val == true)
