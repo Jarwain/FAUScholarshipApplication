@@ -98,9 +98,36 @@ if(isset($_POST['submitted'])){
 			try{
 				$student = Student::validStudent("Z12345678",$_POST);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
-				$valid = array_filter($scholarships,function($scholarship){
-					
+				$valid = array_filter($scholarships, function($scholarship){
+					if(count($scholarship->restrictions) == 0){
+						return true;
+					} else if (count($scholarship->restrictions) == 1 && array_key_exists('*', $scholarship->restrictions)){
+						foreach ($scholarship->restrictions['*'] as $key => $value) {
+							$student_val = $student->qualifications[$key]->type->value;
+							switch($student->qualifications[$key]->type){
+								case 1:
+									if($student_val != true)
+										return false;
+									break;
+								case 2:
+									$param = $value->valid;
+									if(!($student_val >= $param[0] && $student_val <= $param[1]))
+										return false;
+									break;
+								case 3:
+									if(!in_array($student_val,$value->valid))
+										return false;
+									break;
+								case 4:
+									break;
+							}
+						}
+					} else {
+
+					}
+					return true;
 				});
+				print_r($valid);
 				print_r($scholarships);
 				print_r($student);
 				// TODO: Filter $scholarships by student data
