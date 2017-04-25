@@ -97,7 +97,6 @@ if(isset($_POST['submitted'])){
 			<?php
 			try{
 				$student = Student::validStudent("Z12345678",$_POST);
-				print_r($student);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
 				foreach($scholarships as $scholarship)
 				{
