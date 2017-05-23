@@ -4,6 +4,7 @@ error_reporting(E_ALL);?>
 
 <?php
 require_once("models/Qualifier.php");
+require_once("JS.php");
 // Tell PHP that we're using UTF-8 strings until the end of the script
 mb_internal_encoding('UTF-8');
 
@@ -89,16 +90,16 @@ session_start();
 				<input type="hidden" name="submitted" value="true">
 				<?php
 					try{
-						print_r(qualifier::getQualifiers());
+						foreach(qualifier::getQualifiers() as $qualifier){
+							$qualifier->printInput();
+						}
 					} catch (\PDOException $ex){
-						echo $ex->getMessage();
-						 echo "<script>console.log(\"There was an Exception in PhP. ".$ex->getMessage()."\")</script>";
+						JS::print("There was an exception in PHP: ",$ex->getMessage());
 					} catch (Exception $ex){
-						echo $ex->getMessage();
-						 echo "<script>console.log(\"There was an Exception in PhP. ".trim($ex->getMessage())."\")</script>";
+						JS::print("There was an exception in PHP: ",trim($ex->getMessage()));
 					}
 				?>
-				<div class="form-group">
+				<!--div class="form-group">
 					<label for="gpa" class="hidden-xs col-sm-2 control-label">GPA</label>
 					<div class="col-xs-12 col-sm-3 col-sm-push-7">
 
@@ -128,7 +129,7 @@ session_start();
 					</div>
 				</div-->
 
-				<div class="form-group">
+				<!--div class="form-group">
 					<label for="fafsa" class="hidden-xs col-sm-2 control-label">Completed FAFSA</label>
 					<div class="col-xs-12 col-sm-3 col-sm-push-7">
 
@@ -153,7 +154,7 @@ session_start();
 					</div>
 				</div-->
 
-				<div class="form-group">
+				<!--div class="form-group">
 					<label for="year" class="hidden-xs col-sm-2 control-label">Year</label>
 					<div class="col-xs-12 col-sm-3 col-sm-push-7">
 
@@ -173,7 +174,7 @@ session_start();
 					</div>
 				</div-->
 
-				<div class="form-group">
+				<!--div class="form-group">
 					<label for="need" class="hidden-xs col-sm-2 control-label">Do you Qualify for Financial Need?</label>
 					<div class="col-xs-12 col-sm-3 col-sm-push-7">
 
@@ -186,7 +187,8 @@ session_start();
 							<input type="radio" name="2" value="false"> No
 						</label>
 					</div>
-				</div>
+				</div-->
+				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-primary">Continue</button>

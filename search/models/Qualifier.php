@@ -43,16 +43,66 @@
 			}
 		}
 
-		public function render(){
-			echo '<div class="form-group">
-			<label for="'.$this->name.'" class="hidden-xs col-sm-2 control-label">'.$this->question.'</label>
-			<div class="col-xs-12 col-sm-3 col-sm-push-7">
-			<!-- Sidestuff -->
-			</div>
-			<div class="col-xs-12 col-sm-7 col-sm-pull-3">';
+		public function printInput(){
+			switch($this->type){
+				case 1:
+					echo "<div class='form-group'>
+						<label for='$this->name' class='hidden-xs col-sm-2 control-label'>$this->type</label>
+						<div class='col-xs-12 col-sm-3 col-sm-push-7'>
 
-			//	<input  type="text" name="gpa" id="gpa" class="form-control" placeholder="GPA">
-			echo '</div></div>';
+						</div>
+						<div class='col-xs-12 col-sm-7 col-sm-pull-3'>
+							<label class='radio-inline'>
+								<input type='radio' name='$this->name' value='true'> Yes
+							</label>
+							<label class='radio-inline'>
+								<input type='radio' name='$this->name' value='false'> No
+							</label>
+						</div>
+					</div>";
+					break;
+				case 2:
+					echo "<div class='form-group'>
+						<label for='$this->name' class='hidden-xs col-sm-2 control-label'>$this->question</label>
+						<div class='col-xs-12 col-sm-3 col-sm-push-7'>
+							<!-- Sidestuff -->
+						</div>
+						<div class='col-xs-12 col-sm-7 col-sm-pull-3'>
+							<input  type='text' name='$this->name' id='$this->name' class='form-control' placeholder='$this->question'>
+						</div>
+					</div>";
+					break;
+				case 3:
+					echo "<div class='form-group'>
+						<label for='$this->name' class='hidden-xs col-sm-2 control-label'>$this->question</label>
+						<div class='col-xs-12 col-sm-3 col-sm-push-7'>
+							<!-- Sidestuff -->
+						</div>
+						<div class='col-xs-12 col-sm-7 col-sm-pull-3'>
+							<select class='form-control' name='$this->name'>";
+					foreach($this->value->param as $p){
+						echo "<option value='$p'> $p </option>";
+					}
+					echo	"</select>
+						</div>
+					</div>";
+					break;
+				case 4:
+					echo "<div class='form-group'>
+						<label for='$this->name' class='hidden-xs col-sm-2 control-label'>$this->question</label>
+						<div class='col-xs-12 col-sm-3 col-sm-push-7'>
+							<!-- Sidestuff -->
+						</div>
+						<div class='col-xs-12 col-sm-7 col-sm-pull-3'>
+							<select class='form-control' multiple name='$this->name'>";
+					foreach($this->value->param as $p){
+						echo "<option value='$p'> $p </option>";
+					}
+					echo	"</select>
+						</div>
+					</div>";
+					break;
+			}
 		}
 	}
 ?>
