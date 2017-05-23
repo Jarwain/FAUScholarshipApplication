@@ -4,6 +4,7 @@ error_reporting(E_ALL);?>
 <?php
 require_once("models/Scholarship.php");
 require_once("models/Student.php");
+require_once("JS.php");
 // Tell PHP that we're using UTF-8 strings until the end of the script
 mb_internal_encoding('UTF-8');
 
@@ -127,14 +128,13 @@ if(isset($_POST['submitted'])){
 						}
 					}
 				}
-
+				JS::print(print_r($student,true));
+				JS::print(print_r($scholarships,true));
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
-				echo $ex->getMessage();
-				 echo "<script>console.log(\"There was an Exception in PhP. ".$ex->getMessage()."\")</script>";
+				JS::print("There was an exception in PHP: ",$ex->getMessage());
 			} catch (Exception $ex){
-				echo $ex->getMessage();
-				 echo "<script>console.log(\"There was an Exception in PhP. ".trim($ex->getMessage())."\")</script>";
+				JS::print("There was an exception in PHP: ",trim($ex->getMessage()));
 			}
 			?>
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
