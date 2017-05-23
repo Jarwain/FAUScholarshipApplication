@@ -101,17 +101,18 @@ if(isset($_POST['submitted'])){
 				$scholarships = Scholarship::getScholarshipsRestrictions();
 				foreach($scholarships as $scholarship)
 				{
-					if(count($scholarship->restrictions) == 0){
+					$restrictions = $scholarship->restrictions;
+					if(count($restrictions) == 0){
 						$valid[] = $scholarship;
 						continue;
-					} else if (array_key_exists('*', $scholarship->restrictions)){
-						if($student->isQualified($scholarship->restrictions['*'])){
-							//unset($scholarship->restrictions['*']);
-							if(count($scholarship->restrictions) == 1){
+					} else if (array_key_exists('*', $restrictions)){
+						if($student->isQualified($restrictions['*'])){
+							unset($restrictions['*']);
+							if(count($restrictions) == 1){
 								$valid[] = $scholarship;
 								continue;
 							}
-							foreach($scholarship->restrictions as $restriction){
+							foreach($restrictions as $restriction){
 								if($restriction->category != '*' && $student->isQualified($restriction)){
 									$valid[] = $scholarship;
 									break;
@@ -120,7 +121,7 @@ if(isset($_POST['submitted'])){
 						}
 						continue;
 					} else {
-						foreach($scholarship->restrictions as $restriction){
+						foreach($restrictions as $restriction){
 							if($student->isQualified($restriction)){
 								$valid[] = $scholarship;
 								break;
