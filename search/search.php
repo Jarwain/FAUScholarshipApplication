@@ -129,7 +129,7 @@ if(isset($_POST['submitted'])){
 					}
 				}
 				JS::print(print_r($student,true));
-				JS::print(print_r($scholarships,true));
+				JS::print(print_r($valid,true));
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
 				JS::print("There was an exception in PHP: ",$ex->getMessage());
