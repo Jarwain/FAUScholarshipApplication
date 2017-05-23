@@ -100,6 +100,7 @@ if(isset($_POST['submitted'])){
 				JS::print(print_r($_POST,true));
 				$student = Student::studentFactory("Z12345678",$_POST);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
+				JS::print(print_r($scholarships,true));
 				foreach($scholarships as $scholarship)
 				{
 					if(count($scholarship->restrictions) == 0){
