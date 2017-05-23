@@ -96,7 +96,7 @@ if(isset($_POST['submitted'])){
 			<h3 class="bg-info text-center">Part 1: Qualifications</h3>
 			<?php
 			try{
-				$student = Student::validStudent("Z12345678",$_POST);
+				$student = Student::studentFactory("Z12345678",$_POST);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
 				foreach($scholarships as $scholarship)
 				{
@@ -107,12 +107,12 @@ if(isset($_POST['submitted'])){
 						if($student->isQualified($scholarship->restrictions['*'])){
 							unset($scholarship->restrictions['*']);
 							if(count($scholarship->restrictions) == 0){
-								$valid[] = $scholarship;	
+								$valid[] = $scholarship;
 								continue;
 							}
 							foreach($scholarship->restrictions as $restriction){
 								if($student->isQualified($restriction)){
-									$valid[] = $scholarship;	
+									$valid[] = $scholarship;
 									break;
 								}
 							}
@@ -121,14 +121,13 @@ if(isset($_POST['submitted'])){
 					} else {
 						foreach($scholarship->restrictions as $restriction){
 							if($student->isQualified($restriction)){
-								$valid[] = $scholarship;	
+								$valid[] = $scholarship;
 								break;
 							}
 						}
 					}
 				}
-				print_r($student);
-				print_r($valid);
+
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
 				echo $ex->getMessage();

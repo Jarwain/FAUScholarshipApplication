@@ -23,16 +23,20 @@ TST005 (4[Fresh,Grad] && (1||2))
 TST006 ( (1&&2) || 4[Fresh])
 
 Test Cases:
-1 T
-2 F
-3 3.0
-4 Sophomore
-
+  1 T
+  2 F
+  3 3.0
+  4 Sophomore
 Res: 1,2,4
 
-1 F
-2 F
-3 3.0
-4 Freshman
-
+  1 F
+  2 F
+  3 3.0
+  4 Freshman
 Res: 1,5,6
+
+  1 T
+  2 T
+  3 1.9
+  4 Graduate
+Res: 1, 2, 3, 5, 6
