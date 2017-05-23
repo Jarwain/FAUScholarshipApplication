@@ -97,10 +97,8 @@ if(isset($_POST['submitted'])){
 			<h3 class="bg-info text-center">Part 1: Qualifications</h3>
 			<?php
 			try{
-				JS::print(print_r($_POST,true));
 				$student = Student::studentFactory("Z12345678",$_POST);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
-				JS::print(print_r($scholarships,true));
 				foreach($scholarships as $scholarship)
 				{
 					if(count($scholarship->restrictions) == 0){
@@ -130,8 +128,8 @@ if(isset($_POST['submitted'])){
 						}
 					}
 				}
-				JS::print(print_r($student,true));
-				JS::print(print_r($valid,true));
+				JS::print(json_encode($student));
+				JS::print(json_encode($valid));
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
 				JS::print("There was an exception in PHP: ",$ex->getMessage());
