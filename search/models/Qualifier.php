@@ -43,6 +43,32 @@
 			}
 		}
 
+		public static function getActiveQualifiers(){
+			try{
+				$settings = json_decode(file_get_contents(__DIR__ . "/../.config/database"));
+				$link = new \PDO( 'mysql:host='.$settings->host.';dbname='.$settings->dbname.';charset=utf8mb4',
+					$settings->user,
+					$settings->pass,
+					array(
+						\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+						\PDO::ATTR_PERSISTENT => false
+					)
+				);
+			
+				$dbQualifiers = $link->query("SELECT q.`id`,q.`name`,q.`type`,q.`question`,q.`value` FROM `restriction` r 
+					JOIN `qualifier` q ON q.`id`=r.`qualifier_id`
+					GROUP BY `qualifier_id`")->fetchAll();
+				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
+				$qualifiers = array_reduce($qualifiers,function($carry, $item){
+					$carry[$item->id] = $item;
+					return $carry;
+				}, array());
+				return $qualifiers;
+			} catch (Exception $ex){
+				throw $ex;
+			}	
+		}
+
 		public function printInput(){
 			switch($this->type){
 				case 1:

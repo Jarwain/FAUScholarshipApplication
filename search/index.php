@@ -90,7 +90,7 @@ session_start();
 				<input type="hidden" name="submitted" value="true">
 				<?php
 					try{
-						foreach(qualifier::getQualifiers() as $qualifier){
+						foreach(qualifier::getActiveQualifiers() as $qualifier){
 							$qualifier->printInput();
 						}
 					} catch (\PDOException $ex){
@@ -188,7 +188,7 @@ session_start();
 						</label>
 					</div>
 				</div-->
-				
+
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-primary">Continue</button>
