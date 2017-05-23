@@ -108,7 +108,7 @@ if(isset($_POST['submitted'])){
 					} else if (array_key_exists('*', $restrictions)){
 						if($student->isQualified($restrictions['*'])){
 							unset($restrictions['*']);
-							if(count($restrictions) == 1){
+							if(count($restrictions) == 0){
 								$valid[] = $scholarship;
 								continue;
 							}
