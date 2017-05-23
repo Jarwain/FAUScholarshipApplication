@@ -21,7 +21,7 @@ require_once("models/Restriction.php");
 		// returns student if qualifications are valid. else returns false
 		static function studentFactory($znumber,$qualifications){
 			$student = new Student($znumber);
-			$student->qualifications = Qualifier::getQualifiers();
+			$student->qualifications = Qualifier::getActiveQualifiers();
 			foreach($qualifications as $key=>$val){
 				if(array_key_exists($key,$student->qualifications)){
 					switch($student->qualifications[$key]->type){
