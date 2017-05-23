@@ -34,8 +34,7 @@
 				$dbQualifiers = $link->query("SELECT `id`,`name`,`type`,`question`,`value` FROM `qualifier`")->fetchAll();
 				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
 				$qualifiers = array_reduce($qualifiers,function($carry, $item){
-					//$carry[$item->id] = $item;
-					$carry[$item->name] = $item;
+					$carry[$item->id] = $item;
 					return $carry;
 				}, array());
 				return $qualifiers;
@@ -61,8 +60,7 @@
 					GROUP BY `qualifier_id`")->fetchAll();
 				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
 				$qualifiers = array_reduce($qualifiers,function($carry, $item){
-					//$carry[$item->id] = $item;
-					$carry[$item->name] = $item;
+					$carry[$item->id] = $item;
 					return $carry;
 				}, array());
 				return $qualifiers;
@@ -81,10 +79,10 @@
 						</div>
 						<div class='col-xs-12 col-sm-7 col-sm-pull-3'>
 							<label class='radio-inline'>
-								<input type='radio' name='$this->name' value='true'> Yes
+								<input type='radio' name='$this->id' value='true'> Yes
 							</label>
 							<label class='radio-inline'>
-								<input type='radio' name='$this->name' value='false'> No
+								<input type='radio' name='$this->id' value='false'> No
 							</label>
 						</div>
 					</div>";
@@ -96,7 +94,7 @@
 							<!-- Sidestuff -->
 						</div>
 						<div class='col-xs-12 col-sm-7 col-sm-pull-3'>
-							<input  type='text' name='$this->name' id='$this->name' class='form-control' placeholder='$this->question'>
+							<input  type='text' name='$this->id' id='$this->name' class='form-control' placeholder='$this->question'>
 						</div>
 					</div>";
 					break;
@@ -107,7 +105,7 @@
 							<!-- Sidestuff -->
 						</div>
 						<div class='col-xs-12 col-sm-7 col-sm-pull-3'>
-							<select class='form-control' name='$this->name'>";
+							<select class='form-control' name='$this->id'>";
 					foreach($this->value->param as $p){
 						echo "<option value='$p'> $p </option>";
 					}
@@ -122,7 +120,7 @@
 							<!-- Sidestuff -->
 						</div>
 						<div class='col-xs-12 col-sm-7 col-sm-pull-3'>
-							<select class='form-control' multiple name='$this->name'>";
+							<select class='form-control' multiple name='$this->id'>";
 							print_r($this);
 					foreach($this->value->param as $p){
 						echo "<option value='$p'> $p </option>";
