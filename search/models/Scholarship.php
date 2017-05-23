@@ -57,6 +57,17 @@ require_once("models/Restriction.php");
 				throw $ex;
 			}
 		}
+
+		function print(){
+			echo "<div class='panel panel-default'>
+			  <div class='panel-heading'>
+			    <h3 class='panel-title'>$this->code ~ $this->name</h3>
+			  </div>
+			  <div class='panel-body'>
+			    $this->description
+			  </div>
+			</div>";
+		}
 	}
 
 ?>
