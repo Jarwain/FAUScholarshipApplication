@@ -106,13 +106,13 @@ if(isset($_POST['submitted'])){
 						continue;
 					} else if (array_key_exists('*', $scholarship->restrictions)){
 						if($student->isQualified($scholarship->restrictions['*'])){
-							unset($scholarship->restrictions['*']);
-							if(count($scholarship->restrictions) == 0){
+							//unset($scholarship->restrictions['*']);
+							if(count($scholarship->restrictions) == 1){
 								$valid[] = $scholarship;
 								continue;
 							}
 							foreach($scholarship->restrictions as $restriction){
-								if($student->isQualified($restriction)){
+								if($restriction->category != '*' && $student->isQualified($restriction)){
 									$valid[] = $scholarship;
 									break;
 								}
