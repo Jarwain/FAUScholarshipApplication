@@ -2,7 +2,7 @@
   class JS
   {
     public static function print(){
-      $printme = addslashes(implode(func_get_args()));
+      $printme = json_encode(addslashes(implode(func_get_args())));
       echo "<script>console.log(\"$printme\");</script>";
 
     }
