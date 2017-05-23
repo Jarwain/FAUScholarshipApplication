@@ -47,7 +47,7 @@
 			switch($this->type){
 				case 1:
 					echo "<div class='form-group'>
-						<label for='$this->name' class='hidden-xs col-sm-2 control-label'>$this->type</label>
+						<label for='$this->name' class='hidden-xs col-sm-2 control-label'>$this->question</label>
 						<div class='col-xs-12 col-sm-3 col-sm-push-7'>
 
 						</div>
@@ -95,6 +95,7 @@
 						</div>
 						<div class='col-xs-12 col-sm-7 col-sm-pull-3'>
 							<select class='form-control' multiple name='$this->name'>";
+							print_r($this);
 					foreach($this->value->param as $p){
 						echo "<option value='$p'> $p </option>";
 					}
