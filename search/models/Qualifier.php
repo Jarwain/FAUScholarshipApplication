@@ -34,7 +34,8 @@
 				$dbQualifiers = $link->query("SELECT `id`,`name`,`type`,`question`,`value` FROM `qualifier`")->fetchAll();
 				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
 				$qualifiers = array_reduce($qualifiers,function($carry, $item){
-					$carry[$item->id] = $item;
+					//$carry[$item->id] = $item;
+					$carry[$item->name] = $item;
 					return $carry;
 				}, array());
 				return $qualifiers;
@@ -60,7 +61,8 @@
 					GROUP BY `qualifier_id`")->fetchAll();
 				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
 				$qualifiers = array_reduce($qualifiers,function($carry, $item){
-					$carry[$item->id] = $item;
+					//$carry[$item->id] = $item;
+					$carry[$item->name] = $item;
 					return $carry;
 				}, array());
 				return $qualifiers;
