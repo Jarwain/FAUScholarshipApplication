@@ -113,7 +113,7 @@ if(isset($_POST['submitted'])){
 								continue;
 							}
 							foreach($restrictions as $restriction){
-								if($restriction->category != '*' && $student->isQualified($restriction)){
+								if($student->isQualified($restriction)){
 									$valid[] = $scholarship;
 									break;
 								}
