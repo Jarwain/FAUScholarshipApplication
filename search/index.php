@@ -87,7 +87,7 @@ session_start();
 			<h2>Student Information</h2>
 			<p>Fill out as much as you can</p>
 			<h3 class="bg-info text-center">Part 1: Qualifications</h3>
-			<form class="form-horizontal" role="form" action="search.php" method="post">
+			<form class="form-horizontal" role="form" action="search.php" method="get">
 				<input type="hidden" name="submitted" value="true">
 				<?php
 					try{
