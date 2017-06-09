@@ -92,7 +92,7 @@ session_start();
 				<?php
 					try{
 						$db = new Database();
-						$db->getScholarshipsJoinRestriction();
+						print_r($db->getScholarshipsJoinRestriction());
 						foreach(qualifier::getActiveQualifiers() as $qualifier){
 							$qualifier->printInput();
 						}
