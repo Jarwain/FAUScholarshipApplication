@@ -15,6 +15,11 @@
 			}
 		}
 
+		function areValid($qualifiers){
+			$db = new DataAccessor();
+			$base = $db->getActiveQualifiers();
+
+		}
 	}
 
 	class Qualifier {

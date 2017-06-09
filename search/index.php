@@ -91,7 +91,7 @@ session_start();
 				<input type="hidden" name="submitted" value="true">
 				<?php
 					try{
-						$db = new Database();
+						$db = new DataAccessor();
 						$qualifiers = new Qualifiers($db->getActiveQualifiers());
 						$qualifiers->printFormGroups();
 					} catch (Exception $ex){
