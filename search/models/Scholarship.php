@@ -1,14 +1,14 @@
 <?php
 require_once("models/Restriction.php");
 require_once("models/Database.php");
-	class Scholarships{
+	/*class Scholarships{
 		var $scholarships;
 
 		function __construct(){
 			$db = new Database();
 			$this->scholarships = $db->getScholarshipJoinRestriction();
 		}
-	}
+	}*/
 
 	class Scholarship{
 		var $code;

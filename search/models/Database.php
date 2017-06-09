@@ -17,7 +17,7 @@
 		function getScholarshipsJoinRestriction(){
 			return $dbRestrictions = $this->link->query("SELECT * FROM `scholarship` s 
 				LEFT JOIN `restriction` r ON s.`code` = r.`sch_code` 
-				WHERE s.`code` like 'TST%'")->fetchAll(PDO::FETCH_COLUMN|PDO::FETCH_GROUP,"code");
+				WHERE s.`code` like 'TST%'")->fetchAll(PDO::FETCH_CLASS,"Scholarship");
 		}
 
 
