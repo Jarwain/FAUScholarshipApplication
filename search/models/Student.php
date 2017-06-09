@@ -1,7 +1,7 @@
 <?php
 require_once("models/Qualifier.php");
 require_once("models/Restriction.php");
-	class Student{
+	class Student {
 		var $znumber;
 		var $qualifications;
 
