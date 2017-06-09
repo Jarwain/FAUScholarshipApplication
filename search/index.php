@@ -4,6 +4,7 @@ error_reporting(E_ALL);?>
 
 <?php
 require_once("models/Qualifier.php");
+require_once("models/Database.php");
 require_once("JS.php");
 // Tell PHP that we're using UTF-8 strings until the end of the script
 mb_internal_encoding('UTF-8');
@@ -90,6 +91,8 @@ session_start();
 				<input type="hidden" name="submitted" value="true">
 				<?php
 					try{
+						$db = new Database();
+						$db->getScholarshipsJoinRestriction();
 						foreach(qualifier::getActiveQualifiers() as $qualifier){
 							$qualifier->printInput();
 						}

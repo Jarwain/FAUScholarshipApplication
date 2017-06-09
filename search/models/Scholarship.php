@@ -1,5 +1,15 @@
 <?php
 require_once("models/Restriction.php");
+require_once("models/Database.php");
+	class Scholarships{
+		var $scholarships;
+
+		function __construct(){
+			$db = new Database();
+			$this->scholarships = $db->getScholarshipJoinRestriction();
+		}
+	}
+
 	class Scholarship{
 		var $code;
 		var $name;
@@ -24,21 +34,11 @@ require_once("models/Restriction.php");
 			return new Scholarship($arr['code'],$arr['name'],$arr['description'],$arr['active'],$arr['counter'],$arr['limit']);
 		}
 
-		public static function getScholarshipsRestrictions(){
+		public static function getScholarships(){
 			try{
-				$settings = json_decode(file_get_contents(__DIR__ . "/../.config/database"));
-				$link = new \PDO( 'mysql:host='.$settings->host.';dbname='.$settings->dbname.';charset=utf8mb4',
-					$settings->user,
-					$settings->pass,
-					array(
-						\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-						\PDO::ATTR_PERSISTENT => false
-					)
-				);
-			
-				$dbRestrictions = $link->query("SELECT * FROM `scholarship` s 
-					LEFT JOIN `restriction` r ON s.`code` = r.`sch_code`")->fetchAll();
-				$scholarships = array_reduce($dbRestrictions,function($carry, $val){
+				$db = new Database();
+
+				$scholarships = array_reduce($db->getScholarshipJoinRestriction(),function($carry, $val){
 					if(array_key_exists($val['code'],$carry)){
 						// Add Restriction to existing Scholarship inst
 						$carry[$val['code']]->restrictions[$val['category']][$val['qualifier_id']] = Restriction::array_to_restriction($val);
