@@ -10,7 +10,7 @@ require_once("models/Database.php");
 		}
 	}*/
 
-	class Scholarship{
+	class Scholarship {
 		var $code;
 		var $name;
 		var $description;
@@ -32,29 +32,6 @@ require_once("models/Database.php");
 
 		public static function array_to_scholarship($arr){
 			return new Scholarship($arr['code'],$arr['name'],$arr['description'],$arr['active'],$arr['counter'],$arr['limit']);
-		}
-
-		public static function getScholarships(){
-			try{
-				$db = new Database();
-
-				$scholarships = array_reduce($db->getScholarshipJoinRestriction(),function($carry, $val){
-					if(array_key_exists($val['code'],$carry)){
-						// Add Restriction to existing Scholarship inst
-						$carry[$val['code']]->restrictions[$val['category']][$val['qualifier_id']] = Restriction::array_to_restriction($val);
-					} else {
-						// Instantiate Scholarship 
-						$carry[$val['code']] = self::array_to_scholarship($val);
-						if($val['qualifier_id'])
-							$carry[$val['code']]->restrictions[$val['category']][$val['qualifier_id']] = Restriction::array_to_restriction($val);
-						else $carry[$val['code']]->restrictions = null;
-					}
-					return $carry;
-				},array());
-				return $scholarships;
-			} catch (Exception $ex){
-				throw $ex;
-			}
 		}
 
 		function printHTML(){

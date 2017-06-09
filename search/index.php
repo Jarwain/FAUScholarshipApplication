@@ -92,113 +92,19 @@ session_start();
 				<?php
 					try{
 						$db = new Database();
-						print_r($db->getScholarshipsJoinRestriction());
-						foreach(qualifier::getActiveQualifiers() as $qualifier){
-							$qualifier->printInput();
-						}
-					} catch (\PDOException $ex){
-						JS::console_log("There was an exception in PHP: ",$ex->getMessage());
+						$qualifiers = new Qualifiers($db->getActiveQualifiers());
+						$qualifiers->printFormGroups();
 					} catch (Exception $ex){
 						JS::console_log("There was an exception in PHP: ",trim($ex->getMessage()));
 					}
 				?>
-				<!--div class="form-group">
-					<label for="gpa" class="hidden-xs col-sm-2 control-label">GPA</label>
-					<div class="col-xs-12 col-sm-3 col-sm-push-7">
-
-					</div>
-					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
-						<input  type="text" name="3" id="gpa" class="form-control" placeholder="GPA">
-					</div>
-				</div>
-
-				<!--div class="form-group">
-					<label for="area_of_study" class="hidden-xs col-sm-2 control-label">Area of Study</label>
-					<div class="col-xs-12 col-sm-3 col-sm-push-7">
-
-					</div>
-					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
-						<input  type="text" name="area_of_study" id="area_of_study" class="form-control" placeholder="Area of Study">
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="college" class="hidden-xs col-sm-2 control-label">College</label>
-					<div class="col-xs-12 col-sm-3 col-sm-push-7">
-
-					</div>
-					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
-						<input  type="text" name="college" id="college" class="form-control" placeholder="Engineering, Education,...">
-					</div>
-				</div-->
-
-				<!--div class="form-group">
-					<label for="fafsa" class="hidden-xs col-sm-2 control-label">Completed FAFSA</label>
-					<div class="col-xs-12 col-sm-3 col-sm-push-7">
-
-					</div>
-					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
-						<label class="radio-inline">
-							<input type="radio" name="1" value="true"> Yes
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="1" value="false"> No
-						</label>
-					</div>
-				</div>
-
-				<!--div class="form-group">
-					<label for="standing" class="hidden-xs col-sm-2 control-label">University Standing</label>
-					<div class="col-xs-12 col-sm-3 col-sm-push-7">
-
-					</div>
-					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
-						<input  type="text" name="standing" id="standing" class="form-control" placeholder="University Standing">
-					</div>
-				</div-->
-
-				<!--div class="form-group">
-					<label for="year" class="hidden-xs col-sm-2 control-label">Year</label>
-					<div class="col-xs-12 col-sm-3 col-sm-push-7">
-
-					</div>
-					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
-						<input  type="text" name="4" id="year" class="form-control" placeholder="Freshman, Sophomore, Junior, Senior, Graduate">
-					</div>
-				</div>
-
-				<!--div class="form-group">
-					<label for="credits" class="hidden-xs col-sm-2 control-label"># of Credits Currently Taking</label>
-					<div class="col-xs-12 col-sm-3 col-sm-push-7">
-
-					</div>
-					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
-						<input  type="text" name="credits" id="credits" class="form-control" placeholder="1-18">
-					</div>
-				</div-->
-
-				<!--div class="form-group">
-					<label for="need" class="hidden-xs col-sm-2 control-label">Do you Qualify for Financial Need?</label>
-					<div class="col-xs-12 col-sm-3 col-sm-push-7">
-
-					</div>
-					<div class="col-xs-12 col-sm-7 col-sm-pull-3">
-						<label class="radio-inline">
-							<input type="radio" name="2" value="true"> Yes
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="2" value="false"> No
-						</label>
-					</div>
-				</div-->
-
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-primary">Continue</button>
 					</div>
 				</div>
 			</form>
-	</div> <!-- ./container -->
+		</div> <!-- ./container -->
 		<div id="footer">
 			<div class="container">
 				<p class="text-muted">Copyright © 2015-2016 FAU Office of Student Financial Aid. All rights reserved.</p>

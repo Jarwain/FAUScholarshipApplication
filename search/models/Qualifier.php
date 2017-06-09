@@ -1,6 +1,23 @@
 <?php
-	class Qualifier
-	{
+	class Qualifiers {
+		var $qualifiers;
+
+		function __construct($qualifiers){
+			if (is_array($qualifiers))
+				$this->qualifiers = $qualifiers;
+			else
+				throw new Exception('Group of Qualifiers not an array');
+		}
+
+		function printFormGroups(){
+			foreach($qualifiers as $q){
+				$q->printInput();
+			}
+		}
+
+	}
+
+	class Qualifier {
 		var $id;
 		var $name;
 		var $type;
@@ -17,56 +34,6 @@
 
 		public static function array_to_qualifier($arr){
 			return new Qualifier($arr['id'], $arr['name'], $arr['type'], $arr['question'], $arr['value']);
-		}
-
-		public static function getQualifiers(){
-			try{
-				$settings = json_decode(file_get_contents(__DIR__ . "/../.config/database"));
-				$link = new \PDO( 'mysql:host='.$settings->host.';dbname='.$settings->dbname.';charset=utf8mb4',
-					$settings->user,
-					$settings->pass,
-					array(
-						\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-						\PDO::ATTR_PERSISTENT => false
-					)
-				);
-			
-				$dbQualifiers = $link->query("SELECT `id`,`name`,`type`,`question`,`value` FROM `qualifier`")->fetchAll();
-				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
-				$qualifiers = array_reduce($qualifiers,function($carry, $item){
-					$carry[$item->id] = $item;
-					return $carry;
-				}, array());
-				return $qualifiers;
-			} catch (Exception $ex){
-				throw $ex;
-			}
-		}
-
-		public static function getActiveQualifiers(){
-			try{
-				$settings = json_decode(file_get_contents(__DIR__ . "/../.config/database"));
-				$link = new \PDO( 'mysql:host='.$settings->host.';dbname='.$settings->dbname.';charset=utf8mb4',
-					$settings->user,
-					$settings->pass,
-					array(
-						\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-						\PDO::ATTR_PERSISTENT => false
-					)
-				);
-			
-				$dbQualifiers = $link->query("SELECT q.`id`,q.`name`,q.`type`,q.`question`,q.`value` FROM `restriction` r 
-					JOIN `qualifier` q ON q.`id`=r.`qualifier_id`
-					GROUP BY `qualifier_id`")->fetchAll();
-				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
-				$qualifiers = array_reduce($qualifiers,function($carry, $item){
-					$carry[$item->id] = $item;
-					return $carry;
-				}, array());
-				return $qualifiers;
-			} catch (Exception $ex){
-				throw $ex;
-			}	
 		}
 
 		public function printInput(){
