@@ -30,7 +30,7 @@ Test Cases:
 Res: 1,2,4
 
   1 F
-  2 F
+  2 T
   3 3.0
   4 Freshman
 Res: 1,5,6

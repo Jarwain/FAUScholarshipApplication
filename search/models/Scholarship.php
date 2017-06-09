@@ -58,7 +58,7 @@ require_once("models/Restriction.php");
 			}
 		}
 
-		function print(){
+		function printHTML(){
 			echo "<div class='panel panel-default'>
 			  <div class='panel-heading'>
 			    <h3 class='panel-title'>$this->code ~ $this->name</h3>

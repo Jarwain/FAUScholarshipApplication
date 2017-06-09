@@ -94,9 +94,9 @@ session_start();
 							$qualifier->printInput();
 						}
 					} catch (\PDOException $ex){
-						JS::print("There was an exception in PHP: ",$ex->getMessage());
+						JS::console_log("There was an exception in PHP: ",$ex->getMessage());
 					} catch (Exception $ex){
-						JS::print("There was an exception in PHP: ",trim($ex->getMessage()));
+						JS::console_log("There was an exception in PHP: ",trim($ex->getMessage()));
 					}
 				?>
 				<!--div class="form-group">

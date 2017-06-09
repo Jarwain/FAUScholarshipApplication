@@ -129,13 +129,13 @@ if(isset($_POST['submitted'])){
 						}
 					}
 				}
-				JS::print(json_encode($student));
-				JS::print(json_encode($valid));
+				JS::console_log(json_encode($student));
+				JS::console_log(json_encode($valid));
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
-				JS::print("There was an exception in PHP: ",$ex->getMessage());
+				JS::console_log("There was an exception in PHP: ",$ex->getMessage());
 			} catch (Exception $ex){
-				JS::print("There was an exception in PHP: ",trim($ex->getMessage()));
+				JS::console_log("There was an exception in PHP: ",trim($ex->getMessage()));
 			}
 			?>
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -151,7 +151,7 @@ if(isset($_POST['submitted'])){
 						<div class="panel-body">
 							<?php
 							foreach($valid as $sch){
-								$sch->print();
+								$sch->printHTML();
 							}
 							?>
 						</div>
