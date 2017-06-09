@@ -1,7 +1,13 @@
 <?php
 require_once("models/Scholarship.php");
 require_once("models/Restriction.php");
-	class Database {
+	class DataAccessor { 
+
+		// TODO: 
+		// Turn into abstract class/interface
+		// Individualize by model (StudentDAO, ScholarshipDAO, etc.)
+		// Create memoization store
+
 		var $link;
 
 		function __construct(){
