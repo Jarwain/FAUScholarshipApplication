@@ -1,4 +1,5 @@
 <?php
+require_once("models/Scholarship.php");
 	class Database{
 		var $link;
 
