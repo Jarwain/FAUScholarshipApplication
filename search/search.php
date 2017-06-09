@@ -97,7 +97,7 @@ if(isset($_POST['submitted'])){
 			<h3 class="bg-info text-center">Part 1: Qualifications</h3>
 			<?php
 			try{
-				$student = Student::studentFactory("Z12345678",$_POST);
+				$student = Student::studentFactory("Z12345678",$_GET);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
 				foreach($scholarships as $scholarship)
 				{
