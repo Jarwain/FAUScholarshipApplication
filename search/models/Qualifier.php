@@ -15,7 +15,7 @@
 			}
 		}
 
-		function areValid($qualifiers){
+		function areValid(){
 			$db = new DataAccessor();
 			$base = $db->getActiveQualifiers();
 
