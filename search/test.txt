@@ -40,3 +40,8 @@ Res: 1,4,5,6
   3 1.9
   4 Graduate
 Res: 1,2,3,5,6
+
+TODO:
+	Add/Figure out relationship between School and Study (In terms of Area of Study||What School/Department one is part of) 
+	Define '!' category as Preference
+	Figure out how to "NOT" for the parameter/value/validation

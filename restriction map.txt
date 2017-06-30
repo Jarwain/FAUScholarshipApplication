@@ -1,28 +1,28 @@
-(25)range		GPA	[0,4]
-(7)radio/check	Area of Study
-(3)radio		college (such as College of Edu, Engineering, etc.)
 (30)bool		Requires FAFSA	
-(9)radio		University Standing [Good, Probationary...]
+(28)bool		Financial need
+(25)range		GPA	[0,4]
 (22)radio		Degree Level/Class Standing [Undergrad, Graduate, Freshman, Sophmore, Junior, Senior]
+(12)field		credits	|| Credit-Hour to Time translation located: https://www.fau.edu/finaid/types-of-aid/grants.php
+(9)radio		University Standing [Good, Probationary...]
+(7)radio/check	Area of Study
+(4)bool		degree seeking
+(3)radio		college (such as College of Edu, Engineering, etc.)
 (2)field		address
 (2)bool		PBC High School Grad
-(1)field		Child/Grandchild/Spouse of Alumni [get name of Alumni, get relation]
 (2)field 		Child/Grandchild of Current, retired, emeritus Staff [get name of Staff, get relation]
 (2)bool		US Citizen/Permanent Resident Alien?
-(12)field		credits	|| Credit-Hour to Time translation located: https://www.fau.edu/finaid/types-of-aid/grants.php
-(1)check		Ethnicity
-(1)bool		Eagle Scout
-(1)bool		Veteran
 (2)field		Community Service
-(0)radio		gender [Male, Female, Other]
 (2)range		age
-(4)bool		degree seeking
-(28)bool		Financial need
 (2)bool		public, private or parochial high school in Palm Beach County
 (2)bool		Req. Letter of Recommendation
 (1)field		FAU empoyee, spouse of, or child of
 (1)bool		Florida Resident (florida address != florida residency)
 (1)bool		returning to college after an absence of two or more years
+(1)field		Child/Grandchild/Spouse of Alumni [get name of Alumni, get relation]
+(1)check		Ethnicity
+(1)bool		Eagle Scout
+(1)bool		Veteran
+(0)radio		gender [Male, Female, Other]
 
 QUESTIONS:
 	area of study vs college
