@@ -10,14 +10,48 @@
 		}
 
 		function printFormGroups(){
-			foreach($qualifiers as $q){
+			foreach($this->qualifiers as $q){
 				$q->printInput();
 			}
 		}
 
 		function areValid(){
 			$db = new DataAccessor();
-			$base = $db->getActiveQualifiers();
+			$base = $db->getActiveQualifiers(); // Get Qualifiers, related questions, and validation parameters
+			// TODO: REFACTOR QUALIFIER TABLE
+			// Instead of id, name, type, question, value with JSON parameters
+			// DO id, name, type, question, value, param
+			// https://stackoverflow.com/questions/879/are-php-variables-passed-by-value-or-by-reference
+
+			foreach($this->qualifiers as $key=>$val){
+				if(array_key_exists($key,$base)){
+					switch($base[$key]->type){
+						case 1:
+							if($val === 'true' || $val === 'false'){
+								$base[$key]->value =
+									$val === 'true' ? true : false;
+							} else { return false; }
+							break;
+						case 2:
+							$param = $base[$key]->value->param;
+							$num = floatval($val);
+							if($num >= $param[0] && $num <= $param[1]){
+								$base[$key]->value = $val;
+							}	else { return false; }
+							break;
+						case 3:
+							$param = $base[$key]->value->param;
+							if(in_array($val,$param)){
+								$base[$key]->value = $val;
+							} else { return false; }
+							break;
+						case 4:
+							$param = $base[$key]->value->param;
+							break;
+					}
+				}
+			}
+			return $student;
 
 		}
 	}
@@ -93,7 +127,6 @@
 						</div>
 						<div class='col-xs-12 col-sm-7 col-sm-pull-3'>
 							<select class='form-control' multiple name='$this->id'>";
-							print_r($this);
 					foreach($this->value->param as $p){
 						echo "<option value='$p'> $p </option>";
 					}

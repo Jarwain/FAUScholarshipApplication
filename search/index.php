@@ -4,7 +4,7 @@ error_reporting(E_ALL);?>
 
 <?php
 require_once("models/Qualifier.php");
-require_once("models/Database.php");
+require_once("models/DataAccessor.php");
 require_once("JS.php");
 // Tell PHP that we're using UTF-8 strings until the end of the script
 mb_internal_encoding('UTF-8');
@@ -88,7 +88,7 @@ session_start();
 			<p>Fill out as much as you can</p>
 			<h3 class="bg-info text-center">Part 1: Qualifications</h3>
 			<form class="form-horizontal" role="form" action="search.php" method="get">
-				<input type="hidden" name="submitted" value="true">
+				<input type="hidden" name="s" value="1">
 				<?php
 					try{
 						$db = new DataAccessor();
