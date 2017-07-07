@@ -43,5 +43,6 @@ Res: 1,2,3,5,6
 
 TODO:
 	Add/Figure out relationship between School and Study (In terms of Area of Study||What School/Department one is part of) 
-	Define '!' category as Preference
+	Define Preference category
 	Figure out how to "NOT" for the parameter/value/validation
+		SFA085
