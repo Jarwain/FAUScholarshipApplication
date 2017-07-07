@@ -12,11 +12,8 @@ mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 session_start();
 // If Session vars haven't been established, assign them
-if(isset($_POST['submitted'])){
-/*	$_SESSION['student']['fafsa'] = $_POST['fafsa'];
-	$_SESSION['student']['need'] = $_POST['need'];
-	$_SESSION['student']['gpa'] = $_POST['gpa'];
-	$_SESSION['student']['year'] = $_POST['year'];*/
+if(isset($_GET['s'])){
+	print_r($_GET);
 } else {
 	header("location: index.php");
 }
@@ -99,6 +96,7 @@ if(isset($_POST['submitted'])){
 			try{
 				// TODO: Refactor!
 				$student = Student::studentFactory("Z12345678",$_GET);
+				if(!$student) throw new Exception("Student is false!");
 				$scholarships = Scholarship::getScholarshipsRestrictions();
 				$valid = array();
 				foreach($scholarships as $scholarship)
