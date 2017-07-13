@@ -1,27 +1,28 @@
-range		GPA	[0,4]
-radio/check	Area of Study
-radio		college (such as College of Edu, Engineering, etc.)
-bool		Requires FAFSA	
-radio		University Standing [Good, Probationary...]
-radio		Degree Level/Class Standing [Undergrad, Graduate, Freshman, Sophmore, Junior, Senior]
-bool		Fl Residence
-bool		PBC High School Grad
-field		Child/Grandchild/Spouse of Alumni [get name of Alumni, get relation]
-field 		Child/Grandchild of Staff [get name of Staff, get relation]
-bool		US Citizen/Permanent Resident Alien?
-field		credits	|| Credit-Hour to Time translation located: https://www.fau.edu/finaid/types-of-aid/grants.php
-check		Ethnicity
-bool		Eagle Scout
-bool		Veteran
-field		Community Service
-bool?		Leadership
-bool?		Athletics
-radio		gender [Male, Female, Other]
-range		age
-bool		degree seeking
-bool		Financial need
-bool		public, private or parochial high school in Palm Beach County
-bool		Req. Letter of Recommendation
+(25)range		GPA	[0,4]
+(7)radio/check	Area of Study
+(3)radio		college (such as College of Edu, Engineering, etc.)
+(30)bool		Requires FAFSA	
+(9)radio		University Standing [Good, Probationary...]
+(22)radio		Degree Level/Class Standing [Undergrad, Graduate, Freshman, Sophmore, Junior, Senior]
+(2)field		address
+(2)bool		PBC High School Grad
+(1)field		Child/Grandchild/Spouse of Alumni [get name of Alumni, get relation]
+(2)field 		Child/Grandchild of Current, retired, emeritus Staff [get name of Staff, get relation]
+(2)bool		US Citizen/Permanent Resident Alien?
+(12)field		credits	|| Credit-Hour to Time translation located: https://www.fau.edu/finaid/types-of-aid/grants.php
+(1)check		Ethnicity
+(1)bool		Eagle Scout
+(1)bool		Veteran
+(2)field		Community Service
+(0)radio		gender [Male, Female, Other]
+(2)range		age
+(4)bool		degree seeking
+(28)bool		Financial need
+(2)bool		public, private or parochial high school in Palm Beach County
+(2)bool		Req. Letter of Recommendation
+(1)field		FAU empoyee, spouse of, or child of
+(1)bool		Florida Resident (florida address != florida residency)
+(1)bool		returning to college after an absence of two or more years
 
 QUESTIONS:
 	area of study vs college
@@ -29,6 +30,11 @@ QUESTIONS:
 
 	financial need but no fafsa SFA 520
 	Should preference be factored into search? 
+
+1 - bool
+2 - field
+3 - radio
+4 - check
 
 
 SFA 999
@@ -120,7 +126,7 @@ SFA 905
 	22
 	4
 
-SFA 170	
+SFA 170
 	12	[full-time]
 	1	[3,4]
 	3	![Education]
@@ -131,6 +137,7 @@ SFA 900
 	23	
 	22
 	4
+	8
 
 MEMSCH
 	24
@@ -238,6 +245,7 @@ SFA 140
 	16
 	22
 	4
+	8
 
 SKPSCH
 	1	[3.0,]
