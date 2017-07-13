@@ -99,6 +99,7 @@ if(isset($_POST['submitted'])){
 			try{
 				$student = Student::studentFactory("Z12345678",$_POST);
 				$scholarships = Scholarship::getScholarshipsRestrictions();
+				$valid = array();
 				foreach($scholarships as $scholarship)
 				{
 					$restrictions = $scholarship->restrictions;
