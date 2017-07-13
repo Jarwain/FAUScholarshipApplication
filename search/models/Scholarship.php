@@ -37,8 +37,7 @@ require_once("models/Restriction.php");
 				);
 			
 				$dbRestrictions = $link->query("SELECT * FROM `scholarship` s 
-					LEFT JOIN `restriction` r ON s.`code` = r.`sch_code` 
-					WHERE s.`code` like 'TST%'")->fetchAll();
+					LEFT JOIN `restriction` r ON s.`code` = r.`sch_code`")->fetchAll();
 				$scholarships = array_reduce($dbRestrictions,function($carry, $val){
 					if(array_key_exists($val['code'],$carry)){
 						// Add Restriction to existing Scholarship inst
