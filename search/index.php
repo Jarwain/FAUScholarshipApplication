@@ -92,7 +92,7 @@ session_start();
 				<?php
 					try{
 						$db = new DataAccessor();
-						$qualifiers = new Qualifiers($db->getActiveQualifiers());
+						$qualifiers = $db->getActiveQualifiers();
 						$qualifiers->printFormGroups();
 					} catch (Exception $ex){
 						JS::console_log("There was an exception in PHP: ",trim($ex->getMessage()));

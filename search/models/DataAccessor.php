@@ -1,6 +1,4 @@
 <?php
-require_once("models/Scholarship.php");
-require_once("models/Restriction.php");
 	class DataAccessor { 
 
 		// TODO: 
@@ -25,8 +23,7 @@ require_once("models/Restriction.php");
 		function getScholarshipsJoinRestriction(){
 			try{
 				$restrictions = $this->link->query("SELECT * FROM `scholarship` s 
-				LEFT JOIN `restriction` r ON s.`code` = r.`sch_code` 
-				WHERE s.`code` like 'TST%'")->fetchAll();
+				LEFT JOIN `restriction` r ON s.`code` = r.`sch_code`")->fetchAll();
 
 				$scholarships = array_reduce($restrictions,function($carry, $val){
 					if(array_key_exists($val['code'],$carry)){
@@ -34,7 +31,7 @@ require_once("models/Restriction.php");
 						$carry[$val['code']]->restrictions[$val['category']][$val['qualifier_id']] = Restriction::array_to_restriction($val);
 					} else {
 						// Instantiate Scholarship 
-						$carry[$val['code']] = self::array_to_scholarship($val);
+						$carry[$val['code']] = Scholarship::array_to_scholarship($val);
 						if($val['qualifier_id'])
 							$carry[$val['code']]->restrictions[$val['category']][$val['qualifier_id']] = Restriction::array_to_restriction($val);
 						else $carry[$val['code']]->restrictions = null;
@@ -59,13 +56,13 @@ require_once("models/Restriction.php");
 					)
 				);
 			
-				$dbQualifiers = $link->query("SELECT `id`,`name`,`type`,`question`,`value` FROM `qualifier`")->fetchAll();
+				$dbQualifiers = $link->query("SELECT `id`,`name`,`type`,`question`,`value`,`param` FROM `qualifier`")->fetchAll();
 				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
 				$qualifiers = array_reduce($qualifiers,function($carry, $item){
 					$carry[$item->id] = $item;
 					return $carry;
 				}, array());
-				return $qualifiers;
+				return new Qualifiers($qualifiers);
 			} catch (Exception $ex){
 				throw $ex;
 			}
@@ -83,7 +80,7 @@ require_once("models/Restriction.php");
 					)
 				);
 			
-				$dbQualifiers = $link->query("SELECT q.`id`,q.`name`,q.`type`,q.`question`,q.`value` FROM `restriction` r 
+				$dbQualifiers = $link->query("SELECT q.`id`,q.`name`,q.`type`,q.`question`,q.`value`,q.`param` FROM `restriction` r 
 					JOIN `qualifier` q ON q.`id`=r.`qualifier_id`
 					GROUP BY `qualifier_id`")->fetchAll();
 				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
@@ -91,7 +88,7 @@ require_once("models/Restriction.php");
 					$carry[$item->id] = $item;
 					return $carry;
 				}, array());
-				return $qualifiers;
+				return new Qualifiers($qualifiers);
 			} catch (Exception $ex){
 				throw $ex;
 			}

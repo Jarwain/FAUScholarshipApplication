@@ -17,7 +17,8 @@
 
 		function areValid(){
 			$db = new DataAccessor();
-			$base = $db->getActiveQualifiers(); // Get Qualifiers, related questions, and validation parameters
+			$base = $db->getActiveQualifiers(); 
+			// Get Qualifiers, related questions, and validation parameters
 			// TODO: REFACTOR QUALIFIER TABLE
 			// Instead of id, name, type, question, value with JSON parameters
 			// DO id, name, type, question, value, param
@@ -33,25 +34,25 @@
 							} else { return false; }
 							break;
 						case 2:
-							$param = $base[$key]->value->param;
+							$param = $base[$key]->param;
 							$num = floatval($val);
 							if($num >= $param[0] && $num <= $param[1]){
 								$base[$key]->value = $val;
 							}	else { return false; }
 							break;
 						case 3:
-							$param = $base[$key]->value->param;
+							$param = $base[$key]->param;
 							if(in_array($val,$param)){
 								$base[$key]->value = $val;
 							} else { return false; }
 							break;
 						case 4:
-							$param = $base[$key]->value->param;
+							$param = $base[$key]->param;
 							break;
 					}
 				}
 			}
-			return $student;
+			return $base;
 
 		}
 	}
@@ -62,17 +63,19 @@
 		var $type;
 		var $question;
 		var $value;
+		var $param;
 
-		function __construct($id, $name, $type, $question, $value){
+		function __construct($id, $name, $type, $question, $value, $param){
 			$this->id = $id;
 			$this->name = $name;
 			$this->type = $type;
 			$this->question = $question;
 			$this->value = json_decode($value);
+			$this->param = json_decode($param);
 		}
 
 		public static function array_to_qualifier($arr){
-			return new Qualifier($arr['id'], $arr['name'], $arr['type'], $arr['question'], $arr['value']);
+			return new Qualifier($arr['id'], $arr['name'], $arr['type'], $arr['question'], $arr['value'],$arr['param']);
 		}
 
 		public function printInput(){
