@@ -1,5 +1,5 @@
 <?php
-	class Qualifiers {
+	class ArrayOfQualifiers {
 		var $qualifiers;
 
 		function __construct($qualifiers){
@@ -17,15 +17,12 @@
 
 		function areValid(){
 			$db = new DataAccessor();
-			$base = $db->getActiveQualifiers(); 
+			$base = $db->getActiveQualifiers()->qualifiers; 
 			// Get Qualifiers, related questions, and validation parameters
 			// TODO: REFACTOR QUALIFIER TABLE
-			// Instead of id, name, type, question, value with JSON parameters
-			// DO id, name, type, question, value, param
-			// https://stackoverflow.com/questions/879/are-php-variables-passed-by-value-or-by-reference
-
 			foreach($this->qualifiers as $key=>$val){
 				if(array_key_exists($key,$base)){
+
 					switch($base[$key]->type){
 						case 1:
 							if($val === 'true' || $val === 'false'){

@@ -12,9 +12,7 @@ mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 session_start();
 // If Session vars haven't been established, assign them
-if(isset($_GET['s'])){
-	print_r($_GET);
-} else {
+if(!isset($_GET['s'])){
 	header("location: index.php");
 }
 ?>
@@ -93,14 +91,15 @@ if(isset($_GET['s'])){
 			<p>Fill out as much as you can</p>
 			<h3 class="bg-info text-center">Part 1: Qualifications</h3>
 			<?php
+
+			$valid = array();
+			
 			try{
 				// TODO: Refactor!
 				$db = new DataAccessor();
-				$qualifiers = new Qualifiers($_GET);
-				$student = Student::studentFactory("Z12345678",$qualifiers);
+				$student = Student::studentFactory("Z12345678", new ArrayOfQualifiers($_GET));
 				if($student == NULL) throw new Exception("Student is false!");
 				$scholarships = $db->getScholarshipsJoinRestriction();
-				$valid = array();
 				foreach($scholarships as $scholarship)
 				{
 					$restrictions = $scholarship->restrictions;
@@ -137,6 +136,7 @@ if(isset($_GET['s'])){
 			} catch (Exception $ex){
 				JS::console_log("There was an exception in PHP: ",trim($ex->getMessage()));
 			}
+
 			?>
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				<div class="panel panel-success">

@@ -62,7 +62,7 @@
 					$carry[$item->id] = $item;
 					return $carry;
 				}, array());
-				return new Qualifiers($qualifiers);
+				return new ArrayOfQualifiers($qualifiers);
 			} catch (Exception $ex){
 				throw $ex;
 			}
@@ -88,7 +88,7 @@
 					$carry[$item->id] = $item;
 					return $carry;
 				}, array());
-				return new Qualifiers($qualifiers);
+				return new ArrayOfQualifiers($qualifiers);
 			} catch (Exception $ex){
 				throw $ex;
 			}

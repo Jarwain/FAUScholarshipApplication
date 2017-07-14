@@ -12,20 +12,20 @@
 			$this->valid = json_decode($valid);
 		}
 
-		function qualifies($qualification){
+		function isQualified($qualification){
 			switch($qualification->type){
 				case 1:
-					if(!($qualification->value == true))
+					if(!($qualification->param == true))
 						return false;
 					break;
 				case 2:
 					$param = $this->valid->param;
-					if(!($qualification->value >= $param[0] && $qualification->value <= $param[1]))
+					if(!($qualification->param >= $param[0] && $qualification->param <= $param[1]))
 						return false;
 					break;
 				case 3:
 					$param = $this->valid->param;
-					if(!(in_array($qualification->value,$param)))
+					if(!(in_array($qualification->param,$param)))
 						return false;
 					break;
 				case 4:
