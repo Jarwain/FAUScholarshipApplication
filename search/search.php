@@ -93,43 +93,14 @@ if(!isset($_GET['s'])){
 			<?php
 
 			$valid = array();
-			
+
 			try{
 				// TODO: Refactor!
 				$db = new DataAccessor();
 				$student = Student::studentFactory("Z12345678", new ArrayOfQualifiers($_GET));
 				if($student == NULL) throw new Exception("Student is false!");
-				$scholarships = $db->getScholarshipsJoinRestriction();
-				foreach($scholarships as $scholarship)
-				{
-					$restrictions = $scholarship->restrictions;
-					if(count($restrictions) == 0){
-						$valid[] = $scholarship;
-						continue;
-					} else if (array_key_exists('*', $restrictions)){
-						if($student->isQualified($restrictions['*'])){
-							unset($restrictions['*']);
-							if(count($restrictions) == 0){
-								$valid[] = $scholarship;
-								continue;
-							}
-							foreach($restrictions as $restriction){
-								if($student->isQualified($restriction)){
-									$valid[] = $scholarship;
-									break;
-								}
-							}
-						}
-						continue;
-					} else {
-						foreach($restrictions as $restriction){
-							if($student->isQualified($restriction)){
-								$valid[] = $scholarship;
-								break;
-							}
-						}
-					}
-				}
+				$valid = $db->getScholarshipsJoinRestriction()->search($student);
+				
 				// TODO: Filter $scholarships by student data
 			} catch (\PDOException $ex){
 				JS::console_log("There was an exception in PHP: ",$ex->getMessage());

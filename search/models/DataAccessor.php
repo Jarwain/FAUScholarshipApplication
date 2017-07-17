@@ -38,7 +38,7 @@
 					}
 					return $carry;
 				},array());
-				return $scholarships;
+				return new ArrayOfScholarships($scholarships);
 			} catch (Exception $ex){
 				throw $ex;
 			}

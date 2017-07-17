@@ -1,14 +1,47 @@
 <?php
 require_once("models/Restriction.php");
 require_once("models/DataAccessor.php");
-	/*class Scholarships{
+	class ArrayOfScholarships{
 		var $scholarships;
 
-		function __construct(){
-			$db = new DataAccessor();
-			$this->scholarships = $db->getScholarshipJoinRestriction();
+		function __construct($scholarships){
+			$this->scholarships = $scholarships;
 		}
-	}*/
+
+		function search($student){
+			JS::console_log(print_r($this->scholarships,true));
+			$result = array('valid' => array(), 'invalid' => array());
+			foreach($this->scholarships as $scholarship) {
+				$restriction_categories = $scholarship->restrictions;
+				if(count($restriction_categories) == 0){
+					$result->valid[] = $scholarship;
+					continue;
+				} else if (array_key_exists('*', $restriction_categories)){
+					if($student->isQualified($restriction_categories['*'])){
+						unset($restriction_categories['*']);
+						if(count($restriction_categories) == 0){
+							$result->valid[] = $scholarship;
+							continue;
+						}
+						foreach($restriction_categories as $category){
+							if($student->isQualified($category)){
+								$result->valid[] = $scholarship;
+								break;
+							}
+						}
+					}
+					continue;
+				} else {
+					foreach($restriction_categories as $category){
+						if($student->isQualified($category)){
+							$result->valid[] = $scholarship;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
 
 	class Scholarship {
 		var $code;
