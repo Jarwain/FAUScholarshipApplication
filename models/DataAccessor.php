@@ -46,23 +46,9 @@
 
 		function getAllQualifiers(){
 			try{
-				$settings = json_decode(file_get_contents(__DIR__ . "/../.config/database"));
-				$link = new \PDO( 'mysql:host='.$settings->host.';dbname='.$settings->dbname.';charset=utf8mb4',
-					$settings->user,
-					$settings->pass,
-					array(
-						\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-						\PDO::ATTR_PERSISTENT => false
-					)
-				);
-			
-				$dbQualifiers = $link->query("SELECT `id`,`name`,`type`,`question`,`value`,`param` FROM `qualifier`")->fetchAll();
-				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
-				$qualifiers = array_reduce($qualifiers,function($carry, $item){
-					$carry[$item->id] = $item;
-					return $carry;
-				}, array());
-				return new ArrayOfQualifiers($qualifiers);
+				$dbQualifiers = $this->link->query("SELECT `id`,`name`,`type`,`question`,`param` FROM `qualifier`")->fetchAll();
+
+				return new ArrayOfQualifiers(array_map('QualifierFactory::array_to_object', $dbQualifiers));
 			} catch (Exception $ex){
 				throw $ex;
 			}
@@ -70,51 +56,11 @@
 
 		function getActiveQualifiers(){
 			try{
-				$settings = json_decode(file_get_contents(__DIR__ . "/../.config/database"));
-				$link = new \PDO( 'mysql:host='.$settings->host.';dbname='.$settings->dbname.';charset=utf8mb4',
-					$settings->user,
-					$settings->pass,
-					array(
-						\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-						\PDO::ATTR_PERSISTENT => false
-					)
-				);
-			
-				$dbQualifiers = $link->query("SELECT q.`id`,q.`name`,q.`type`,q.`question`,q.`value`,q.`param` FROM `restriction` r 
-					JOIN `qualifier` q ON q.`id`=r.`qualifier_id`
+				$dbQualifiers = $this->link->query("SELECT q.`id`, q.`name`, q.`type`, q.`question`, q.`param` FROM `qualifier` q 
+					JOIN `restriction` r ON q.`id`=r.`qualifier_id`
 					GROUP BY `qualifier_id`")->fetchAll();
-				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
-				$qualifiers = array_reduce($qualifiers,function($carry, $item){
-					$carry[$item->id] = $item;
-					return $carry;
-				}, array());
-				return new ArrayOfQualifiers($qualifiers);
-			} catch (Exception $ex){
-				throw $ex;
-			}
-		}
 
-		function getStudentQualifiers(){
-			try{
-				$settings = json_decode(file_get_contents(__DIR__ . "/../.config/database"));
-				$link = new \PDO( 'mysql:host='.$settings->host.';dbname='.$settings->dbname.';charset=utf8mb4',
-					$settings->user,
-					$settings->pass,
-					array(
-						\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-						\PDO::ATTR_PERSISTENT => false
-					)
-				);
-			
-				$dbQualifiers = $link->query("SELECT q.`id`,q.`name`,q.`type`,q.`question`,q.`value`,q.`param` FROM `restriction` r 
-					JOIN `qualifier` q ON q.`id`=r.`qualifier_id`
-					GROUP BY `qualifier_id`")->fetchAll();
-				$qualifiers = array_map('Qualifier::array_to_qualifier', $dbQualifiers);
-				$qualifiers = array_reduce($qualifiers,function($carry, $item){
-					$carry[$item->id] = $item;
-					return $carry;
-				}, array());
-				return new ArrayOfQualifiers($qualifiers);
+				return new ArrayOfQualifiers(array_map('QualifierFactory::array_to_object', $dbQualifiers));
 			} catch (Exception $ex){
 				throw $ex;
 			}

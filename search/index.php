@@ -13,6 +13,11 @@ mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 session_start();
 
+if(!isset($_SESSION['qualifiers'])){
+	$db = new DataAccessor();
+	$_SESSION['qualifiers'] = $db->getActiveQualifiers();
+}
+
 ?>
 <?php include "header.php" ?>
 	<div class="page-header">
@@ -23,12 +28,11 @@ session_start();
 	<p>Fill out as much as you can</p>
 	<h3 class="bg-info text-center">Part 1: Qualifications</h3>
 	<form class="form-horizontal" role="form" action="search.php" method="get">
-		<input type="hidden" name="s" value="1">
 		<?php
 			try{
-				$db = new DataAccessor();
-				$qualifiers = $db->getActiveQualifiers();
-				$qualifiers->printFormGroups();
+				$_SESSION['qualifiers']->printValueFormGroups();
+			} catch (\PDOException $ex){
+				JS::console_log("There was a PDOexception in PHP: ",$ex->getMessage());
 			} catch (Exception $ex){
 				JS::console_log("There was an exception in PHP: ",trim($ex->getMessage()));
 			}

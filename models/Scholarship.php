@@ -9,7 +9,7 @@ require_once("../models/DataAccessor.php");
 		}
 
 		function search($student){
-			JS::console_log(print_r($this->scholarships,true));
+			//JS::console_log(print_r($this->scholarships,true));
 			$result = array('valid' => array(), 'invalid' => array());
 			foreach($this->scholarships as $scholarship) {
 				$restriction_categories = $scholarship->restrictions;
