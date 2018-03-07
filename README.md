@@ -25,3 +25,35 @@ View
 		Update Search
 			Qualifiers
 			Restrictions
+
+Scholarship
+  code
+  category
+  url
+  deadline
+  limit
+  name
+  description
+  active
+  requirements
+    req_id[]
+  questions
+    question_id[]
+
+Qualifiers
+  id
+  name
+  type
+  text
+  param
+Requirements
+  id
+  qualifier_id
+  scholarship code
+  category
+  parameters
+Questions
+  id
+  type
+  question
+  parameters

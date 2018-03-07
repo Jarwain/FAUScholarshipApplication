@@ -3,9 +3,10 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);?>
 
 <?php
+require_once("../models/Search.php");
 require_once("../models/Scholarship.php");
 require_once("../models/Student.php");
-require_once("../models/Qualification.php");
+require_once("../views/HTML.php");
 require_once("../util/JS.php");
 // Tell PHP that we're using UTF-8 strings until the end of the script
 mb_internal_encoding('UTF-8');
@@ -15,24 +16,48 @@ mb_http_output('UTF-8');
 session_start();
 
 try{
-	if(!isset($_SESSION['qualifiers'])){
+	if(!isset($_SESSION['qualifiers']) || is_null($_SESSION['qualifiers'])){
 		$db = new DataAccessor();
 		$_SESSION['qualifiers'] = $db->getActiveQualifiers();
 	}
-	// Validate submitted qualifications
-	$qualifications = new ArrayOfQualifications($_SESSION['qualifiers'], $_GET);
+	$student = Student::ValidatingFactory("Z12345678", $_GET, $_SESSION['qualifiers']);
 
-	$student = Student::Factory("Z12345678", $qualifications);
-	// if($student == NULL) throw new Exception("Student is false!");
-	$searchResults = $db->getScholarshipsJoinRestriction()->search($student);
-} catch (\PDOException $ex){
-	JS::console_log("There was a PDOexception in PHP: ",$ex->getMessage());
+	// Validates submitted values. If invalid, errors are thrown
+	if(is_array($student)){
+		$err = $student['errors'];
+		$student = $student['student'];
+		throw new Exception("VALIDATION ERROR: ".json_encode($err), 1);
+	}
+
+	$search = new Search($_SESSION['qualifiers']);
+	$search->scholarships($student);
+
 } catch (Exception $ex){
-	JS::console_log("There was an exception in PHP: ",trim($ex->getMessage()));
+	JS::console_log("EXCEPTION [PHP] ", trim($ex->getMessage()));
 }
 
 ?>
 <?php include "header.php" ?>
+<style type="text/css">
+	.tab-pane {
+		border: 1px solid #ddd;
+    	border-top-color: transparent;
+    	padding: 15px;
+	}
+
+	.panel-body > .row {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		display: flex;
+	}
+
+	.pad-r {
+		padding-right: 7.5px;
+	}
+	.pad-l {
+		padding-left: 7.5px;
+	}
+</style>
 	<div class="page-header">
 		<img src="img/CENTYPECL.jpg" class="center-block">
 		<h1>Financial Aid <small>Scholarship Search</small></h1>
@@ -42,7 +67,7 @@ try{
 	<h3 class="bg-info text-center">Part 1: Qualifications</h3>
 	<?php
 
-	// $searchResults = null;
+	// $results = null;
 
 	
 	?>
@@ -58,10 +83,7 @@ try{
 			<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 				<div class="panel-body">
 					<?php
-					$searchResults['valid']->printHTML();
-					/*foreach($searchResults['valid'] as $sch){
-						$sch->printHTML();
-					}*/
+					echo $search->printHTML('valid', $student);
 					?>
 				</div>
 			</div>
@@ -76,9 +98,9 @@ try{
 			</div>
 			<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 				<div class="panel-body">
-				<?php
-				$searchResults['invalid']->printHTML();
-				?>
+					<?php
+					echo $search->printHTML('invalid', $student);
+					?>
 				</div>
 			</div>
 		</div>

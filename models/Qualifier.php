@@ -1,7 +1,7 @@
 <?php
-require_once("Validatable.php");
+require_once("Validate.php");
 
-class ArrayOfQualifiers {
+class ArrayOfQualifiers{
 	var $qualifiers = array();
 
 	function __construct($qualifiers){
@@ -21,71 +21,10 @@ class ArrayOfQualifiers {
 		}
 	}
 
-	function get(/*integer */$i) {
+	function get($i) {
 		return $this->qualifiers[$i];
 	}
 
-	// Expects $qualifications == array(Qualifier_id=>submitted_value)
-	// Returns $this array if valid
-	// else returns array of errors
-	function validate($qualifications){
-		$err = null;
-		foreach($qualifications as $key=>$val){
-			$result = array(
-				"status" => "OK",
-				"object" => "meh"
-			);
-			if($key == 's') continue;
-			
-			$res = $this->qualifiers[$key]->isValid($val);
-			if($res)
-				$this->qualifiers[$key]->value = $val;
-			else
-				array_push($res);
-		}
-		return $totRes;
-		JS::console_log(print_r($this->qualifiers,true));			
-
-		// TODO: do the rest of validation
-	}
-
-	function areValid(){
-		$db = new DataAccessor();
-		$base = $db->getActiveQualifiers()->qualifiers; 
-		// Get Qualifiers, related questions, and validation parameters
-		// TODO: REFACTOR QUALIFIER TABLE
-		foreach($this->qualifiers as $key=>$val){
-			if(array_key_exists($key,$base)){
-
-				switch($base[$key]->type){
-					case 1:
-						if($val === 'true' || $val === 'false'){
-							$base[$key]->value =
-								$val === 'true' ? true : false;
-						} else { return false; }
-						break;
-					case 2:
-						$param = $base[$key]->param;
-						$num = floatval($val);
-						if($num >= $param[0] && $num <= $param[1]){
-							$base[$key]->value = $val;
-						}	else { return false; }
-						break;
-					case 3:
-						$param = $base[$key]->param;
-						if(in_array($val,$param)){
-							$base[$key]->value = $val;
-						} else { return false; }
-						break;
-					case 4:
-						$param = $base[$key]->param;
-						break;
-				}
-			}
-		}
-		return $base;
-
-	}
 }
 
 class QualifierFactory{
@@ -93,7 +32,7 @@ class QualifierFactory{
 	public static function array_to_object($arr){
 		switch($arr['type']){
 			case 1:
-				return new Bool($arr['id'], $arr['name'], $arr['question'], $arr['param']);
+				return new Bool($arr['id'], $arr['name'], $arr['question'], "['true','false']");
 				break;
 			case 2:
 				return new Range($arr['id'], $arr['name'], $arr['question'], $arr['param']);
@@ -116,11 +55,8 @@ abstract class Qualifier {
 
 	// Print HTML input field
 	abstract public function printValueInput();
-	// Checks 
-	//abstract public function isValid($base);
+	// Checks validity 
 	function isValid($value){
-		if(is_null($this->param))
-			return $this->validate($value);
 		return $this->validate($value, $this->param);
 	}
 
@@ -135,6 +71,8 @@ abstract class Qualifier {
 }
 
 class Bool extends Qualifier{
+	use \Validate\Boolean;
+
 	function printValueInput(){
 		echo "<div class='form-group'>
 			<label for='$this->name' class='hidden-xs col-sm-2 control-label'>$this->question</label>
@@ -152,9 +90,22 @@ class Bool extends Qualifier{
 		</div>";
 	}
 
-	use ValidateBoolean;
+	function printValue($param = NULL){
+		if(is_null($param)){
+			$param = $this->param;
+		}
+
+		$msg = "{$this->question} must be <strong>";
+		if(count($param) == 1) $msg .= $param[0];
+		else $msg .= implode("</strong> or <strong>", $param);
+
+		return $msg."</strong>";
+	}
 }
+
 class Range extends Qualifier{
+	use \Validate\Range;
+
 	function printValueInput(){
 		echo "<div class='form-group'>
 			<label for='$this->name' class='hidden-xs col-sm-2 control-label'>$this->question</label>
@@ -166,10 +117,19 @@ class Range extends Qualifier{
 			</div>
 		</div>";
 	}
-	use ValidateRange;
-	
+
+	function printValue($param = NULL){
+		if(is_null($param)){
+			$param = $this->param;
+		}
+		
+		return "{$this->question} must be between <strong>{$param[0]} - {$param[1]}</strong>";
+	}
 }
+
 class Single extends Qualifier{
+	use \Validate\Single;
+
 	function printValueInput(){
 		echo "<div class='form-group'>
 			<label for='$this->name' class='hidden-xs col-sm-2 control-label'>$this->question</label>
@@ -186,12 +146,31 @@ class Single extends Qualifier{
 		</div>";
 	}
 
-	use ValidateSingle;
-	/*function isValid($value){
-		return $this->validate($value, $this->param);
-	}*/
+	function printValue($param = NULL){
+		if(is_null($param)){
+			$param = $this->param;
+		}
+
+		$msg = "{$this->question} must be ";
+		$last = "<strong>".array_pop($param)."</strong>";
+		switch(count($param)){
+			case 0:
+				$msg .= $last;
+			break;
+			case 1:
+				$msg .= "either <strong>{$param[0]}</strong> or {$last}";
+			break;
+			default:
+				$msg .= "either <strong>".implode("</strong>, <strong>", $param)."</strong>, or {$last}";
+			break;
+		}
+		return $msg;
+	}
 }
+
 class Multi extends Qualifier{
+	use \Validate\Multi;
+
 	function printValueInput(){
 		echo "<div class='form-group'>
 			<label for='$this->name' class='hidden-xs col-sm-2 control-label'>$this->question</label>
@@ -208,9 +187,24 @@ class Multi extends Qualifier{
 		</div>";
 	}
 
-	use ValidateMulti;
-	/*function isValid($value){
-		return $this->validate($value, $this->param);
-	}*/
+	function printValue($param = NULL){
+		if(is_null($param)){
+			$param = $this->param;
+		}
+		$msg = "{$this->question} must include ";
+		$last = "<strong>".array_pop($param)."</strong>";
+		switch(count($param)){
+			case 0:
+				$msg .= $last;
+			break;
+			case 1:
+				$msg .= "either <strong>{$param[0]}</strong> or {$last}";
+			break;
+			default:
+				$msg .= "either <strong>".implode("</strong>, <strong>", $param)."</strong>, or {$last}";
+			break;
+		}
+		return $msg;
+	}
 }
 ?>
