@@ -6,16 +6,22 @@
     <div class="error" v-if="error">
       {{error}}
     </div>
-    <b-tabs card v-if="!loading && !error">
-      <b-tab title="Internal" active>
+    <b-tabs card v-if="scholarships && !error">
+      <b-tab title="Online" active>
         <scholarship v-for="scholarship in scholarships" 
-          v-if="scholarship.category_ref === 1" 
+          v-if="scholarship.category === 1" 
+          :key="scholarship.id" 
+          :scholarship="scholarship" />            
+      </b-tab>
+      <b-tab title="Offline">
+        <scholarship v-for="scholarship in scholarships" 
+          v-if="scholarship.category === 2" 
           :key="scholarship.id" 
           :scholarship="scholarship" />            
       </b-tab>
       <b-tab title="External">
         <scholarship v-for="scholarship in scholarships" 
-          v-if="scholarship.category_ref === 3" 
+          v-if="scholarship.category === 3" 
           :key="scholarship.id"
           :scholarship="scholarship" />
       </b-tab>
@@ -24,7 +30,7 @@
 </template>
 
 <script>
-import scholarships from '@/assets/scholarship.json';
+// import scholarships from '@/assets/scholarship.json';
 import Scholarship from '@/components/Scholarship';
 
 export default {
@@ -35,7 +41,7 @@ export default {
   },
   data() {
     return {
-      scholarships,
+      scholarships: null,
       loading: true,
       error: null,
     };
@@ -45,31 +51,14 @@ export default {
   },
   methods: {
     fetchData() {
-      this.axios.get('https://boc22finaid.fau.edu/scholarship/api/scholarship/site')
+      this.axios.get('https://boc22finaid.fau.edu/scholarship/api/scholarships/')
         .then((res) => {
           this.loading = false;
           this.scholarships = res.data;
         })
         .catch((err) => {
           this.error = err;
-          /*
-          if (err.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(err.response.data);
-            console.log(err.response.status);
-            console.log(err.response.headers);
-          } else if (err.request) {
-            // The request was made but no response was received
-            // `err.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            console.log(err.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', err.message);
-          }
-          console.log(err.config);
-          */
+          console.log(`ERROR: ${err}`);
         });
     },
   },

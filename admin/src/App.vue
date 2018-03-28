@@ -1,35 +1,41 @@
 <template>
-  <div id="app">
-    <b-navbar toggleable="md" type="dark" variant="dark">
-      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <b-navbar-brand to="/">FAU Financial Aid <small class="text-muted">Scholarship Panel</small></b-navbar-brand>
-      <b-collapse is-nav id="nav_collapse">
-        <b-navbar-nav>
-          <b-nav-item to="/scholarship">Scholarships</b-nav-item>
-          <b-nav-item >Search</b-nav-item>
-          <b-nav-item >Applications</b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-    <b-container fluid>
-      <router-view></router-view>
-    </b-container>
-  </div>
+  <v-app>
+    <v-toolbar color="indigo darken-4" dark flat clipped-left app>
+      <v-toolbar-side-icon></v-toolbar-side-icon>
+      <v-toolbar-title>FAU Scholarship Administration Panel</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn to="/scholarships" flat>Scholarships</v-btn>
+        <v-btn flat>Search</v-btn>
+        <v-btn flat>Applications</v-btn>
+      </v-toolbar-items>
+        <v-flex xs3 class="mx-3">
+        <v-text-field
+          prepend-icon="search"
+          label="Search"
+          solo-inverted
+          flat >
+        </v-text-field>
+      </v-flex>
+    </v-toolbar>
+    <v-content>
+      <router-view />
+    </v-content>
+  </v-app>
 </template>
 
 <script>
 export default {
-  name: 'app',
+  name: 'App',
   data() {
     return {
+      menu_items: [
+        {
+          name: 'Scholarships',
+          link: '/scholarships',
+        },
+      ],
     };
   },
 };
 </script>
-
-<style>
-.container-fluid {
-  padding-right: 0px;
-  padding-left: 0px;
-}
-</style>

@@ -21,13 +21,7 @@ $app->group('/scholarships', function() use ($app){
     $app->get('/', function (Request $request, Response $response) {
         $this->logger->debug("GET /scholarships/");
 
-        $params = $request->getQueryParams();
-        if(array_key_exists('full', $params)){
-            if($params['full'] == 'true'){
-            }
-        } else {
-            $data = $this->sch->getScholarships(true);
-        }
+        $data = $this->sch->getScholarships();
         return $response->withJson($data);
     });
 
@@ -35,7 +29,6 @@ $app->group('/scholarships', function() use ($app){
         $this->logger->debug("POST /scholarships/");
 
         $parsedBody = $request->getParsedBody();
-        $this->logger->debug(json_encode($parsedBody));
         try{
             $this->sch->addScholarship($parsedBody);
             $data = ['success'];
@@ -55,7 +48,7 @@ $app->group('/scholarships', function() use ($app){
     $app->group('/{id}', function () {
         $this->map(['GET', 'POST', 'PUT'], '', function(Request $request, Response $response, $args){
             if($request->isGet()){
-                if(!empty($args)){ 
+                if(!empty($args)){
                 // Scholarship Code Given
 
                 } else {

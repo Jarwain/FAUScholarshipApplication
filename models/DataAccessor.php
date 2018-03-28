@@ -1,7 +1,7 @@
 <?php
-class DataAccessor { 
+class DataAccessor {
 
-	// TODO: 
+	// TODO:
 	// Turn into abstract class/interface
 	// Individualize by model (StudentDAO, ScholarshipDAO, etc.)
 	// Create memoization store
@@ -26,15 +26,16 @@ class DataAccessor {
 
 	function getScholarshipsJoinRequirements(){
 		try{
-			$restrictions = $this->link->query("SELECT * FROM `scholarship` s 
-			LEFT JOIN `restriction` r ON s.`code` = r.`sch_code`")->fetchAll();
+			$restrictions = $this->link->query("SELECT * FROM `scholarship` s
+			LEFT JOIN `restriction` r ON s.`code` = r.`sch_code`
+            WHERE s.`active` = 1")->fetchAll();
 
 			$scholarships = array_reduce($restrictions, function($carry, $val){
 				if(array_key_exists($val['code'],$carry)){
 					// Add Requirement to existing Scholarship inst
 					$carry[$val['code']]->requirements[$val['category']][$val['qualifier_id']] = Requirement::array_to_restriction($val);
 				} else {
-					// Instantiate Scholarship 
+					// Instantiate Scholarship
 					$carry[$val['code']] = Scholarship::array_to_scholarship($val);
 					if($val['qualifier_id'])
 						$carry[$val['code']]->requirements[$val['category']][$val['qualifier_id']] = Requirement::array_to_restriction($val);
@@ -60,7 +61,7 @@ class DataAccessor {
 
 	function getActiveQualifiers(){
 		try{
-			$dbQualifiers = $this->link->query("SELECT q.`id`, q.`name`, q.`type`, q.`question`, q.`param` FROM `qualifier` q 
+			$dbQualifiers = $this->link->query("SELECT q.`id`, q.`name`, q.`type`, q.`question`, q.`param` FROM `qualifier` q
 				JOIN `restriction` r ON q.`id`=r.`qualifier_id`
 				GROUP BY `qualifier_id`")->fetchAll();
 

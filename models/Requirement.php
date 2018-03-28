@@ -2,12 +2,12 @@
 /*
 How Requirement Categories Work
 For a given scholarship, its Requirements are broken into categories. A category has a single character identifier.
-For a student to qualify for a scholarship, they must pass all restrictions in a single category. 
+For a student to qualify for a scholarship, they must pass all restrictions in a single category.
 A || B || C || D
 
 For example, given a scholarship that requires a 3.0 GPA for Graduates or 2.5GPA for undergraduates
 (GPA >= 3.0 && Class Standing == Graduate) || (GPA >= 2.5 && Class Standing == Undergraduate)
-This scholarship would have four restrictions broken into two categories. 
+This scholarship would have four restrictions broken into two categories.
 Category a
 	GPA >= 3.0
 	Class Standing = Graduate
@@ -18,13 +18,13 @@ Students that qualify for this scholarship fulfill all requirements in Either ca
 
 
 There also exists a wildcard category '*'
-If a wildcard category exists for a given scholarship, 
+If a wildcard category exists for a given scholarship,
 Students must satisfy all requirements in the wildcard category as well as any other single category
 * && (A || B || C ...)
 
 For example, given a scholarship that requires a FAFSA, and a 3.0 GPA for Graduates or 2.5GPA for undergraduates
 FAFSA == True && ((GPA >= 3.0 && Class Standing == Graduate) || (GPA >= 2.5 && Class Standing == Undergraduate))
-This scholarship would have five restrictions broken into three categories 
+This scholarship would have five restrictions broken into three categories
 Category *
 	FAFSA == True
 Category a
@@ -46,7 +46,7 @@ class Requirement {
 		$this->qualifier_id = $qualifier_id;
 		$this->sch_code = $sch_code;
 		$this->category = $category;
-		$this->valid = json_decode($valid, true)['param'];
+		$this->valid = json_decode($valid, true);
 	}
 
 	function getParam(){
@@ -60,7 +60,7 @@ class Requirement {
 		if(is_null($this->valid))
 			$param = ['true'];
 		else $param = $this->valid;
-		
+
 		return $qualifier->validate($value, $param);
 	}
 
@@ -69,7 +69,7 @@ class Requirement {
 		$param = json_encode($this->getParam());
 		return "{$this->qualifier_id}:{$param}</br>";
 	}
-	
+
 	public static function array_to_restriction($arr){
 		return new Requirement($arr['qualifier_id'],$arr['sch_code'],$arr['category'],$arr['valid']);
 	}
