@@ -1,3 +1,6 @@
+SEARCH
+    Should put in Yellow Category for unanswered qualifications
+
 Search
 	Student GETS Qualifiers
 	Student POSTs Qualifications

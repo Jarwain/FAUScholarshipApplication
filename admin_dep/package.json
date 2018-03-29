@@ -15,7 +15,6 @@
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "latest",
     "jquery": "^1.9.1",
-    "npm": "^5.7.1",
     "popper.js": "^1.12.9",
     "vue": "^2.5.2",
     "vue-awesome": "^2.3.4",

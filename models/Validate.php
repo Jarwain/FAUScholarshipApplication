@@ -1,7 +1,7 @@
 <?php
 namespace Validate;
 
-class Result{
+class Result {
 	var $res; // Boolean
 	var $message; // String
 	public function __construct($res, $message = "") {
@@ -10,7 +10,7 @@ class Result{
     }
 }
 
-trait Boolean {
+trait Boolean { // type: 1
 	function validate($value, $param = NULL){
 		if(is_null($param)) $param = ['true','false'];
 
@@ -21,7 +21,7 @@ trait Boolean {
 	}
 }
 
-trait Range {
+trait Range { // type: 2
 	function validate($value, $param){
 		if($param[0] <= $value && $value <= $param[1])
 			return new Result(true);
@@ -30,18 +30,21 @@ trait Range {
 	}
 }
 
-trait Single {
+trait Single { // type: 3
 	function validate($value, $param){
-		if(in_array($value, $param))
+		if(in_array($value, $param) || (count($param) === 1 && $param[0] === '*'))
 			return new Result(true);
-		
+
 		return new Result(false, "[Single]: ".json_encode($value)." not in ".json_encode($param));
 	}
 }
 
-trait Multi {
+trait Multi { // type: 4
 	function validate($value, $param){
-		return new Result(true);
+        if(count(array_intersect($value, $param)) !== 0)
+		  return new Result(true);
+
+        return new Result(false, "[Multi]: ".json_encode($value)." not in ".json_encode($param));
 	}
 }
 
