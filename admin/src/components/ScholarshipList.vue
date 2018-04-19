@@ -9,7 +9,7 @@
       v-for="category in categories"
       :key="category.id"
       ripple >
-      {{ category.name }}|{{scholarshipCategory(category.id).length}}
+      {{ category.name }}|{{getScholarshipsByCategory(category.id).length}}
     </v-tab>
     <v-tab-item
       class="pt-3"
@@ -17,9 +17,9 @@
       :key="category.id">
       <v-layout row wrap justify-center>
         <v-flex xs12 sm11 md10 lg8
-          v-for="scholarship in scholarshipCategory(category.id)"
+          v-for="scholarship in getScholarshipsByCategory(category.id)"
           :key="scholarship.id" >
-          <scholarship-item v-bind.sync="scholarship" ></scholarship-item>
+          <scholarship-item v-bind="scholarship" ></scholarship-item>
         </v-flex>
       </v-layout>
     </v-tab-item>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+// import { mapGetters } from 'vuex';
 import ScholarshipItem from '@/components/ScholarshipListItem';
 
 export default {
@@ -56,32 +57,24 @@ export default {
         },
       ],
       tabs: null,
-      scholarships: null,
       loading: true,
       error: null,
     };
   },
-  created() {
-    this.fetchData();
-  },
   methods: {
-    fetchData() {
-      this.axios.get('https://boc22finaid.fau.edu/scholarship/api/scholarships/')
-        .then((res) => {
-          this.loading = false;
-          this.scholarships = res.data;
-        })
-        .catch((err) => {
-          this.error = err;
-          console.log(`ERROR: ${err}`);
-        });
+    getScholarshipsByCategory(cat) {
+      return this.$store.getters.scholarshipsByCategory(cat);
     },
-    scholarshipCategory(cat) {
-      if (this.scholarships) {
-        return Object.values(this.scholarships).filter(e => e.category === cat);
-      }
-      return null;
-    },
+  },
+  created() {
+    this.$store.dispatch('getAllScholarships')
+      .then(() => {
+        console.log('test');
+        this.loading = false;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 </script>

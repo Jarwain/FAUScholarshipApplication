@@ -1,5 +1,5 @@
 <template>
-  <v-card raised>
+  <v-card>
     <v-toolbar card dense :color="active ? 'green' : 'red'">
       <v-toolbar-title>{{ name }} ~ <small>{{ id }}</small></v-toolbar-title>
     </v-toolbar>
@@ -8,7 +8,7 @@
       {{ description }}
     </v-card-text>
     <v-card-actions>
-      <v-btn color="info">
+      <v-btn color="info" :to="`/scholarships/view/${id}/`">
         View
       </v-btn>
       <v-btn color="amber">
@@ -17,7 +17,7 @@
       <v-spacer></v-spacer>
       <v-btn :outline="!active"
         :color="active ? 'green' : 'red accent-4'"
-        @click="$emit('update:active', !active)" >
+        @click="toggle()" >
 
         {{ active ? 'Active' : 'Inactive' }}
       </v-btn>
@@ -32,6 +32,11 @@ export default {
   data() {
     return {
     };
+  },
+  methods: {
+    toggle() {
+      this.$store.commit('toggleScholarshipActive', this.id);
+    },
   },
 };
 </script>

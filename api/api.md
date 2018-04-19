@@ -23,6 +23,12 @@ DELETE	Delete
 
 API Specification
 ====================
+Create Scholarship(s)
+Read Scholarship(s)
+Update Scholarship(s)
+Delete Scholarship(s)
+
+
 
 GET /scholarship/:id
   code

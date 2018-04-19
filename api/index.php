@@ -1,4 +1,6 @@
 <?php
+namespace FAUScholarship\API;
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
@@ -17,20 +19,33 @@ $app->add(function($req, $res, $next) {
 });
 
 $app->group('/scholarships', function() use ($app){
+    /*
+    $datastore = new Store($container);
+    $controller = new Controller($model); $controller->action() {$model->mutate()}
+    $view = new View($model);
 
-    $app->get('/', function (Request $request, Response $response) {
-        $this->logger->debug("GET /scholarships/");
+    Route calls $controller->action(). This calls $datastore->get/set(). 
+    still figuring out what $view will do
+     */
 
-        $data = $this->sch->getScholarships();
+
+    $app->get('/[{code}/]', function (Request $request, Response $response, $args) {
+        if(isset($args['code'])){
+            $this->logger->debug("GET /scholarships/".$args['code']);
+            $data = $this->scholarshipStore->getScholarship($args['code']);
+        } else {
+            $this->logger->debug("GET /scholarships/");
+            $data = $this->scholarshipStore->getScholarships();
+        }
         return $response->withJson($data);
     });
-
     $app->post('/', function (Request $request, Response $response){
-        $this->logger->debug("POST /scholarships/");
+        $body = $request->getParsedBody();
 
-        $parsedBody = $request->getParsedBody();
+        $this->logger->debug("POST /scholarships/ Body: {${json_encode($body)}}");
+
         try{
-            $this->sch->addScholarship($parsedBody);
+            $this->scholarshipStore->createScholarship($body);
             $data = ['success'];
         } catch(Exception $e) {
             $this->logger->error($e->getMessage());
@@ -40,12 +55,12 @@ $app->group('/scholarships', function() use ($app){
         return $response->withJson($data);
     });
 
-    $app->put('/', function (Request $request, Response $response){
+    /*$app->put('/', function (Request $request, Response $response){
 
-    });
+    });*/
 
 
-    $app->group('/{id}', function () {
+    /*$app->group('/{code}', function () {
         $this->map(['GET', 'POST', 'PUT'], '', function(Request $request, Response $response, $args){
             if($request->isGet()){
                 if(!empty($args)){
@@ -63,7 +78,7 @@ $app->group('/scholarships', function() use ($app){
 
         return $response->withJson($data);
         });
-    });
+    });*/
 });
 
 $app->run();

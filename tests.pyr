@@ -1,5 +1,9 @@
 # Test Getting Scholarships
+get('https://boc22finaid.fau.edu/directus/')
 get('https://boc22finaid.fau.edu/scholarship/api/scholarships/')
+get('https://boc22finaid.fau.edu/scholarship/api/scholarships/?full=true')
+get('https://boc22finaid.fau.edu/scholarship/api/scholarships/SFA020/')
+get('https://boc22finaid.fau.edu/scholarship/api/scholarships/42/')
 
 # Test Adding Scholarship
 post(
@@ -9,8 +13,137 @@ post(
     "name": "National DAR American Indian Scholarship",
     "url": "https://www.dar.org/national-society/scholarships/american-indian",
     "description": "This scholarship is awarded to help Native Americans students of any age, any tribe and in any state striving to get an education at the undergraduate or graduate levels.  However, undergraduate students are given preference. All awards are judged based on financial need and academic achievement. Applicants must be Native Americans (proof of American Indian blood is required by letter or proof papers) in financial need and have a grade point average of 3.25 or higher. This is a one-time $4,000 award. Click the link above for more information.",
-    "deadline": 'null',
+    "deadline": "2018-08-12",
     "limit": 0,
-    "active": 'true'
+    "active": True
+  }
+)
+
+post(
+  'https://boc22finaid.fau.edu/scholarship/api/scholarships/',
+  json={
+    "category": 1,
+    "code": "TEST00"
+    "name": "TOTALLY A TEST",
+    "description": "This scholarship is awarded to help Native Americans students of any age, any tribe and in any state striving to get an education at the undergraduate or graduate levels.  However, undergraduate students are given preference. All awards are judged based on financial need and academic achievement. Applicants must be Native Americans (proof of American Indian blood is required by letter or proof papers) in financial need and have a grade point average of 3.25 or higher. This is a one-time $4,000 award. Click the link above for more information.",
+    "active": True,
+    "max": 100,
+    "requirements": {
+      "*": {
+        "1": {
+          "category": "*",
+          "form": "bool",
+          "name": "fafsa",
+          "param": None,
+          "qualifier": 1,
+          "question": "Completed FAFSA",
+          "regex": None,
+          "valid": None
+        },
+        "2": {
+          "category": "*",
+          "form": "bool",
+          "name": "need",
+          "param": None,
+          "qualifier": 2,
+          "question": "Demonstrates Financial Need",
+          "regex": None,
+          "valid": None
+        },
+        "3": {
+          "category": "*",
+          "form": "range",
+          "name": "gpa",
+          "param": [
+            0,
+            4
+          ],
+          "qualifier": 3,
+          "question": "GPA",
+          "regex": None,
+          "valid": [
+            2,
+            4
+          ]
+        }
+      },
+      "a": {
+        "4": {
+          "category": "a",
+          "form": "single",
+          "name": "year",
+          "param": [
+            "Freshman",
+            "Sophomore",
+            "Junior",
+            "Senior",
+            "Graduate",
+            "Other"
+          ],
+          "qualifier": 4,
+          "question": "Class Standing",
+          "regex": None,
+          "valid": [
+            "Graduate"
+          ]
+        },
+        "5": {
+          "category": "a",
+          "form": "range",
+          "name": "credits",
+          "param": [
+            0,
+            18
+          ],
+          "qualifier": 5,
+          "question": "Upcoming Credit Hours",
+          "regex": None,
+          "valid": [
+            5,
+            18
+          ]
+        }
+      },
+      "b": {
+        "4": {
+          "category": "b",
+          "form": "single",
+          "name": "year",
+          "param": [
+            "Freshman",
+            "Sophomore",
+            "Junior",
+            "Senior",
+            "Graduate",
+            "Other"
+          ],
+          "qualifier": 4,
+          "question": "Class Standing",
+          "regex": None,
+          "valid": [
+            "Freshman",
+            "Sophomore",
+            "Junior",
+            "Senior"
+          ]
+        },
+        "5": {
+          "category": "b",
+          "form": "range",
+          "name": "credits",
+          "param": [
+            0,
+            18
+          ],
+          "qualifier": 5,
+          "question": "Upcoming Credit Hours",
+          "regex": None,
+          "valid": [
+            6,
+            18
+          ]
+        }
+      }
+    }
   }
 )
