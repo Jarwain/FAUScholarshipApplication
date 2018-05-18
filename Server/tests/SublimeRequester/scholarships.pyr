@@ -1,0 +1,158 @@
+# Scholarships
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?core=1', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?online=1', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?online=1&core=1', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?online=0', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/SFA020/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/42/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/FAKE/', headers={'Accept': 'application/json'})
+
+# Add Scholarship
+post(
+  'https://boc22finaid.fau.edu/scholarship/api/scholarship/',
+  headers={'Accept': 'application/json'},
+  json={
+    "category": 3,
+    "name": "National DAR American Indian Scholarship",
+    "url": "https://www.dar.org/national-society/scholarships/american-indian",
+    "description": "This scholarship is awarded to help Native Americans students of any age, any tribe and in any state striving to get an education at the undergraduate or graduate levels.  However, undergraduate students are given preference. All awards are judged based on financial need and academic achievement. Applicants must be Native Americans (proof of American Indian blood is required by letter or proof papers) in financial need and have a grade point average of 3.25 or higher. This is a one-time $4,000 award. Click the link above for more information.",
+    "deadline": "2018-08-12",
+    "limit": 0,
+    "active": True
+  }
+)
+post(
+  'https://boc22finaid.fau.edu/scholarship/api/scholarship/',
+  json={
+    "category": 1,
+    "code": "TEST00"
+    "name": "TOTALLY A TEST",
+    "description": "This scholarship is awarded to help Native Americans students of any age, any tribe and in any state striving to get an education at the undergraduate or graduate levels.  However, undergraduate students are given preference. All awards are judged based on financial need and academic achievement. Applicants must be Native Americans (proof of American Indian blood is required by letter or proof papers) in financial need and have a grade point average of 3.25 or higher. This is a one-time $4,000 award. Click the link above for more information.",
+    "active": True,
+    "max": 100,
+    "requirements": {
+      "*": {
+        "1": {
+          "category": "*",
+          "form": "bool",
+          "name": "fafsa",
+          "param": None,
+          "qualifier": 1,
+          "question": "Completed FAFSA",
+          "regex": None,
+          "valid": None
+        },
+        "2": {
+          "category": "*",
+          "form": "bool",
+          "name": "need",
+          "param": None,
+          "qualifier": 2,
+          "question": "Demonstrates Financial Need",
+          "regex": None,
+          "valid": None
+        },
+        "3": {
+          "category": "*",
+          "form": "range",
+          "name": "gpa",
+          "param": [
+            0,
+            4
+          ],
+          "qualifier": 3,
+          "question": "GPA",
+          "regex": None,
+          "valid": [
+            2,
+            4
+          ]
+        }
+      },
+      "a": {
+        "4": {
+          "category": "a",
+          "form": "single",
+          "name": "year",
+          "param": [
+            "Freshman",
+            "Sophomore",
+            "Junior",
+            "Senior",
+            "Graduate",
+            "Other"
+          ],
+          "qualifier": 4,
+          "question": "Class Standing",
+          "regex": None,
+          "valid": [
+            "Graduate"
+          ]
+        },
+        "5": {
+          "category": "a",
+          "form": "range",
+          "name": "credits",
+          "param": [
+            0,
+            18
+          ],
+          "qualifier": 5,
+          "question": "Upcoming Credit Hours",
+          "regex": None,
+          "valid": [
+            5,
+            18
+          ]
+        }
+      },
+      "b": {
+        "4": {
+          "category": "b",
+          "form": "single",
+          "name": "year",
+          "param": [
+            "Freshman",
+            "Sophomore",
+            "Junior",
+            "Senior",
+            "Graduate",
+            "Other"
+          ],
+          "qualifier": 4,
+          "question": "Class Standing",
+          "regex": None,
+          "valid": [
+            "Freshman",
+            "Sophomore",
+            "Junior",
+            "Senior"
+          ]
+        },
+        "5": {
+          "category": "b",
+          "form": "range",
+          "name": "credits",
+          "param": [
+            0,
+            18
+          ],
+          "qualifier": 5,
+          "question": "Upcoming Credit Hours",
+          "regex": None,
+          "valid": [
+            6,
+            18
+          ]
+        }
+      }
+    }
+  }
+)
+
+# Scholarship Search
+get('https://boc22finaid.fau.edu/scholarship/api/search/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/search/?1=true&2=true&3=2.50&4=Sophomore&5=15&6=Good&7%5B%5D=Advanced+Holistic+Nursing&8%5B%5D=Dorothy+F.+Schmidt+College+of+Arts+and+Letters&9=false', headers={'Accept': 'application/json'})
+
+# Test Adding Scholarship

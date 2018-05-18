@@ -4,8 +4,28 @@
 		"selected_items":
 		[
 			[
+				"scholarship",
+				"scholarship_requirements"
+			],
+			[
+				"offlin",
+				"offlineDB"
+			],
+			[
 				"json",
-				"json_decode"
+				"json_encode"
+			],
+			[
+				"getSchol",
+				"getScholarship"
+			],
+			[
+				"JOIN",
+				"JOIN_REQUIREMENTS"
+			],
+			[
+				"SELECT",
+				"SELECT_SCHOLARSHIP"
 			],
 			[
 				"qualifier",
@@ -248,10 +268,6 @@
 				"scholarship"
 			],
 			[
-				"scholarship",
-				"scholarship-selection"
-			],
-			[
 				"size",
 				"size"
 			],
@@ -319,82 +335,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "api/index.php",
-			"settings":
-			{
-				"buffer_size": 2476,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "composer.json",
-			"settings":
-			{
-				"buffer_size": 181,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "<?php\n\nclass Qualifier {\n    var $id;\n    var $name;\n    var $question;\n    var $param;\n\n    function __construct($id, $name, $question, $param){\n        $this->id = $id;\n        $this->name = $name;\n        $this->question = $question;\n        $this->param = $param;\n    }\n}\n\nclass Requirement extends Qualifier{\n    var $group;\n    var $valid;\n\n    function __construct($id, $name, $question, $param, $group, $valid){\n        parent::__construct($id, $name, $question, $param);\n\n        $this->group = $group;\n        $this->valid = $valid;\n    }\n}\n",
-			"file": "api/models/Qualifier.php",
-			"file_size": 576,
-			"file_write_time": 131665712941056810,
-			"settings":
-			{
-				"buffer_size": 551,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "api/container.php",
-			"settings":
-			{
-				"buffer_size": 1154,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "README.md",
-			"settings":
-			{
-				"buffer_size": 1059,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "api/api.md",
-			"settings":
-			{
-				"buffer_size": 1082,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "## Requester Tutorial\nrequests.get('https://jsonplaceholder.typicode.com/albums')\nrequests.post('https://jsonplaceholder.typicode.com/albums')\n\npost('https://jsonplaceholder.typicode.com/posts')  # 'requests.' prefix is optional\nget('jsonplaceholder.typicode.com/posts')  # as is the URL scheme\n\n\"\"\"\nPlace your cursor on one of the lines above and hit `ctrl+alt+r` (`ctrl+r` on macOS). Or, look for __Requester: Run Requests__ in the command palette and hit Enter. A response tab will appear, with a name like __GET: /albums__.\n\n>If this doesn't work, and you're seeing errors every time you run a request, this probably means the __requests__ dependency wasn't installed successfully. To fix this, look for __Package Control: Satisfy Dependencies__ in the command palette, run it, and restart Sublime Text.\n\nHead to the response tab and check out the response. Hit <kbd>ctrl+alt+r</kbd> or <kbd>ctrl+r</kbd> (<kbd>ctrl+r</kbd> or <kbd>cmd+r</kbd> on macOS) to replay the request. You can edit the request, which is at the top of the file, before replaying it.\n\nNow, go back to the requester file and highlight all 5 lines, and once again execute the requests. Nice, huh?\n\nWant to see something even better? Press `ctrl+r` (`cmd+r` on macOS) and try using fuzzy search to jump around the requests defined in this file. This is what the special .pyr extension is all about. Save all your requester files with this extension.\n\"\"\"\n\n\n### Multiline Requests, Request Body, Query Params\n\"\"\"\nFor executing requests defined over multiple lines, you have two options:\n\n- fully highlight one or more requests and execute them\n- place your cursor on the __first line__ of a request and execute it\n\"\"\"\n\npost(\n    'httpbin.org/post',\n    json={'name': 'Jimbo', 'age': 35, 'married': False, 'hobbies': ['wiki', 'pedia']}\n)\n\nget(\n    'httpbin.org/get',\n    params={'key1': 'value1', 'key2': 'value2'}\n)\n\n\"\"\"\nBody, Query Params, Headers and Cookies are passed to __requests__ as dictionaries. And for executing requests defined over multiple lines, you have two options:\n\nNotice that if a URL scheme isn't supplied, Requester sets it as `http` by default.\n\nIf you want to close all open tabs, look for __Requester: Close All Response Tabs__ in the command palette.\n\"\"\"\n\n\n### Environment Variables\n\"\"\"\nIt's time to refactor your requests to use environment variables. Requester has a fully featured scripting language for env vars... Python!\n\nYou can define them directly in your requester file. Just put your variables in a code block fenced by __###env__ lines.\n\"\"\"\n\n###env\nbase_url = 'https://jsonplaceholder.typicode.com'\n###env\n\nget(base_url + '/albums')\npost(base_url + '/albums')\n\n\"\"\"\nTry executing these requests. Nice, huh?\n\nThe __###env__ lines must have no leading or trailing spaces. Only the first env block in a requester file will be used.\n\"\"\"\n\n\n### Custom Headers, Cookies\nget('httpbin.org/headers', headers={'key1': 'value1', 'key2': 'value2'})\n\nget('httpbin.org/cookies', cookies={'key1': 'value1', 'key2': 'value2'})\n\nget('httpbin.org/redirect-to?url=foo')\n# response tab shows redirects\n\n\"\"\"\nIf you execute the last request, you'll notice the response tab shows the series of redirects followed by the browser. If you want to disallow redirects by default, simply change Requester's `allow_redirects` setting to `false`.\n\n__Requester's syntax is Requests' syntax__. If you don't know how to do something, just have a look at the [Requests Quickstart](http://docs.python-requests.org/en/master/user/quickstart/).\n\"\"\"\n\n\n### New Requester File\n\"\"\"\nWant to start a new collection of requests? Run __Requester: New Requester File__ from the command palette. You'll get a new file pointing to an empty env file, with an empty env block, and with a link to Requester's syntax at the top.\n\"\"\"\n\n\n## More Info\n\"\"\"\nThis tutorial is not meant to be complete, and if you have doubts about how Requester works the README has the goods. Check it out [here](https://github.com/kylebebak/Requester) or by running __Requester: Show Documentation__.\n\"\"\"\n",
-			"settings":
-			{
-				"buffer_size": 4038,
-				"line_ending": "Windows",
-				"name": "Requester Tutorial.pyr",
-				"read_only": true,
-				"scratch": true
-			}
-		},
-		{
-			"file": "tests.pyr",
-			"settings":
-			{
-				"buffer_size": 4509,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -403,13 +343,29 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 203.0,
-		"last_filter": "install",
+		"height": 392.0,
+		"last_filter": "add",
 		"selected_items":
 		[
 			[
-				"install",
-				"Package Control: Install Package"
+				"add",
+				"Project: Add Folder"
+			],
+			[
+				"pull",
+				"Git: Pull"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"commit",
+				"Git: Commit"
+			],
+			[
+				"git: statu",
+				"Git: Status"
 			],
 			[
 				"remove",
@@ -428,16 +384,8 @@
 				"Set Syntax: Requester"
 			],
 			[
-				"push",
-				"Git: Push"
-			],
-			[
-				"commit",
-				"Git: Commit"
-			],
-			[
-				"add",
-				"Git: Add..."
+				"install",
+				"Package Control: Install Package"
 			],
 			[
 				"comm",
@@ -604,7 +552,7 @@
 				"Set Syntax: CSS"
 			]
 		],
-		"width": 428.0
+		"width": 444.0
 	},
 	"console":
 	{
@@ -626,19 +574,68 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/Jarwain/Projects/FAUScholarshipApplication"
+		"/C/Users/dto1/Desktop/Projects/scholarship",
+		"/C/Users/dto1/Desktop/Projects/scholarship/Server",
+		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src",
+		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes"
 	],
 	"file_history":
 	[
-		"/C/Users/Jarwain/Projects/FAUScholarshipApplication/assets/scholarship.json",
-		"/C/Users/Jarwain/Projects/FAUScholarshipApplication/api/models/ScholarshipController.php",
-		"/C/Users/Jarwain/Projects/FAUScholarshipApplication/api/models/Scholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/scholarship.sublime-project",
+		"/C/Users/dto1/Desktop/Projects/scholarship/README.md",
+		"/C/Users/dto1/Desktop/Projects/scholarship/Server/README.md",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.gitignore",
+		"/C/Users/dto1/Desktop/Projects/scholarship/README (2).md",
+		"/C/Users/dto1/Desktop/Projects/scholarship/ (2).gitignore",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.config/database",
+		"/C/Users/dto1/Desktop/Projects/scholarship/logs/README.md",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/OnlineScholarshipDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/directus/api/routes/A1/Activity.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Model/Qualifier.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Model/Requirement.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/Interfaces/OfflineScholarshipInterface.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/Interfaces/OnlineScholarshipInterface.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/Interface/OfflineScholarshipInterface.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/Interface/OnlineScholarshipInterface.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/Interface/ScholarshipInterface.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/OnlineScholarshipInterface.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/OfflineScholarshipInterface.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/ScholarshipInterface.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Model/AbstractScholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship_search/models/DataAccessor.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/AbstractScholarshipStoreDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Model/OnlineScholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Model/OfflineScholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Controller/ScholarshipController.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/composer.json",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes/Scholarship/AbstractScholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes/Scholarship/OnlineScholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes/Scholarship/OfflineScholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes/Scholarship/StoreDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes/Scholarship/ScholarshipStore.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/View/ScholarshipView.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes/Scholarship/ScholarshipStoreDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes/Scholarship/AbstractScholarshipStore.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Model/Scholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Store/ScholarshipStore.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/assets/scholarship.json",
+		"/C/Users/dto1/Desktop/Projects/scholarship/assets/scholarship.json",
+		"/C/Users/dto1/Downloads/scholarship.sql",
+		"/C/Users/dto1/Downloads/TABLES.csv",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/index.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Action/ScholarshipAction.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/Action/ScholarshipController.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/model/Scholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/model/Qualifier.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/models/Qualifier.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/models/ScholarshipController.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/api/models/Scholarship.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes/ScholarshipController.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes/Scholarship.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/classes/Qualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/composer.json",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/composer.json",
-		"/C/Users/dto1/Desktop/Projects/scholarship/.config/database",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/composer.lock",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/settings.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/Web.config",
@@ -686,14 +683,12 @@
 		"/C/Users/dto1/Desktop/Projects/site_sch_search/temp.js",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/scholarship.json",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api.md",
-		"/C/Users/dto1/Desktop/Projects/scholarship/.gitignore",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/.gitignore",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/src/container.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/src/index.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/src/settings.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/vendor/autoload.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/src/Web.config",
-		"/C/Users/dto1/Desktop/Projects/scholarship/api/index.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/api/.gitignore.",
 		"/C/tools/php56/php.ini",
 		"/C/tools/php56/php.ini-development",
@@ -713,55 +708,11 @@
 		"/C/Users/dto1/Desktop/Projects/scholarship_app_1819/verify.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship_app_1819/scholarship.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship_app_1819/header.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship_app_1819/viewer.php",
-		"/C/Users/dto1/Desktop/Projects/legacy/submit.php",
-		"/C/Users/dto1/Desktop/Projects/legacy/scholarship.php",
-		"/C/Users/dto1/Desktop/Projects/legacy/index.php",
-		"/C/Users/dto1/Desktop/Projects/legacy/header.php",
-		"/C/Users/dto1/Desktop/Projects/legacy/verify.php",
-		"/C/Users/dto1/Desktop/Projects/legacy/viewer.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/admin/build/vue-loader.conf.js",
-		"/C/Users/dto1/Desktop/Projects/scholarship/admin/build/utils.js",
-		"/C/Users/dto1/Desktop/Projects/scholarship/admin/node_modules/bootstrap-vue/es/components/table/table.js",
-		"/C/Users/dto1/Desktop/Projects/scholarship/admin/node_modules/bootstrap-vue/es/index.js",
-		"/C/Users/dto1/Desktop/Projects/scholarship/admin/node_modules/bootstrap-vue/es/components/table/index.js",
-		"/C/Users/dto1/Desktop/Projects/scholarship/admin/node_modules/bootstrap-vue/es/components/dropdown/dropdown.css",
-		"/C/Users/dto1/Desktop/Projects/scholarship/admin/node_modules/bootstrap-vue/es/components/dropdown/dropdown.js",
-		"/C/Users/dto1/Desktop/Projects/scholarship/admin/node_modules/bootstrap-vue/es/components/dropdown/index.js",
-		"/C/Users/dto1/Desktop/Projects/scholarship/admin/config/index.js",
-		"/C/Users/dto1/Desktop/Projects/scholarship/admin/static/scholarship.json",
-		"/C/Users/dto1/Desktop/Projects/scholarship/views/HTML.php",
-		"/C/Program Files (x86)/phplint/README.htm",
-		"/C/PHP/php.ini",
-		"/C/Program Files (x86)/phplint/TODO.txt",
-		"/C/Users/dto1/Desktop/Projects/scholarship/models/Qualification.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/models/Validatable.php",
-		"/C/Users/dto1/Desktop/WebApplicationProject/TODO.txt",
-		"/C/Users/dto1/Desktop/Projects/std_tool/index.html",
-		"/C/Users/dto1/Desktop/Projects/checks/index.php",
-		"/C/Users/dto1/Desktop/WebApplicationProject/test.js",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/php/contact-form.php",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/Version Changelog.txt",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/tdc/index.php",
-		"/C/Users/dto1/AppData/Local/Temp/7zOC64430B3/contact-form.php",
-		"/C/Users/dto1/AppData/Local/Temp/7zOC6460F43/page.php",
-		"/C/Users/dto1/AppData/Local/Temp/7zOC640FB53/index.php",
-		"/C/Users/dto1/Desktop/WebApplicationProject/test/test.js",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/scholarship/README.md",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/scholarship_app_1819/viewer.php",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/scholarship_app_1819/controller.php",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/scholarship_app_1819/submit.php",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/verificationTime!/scholarship.json",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/scholarship/models/Student.php",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/scholarship_app_1819/scholarship-selection.php",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/scholarship_app_1819/settings.php",
-		"/C/Users/dto1/Desktop/WebApplicationProject/test/package.json",
-		"/C/Users/dto1/Desktop/WebApplicationProject/README.txt",
-		"/C/Users/dto1/Desktop/WebApplicationProject/www/scholarship/models/DataAccessor.php"
+		"/C/Users/dto1/Desktop/Projects/scholarship_app_1819/viewer.php"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 24.0
 	},
 	"find_in_files":
 	{
@@ -781,6 +732,44 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"api/",
+			"ship\\API\\Model",
+			"null",
+			"$sch",
+			"isInternal",
+			"$scholarship",
+			"scholarship",
+			"sch",
+			"OnlineScholarship",
+			"Online",
+			"$id",
+			"id",
+			"$sch",
+			"$res",
+			"$sch",
+			"state",
+			"$result",
+			"n.",
+			"online",
+			"DB",
+			"db",
+			"DB",
+			"id",
+			"q_id",
+			",",
+			"group",
+			"param",
+			"name",
+			"val",
+			"scholarships",
+			"controller",
+			"thing",
+			"scholarships",
+			"limit",
+			",",
+			"id",
+			"limit",
+			"ApplicationScholarship",
 			"\"db\"",
 			"940",
 			"db\"",
@@ -870,45 +859,7 @@
 			"css",
 			"style",
 			"<strong>{$last}</strong>",
-			"col-sm-3",
-			"col-sm-9",
-			"output",
-			"printRequirementsHTML",
-			"printRequirementHTML",
-			"clear-pad",
-			"_",
-			"container",
-			"sm",
-			"$qualifiers",
-			"printRequirements",
-			"Restriction",
-			"$scholarship",
-			"pill",
-			"->valid",
-			"$qualifiers",
-			"value",
-			"$qualifies",
-			"qualifies",
-			"ValidatingFactory",
-			"resSet",
-			"requirements",
-			"restriction",
-			"$this->restrictions",
-			"restrictions",
-			"Restriction",
-			"} catch (Exception $ex){\n\t\t\tthrow $ex;",
-			"searchResults",
-			"../models/",
-			"Qualification",
-			"throw new",
-			"Validate",
-			"Qualification",
-			"$restrictions",
-			"qualification",
-			"\"",
-			"md",
-			"$this->re",
-			"$restriction_categories"
+			"col-sm-3"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -932,311 +883,14 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "api/index.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2476,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"SL.15.region_keys":
-							[
-							],
-							"SL.31.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
-							"SL.35.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
-							"SL.43.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "composer.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 181,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								181,
-								181
-							]
-						],
-						"settings":
-						{
-							"SL.44.region_keys":
-							[
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "api/models/Qualifier.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 551,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6,
-								6
-							]
-						],
-						"settings":
-						{
-							"SL.68.region_keys":
-							[
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "api/container.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1154,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"SL.281.region_keys":
-							[
-							],
-							"SL.45.region_keys":
-							[
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 2,
-			"sheets":
-			[
-				{
-					"buffer": 4,
-					"file": "README.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1059,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								103,
-								103
-							]
-						],
-						"settings":
-						{
-							"SL.47.region_keys":
-							[
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "api/api.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1082,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"SL.48.region_keys":
-							[
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 90.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4038,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								295,
-								295
-							]
-						],
-						"settings":
-						{
-							"SL.49.region_keys":
-							[
-							],
-							"default_dir": "C:\\Users\\dto1\\Desktop\\Projects\\scholarship",
-							"git_gutter_is_enabled": false,
-							"requester.env_block_parsed": true,
-							"requester.env_file": null,
-							"requester.env_string": "base_url = 'https://jsonplaceholder.typicode.com'",
-							"requester.file": null,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "tests.pyr",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4509,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"SL.50.region_keys":
-							[
-							],
-							"git_gutter_is_enabled": true,
-							"requester.env_file": null,
-							"requester.env_string": null,
-							"requester.file": "C:\\Users\\dto1\\Desktop\\Projects\\scholarship\\tests.pyr",
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 24.0
 	},
 	"input":
 	{
@@ -1251,12 +905,6 @@
 				0,
 				1,
 				1
-			],
-			[
-				0,
-				1,
-				1,
-				2
 			]
 		],
 		"cols":
@@ -1267,7 +915,6 @@
 		"rows":
 		[
 			0.0,
-			0.692080722851,
 			1.0
 		]
 	},
@@ -1304,7 +951,7 @@
 	"project": "scholarship.sublime-project",
 	"replace":
 	{
-		"height": 72.0
+		"height": 44.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1327,12 +974,12 @@
 	},
 	"select_symbol":
 	{
-		"height": 0.0,
+		"height": 335.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 392.0
 	},
 	"selected_group": 0,
 	"settings":
@@ -1342,9 +989,10 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 198.0,
+	"side_bar_width": 269.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
+		"max_columns": 2
 	}
 }
