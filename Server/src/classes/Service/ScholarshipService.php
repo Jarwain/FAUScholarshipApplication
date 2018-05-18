@@ -31,10 +31,4 @@ class ScholarshipService{
         }
         return $scholarships;
     }
-
-    function getRequirements($code = NULL){
-        return is_null($code) ? 
-            $this->requirementRepository->getAllTest() :
-            $this->requirementRepository->get($code);
-    }
 }

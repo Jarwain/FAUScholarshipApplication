@@ -1,7 +1,7 @@
 <?php
 namespace ScholarshipApi\Repository\DataAccessObject;
 
-class QualifierDatabase extends AbstractDatabase {
+class QuestionDatabase extends AbstractDatabase {
     public function getAll(){
         $query = "SELECT id, name, form, question, param, regex
                     FROM `qualifier`";

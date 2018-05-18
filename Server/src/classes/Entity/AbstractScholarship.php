@@ -25,7 +25,7 @@ abstract class AbstractScholarship{
 
     abstract static function Factory(array $data);
 
-    static function BulkFactory($data){
+    static function BulkFactory(array $data){
         $scholarships = [];
         foreach($data as $s){
             $scholarships[$s['code']] = static::Factory($s);

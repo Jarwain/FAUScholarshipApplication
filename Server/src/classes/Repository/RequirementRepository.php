@@ -30,11 +30,4 @@ class RequirementRepository{
 
         return $requirements[$code];
     }
-
-    function getAllTest(){
-        $data = $this->database->getAllTest();
-        // $requirements = Requirement::BulkFactory($data, $this->qualifierRepository->getAll());
-
-        return $data;
-    }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace ScholarshipApi\Repository\DataAccessObject;
 
-class OnlineScholarshipDatabase extends AbstractDatabase implements Crud {
+class OnlineScholarshipDatabase extends AbstractDatabase {
     public function getAll(){
         $query = "SELECT s.code, s.name, s.description, s.active, s.counter, s.max, 1 as category
                     FROM `online_scholarship` s";
