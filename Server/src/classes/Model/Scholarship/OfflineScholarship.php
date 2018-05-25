@@ -4,18 +4,15 @@ namespace ScholarshipApi\Model\Scholarship;
 class OfflineScholarship extends Scholarship{
     function __construct($code, $name, $description, $active, $internal, $url, $deadline = Null){
         parent::__construct($code, $name, $description, $active);
-
-        $this->setCategoryByInternal($internal);
         $this->setUrl($url);
         $this->setDeadline($deadline);
+        $this->setCategoryByInternal($internal);
     }
 
     static function DataMap($data){
-        $scholarship = new OfflineScholarship(
+        return new OfflineScholarship(
             $data['code'], $data['name'], $data['description'], $data['active'], 
             $data['internal'], $data['url'], $data['deadline']);
-
-        return $scholarship;
     }
 
     function setCategoryByInternal($internal){

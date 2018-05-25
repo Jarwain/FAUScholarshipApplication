@@ -10,16 +10,15 @@ class OnlineScholarship extends Scholarship{
 
     function __construct($code, $name, $description, $active, $max = 0){
         parent::__construct($code, $name, $description, $active);
-        $this->category = self::ONLINE;
 
         $max = $max ?? 0;
         $this->setMax($max);
+        $this->category = self::ONLINE;
     }
 
     static function DataMap($data){
-        $scholarship = new OnlineScholarship(
+        return new OnlineScholarship(
             $data['code'], $data['name'], $data['description'], $data['active'], $data['max']);
-        return $scholarship;
     }
 
     function setMax(int $max = 0){
