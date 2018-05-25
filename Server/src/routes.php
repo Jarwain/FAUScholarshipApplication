@@ -4,7 +4,10 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 $app->group('/scholarship', function() use ($app){
-    $app->get('/requirements/', 'ScholarshipApi\Controller\ScholarshipController:getRequirements');
+    $app->get('/[{code}/]', 'ScholarshipApi\Controller\ScholarshipController:get');
+});
+
+$app->group('/scholarship', function() use ($app){
     $app->get('/[{code}/]', 'ScholarshipApi\Controller\ScholarshipController:get');
 });
 

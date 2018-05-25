@@ -5,8 +5,6 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use \Interop\Container\ContainerInterface;
 
-use ScholarshipApi\Service\ScholarshipService;
-
 class ScholarshipController {
     protected $container;
 
@@ -23,23 +21,26 @@ class ScholarshipController {
         $query = $request->getQueryParams();
         $code = $args['code'] ?? NULL;
         $online = isset($query['online']) ? (bool)$query['online'] : NULL; 
-        $core = isset($query['core']) ? (bool)$query['core'] : FALSE; 
 
-        $scholarshipService = new ScholarshipService($this->container->db);
+        $scholarships = $this->container->get('ScholarshipStore');
 
         if(is_null($code)){
-            $msg = "Get All Scholarships ";
-            $msg .= is_null($online)   ? '' : "Online: $online ";
-            $data = $scholarshipService->getAllScholarships($core, $online);
+            if(is_null($online)){
+                $msg = "Get All Scholarships";
+                $data = $scholarships->getAll();
+            } else {
+                $msg = $online ? "Get All Scholarships Online" : "Get All Scholarships Offline";
+                $data = $online ? $scholarships->getOnline() : $scholarships->getOffline();
+            }
         } else {
             $msg = "Get Scholarship $code";
-            $data = $scholarshipService->getScholarship($code);
+            $data = $scholarships->get($code);
         }
 
         $this->container->logger->debug($msg);
         return $response->withJson($data);
     }
-
+/*
     public function getRequirements(Request $request, Response $response, $args){
         $query = $request->getQueryParams();
         $code = $args['code'] ?? NULL;
@@ -52,5 +53,5 @@ class ScholarshipController {
 
         $this->container->logger->debug($msg);
         return $response->withJson($data);
-    }
+    }*/
 }

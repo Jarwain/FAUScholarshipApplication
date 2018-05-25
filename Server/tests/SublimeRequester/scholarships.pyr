@@ -1,8 +1,6 @@
 # Scholarships
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/', headers={'Accept': 'application/json'})
-get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?core=1', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?online=1', headers={'Accept': 'application/json'})
-get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?online=1&core=1', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?online=0', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/SFA020/', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/42/', headers={'Accept': 'application/json'})

@@ -33,6 +33,9 @@ $container['db'] = function ($c) {
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $pdo;
     } catch (\PDOException $ex){
-        $c->logger->addError($ex->getMessage());
+        $c->logger->addError($ex);
     }
 };
+
+// Application Dependencies
+require_once('app_dependencies.php');
