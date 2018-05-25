@@ -2,50 +2,38 @@
 namespace ScholarshipApi\Model\Scholarship;
 
 
-class ScholarshipRepository{
-    var $store;
+class ScholarshipRepository implements ScholarshipStore{
+    var $offline = Null;
+    var $online = Null;
 
-    var $requirementRepository;
+    var $database;
 
-    function __construct(\PDO $db){
-        $this->database = new ScholarshipDatabase($db);
-
-        $this->requirementRepository = new RequirementRepository($db);
+    function __construct(ScholarshipStore $database){
+        $this->database = $database;
     }
 
-    function getAllOffline(){
-        $data = $this->database->getAllOffline();
-        $scholarships = OfflineScholarship::BulkFactory($data);
+    function getOffline(){
+        $this->offline = $this->offline ?? 
+            $this->database->getOffline();
 
-        return $scholarships;
+        return $this->offline;
     }
 
-    function getAllOnline($core = FALSE){
-        $data = $this->database->getAllOnline();
-        $scholarships = OnlineScholarship::BulkFactory($data);
+    function getOnline(){
+        $this->online = $this->online ?? 
+            $this->database->getOnline();
 
-        if(!$core){
-            $requirements = $this->requirementRepository->getAll();
-            foreach($requirements as $code=>$reqs){
-                $scholarships[$code]->addRequirements($reqs);
-            }
-        }
-
-        return $scholarships;
+        return $this->online;
     }
 
-    function getAll($core = FALSE){
-        return $this->getAllOffline() + $this->getAllOnline($core);
+    function getAll(){
+        return $this->getOffline() + $this->getOnline();
     }
 
     function get($code){
-        list($scholarship, $isOnline) = $this->database->get($code);
-        if($isOnline){
-            $scholarship = OnlineScholarship::Factory($scholarship);
-            $scholarship->addRequirements($this->requirementRepository->get($code));
-        } else {
-            $scholarship = OfflineScholarship::Factory($scholarship);
-        }
+        $scholarship = $this->offline[$code] ?? 
+            $this->online[$code] ?? 
+            $this->database->get($code);
         return $scholarship;
     }
 

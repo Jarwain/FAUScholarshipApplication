@@ -16,7 +16,7 @@ class OnlineScholarship extends Scholarship{
         $this->setMax($max);
     }
 
-    static function Factory($data, $requirements = Null, $questions = Null){
+    static function DataMap($data){
         $scholarship = new OnlineScholarship(
             $data['code'], $data['name'], $data['description'], $data['active'], $data['max']);
         return $scholarship;

@@ -10,7 +10,7 @@ class OfflineScholarship extends Scholarship{
         $this->setDeadline($deadline);
     }
 
-    static function Factory($data){
+    static function DataMap($data){
         $scholarship = new OfflineScholarship(
             $data['code'], $data['name'], $data['description'], $data['active'], 
             $data['internal'], $data['url'], $data['deadline']);

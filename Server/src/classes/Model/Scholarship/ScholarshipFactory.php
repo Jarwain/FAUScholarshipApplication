@@ -3,27 +3,28 @@ namespace ScholarshipApi\Model\Scholarship;
 
 class ScholarshipFactory{
 
-    static function bulkInitialize($type, $data, array $requirements = Null, array $questions = Null){
+    function __construct(){
+
+    }
+
+    function bulkInitialize($type, $data){
         $scholarships = [];
 
         foreach($data as $sch){
             $code = $sch['code'];
-            $require = $requirements;
-            $question = $questions;
-
-            $scholarships[$code] = self::initialize($type, $sch, $require, $question);
+            $scholarships[$code] = $this->initialize($type, $sch);
         }
         
         return $scholarships;
     }
 
-    static function initialize($type, $data, array $requirements = Null, array $questions = Null){
+    function initialize($type, $data){
         switch($type){
             case 'online':
-                return OnlineScholarship::Factory($data, $requirements, $questions);
+                return OnlineScholarship::DataMap($data);
                 break;
             case 'offline':
-                return OfflineScholarship::Factory($data);
+                return OfflineScholarship::DataMap($data);
                 break;
             default:
                 throw new \DomainException("Invalid Scholarship Type");

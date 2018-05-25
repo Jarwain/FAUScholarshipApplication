@@ -3,17 +3,15 @@ namespace ScholarshipApi\Model\Scholarship;
 
 class ScholarshipDatabase implements ScholarshipStore{
     var $db;
-    var $factory;
 
     var $online;
     var $offline;
 
     function __construct(\PDO $db, ScholarshipFactory $factory){
         $this->db = $db;
-        $this->factory = $factory;
 
-        $this->online = new OnlineScholarshipDatabase($this->db);
-        $this->offline = new OfflineScholarshipDatabase($this->db);
+        $this->online = new OnlineScholarshipDatabase($this->db, $factory);
+        $this->offline = new OfflineScholarshipDatabase($this->db, $factory);
     }
 
     private function isOnline($code){
@@ -33,23 +31,17 @@ class ScholarshipDatabase implements ScholarshipStore{
     }
 
     function get($code){
-        if($this->isOnline($code)){
-            $type = 'online';
-            $scholarship = $this->online->get($code);
-        } else {
-            $type = 'offline';
-            $scholarship = $this->offline->get($code);
-        }
-
-        return $this->factory->initialize($type, $scholarship);
+        return $this->isOnline($code) ? 
+            $this->online->get($code) :
+            $this->offline->get($code);
     }
 
     function getOnline(){
-        return $this->factory->bulkInitialize('online', $this->online->getAll());
+        return $this->online->getAll();
     }
 
     function getOffline(){
-        return $this->factory->bulkInitialize('offline', $this->offline->getAll());
+        return $this->offline->getAll();
     }
 
     function getAll(){

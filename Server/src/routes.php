@@ -7,8 +7,8 @@ $app->group('/scholarship', function() use ($app){
     $app->get('/[{code}/]', 'ScholarshipApi\Controller\ScholarshipController:get');
 });
 
-$app->group('/scholarship', function() use ($app){
-    $app->get('/[{code}/]', 'ScholarshipApi\Controller\ScholarshipController:get');
+$app->group('/qualifier', function() use ($app){
+    $app->get('/[{id}/]', 'ScholarshipApi\Controller\QualifierController:get');
 });
 
 

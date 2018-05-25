@@ -4,8 +4,9 @@ namespace ScholarshipApi\Model\Scholarship;
 class OfflineScholarshipDatabase{
     var $db;
 
-    function __construct(\PDO $db){
+    function __construct(\PDO $db, ScholarshipFactory $factory){
         $this->db = $db;
+        $this->factory = $factory;
     }    
 
     function getAll(){
@@ -13,7 +14,7 @@ class OfflineScholarshipDatabase{
                     FROM `offline_scholarship` s";
         $result = $this->db->query($query)->fetchAll();
 
-        return $result;
+        return $this->factory->bulkInitialize('offline', $result);
     }
 
     function get($code){
@@ -26,7 +27,7 @@ class OfflineScholarshipDatabase{
         $stmnt->execute();
         $result = $stmnt->fetch();
 
-        return $result;
+        return $this->factory->initialize('offline', $result);
     } 
     
     /*public function save($sch){
