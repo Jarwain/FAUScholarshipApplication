@@ -4,14 +4,12 @@ namespace ScholarshipApi\Model\Qualifier;
 use Respect\Validation\Validator as v;
 
 class RangeQualifier extends Qualifier{
-    var $start;
-    var $end;
+    var $range;
 
-    function __construct($id, $name, $type, $question, $start, $end, $options = []){
+    function __construct($id, $name, $type, $question, $range, $options = []){
         parent::__construct($id, $name, $type, $question, $options);
 
-        $this->start = $start;
-        $this->end = $end;
+        $this->range = $range;
     }
 
     static function DataMap(array $data){
@@ -22,7 +20,7 @@ class RangeQualifier extends Qualifier{
             'length_message' => $opt['length_message'] ?? Null
         ];
         return new RangeQualifier($data['id'], $data['name'], $data['type'], $data['question'], 
-                                    $param[0], $param[1], $options);
+                                    $param, $options);
     }
 
     /**
@@ -36,8 +34,8 @@ class RangeQualifier extends Qualifier{
             return $this->options['length_message'];
         }
 
-        $start = $valid[0] ?? $this->start;
-        $end = $valid[1] ?? $this->end;
+        $start = $valid[0] ?? $this->range[0];
+        $end = $valid[1] ?? $this->range[1];
         $validator = v::floatVal()->between($start, $end, True);
 
         try{

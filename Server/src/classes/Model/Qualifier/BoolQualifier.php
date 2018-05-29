@@ -5,13 +5,12 @@ use Respect\Validation\Validator as v;
 
 class BoolQualifier extends Qualifier{
 
-    function __construct($id, $name, $form, $question){
-        parent::__construct($id, $name, $form, $question);
-        $this->type = 'bool';
+    function __construct($id, $name, $type, $question){
+        parent::__construct($id, $name, $type, $question);
     }
 
     static function DataMap(array $data){
-        return new BoolQualifier($data['id'], $data['name'], $data['form'], $data['question']);
+        return new BoolQualifier($data['id'], $data['name'], $data['type'], $data['question']);
     }
 
     /**

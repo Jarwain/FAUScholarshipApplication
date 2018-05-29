@@ -1,10 +1,13 @@
 <?php
 namespace ScholarshipApi\Model\Scholarship;
 
+use ScholarshipApi\Model\Requirement\RequirementStore;
+
 class ScholarshipFactory{
+    private $requirements;
 
-    function __construct(){
-
+    function __construct(RequirementStore $requirements){
+        $this->requirements = $requirements;
     }
 
     function bulkInitialize($type, $data){
@@ -21,7 +24,9 @@ class ScholarshipFactory{
     function initialize($type, $data){
         switch($type){
             case 'online':
-                return OnlineScholarship::DataMap($data);
+                $sch = OnlineScholarship::DataMap($data);
+                $sch->addRequirements($this->requirements->get($sch->getCode()));
+                return $sch;
                 break;
             case 'offline':
                 return OfflineScholarship::DataMap($data);

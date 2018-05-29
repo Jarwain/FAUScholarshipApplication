@@ -1,29 +1,24 @@
 <?php
-namespace ScholarshipApi\Repository;
+namespace ScholarshipApi\Model\Qualifier;
 
-use ScholarshipApi\Repository\DataAccessObject\QualifierDatabase;
-use ScholarshipApi\Entity\Qualifier;
+class QualifierRepository implements QualifierStore{
+    private $qualifiers = Null;
 
-class QualifierRepository{
-    var $database;
-    var $cache; // TODO: (low priority)
+    private $database;
 
-    function __construct(\PDO $db){
-        $this->database = new QualifierDatabase($db);
+    function __construct(QualifierStore $database){
+        $this->database = $database;
     }
 
     function getAll(){
-        $data = $this->database->getAll();
-        $qualifiers = [];
-
-        foreach($data as $q){
-            $qualifiers[$q['id']] = Qualifier::Factory($q);
-        }
-
-        return $qualifiers;
+        $this->qualifiers = $this->qualifiers ?? 
+            $this->database->getAll();
+        return $this->qualifiers;
     }
 
     function get($id){
-        return Qualifier::Factory($this->database->get($id));
+        $q = $this->qualifiers[$id] ??
+            $this->database->get($id);
+        return $q;
     }
 }

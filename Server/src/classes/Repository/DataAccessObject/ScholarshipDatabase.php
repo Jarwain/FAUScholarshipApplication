@@ -35,11 +35,11 @@ class ScholarshipDatabase extends AbstractDatabase {
             [$this->offline->get($code), false];
     }
 
-    function getAllOnline(){
+    function getOnline(){
         return $this->online->getAll();
     }
 
-    function getAllOffline(){
+    function getOffline(){
         return $this->offline->getAll();
     }
 }

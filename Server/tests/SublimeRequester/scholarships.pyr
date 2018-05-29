@@ -5,6 +5,7 @@ get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?online=0', headers
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/SFA020/', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/42/', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/FAKE/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/qualifier/', headers={'Accept': 'application/json'})
 
 # Add Scholarship
 post(

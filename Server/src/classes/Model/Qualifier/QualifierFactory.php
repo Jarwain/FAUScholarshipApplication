@@ -11,6 +11,9 @@ class QualifierFactory{
 
         foreach($data as $q){
             $id = $q['id'];
+            if(isset($q['options']) && is_string($q['options'])){
+                $q['options'] = json_decode($q['options'], true);
+            }
             $qualifiers[$id] = $this->initialize($q);
         }
         
@@ -23,13 +26,13 @@ class QualifierFactory{
                 return BoolQualifier::DataMap($data);
                 break;
             case 'range':
-                return OfflineScholarship::DataMap($data);
+                return RangeQualifier::DataMap($data);
                 break;
             case 'single':
-                return OfflineScholarship::DataMap($data);
+                return SingleQualifier::DataMap($data);
                 break;
             case 'multi':
-                return OfflineScholarship::DataMap($data);
+                return MultiQualifier::DataMap($data);
                 break;
             default:
                 throw new \DomainException("Invalid Qualifier Type");

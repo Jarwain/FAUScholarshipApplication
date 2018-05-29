@@ -23,7 +23,7 @@ class QualifierController {
 
         $qualifiers = $this->container->get('QualifierStore');
 
-        if(is_null($code)){
+        if(is_null($id)){
             $msg = "Get All Qualifiers";
             $data = $qualifiers->getAll();
         } else {

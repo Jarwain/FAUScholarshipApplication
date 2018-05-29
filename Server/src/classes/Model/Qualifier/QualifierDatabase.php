@@ -1,19 +1,19 @@
 <?php
 namespace ScholarshipApi\Model\Qualifier;
 
-class QualifierDatabase{
+class QualifierDatabase implements QualifierStore{
     var $db;
+    var $factory;
 
     function __construct(\PDO $db, QualifierFactory $factory){
         $this->db = $db;
+        $this->factory = $factory;
     }
 
     public function getAll(){
         $query = "SELECT id, name, type, question, options
                     FROM `qualifier`";
         $result = $this->db->query($query)->fetchAll();
-        
-        $result['options'] = json_decode($result['options'], true);
         
         return $this->factory->bulkInitialize($result);
     }
@@ -27,8 +27,6 @@ class QualifierDatabase{
         $stmnt->bindParam(':id', $id, \PDO::PARAM_STR);
         $stmnt->execute();
         $result = $stmnt->fetch();
-
-        $result['options'] = json_decode($result['options'], true);
 
         return $this->factory->initialize($result);
     } 

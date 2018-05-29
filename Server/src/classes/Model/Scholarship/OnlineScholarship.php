@@ -16,7 +16,7 @@ class OnlineScholarship extends Scholarship{
         $this->category = self::ONLINE;
     }
 
-    static function DataMap($data){
+    static function DataMap(array $data){
         return new OnlineScholarship(
             $data['code'], $data['name'], $data['description'], $data['active'], $data['max']);
     }

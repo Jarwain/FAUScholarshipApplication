@@ -3,10 +3,10 @@ namespace ScholarshipApi\Model\Scholarship;
 
 
 class ScholarshipRepository implements ScholarshipStore{
-    var $offline = Null;
-    var $online = Null;
+    private $offline = Null;
+    private $online = Null;
 
-    var $database;
+    private $database;
 
     function __construct(ScholarshipStore $database){
         $this->database = $database;
