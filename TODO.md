@@ -1,7 +1,14 @@
 TODO
 =====
-- Reevaluate/Redo the Scholarship/Qualifier/Requirement Interaction/Inheritance because whatever the heck it is right now is bogus
 
+## Server
+- Implement Questions
+- Implement Scholarship Creation/Saving
+- Implement Scholarship Updating
+- Implement Scholarship Deactivation
+- Implement Scholarship Deletion
+
+## Client
 - Single File Store!
 - Do Search Administration
   - CRUD Scholarships
