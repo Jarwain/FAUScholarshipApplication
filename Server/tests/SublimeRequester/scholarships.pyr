@@ -6,6 +6,9 @@ get('https://boc22finaid.fau.edu/scholarship/api/scholarship/SFA020/', headers={
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/42/', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/FAKE/', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/qualifier/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/qualifier/3/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/question/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/question/4/', headers={'Accept': 'application/json'})
 
 # Add Scholarship
 post(
@@ -150,8 +153,4 @@ post(
   }
 )
 
-# Scholarship Search
-get('https://boc22finaid.fau.edu/scholarship/api/search/', headers={'Accept': 'application/json'})
-get('https://boc22finaid.fau.edu/scholarship/api/search/?1=true&2=true&3=2.50&4=Sophomore&5=15&6=Good&7%5B%5D=Advanced+Holistic+Nursing&8%5B%5D=Dorothy+F.+Schmidt+College+of+Arts+and+Letters&9=false', headers={'Accept': 'application/json'})
-
-# Test Adding Scholarship
+# Edit Scholarship

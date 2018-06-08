@@ -34,8 +34,10 @@ class OnlineScholarship extends Scholarship{
     }
 
     function addRequirements(array $requirements){
-        foreach($requirements as $cat=>$reqs){
-            $this->requirements[$cat] = $reqs;
-        }
+        $this->requirements = $requirements;
+    }
+
+    function addQuestions(array $questions){
+        $this->questions = $questions;   
     }
 }

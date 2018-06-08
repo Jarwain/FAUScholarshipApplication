@@ -11,9 +11,6 @@ class QualifierFactory{
 
         foreach($data as $q){
             $id = $q['id'];
-            if(isset($q['options']) && is_string($q['options'])){
-                $q['options'] = json_decode($q['options'], true);
-            }
             $qualifiers[$id] = $this->initialize($q);
         }
         
@@ -21,6 +18,9 @@ class QualifierFactory{
     }
 
     function initialize($data){
+        if(isset($data['options']) && is_string($data['options'])){
+            $data['options'] = json_decode($data['options'], true);
+        }
         switch($data['type']){
             case 'bool':
                 return BoolQualifier::DataMap($data);

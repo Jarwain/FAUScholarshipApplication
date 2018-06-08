@@ -11,6 +11,10 @@ $app->group('/qualifier', function() use ($app){
     $app->get('/[{id}/]', 'ScholarshipApi\Controller\QualifierController:get');
 });
 
+$app->group('/question', function() use ($app){
+    $app->get('/[{id}/]', 'ScholarshipApi\Controller\QuestionController:get');
+});
+
 
 
 /*
