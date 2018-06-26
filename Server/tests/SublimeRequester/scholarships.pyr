@@ -20,7 +20,6 @@ post(
     "url": "https://www.dar.org/national-society/scholarships/american-indian",
     "description": "This scholarship is awarded to help Native Americans students of any age, any tribe and in any state striving to get an education at the undergraduate or graduate levels.  However, undergraduate students are given preference. All awards are judged based on financial need and academic achievement. Applicants must be Native Americans (proof of American Indian blood is required by letter or proof papers) in financial need and have a grade point average of 3.25 or higher. This is a one-time $4,000 award. Click the link above for more information.",
     "deadline": "2018-08-12",
-    "limit": 0,
     "active": True
   }
 )

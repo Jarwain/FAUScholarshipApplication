@@ -9,17 +9,11 @@ class OfflineScholarship extends Scholarship{
         $this->setCategoryByInternal($internal);
     }
 
-    static function DataMap(array $data){
-        return new OfflineScholarship(
-            $data['code'], $data['name'], $data['description'], $data['active'], 
-            $data['internal'], $data['url'], $data['deadline']);
-    }
-
     function setCategoryByInternal($internal){
         $this->category = $internal ? self::INTERNAL : self::EXTERNAL;
     }
 
     function isInternal(){
-        return $this->category == self::INTERNAL ? True : False;
+        return $this->category == self::INTERNAL;
     }
 }

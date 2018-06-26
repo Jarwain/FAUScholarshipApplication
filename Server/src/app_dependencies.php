@@ -49,7 +49,7 @@ $container['ScholarshipStore'] = function ($c) {
         $questions->getAllByScholarship();
         
         $factory = new ScholarshipApi\Model\Scholarship\ScholarshipFactory($requirements, $questions);
-        $database = new ScholarshipApi\Model\Scholarship\ScholarshipDatabase($c->get('db'), $factory);
+        $database = new ScholarshipApi\Model\Scholarship\ScholarshipDatabase($c->get('db'), $factory, $requirements, $questions);
 
         $repo = new ScholarshipApi\Model\Scholarship\ScholarshipRepository($database);
 

@@ -37,4 +37,10 @@ class ScholarshipRepository implements ScholarshipStore{
         return $scholarship;
     }
 
+    /*// If success, return scholarship code
+    // If fail, return reason (Or really an error will get thrown so)
+    function create($scholarship){
+        return $this->database->create($scholarship);
+    }*/
+
 }

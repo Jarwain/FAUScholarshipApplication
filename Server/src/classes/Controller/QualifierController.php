@@ -34,18 +34,4 @@ class QualifierController {
         $this->container->logger->debug($msg);
         return $response->withJson($data);
     }
-/*
-    public function getRequirements(Request $request, Response $response, $args){
-        $query = $request->getQueryParams();
-        $code = $args['code'] ?? NULL;
-
-        $scholarshipService = new ScholarshipService($this->container->db);
-
-        $msg = "Get Scholarship Requirements for";
-        $msg .= is_null($code)   ? 'All' : "$code";
-        $data = $scholarshipService->getRequirements($code);
-
-        $this->container->logger->debug($msg);
-        return $response->withJson($data);
-    }*/
 }

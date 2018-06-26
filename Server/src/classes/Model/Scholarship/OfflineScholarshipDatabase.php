@@ -30,18 +30,19 @@ class OfflineScholarshipDatabase{
         return $this->factory->initialize('offline', $result);
     } 
     
-    /*public function save($sch){
+    public function create($sch){
         $query = "INSERT INTO `offline_scholarship` (`name`,`description`,`active`,`internal`,`url`,`deadline`)
-            VALUES (:name, :descript, :active, :internal, :url, :deadline)";
-        $state = $this->db->prepare($query);
-        $internal = $sch->isInternal();
+            VALUES (:name, :description, :active, :internal, :url, :deadline)";
+        $stmt = $this->db->prepare($query);
 
-        $state->bindParam(':name', $sch->name, \PDO::PARAM_STR);
-        $state->bindParam(':descript', $sch->description, \PDO::PARAM_STR);
-        $state->bindParam(':active', $sch->active, \PDO::PARAM_INT);
-        $state->bindParam(':internal', $internal, \PDO::PARAM_INT);
-        $state->bindParam(':url', $sch->url, \PDO::PARAM_STR);
-        $state->bindParam(':deadline', $sch->deadline, \PDO::PARAM_STR);
-        $state->execute();
-    }*/
+        $stmt->bindParam(':name', $sch['name'], \PDO::PARAM_STR);
+        $stmt->bindParam(':description', $sch['description'], \PDO::PARAM_STR);
+        $stmt->bindParam(':active', $sch['active'], \PDO::PARAM_INT);
+        $stmt->bindParam(':internal', $sch['internal'], \PDO::PARAM_INT);
+        $stmt->bindParam(':url', $sch['url'], \PDO::PARAM_STR);
+        $stmt->bindParam(':deadline', $sch['deadline'], \PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $this->db->lastInsertId();
+    }
 }

@@ -51,4 +51,8 @@ class QuestionDatabase implements QuestionStore{
 
         return $result;//$this->factory->groupByScholarship($result);
     } 
+
+    function saveQuestionToScholarship($code, $questionId){
+        
+    }
 }

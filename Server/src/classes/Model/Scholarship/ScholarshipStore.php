@@ -8,4 +8,7 @@ interface ScholarshipStore{
     function getAll();
     function getOnline();
     function getOffline();
+
+    function create($scholarship);
+    // function update($scholarship);
 }

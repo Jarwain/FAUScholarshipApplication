@@ -24,4 +24,8 @@ class RequirementRepository implements RequirementStore{
 
         return $requirement;
     }
+
+    function create($code, $data){
+        return $this->database->create($code, $data);
+    }
 }

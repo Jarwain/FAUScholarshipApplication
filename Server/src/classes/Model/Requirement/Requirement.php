@@ -29,9 +29,6 @@ class Requirement{
         return $this->id;
     }
 
-    function getScholarshipCode(){
-        return $this->scholarship_code;
-    }
 
     function getCategory(){
         return $this->category;

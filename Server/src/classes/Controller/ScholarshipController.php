@@ -40,18 +40,27 @@ class ScholarshipController {
         $this->container->logger->debug($msg);
         return $response->withJson($data);
     }
-/*
-    public function getRequirements(Request $request, Response $response, $args){
-        $query = $request->getQueryParams();
-        $code = $args['code'] ?? NULL;
 
-        $scholarshipService = new ScholarshipService($this->container->db);
+    public function create(Request $request, Response $response, $args){
+        $body = $request->getParsedBody();
+        $scholarships = $this->container->get('ScholarshipStore');
 
-        $msg = "Get Scholarship Requirements for";
-        $msg .= is_null($code)   ? 'All' : "$code";
-        $data = $scholarshipService->getRequirements($code);
+        $msg = "Create Scholarship $body";
+        $data = $scholarships->create($body);
 
         $this->container->logger->debug($msg);
         return $response->withJson($data);
-    }*/
+    }
+
+    public function update(Request $request, Response $response, $args){
+        $code = $args['code'] ?? NULL;
+        $body = $request->getParsedBody();    
+    }
+
+    public function delete(Request $request, Response $response, $args){
+        $code = $args['code'] ?? NULL;
+        if(is_null($code)){
+
+        }
+    }
 }

@@ -28,5 +28,20 @@ class OnlineScholarshipDatabase{
         $result = $stmnt->fetch();
 
         return $this->factory->initialize('online', $result);
+    }
+
+    public function create($sch){
+        $query = "INSERT INTO `online_scholarship` (`code`,`name`,`description`,`active`,`max`)
+            VALUES (:code, :name, :description, :active, :max)";
+        $state = $this->db->prepare($query);
+
+        $state->bindParam(':code', $sch['code'], \PDO::PARAM_STR);
+        $state->bindParam(':name', $sch['name'], \PDO::PARAM_STR);
+        $state->bindParam(':description', $sch['description'], \PDO::PARAM_STR);
+        $state->bindParam(':active', $sch['active'], \PDO::PARAM_INT);
+        $state->bindParam(':max', $sch['max'], \PDO::PARAM_INT);
+        $state->execute();
+
+        return $sch['code'];
     } 
 }
