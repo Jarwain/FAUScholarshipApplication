@@ -2,7 +2,6 @@ TODO
 =====
 
 ## Server
-- Implement Questions
 - Implement Scholarship Creation/Saving
 - Implement Scholarship Updating
 - Implement Scholarship Deactivation
@@ -16,7 +15,3 @@ TODO
   - CRUD Qualifiers
 
 :::: To get more TODOs, search source for "// TODO" ::::
-
-If some scholarships need to be extended
-    Mark remainder 'inactive'
-    Allow the viewer to access 'inactive' scholarships

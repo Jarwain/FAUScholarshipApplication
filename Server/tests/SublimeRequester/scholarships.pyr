@@ -24,131 +24,46 @@ post(
   }
 )
 post(
-  'https://boc22finaid.fau.edu/scholarship/api/scholarship/',
-  json={
-    "category": 1,
-    "code": "TEST00"
-    "name": "TOTALLY A TEST",
-    "description": "This scholarship is awarded to help Native Americans students of any age, any tribe and in any state striving to get an education at the undergraduate or graduate levels.  However, undergraduate students are given preference. All awards are judged based on financial need and academic achievement. Applicants must be Native Americans (proof of American Indian blood is required by letter or proof papers) in financial need and have a grade point average of 3.25 or higher. This is a one-time $4,000 award. Click the link above for more information.",
+    'https://boc22finaid.fau.edu/scholarship/api/scholarship/',
+    headers={'Accept': 'application/json'},
+    json={
     "active": True,
+    "category": 1,
+    "code": "AAA000",
+    "deadline": None,
+    "description": "The Richard and Mary Cook Business Scholarship is awarded to an incoming undergraduate freshman or a first year or transfer student, who are business graduates of Northeast High School in Ft. Lauderdale, Florida. Student must have demonstrated need. A completed FAFSA is required to be considered for this scholarship.",
     "max": 100,
-    "requirements": {
-      "*": {
-        "1": {
-          "category": "*",
-          "form": "bool",
-          "name": "fafsa",
-          "param": None,
-          "qualifier": 1,
-          "question": "Completed FAFSA",
-          "regex": None,
-          "valid": None
-        },
-        "2": {
-          "category": "*",
-          "form": "bool",
-          "name": "need",
-          "param": None,
-          "qualifier": 2,
-          "question": "Demonstrates Financial Need",
-          "regex": None,
-          "valid": None
-        },
-        "3": {
-          "category": "*",
-          "form": "range",
-          "name": "gpa",
-          "param": [
-            0,
-            4
-          ],
-          "qualifier": 3,
-          "question": "GPA",
-          "regex": None,
-          "valid": [
-            2,
-            4
-          ]
-        }
+    "name": "Richard and Mary Cook Business Scholarship Endowment Fund",
+    "questions": [1],
+    "requirements": [
+      {
+        "category": "*",
+        "id": "168",
+        "qualifier": 1,
+        "valid": None
       },
-      "a": {
-        "4": {
-          "category": "a",
-          "form": "single",
-          "name": "year",
-          "param": [
-            "Freshman",
-            "Sophomore",
-            "Junior",
-            "Senior",
-            "Graduate",
-            "Other"
-          ],
-          "qualifier": 4,
-          "question": "Class Standing",
-          "regex": None,
-          "valid": [
-            "Graduate"
-          ]
-        },
-        "5": {
-          "category": "a",
-          "form": "range",
-          "name": "credits",
-          "param": [
-            0,
-            18
-          ],
-          "qualifier": 5,
-          "question": "Upcoming Credit Hours",
-          "regex": None,
-          "valid": [
-            5,
-            18
-          ]
-        }
+      {
+        "category": "*",
+        "id": "169",
+        "qualifier": 2,
+        "valid": None
       },
-      "b": {
-        "4": {
-          "category": "b",
-          "form": "single",
-          "name": "year",
-          "param": [
-            "Freshman",
-            "Sophomore",
-            "Junior",
-            "Senior",
-            "Graduate",
-            "Other"
-          ],
-          "qualifier": 4,
-          "question": "Class Standing",
-          "regex": None,
-          "valid": [
-            "Freshman",
-            "Sophomore",
-            "Junior",
-            "Senior"
-          ]
-        },
-        "5": {
-          "category": "b",
-          "form": "range",
-          "name": "credits",
-          "param": [
-            0,
-            18
-          ],
-          "qualifier": 5,
-          "question": "Upcoming Credit Hours",
-          "regex": None,
-          "valid": [
-            6,
-            18
-          ]
-        }
+      {
+        "category": "a",
+        "id": "170",
+        "qualifier": 4,
+        "valid": [
+          "Freshman"
+        ]
+      },
+      {
+        "category": "b",
+        "id": "171",
+        "qualifier": 9,
+        "valid": None
       }
-    }
+    ],
+    "url": None
   }
 )
 

@@ -5,9 +5,9 @@ class QualifierDatabase implements QualifierStore{
     var $db;
     var $factory;
 
-    function __construct(\PDO $db, QualifierFactory $factory){
+    function __construct(\PDO $db){
         $this->db = $db;
-        $this->factory = $factory;
+        $this->factory = new QualifierFactory();
     }
 
     public function getAll(){

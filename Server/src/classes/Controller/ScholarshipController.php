@@ -45,7 +45,7 @@ class ScholarshipController {
         $body = $request->getParsedBody();
         $scholarships = $this->container->get('ScholarshipStore');
 
-        $msg = "Create Scholarship $body";
+        $msg = "Create Scholarship " . json_encode($body);
         $data = $scholarships->create($body);
 
         $this->container->logger->debug($msg);

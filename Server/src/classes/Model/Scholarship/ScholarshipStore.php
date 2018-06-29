@@ -6,8 +6,6 @@ interface ScholarshipStore{
     // OOOR use a tag based system
     function get($code);
     function getAll();
-    function getOnline();
-    function getOffline();
 
     function create($scholarship);
     // function update($scholarship);

@@ -5,9 +5,9 @@ class QuestionDatabase implements QuestionStore{
     var $db;
     var $factory;
 
-    function __construct(\PDO $db, QuestionFactory $factory){
+    function __construct(\PDO $db){
         $this->db = $db;
-        $this->factory = $factory;
+        $this->factory = new QuestionFactory();
     }
 
     public function getAll(){

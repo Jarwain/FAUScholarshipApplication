@@ -9,16 +9,11 @@ class Requirement{
 
     // TODO: (maybe)Refactor so that there's $pass and $fail
 
-    function __construct($id = NULL, $category, $qualifier, $valid){
+    function __construct($id, $category, $qualifier, $valid){
         $this->id = $id;
         $this->category = $category;
         $this->qualifier = $qualifier;
         $this->valid = $valid;
-    }
-
-    static function DataMap(array $data){
-        return new Requirement($data['id'] ?? NULL, $data['category'], 
-            $data['qualifier'], $data['valid']);
     }
 
     function validate($term){

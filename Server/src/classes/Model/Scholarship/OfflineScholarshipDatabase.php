@@ -1,7 +1,7 @@
 <?php
 namespace ScholarshipApi\Model\Scholarship;
 
-class OfflineScholarshipDatabase{
+class OfflineScholarshipDatabase implements ScholarshipStore{
     var $db;
 
     function __construct(\PDO $db, ScholarshipFactory $factory){
@@ -31,6 +31,8 @@ class OfflineScholarshipDatabase{
     } 
     
     public function create($sch){
+        $sch['internal'] = $sch['category'] == 2 ? 1 : 0;
+
         $query = "INSERT INTO `offline_scholarship` (`name`,`description`,`active`,`internal`,`url`,`deadline`)
             VALUES (:name, :description, :active, :internal, :url, :deadline)";
         $stmt = $this->db->prepare($query);

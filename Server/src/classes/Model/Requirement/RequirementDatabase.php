@@ -1,13 +1,15 @@
 <?php
 namespace ScholarshipApi\Model\Requirement;
 
+use ScholarshipApi\Model\Qualifier\QualifierStore;
+
 class RequirementDatabase implements RequirementStore {
     var $db;
     var $factory;
 
-    function __construct(\PDO $db, RequirementFactory $factory){
+    function __construct(\PDO $db, QualifierStore $qualifiers){
         $this->db = $db;
-        $this->factory = $factory;
+        $this->factory = new RequirementFactory($qualifiers);
     }
 
     public function getAll(){
@@ -15,7 +17,7 @@ class RequirementDatabase implements RequirementStore {
                     FROM `scholarship_requirements`";
         $result = $this->db->query($query)->fetchAll();
 
-        return $this->factory->bulkInitialize($result);
+        return $this->factory->initialize($result);
     }
 
     public function get($code){
@@ -32,6 +34,18 @@ class RequirementDatabase implements RequirementStore {
     } 
 
     public function create($code, $data){
-        $query = "INSERT ";
+        $valid = json_encode($data['valid']);
+
+        $query = "INSERT INTO `scholarship_requirements` (`sch_code`,`category`,`qualifier_id`,`valid`)
+            VALUES (:code, :cat, :qid, :valid)";
+        $stmnt = $this->db->prepare($query);
+
+        $stmnt->bindParam(':code', $code, \PDO::PARAM_STR);
+        $stmnt->bindParam(':cat', $data['category'], \PDO::PARAM_STR);
+        $stmnt->bindParam(':qid', $data['qualifier'], \PDO::PARAM_INT);
+        $stmnt->bindParam(':valid', $valid, \PDO::PARAM_STR);
+        $stmnt->execute();
+
+        return $this->db->lastInsertId();
     }
 }

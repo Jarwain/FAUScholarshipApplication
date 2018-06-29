@@ -1,13 +1,15 @@
 <?php
 namespace ScholarshipApi\Model\ScholarshipQuestion;
 
+use ScholarshipApi\Model\Question\QuestionStore;
+
 class ScholarshipQuestionDatabase implements ScholarshipQuestionStore{
     var $db;
     var $factory;
 
-    function __construct(\PDO $db, ScholarshipQuestionFactory $factory){
+    function __construct(\PDO $db, QuestionStore $questions){
         $this->db = $db;
-        $this->factory = $factory;
+        $this->factory = new ScholarshipQuestionFactory($questions);
     }
 
     public function getAll(){
@@ -31,7 +33,15 @@ class ScholarshipQuestionDatabase implements ScholarshipQuestionStore{
         return $this->factory->initialize($result);
     } 
 
-    function saveQuestionToScholarship($code, $questionId){
-        
+    function create($code, $question){
+        $query = "INSERT INTO `scholarship_questions` (`code`,`question`)
+            VALUES (:code, :question)";
+        $stmnt = $this->db->prepare($query);
+
+        $stmnt->bindParam(':code', $code, \PDO::PARAM_STR);
+        $stmnt->bindParam(':question', $question, \PDO::PARAM_INT);
+        $stmnt->execute();
+
+        return $this->db->lastInsertId();
     }
 }

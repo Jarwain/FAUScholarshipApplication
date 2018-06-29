@@ -18,9 +18,9 @@ class RequirementRepository implements RequirementStore{
         return $this->requirements;
     }
 
-    function get($code, $category = NULL, $qualifier_id = NULL){
+    function get($code){
         $requirement = $this->requirements[$code] ?? 
-            $this->database->get($code, $category, $qualifier_id);
+            $this->database->get($code);
 
         return $requirement;
     }

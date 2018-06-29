@@ -23,7 +23,7 @@ class RequirementFactory{
             } else {
                 if(!empty($batch)){
                     $r = $this->initialize($batch);
-                    $requirements[$code] = $r;
+                    $requirements[$prevCode] = $r;
                 }
                 $prevCode = $code;
                 $batch = [$req];
@@ -32,6 +32,7 @@ class RequirementFactory{
         return $requirements;
     }
 
+// TODO: Figure out the mismatch between requirements and scholarships!!!
     /**
      * Initializes all requirements for a single scholarship
      */
@@ -42,8 +43,7 @@ class RequirementFactory{
             if(isset($req['valid']) && is_string($req['valid'])){
                 $req['valid'] = json_decode($req['valid'], true);
             }
-            $r = Requirement::DataMap($req);
-            $requirements[$r->getCategory()][$r->getQualifierId()] = $r;
+            $requirements[$req['sch_code']][] = new Requirement($req['id'], $req['category'], $req['qualifier'], $req['valid']);
         }
         return $requirements;
     }

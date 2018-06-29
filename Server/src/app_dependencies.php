@@ -5,10 +5,9 @@
 
 $container['QuestionStore'] = function ($c) {
     try {
-        $factory = new ScholarshipApi\Model\Question\QuestionFactory();
-        $database = new ScholarshipApi\Model\Question\QuestionDatabase($c->get('db'), $factory);
-
+        $database = new ScholarshipApi\Model\Question\QuestionDatabase($c->get('db'));
         $repo = new ScholarshipApi\Model\Question\QuestionRepository($database);
+        $repo->getAll();
         return $repo;
     } catch (\Exception $ex) {
         $c->get('logger')->addError($ex);
@@ -17,10 +16,9 @@ $container['QuestionStore'] = function ($c) {
 
 $container['QualifierStore'] = function ($c) {
     try {
-        $factory = new ScholarshipApi\Model\Qualifier\QualifierFactory();
-        $database = new ScholarshipApi\Model\Qualifier\QualifierDatabase($c->get('db'), $factory);
-
+        $database = new ScholarshipApi\Model\Qualifier\QualifierDatabase($c->get('db'));
         $repo = new ScholarshipApi\Model\Qualifier\QualifierRepository($database);
+        $repo->getAll();
         return $repo;
     } catch (\Exception $ex) {
         $c->get('logger')->addError($ex);
@@ -30,11 +28,19 @@ $container['QualifierStore'] = function ($c) {
 $container['RequirementStore'] = function ($c) {
     try {
         $qualifiers = $c->get('QualifierStore');
-        $qualifiers->getAll(); // Initialize Qualifiers!
-        $factory = new ScholarshipApi\Model\Requirement\RequirementFactory($qualifiers);
-        $database = new ScholarshipApi\Model\Requirement\RequirementDatabase($c->get('db'), $factory);
-
+        $database = new ScholarshipApi\Model\Requirement\RequirementDatabase($c->get('db'), $qualifiers);
         $repo = new ScholarshipApi\Model\Requirement\RequirementRepository($database);
+        return $repo;
+    } catch (\Exception $ex) {
+        $c->get('logger')->addError($ex);
+    }
+};
+
+$container['ScholarshipQuestionStore'] = function ($c) {
+    try {
+        $questions = $c->get('QuestionStore');
+        $database = new ScholarshipApi\Model\ScholarshipQuestion\ScholarshipQuestionDatabase($c->get('db'), $questions);
+        $repo = new ScholarshipApi\Model\ScholarshipQuestion\ScholarshipQuestionRepository($database);
         return $repo;
     } catch (\Exception $ex) {
         $c->get('logger')->addError($ex);
@@ -45,12 +51,10 @@ $container['ScholarshipStore'] = function ($c) {
     try {
         $requirements = $c->get('RequirementStore');
         $requirements->getAll();
-        $questions = $c->get('QuestionStore');
-        $questions->getAllByScholarship();
+        $questions = $c->get('ScholarshipQuestionStore');
+        $questions->getAll();
         
-        $factory = new ScholarshipApi\Model\Scholarship\ScholarshipFactory($requirements, $questions);
-        $database = new ScholarshipApi\Model\Scholarship\ScholarshipDatabase($c->get('db'), $factory, $requirements, $questions);
-
+        $database = new ScholarshipApi\Model\Scholarship\ScholarshipDatabase($c->get('db'), $requirements, $questions);
         $repo = new ScholarshipApi\Model\Scholarship\ScholarshipRepository($database);
 
         return $repo;

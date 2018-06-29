@@ -1,12 +1,20 @@
 <?php
 namespace ScholarshipApi\Model\Scholarship;
 
-class OnlineScholarshipDatabase{
-    var $db;
+use ScholarshipApi\Model\Requirement\RequirementStore;
+use ScholarshipApi\Model\ScholarshipQuestion\ScholarshipQuestionStore;
 
-    function __construct(\PDO $db, ScholarshipFactory $factory){
+class OnlineScholarshipDatabase implements ScholarshipStore{
+    var $db;
+    var $factory;
+    var $requirements;
+    var $questions;
+
+    function __construct(\PDO $db, ScholarshipFactory $factory, RequirementStore $requirements, ScholarshipQuestionStore $questions){
         $this->db = $db;
         $this->factory = $factory;
+        $this->requirements = $requirements;
+        $this->questions = $questions;
     }
 
     function getAll(){
@@ -31,17 +39,33 @@ class OnlineScholarshipDatabase{
     }
 
     public function create($sch){
-        $query = "INSERT INTO `online_scholarship` (`code`,`name`,`description`,`active`,`max`)
-            VALUES (:code, :name, :description, :active, :max)";
-        $state = $this->db->prepare($query);
+        try{
+            $this->db->beginTransaction();
 
-        $state->bindParam(':code', $sch['code'], \PDO::PARAM_STR);
-        $state->bindParam(':name', $sch['name'], \PDO::PARAM_STR);
-        $state->bindParam(':description', $sch['description'], \PDO::PARAM_STR);
-        $state->bindParam(':active', $sch['active'], \PDO::PARAM_INT);
-        $state->bindParam(':max', $sch['max'], \PDO::PARAM_INT);
-        $state->execute();
+            $query = "INSERT INTO `online_scholarship` (`code`,`name`,`description`,`active`,`max`)
+                VALUES (:code, :name, :description, :active, :max)";
+            $stmnt = $this->db->prepare($query);
 
-        return $sch['code'];
+            $stmnt->bindParam(':code', $sch['code'], \PDO::PARAM_STR);
+            $stmnt->bindParam(':name', $sch['name'], \PDO::PARAM_STR);
+            $stmnt->bindParam(':description', $sch['description'], \PDO::PARAM_STR);
+            $stmnt->bindParam(':active', $sch['active'], \PDO::PARAM_INT);
+            $stmnt->bindParam(':max', $sch['max'], \PDO::PARAM_INT);
+            $stmnt->execute();
+
+            foreach($sch['requirements'] as $requirement){
+                $this->requirements->create($sch['code'], $requirement);
+            }
+            foreach($sch['questions'] as $questionId){
+                $this->questions->create($sch['code'], $questionId);
+            }
+
+            $this->db->commit();
+        } catch(Exception $ex){
+            $this->db->rollBack();
+            throw $ex;
+        }
+
+        return $this->db->lastInsertId();
     } 
 }

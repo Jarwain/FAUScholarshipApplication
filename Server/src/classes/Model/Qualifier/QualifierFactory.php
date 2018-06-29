@@ -2,9 +2,6 @@
 namespace ScholarshipApi\Model\Qualifier;
 
 class QualifierFactory{
-    function __construct(){
-
-    }
 
     function bulkInitialize($data){
         $qualifiers = [];

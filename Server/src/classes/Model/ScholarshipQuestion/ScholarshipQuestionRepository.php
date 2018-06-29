@@ -21,7 +21,7 @@ class ScholarshipQuestionRepository implements ScholarshipQuestionStore{
             $this->database->get($code);
     }
 
-    function saveQuestionToScholarship($code, $questionId){
-        
+    function create($code, $question){
+        return $this->database->create($code, $question);
     }
 }

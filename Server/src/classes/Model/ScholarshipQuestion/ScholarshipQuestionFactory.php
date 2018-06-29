@@ -7,7 +7,7 @@ class ScholarshipQuestionFactory{
     private $questions;
     
     function __construct(QuestionStore $questions){
-        $this->question = $questions;
+        $this->questions = $questions;
     }
 
     function initialize($data){

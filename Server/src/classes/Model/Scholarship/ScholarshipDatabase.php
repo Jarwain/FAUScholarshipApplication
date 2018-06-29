@@ -6,22 +6,17 @@ use ScholarshipApi\Model\ScholarshipQuestion\ScholarshipQuestionStore;
 
 class ScholarshipDatabase implements ScholarshipStore{
     var $db;
-    var $factory;
-    var $requirements;
-    var $questions;
 
     var $online;
     var $offline;
 
-    function __construct(\PDO $db, ScholarshipFactory $factory, RequirementStore $requirements, ScholarshipQuestionStore $questions){
+    function __construct(\PDO $db, RequirementStore $requirements, ScholarshipQuestionStore $questions){
         $this->db = $db;
-        $this->factory = $factory;
 
-        $this->requirements = $requirements;
-        $this->questions = $questions;
+        $factory = new ScholarshipFactory($requirements, $questions);
 
-        $this->online = new OnlineScholarshipDatabase($this->db, $this->factory);
-        $this->offline = new OfflineScholarshipDatabase($this->db, $this->factory);
+        $this->online = new OnlineScholarshipDatabase($this->db, $factory, $requirements, $questions);
+        $this->offline = new OfflineScholarshipDatabase($this->db, $factory);
     }
 
     /**
@@ -65,40 +60,22 @@ class ScholarshipDatabase implements ScholarshipStore{
         return $this->getOffline() + $this->getOnline();
     }
 
-    /*function create($data){
-        if(!is_null($this->isOnline($data['code']))){
-            throw new \UnexpectedValueException("Scholarship already exists with given code.");
+    /**
+     * Create/Save Scholarship
+     * @param  array $data Scholarship Data
+     * @return String       Scholarship Code
+     */
+    function create($data){
+        switch($data['category']){
+            case 1:
+                return $this->online->create($data);
+                break;
+            case 2:
+            case 3:
+                return $this->offline->create($data);
+                break;
+            default:
+                throw new \LogicException("Invalid Category");
         }
-
-        try{
-            $db->beginTransaction();
-            $scholarship = $data['category'] == 1 ? 
-                $this->createOnline($data) :
-                $this->createOffline($data);
-        } catch(\PDOException $ex) {
-            $db->rollBack();
-            throw $ex;
-        }
-        $db->commit();
-        return $scholarship;
     }
-
-    function createOffline($data){
-        $data['internal'] = $data['category'] ==function create($code, $data); 2 ? 1 : 0;
-        $code = $this->offline->create($data);
-        return $this->getOffline($code);
-    }
-
-    function createOnline($data){
-        $code = $this->online->create($data);
-        foreach($data['requirements'] as $category => $requirements){
-            foreach($requirements as $qualifierId => $requirement){
-                $this->requirements->create($code, $requirement);
-            }
-        }
-        foreach(array_values($data['questions']) as $questionId){
-            $this->questions->saveQuestionToScholarship($code, $questionId);
-        }
-        return $this->getOnline($code);
-    }*/
 }
