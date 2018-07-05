@@ -1,0 +1,66 @@
+# Scholarships
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?online=1', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?online=0', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/SFA020/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/42/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/FAKE/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/qualifier/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/qualifier/3/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/question/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/question/4/', headers={'Accept': 'application/json'})
+
+# Add Scholarship
+post(
+  'https://boc22finaid.fau.edu/scholarship/api/scholarship/',
+  headers={'Accept': 'application/json'},
+  json={
+    "category": 3,
+    "name": "National DAR American Indian Scholarship",
+    "url": "https://www.dar.org/national-society/scholarships/american-indian",
+    "description": "This scholarship is awarded to help Native Americans students of any age, any tribe and in any state striving to get an education at the undergraduate or graduate levels.  However, undergraduate students are given preference. All awards are judged based on financial need and academic achievement. Applicants must be Native Americans (proof of American Indian blood is required by letter or proof papers) in financial need and have a grade point average of 3.25 or higher. This is a one-time $4,000 award. Click the link above for more information.",
+    "deadline": "2018-08-12",
+    "active": True
+  }
+)
+post(
+    'https://boc22finaid.fau.edu/scholarship/api/scholarship/',
+    headers={'Accept': 'application/json'},
+    json={
+    "active": True,
+    "category": 1,
+    "code": "AAA000",
+    "deadline": None,
+    "description": "The Richard and Mary Cook Business Scholarship is awarded to an incoming undergraduate freshman or a first year or transfer student, who are business graduates of Northeast High School in Ft. Lauderdale, Florida. Student must have demonstrated need. A completed FAFSA is required to be considered for this scholarship.",
+    "max": 100,
+    "name": "Richard and Mary Cook Business Scholarship Endowment Fund",
+    "questions": [1],
+    "requirements": [
+      {
+        "category": "*",
+        "qualifier": 1,
+        "valid": None
+      },
+      {
+        "category": "*",
+        "qualifier": 2,
+        "valid": None
+      },
+      {
+        "category": "a",
+        "qualifier": 4,
+        "valid": [
+          "Freshman"
+        ]
+      },
+      {
+        "category": "b",
+        "qualifier": 9,
+        "valid": None
+      }
+    ],
+    "url": None
+  }
+)
+
+# Edit Scholarship

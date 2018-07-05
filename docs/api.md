@@ -1,18 +1,3 @@
-# To-Do:
-Get Scholarships
-Create Scholarships
-Create Qualifiers
-Create Scholarship Requirements
-Do Scholarship Search
-Do Scholarship Application
-Do Admin Panel
-
-STOP OVERCOMPLICATING THINGS
-Just KEEP IT SIMPLE STUPID
-
-RETURN EVERYTHING
-    Scholarship always returns Requirements and Questions, even if they aren't being used
-
 # Services
 
 ## Scholarship Eligibility Search (S)
