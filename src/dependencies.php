@@ -3,6 +3,10 @@
 
 $container = $app->getContainer();
 
+$container['session'] = function ($c) {
+  return new \SlimSession\Helper;
+};
+
 // view renderer
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];

@@ -3,7 +3,21 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 $app->group('/admin', function() use ($app){
+    $app->map(['GET', 'POST'], '/login/', 'ScholarshipApi\Controller\AdminController:login')->setName('login');
 
+    // Must be authenticated to access the group below
+    $app->group('', function() use ($app){
+        $app->get('/','ScholarshipApi\Controller\AdminController:home');
+    })->add(function($req, $res, $next){
+        if(false){
+            // If Authenticated, do next thing
+            $res = $next($req, $res);
+        } else {
+            $uri = $req->getBasePath() . '/admin/login/';
+            $res = $res->withRedirect($uri, 403);
+        }
+        return $res;
+    }); 
 });
 
 $app->group('/api', function() use ($app){
@@ -22,4 +36,8 @@ $app->group('/api', function() use ($app){
     $app->group('/question', function() use ($app){
         $app->get('/[{id}/]', 'ScholarshipApi\Controller\QuestionController:get');
     });
+})->add(function($req, $res, $next) {
+    $response = $next($req, $res);
+    // TODO: Reevaluate whether we reeally want this
+    return $response->withAddedHeader('Access-Control-Allow-Origin', '*');
 });

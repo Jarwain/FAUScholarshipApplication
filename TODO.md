@@ -1,17 +1,19 @@
 TODO
 =====
+- Build Admin Panel
+- Get Authentication Working
+- Get Logging working
+- New "Year" Generation
 
-## Server
-- Implement Scholarship Creation/Saving
+- Dedicate Week 7/9-7/13 to Admissions Scholarships
+
 - Implement Scholarship Updating
 - Implement Scholarship Deactivation
 - Implement Scholarship Deletion
 
-## Client
-- Single File Store!
-- Do Search Administration
-  - CRUD Scholarships
-  - CRUD Requirements
-  - CRUD Qualifiers
-
 :::: To get more TODOs, search source for "// TODO" ::::
+
+Done
+=====
+- Get Scholarships (Online&Offline)
+- Create Scholarships & Save to DB
