@@ -5,6 +5,8 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use \Interop\Container\ContainerInterface;
 
+use ScholarshipApi\Authenticator;
+
 class AdminController {
     protected $container;
     protected $renderer;
@@ -19,27 +21,27 @@ class AdminController {
     public function login(Request $request, Response $response){
         $this->session['login_attempt'] = $this->session['login_attempt'] ?? 0;
 
+        $auth = new Authenticator($this->container->get('db'), $this->container->get('logger'));
         if($request->isPost()){
-            if(false){ // Authentication passes
-
-                return $this->home($request, $response);
+            $body = $request->getParsedBody();
+            if($auth->authenticate($body['user'], $body['password'])){
+                $this->session['auth'] = [
+                    'user' => $body['user']
+                ];
+                $uri = $request->getUri()->getBasePath().'/admin/';
+                return $response->withRedirect($uri, 303);
             } else { // Authentication Fails
                 $this->session['login_attempt'] = $this->session['login_attempt'] + 1;
             }
-            // Do Authentication
-            // if Authenticated
-                // set session cookie
-                // redirect to 'home'
-            // if authentication fails
-                // Reload login page
         }
+
         $data = [
             'attempt' => $this->session['login_attempt']
         ];
-        return $this->renderer->render($response, "login.php")
+        return $this->renderer->render($response, "login.phtml", $data);
     }
 
     public function home(Request $request, Response $response){
-        
+        return $this->renderer->render($response, "index.phtml");
     }
 }

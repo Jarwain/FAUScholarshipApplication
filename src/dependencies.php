@@ -10,7 +10,10 @@ $container['session'] = function ($c) {
 // view renderer
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
-    return new Slim\Views\PhpRenderer($settings['template_path']);
+    $templateVars = [
+        'baseUrl' => $c->get('settings')['baseUrl']
+    ];
+    return new Slim\Views\PhpRenderer($settings['template_path'], $templateVars);
 };
 
 // monolog

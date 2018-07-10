@@ -8,12 +8,12 @@ $app->group('/admin', function() use ($app){
     // Must be authenticated to access the group below
     $app->group('', function() use ($app){
         $app->get('/','ScholarshipApi\Controller\AdminController:home');
-    })->add(function($req, $res, $next){
-        if(false){
+    })->add(function($req, $res, $next) {
+        if(isset($this->session['auth']['user'])){
             // If Authenticated, do next thing
             $res = $next($req, $res);
         } else {
-            $uri = $req->getBasePath() . '/admin/login/';
+            $uri = $req->getUri()->getBasePath() . '/admin/login/';
             $res = $res->withRedirect($uri, 403);
         }
         return $res;

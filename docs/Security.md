@@ -1,11 +1,12 @@
 Security
 =========
 
-## Authentication
+## Authentication Schema
 Authentication inspired by this [StackOverflow answer](https://stackoverflow.com/a/28953341)
     - $username and $password will be submitted via POST to /admin/login/
     - JWT Token is generated and saved to session/cookie
     - Token is checked for/required by all future requests. 
+    - Account name also added to cookie
 
 ## CSRF
 NOT IMPLEMENTED YET. 

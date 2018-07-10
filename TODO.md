@@ -1,5 +1,7 @@
 TODO
 =====
+- Test slim-session patch !!!
+
 - Build Admin Panel
 - Get Authentication Working
 - Get Logging working
