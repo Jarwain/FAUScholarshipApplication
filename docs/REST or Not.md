@@ -21,3 +21,6 @@ Server Monolith vs Client/Server RESTful API
 - Pointless
 - Extra work for minimal gain
 - Harder to maintain
+
+# Something in between
+Get the scaling of the API/Rest thing. Use SlimPHP to also deliver the webpages instead of mucking around with frontend javascript clients. 
