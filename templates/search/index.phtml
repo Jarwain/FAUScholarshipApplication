@@ -1,0 +1,66 @@
+<?= $this->fetch("/components/header.phtml"); ?>
+<main role="main" class="container">
+  <h2>Student Information</h2>
+  <p>Fill out as much as you can</p>
+  <form method="post">
+    <?php
+      foreach($qualifiers as $qualifier){
+        $class = get_class($qualifier);
+        switch($class){
+          case ScholarshipApi\Model\Qualifier\BoolQualifier::class: ?>
+            <div class='form-group row'>
+              <label class='col-sm-3 col-form-label' for='<?=$qualifier->getName()?>'><?=$qualifier->getQuestion()?></label>
+              <div class='col-sm-9'>
+                  <div class='form-check form-check-inline'>
+                      <input class='form-check-input' type='radio' name='<?=$qualifier->getName()?>' id='<?=$qualifier->getName()?>true' value='true'>
+                      <label class='form-check-label' for='<?=$qualifier->getName()?>true'>Yes</label>
+                  </div>
+                  <div class='form-check form-check-inline'>
+                      <input class='form-check-input' type='radio' name='<?=$qualifier->getName()?>' id='<?=$qualifier->getName()?>false' value='false'>
+                      <label class='form-check-label' for='<?=$qualifier->getName()?>false'>No</label>
+                  </div>
+              </div>
+            </div>
+            <?php
+            break;
+          case ScholarshipApi\Model\Qualifier\RangeQualifier::class: ?>
+            <div class='form-group'>
+              <label class='col-sm-3 col-form-label' for='<?=$qualifier->getName()?>'><?=$qualifier->getQuestion()?></label>
+              <input type='range' class='custom-range' min='<?=$qualifier->range[0]?>' max='<?=$qualifier->range[1]?>' step='<?=$qualifier->getOptions()['step']?>' id='<?=$qualifier->getName()?>'>
+            </div>
+            <?php
+            break;
+          case ScholarshipApi\Model\Qualifier\SingleQualifier::class: ?>
+            <div class='form-group'>
+              <label class='col-sm-3 col-form-label' for='<?=$qualifier->getName()?>'><?=$qualifier->getQuestion()?></label>
+              <select class='form-control' id='<?=$qualifier->getName()?>'>
+                <?php
+                foreach($qualifier->haystack as $option){
+                  echo "<option value='{$option}'>{$option}</option>";
+                }
+                ?>
+              </select>
+            </div>
+            <?php
+            break;
+          case ScholarshipApi\Model\Qualifier\MultiQualifier::class: ?>
+            <div class='form-group'>
+              <label class='col-sm-3 col-form-label' for='<?=$qualifier->getName()?>'><?=$qualifier->getQuestion()?></label>
+              <select multiple class='form-control' id='<?=$qualifier->getName()?>'>
+                <?php
+                foreach($qualifier->haystack as $option){
+                  echo "<option value='{$option}'>{$option}</option>";
+                }
+                ?>
+              </select>
+            </div>
+            <?php
+            break;
+        }
+        // $qualifier->renderInput();
+      }
+    ?>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</main>
+<?= $this->fetch("/components/footer.phtml"); ?>

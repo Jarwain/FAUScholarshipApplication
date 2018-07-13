@@ -3,6 +3,10 @@
 
 $container = $app->getContainer();
 
+$container['authenticator'] = function($c) {
+    return new \ScholarshipApi\Authenticator($c);
+};
+
 $container['session'] = function ($c) {
   return new \SlimSession\Helper;
 };

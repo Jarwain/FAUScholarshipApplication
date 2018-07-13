@@ -18,6 +18,20 @@ class SingleQualifier extends Qualifier{
         return new SingleQualifier($data['id'], $data['name'], $data['type'], $data['question'], $param, $options);
     }
 
+    function renderInput(){
+        $out = "
+        <div class='form-group'>
+            <label class='col-sm-3 col-form-label' for='{$this->getName()}'>{$this->getQuestion()}</label>
+            <select class='form-control' id='{$this->getName()}'>";
+        foreach($this->haystack as $option){
+            $out .= "<option value='{$option}'>{$option}</option>";
+        }
+        $out .=    "</select>
+        </div>
+        ";
+        echo $out;
+    }
+
     /**
      * Check if term is in $haystack. 
      * Returns True on success, returns reason on failure

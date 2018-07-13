@@ -1,4 +1,4 @@
-<?php include_once "components/header.phtml"; ?>
+<?= $this->fetch("/components/header.phtml"); ?>
 <main role="main" class="container">
   <?php if(isset($attempt) && $attempt > 0): ?>
     <div class="alert alert-danger" role="alert">
@@ -18,4 +18,4 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </main>
-<?php include_once "components/footer.phtml"; ?>
+<?= $this->fetch("/components/footer.phtml"); ?>

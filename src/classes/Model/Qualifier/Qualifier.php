@@ -17,9 +17,11 @@ abstract class Qualifier {
         $this->options = $options;
     }
 
-    abstract function validate($term, $valid = Null);
-
     abstract static function DataMap(array $data);
+
+    abstract function renderInput();
+
+    abstract function validate($term, $valid = Null);
 
     function getId(){
         return $this->id;

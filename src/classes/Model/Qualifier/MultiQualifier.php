@@ -15,7 +15,21 @@ class MultiQualifier extends Qualifier{
         $opt = $data['options'];
         $param = $opt['param'];
         $options = [];
-        return new SingleQualifier($data['id'], $data['name'], $data['type'], $data['question'], $param, $options);
+        return new MultiQualifier($data['id'], $data['name'], $data['type'], $data['question'], $param, $options);
+    }
+
+    function renderInput(){
+        $out = "
+        <div class='form-group'>
+            <label class='col-sm-3 col-form-label' for='{$this->getName()}'>{$this->getQuestion()}</label>
+            <select multiple class='form-control' id='{$this->getName()}'>";
+        foreach($this->haystack as $option){
+            $out .= "<option value='{$option}'>{$option}</option>";
+        }
+        $out .=    "</select>
+        </div>
+        ";
+        echo $out;
     }
 
     /**

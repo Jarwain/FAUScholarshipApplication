@@ -7,8 +7,7 @@ use \Interop\Container\ContainerInterface;
 
 use ScholarshipApi\Authenticator;
 
-class AdminController {
-    protected $container;
+class AdminController extends Controller{
     protected $renderer;
     protected $session;
 
