@@ -21,6 +21,14 @@ class SearchController extends AbstractController{
     }
 
     public function search(Request $request, Response $response){
-        
+        $body = $request->getParsedBody();
+        $headerValueArray = $request->getHeader('Accept');
+
+        if(in_array('application/json', $headerValueArray)){
+            // Return JSON results    
+        } else {
+            // return normal results
+        }
+
     }
 }
