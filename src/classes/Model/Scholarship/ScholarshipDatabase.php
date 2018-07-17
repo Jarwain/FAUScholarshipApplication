@@ -4,6 +4,7 @@ namespace ScholarshipApi\Model\Scholarship;
 use ScholarshipApi\Model\Requirement\RequirementStore;
 use ScholarshipApi\Model\ScholarshipQuestion\ScholarshipQuestionStore;
 
+// DEPRECATED
 class ScholarshipDatabase implements ScholarshipStore{
     var $db;
 

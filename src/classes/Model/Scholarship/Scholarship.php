@@ -10,11 +10,6 @@ abstract class Scholarship{
     var $url;
     var $deadline;
 
-    const ONLINE = 1;
-    const INTERNAL = 2;
-    const EXTERNAL = 3;
-    var $category = Null;
-
     function __construct($code, $name, $description, $active){
         $this->code = $code;
         $this->name = $name;
@@ -50,9 +45,5 @@ abstract class Scholarship{
     }
     function getDeadline(){
         return $this->deadline;
-    }
-
-    function getCategory(){
-        return $this->category;
     }
 }

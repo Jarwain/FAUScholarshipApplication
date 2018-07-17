@@ -54,7 +54,7 @@ $container['ScholarshipStore'] = function ($c) {
         $questions = $c->get('ScholarshipQuestionStore');
         $questions->getAll();
         
-        $database = new ScholarshipApi\Model\Scholarship\ScholarshipDatabase($c->get('db'), $requirements, $questions);
+        $database = new ScholarshipApi\Model\Scholarship\ApplicableScholarshipDatabase($c->get('db'), $requirements, $questions);
         $repo = new ScholarshipApi\Model\Scholarship\ScholarshipRepository($database);
 
         return $repo;

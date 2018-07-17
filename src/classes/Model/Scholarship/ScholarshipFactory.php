@@ -13,7 +13,7 @@ class ScholarshipFactory{
         $this->questions = $questions;
     }
 
-    function bulkInitialize($type, $data){
+    function bulkInitialize($data){
         $scholarships = [];
 
         $this->requirements->getAll(); // Cache Requirements & Questions
@@ -21,32 +21,19 @@ class ScholarshipFactory{
 
         foreach($data as $sch){
             $code = $sch['code'];
-            $scholarships[$code] = $this->initialize($type, $sch);
+            $scholarships[$code] = $this->initialize($sch);
         }
         
         return $scholarships;
     }
 
-    function initialize($type, $data){
-        switch($type){
-            case 'online':
-                $sch = new OnlineScholarship(
-                    $data['code'], $data['name'], $data['description'], $data['active'], 
-                    $data['max']);
-                $sch->addRequirements($this->requirements->get($sch->getCode()));
-                $sch->addQuestions($this->questions->get($sch->getCode()));
-                // TODO: Set URL & Deadline based on application details
-                return $sch;
-                break;
-            case 'offline':
-                return new OfflineScholarship(
-                    $data['code'], $data['name'], $data['description'], $data['active'], 
-                    $data['internal'], $data['url'], $data['deadline']);
-                break;
-            default:
-                throw new \DomainException("Invalid Scholarship Type");
-                break;
-        }
+    function initialize($data){
+        $sch = new ApplicableScholarship(
+            $data['code'], $data['name'], $data['description'], $data['active'], 
+            $data['max']);
+        $sch->addRequirements($this->requirements->get($sch->getCode()));
+        $sch->addQuestions($this->questions->get($sch->getCode()));
+        // TODO: Set URL & Deadline based on application details
+        return $sch;
     }
-
 }

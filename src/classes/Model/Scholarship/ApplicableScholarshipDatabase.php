@@ -4,30 +4,30 @@ namespace ScholarshipApi\Model\Scholarship;
 use ScholarshipApi\Model\Requirement\RequirementStore;
 use ScholarshipApi\Model\ScholarshipQuestion\ScholarshipQuestionStore;
 
-class OnlineScholarshipDatabase implements ScholarshipStore{
+class ApplicableScholarshipDatabase implements ScholarshipStore{
     var $db;
     var $factory;
     var $requirements;
     var $questions;
 
-    function __construct(\PDO $db, ScholarshipFactory $factory, RequirementStore $requirements, ScholarshipQuestionStore $questions){
+    function __construct(\PDO $db, RequirementStore $requirements, ScholarshipQuestionStore $questions){
         $this->db = $db;
-        $this->factory = $factory;
+        $this->factory = new ScholarshipFactory($requirements, $questions);
         $this->requirements = $requirements;
         $this->questions = $questions;
     }
 
     function getAll(){
         $query = "SELECT s.code, s.name, s.description, s.active, s.max
-                    FROM `online_scholarship` s";
+                    FROM `scholarship` s";
         $result = $this->db->query($query)->fetchAll();
 
-        return $this->factory->bulkInitialize('online', $result);
+        return $this->factory->bulkInitialize($result);
     }
 
     function get($code){
         $query = "SELECT s.code, s.name, s.description, s.active, s.max
-                    FROM `online_scholarship` s 
+                    FROM `scholarship` s 
                     WHERE s.code = :code";
         $stmnt = $this->db->prepare($query);
 
@@ -39,14 +39,14 @@ class OnlineScholarshipDatabase implements ScholarshipStore{
             throw new \OutOfBoundsException ("Scholarship '$code' doesn't exist.");
         }
 
-        return $this->factory->initialize('online', $result);
+        return $this->factory->initialize($result);
     }
 
     public function create($sch){
         try{
             $this->db->beginTransaction();
 
-            $query = "INSERT INTO `online_scholarship` (`code`,`name`,`description`,`active`,`max`)
+            $query = "INSERT INTO `scholarship` (`code`,`name`,`description`,`active`,`max`)
                 VALUES (:code, :name, :description, :active, :max)";
             $stmnt = $this->db->prepare($query);
 

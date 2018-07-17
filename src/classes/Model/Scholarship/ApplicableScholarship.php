@@ -2,7 +2,7 @@
 namespace ScholarshipApi\Model\Scholarship;
 
 // TODO: Rename OnlineScholarship to "ApplicableScholarship" or something that better captures its function
-class OnlineScholarship extends Scholarship{
+class ApplicableScholarship extends Scholarship{
     var $max;
 
     var $requirements;
@@ -13,7 +13,6 @@ class OnlineScholarship extends Scholarship{
 
         $max = $max ?? 0;
         $this->setMax($max);
-        $this->category = self::ONLINE;
     }
 
     function setMax(int $max = 0){

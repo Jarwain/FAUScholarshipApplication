@@ -24,7 +24,6 @@ class Requirement{
         return $this->id;
     }
 
-
     function getCategory(){
         return $this->category;
     }
