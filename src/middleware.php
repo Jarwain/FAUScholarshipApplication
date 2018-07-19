@@ -7,4 +7,6 @@ $app->add(new \Slim\Middleware\Session([
     'secure' => true,
     'httponly' => true
 ]));
+
+$app->add(new \ScholarshipApi\Middleware\TrailingSlash());
 // e.g: $app->add(new \Slim\Csrf\Guard);

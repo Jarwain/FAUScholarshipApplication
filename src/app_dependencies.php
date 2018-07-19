@@ -3,6 +3,16 @@
 // TODO: If a separate cache is desired, create a ScholarshipRepository class using the interface, have the cache use the interface, have the ScholarshipRepository decide whether to pull from the cache or from the database. 
 // TODO: Meta-program/figure out how to just pass the class names to get the dependencies
 
+$container['AuthenticationService'] = function($c) {
+    try {
+        $users = new ScholarshipApi\Model\User\UserDatabase($c->get('db'));
+        $auth = new ScholarshipApi\Service\Authentication($users, $c->get('logger'));
+        return $auth;
+    } catch(\Exception $ex) {
+        $c->get('logger')->addError($ex);
+    }
+};
+
 $container['QuestionStore'] = function ($c) {
     try {
         $database = new ScholarshipApi\Model\Question\QuestionDatabase($c->get('db'));

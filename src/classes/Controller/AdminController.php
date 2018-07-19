@@ -7,7 +7,7 @@ use \Interop\Container\ContainerInterface;
 
 use ScholarshipApi\Authenticator;
 
-class AdminController extends Controller{
+class AdminController extends AbstractController{
     protected $renderer;
     protected $session;
 
@@ -20,12 +20,12 @@ class AdminController extends Controller{
     public function login(Request $request, Response $response){
         $this->session['login_attempt'] = $this->session['login_attempt'] ?? 0;
 
-        $auth = new Authenticator($this->container->get('db'), $this->container->get('logger'));
         if($request->isPost()){
             $body = $request->getParsedBody();
-            if($auth->authenticate($body['user'], $body['password'])){
+            $auth = $this->container->get('AuthenticationService')->authorize($body['name'], $body['password']);
+            if($auth){
                 $this->session['auth'] = [
-                    'user' => $body['user']
+                    'user' => $body['name']
                 ];
                 $uri = $request->getUri()->getBasePath().'/admin/';
                 return $response->withRedirect($uri, 303);
@@ -37,7 +37,7 @@ class AdminController extends Controller{
         $data = [
             'attempt' => $this->session['login_attempt']
         ];
-        return $this->renderer->render($response, "login.phtml", $data);
+        return $this->renderer->render($response, "admin/login.phtml", $data);
     }
 
     public function home(Request $request, Response $response){
