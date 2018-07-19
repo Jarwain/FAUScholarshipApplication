@@ -1,4 +1,6 @@
 <?= $this->fetch("/components/header.phtml"); ?>
+<?php include "components/header.phtml"; ?>
+<?php print_r($this->getAttributes());?>
 <main role="main" class="container">
   <?php if(isset($attempt) && $attempt > 0): ?>
     <div class="alert alert-danger" role="alert">
@@ -8,8 +10,8 @@
   <h1 class="mb-1">Login</h1>
   <form method="post">
     <div class="form-group">
-      <label for="user">Username</label>
-      <input type="text" class="form-control" name="user" id="user" placeholder="Enter email">
+      <label for="name">Username</label>
+      <input type="text" class="form-control" name="name" id="name" placeholder="Enter email">
     </div>
     <div class="form-group">
       <label for="password">Password</label>
@@ -18,4 +20,4 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </main>
-<?= $this->fetch("/components/footer.phtml"); ?>
+<?= $this->fetch("/components/footer.phtml", $this->getAttributes()); ?>

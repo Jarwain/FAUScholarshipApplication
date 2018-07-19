@@ -35,12 +35,22 @@ class AdminController extends AbstractController{
         }
 
         $data = [
-            'attempt' => $this->session['login_attempt']
+            'attempt' => $this->session['login_attempt'],
+            'subtitle' => "Admin",
+            'styles' => [
+                '/dashboard.css'
+            ]
         ];
         return $this->renderer->render($response, "admin/login.phtml", $data);
     }
 
     public function home(Request $request, Response $response){
-        return $this->renderer->render($response, "index.phtml");
+        $data = [
+            'subtitle' => "Admin",
+            'styles' => [
+                '/dashboard.css'
+            ]
+        ];
+        return $this->renderer->render($response, "admin/index.phtml", $data);
     }
 }

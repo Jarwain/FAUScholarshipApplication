@@ -15,7 +15,9 @@ $container['session'] = function ($c) {
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
     $templateVars = [
-        'baseUrl' => $c->get('settings')['baseUrl']
+        'baseUrl' => $c->get('settings')['baseUrl'],
+        'title' => "FAU Scholarship",
+        'subtitle' => ""
     ];
     return new Slim\Views\PhpRenderer($settings['template_path'], $templateVars);
 };
