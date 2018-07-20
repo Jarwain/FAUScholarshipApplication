@@ -25,13 +25,8 @@ class ScholarshipController {
         $scholarships = $this->container->get('ScholarshipStore');
 
         if(is_null($code)){
-            if(is_null($online)){
-                $msg = "Get All Scholarships";
-                $data = $scholarships->getAll();
-            } else {
-                $msg = $online ? "Get All Scholarships Online" : "Get All Scholarships Offline";
-                $data = $online ? $scholarships->getOnline() : $scholarships->getOffline();
-            }
+            $msg = "Get All Scholarships";
+            $data = $scholarships->getAll();
         } else {
             $msg = "Get Scholarship $code";
             $data = $scholarships->get($code);
