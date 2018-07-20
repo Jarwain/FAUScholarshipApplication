@@ -1,13 +1,10 @@
-<?= $this->fetch("/components/header.phtml"); ?>
-<?php include "components/header.phtml"; ?>
-<?php print_r($this->getAttributes());?>
-<main role="main" class="container">
+<main role="main" class="container mt-3">
+  <h1 class="mb-1">Login</h1>
   <?php if(isset($attempt) && $attempt > 0): ?>
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger mt-3" role="alert">
       Invalid Username/Password.
     </div>
   <?php endif;?>
-  <h1 class="mb-1">Login</h1>
   <form method="post">
     <div class="form-group">
       <label for="name">Username</label>
@@ -20,4 +17,3 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </main>
-<?= $this->fetch("/components/footer.phtml", $this->getAttributes()); ?>

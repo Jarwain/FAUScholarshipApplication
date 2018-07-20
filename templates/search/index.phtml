@@ -26,29 +26,16 @@
           case ScholarshipApi\Model\Qualifier\RangeQualifier::class: ?>
             <div class='form-group'>
               <label class='col-sm-3 col-form-label' for='<?=$qualifier->getName()?>'><?=$qualifier->getQuestion()?></label>
-              <input type='range' class='custom-range' min='<?=$qualifier->range[0]?>' max='<?=$qualifier->range[1]?>' step='<?=$qualifier->getOptions()['step']?>' id='<?=$qualifier->getName()?>'>
+              <input type='range' class='custom-range' min='<?=$qualifier->getMin()?>' max='<?=$qualifier->getMax()?>' step='<?=$qualifier->getStep()?>' id='<?=$qualifier->getName()?>'>
             </div>
             <?php
             break;
-          case ScholarshipApi\Model\Qualifier\SingleQualifier::class: ?>
+          case ScholarshipApi\Model\Qualifier\SelectQualifier::class: ?>
             <div class='form-group'>
               <label class='col-sm-3 col-form-label' for='<?=$qualifier->getName()?>'><?=$qualifier->getQuestion()?></label>
-              <select class='form-control' id='<?=$qualifier->getName()?>'>
+              <select <?php if($qualifier->isMulti()) echo 'multiple'?> class='form-control' id='<?=$qualifier->getName()?>'>
                 <?php
-                foreach($qualifier->haystack as $option){
-                  echo "<option value='{$option}'>{$option}</option>";
-                }
-                ?>
-              </select>
-            </div>
-            <?php
-            break;
-          case ScholarshipApi\Model\Qualifier\MultiQualifier::class: ?>
-            <div class='form-group'>
-              <label class='col-sm-3 col-form-label' for='<?=$qualifier->getName()?>'><?=$qualifier->getQuestion()?></label>
-              <select multiple class='form-control' id='<?=$qualifier->getName()?>'>
-                <?php
-                foreach($qualifier->haystack as $option){
+                foreach($qualifier->getHaystack() as $option){
                   echo "<option value='{$option}'>{$option}</option>";
                 }
                 ?>
