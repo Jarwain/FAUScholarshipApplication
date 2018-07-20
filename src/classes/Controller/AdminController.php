@@ -39,8 +39,8 @@ class AdminController extends AbstractController{
             'styles' => [
                 '/dashboard.css'
             ],
-            'showSearch' => false,
-            'showSignOut' => false,
+            'hideSearch' => true,
+            'hideSignOut' => true,
             'body' => [
                 'template' => 'admin/login.phtml',
                 'data' => [
