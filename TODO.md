@@ -1,15 +1,12 @@
 TODO
 =====
-- Test slim-session patch !!!
-
 - Build Admin Panel
 - Get Authentication Working
 - Get Logging working
 - New "Year" Generation
 
-- Dedicate Week 7/9-7/13 to Admissions Scholarships
-
-- Implement Scholarship Updating
+- For database `save` and `delete`, use actual Objects instead of arrays
+- Validate that Scholarship Requirement is `valid` before saving
 - Implement Scholarship Deactivation
 - Implement Scholarship Deletion
 

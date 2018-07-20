@@ -35,13 +35,20 @@ class AdminController extends AbstractController{
         }
 
         $data = [
-            'attempt' => $this->session['login_attempt'],
             'subtitle' => "Admin",
             'styles' => [
                 '/dashboard.css'
+            ],
+            'showSearch' => false,
+            'showSignOut' => false,
+            'body' => [
+                'template' => 'admin/login.phtml',
+                'data' => [
+                    'attempt' => $this->session['login_attempt']
+                ]
             ]
         ];
-        return $this->renderer->render($response, "admin/login.phtml", $data);
+        return $this->renderer->render($response, "admin/admin_layout.phtml", $data);
     }
 
     public function home(Request $request, Response $response){
@@ -49,8 +56,18 @@ class AdminController extends AbstractController{
             'subtitle' => "Admin",
             'styles' => [
                 '/dashboard.css'
+            ],
+            'sidenav' => [
+                'template' => 'admin/sidenav.phtml',
+                'data' => [
+                ]
+            ],
+            'body' => [
+                'template' => 'admin/index.phtml',
+                'data' => [
+                ]
             ]
         ];
-        return $this->renderer->render($response, "admin/index.phtml", $data);
+        return $this->renderer->render($response, "admin/admin_layout.phtml", $data);
     }
 }

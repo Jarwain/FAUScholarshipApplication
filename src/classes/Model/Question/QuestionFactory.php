@@ -6,14 +6,6 @@ class QuestionFactory{
 
     }
 
-    function groupByScholarship($data){
-        $scholarships = [];
-        foreach($data as $sQ){
-            $scholarships[$sQ['code']][] = $sQ['question'];
-        }
-        return $scholarships;
-    }
-
     function bulkInitialize($data){
         $question = [];
 
@@ -30,14 +22,14 @@ class QuestionFactory{
             $data['options'] = json_decode($data['options'], true);
         }
         switch($data['type']){
-            case 'essay':
-                return EssayQuestion::DataMap($data);
+            case Question::TYPE_ESSAY:
+                return new EssayQuestion($data['id'], $data['question'], $data['options']);
                 break;
-            case 'file':
-                return FileQuestion::DataMap($data);
+            case Question::TYPE_FILE:
+                return new FileQuestion($data['id'], $data['question'], $data['options']);
                 break;
-            case 'video':
-                return VideoQuestion::DataMap($data);
+            case Question::TYPE_VIDEO:
+                return new VideoQuestion($data['id'], $data['question'], $data['options']);
                 break;
             default:
                 throw new \DomainException("Invalid Question Type");

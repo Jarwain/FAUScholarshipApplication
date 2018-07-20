@@ -42,12 +42,15 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
         return $this->factory->initialize($result);
     }
 
-    public function create($sch){
+    public function save($sch){
         try{
             $this->db->beginTransaction();
 
             $query = "INSERT INTO `scholarship` (`code`,`name`,`description`,`active`,`max`)
-                VALUES (:code, :name, :description, :active, :max)";
+                VALUES (:code, :name, :description, :active, :max)
+                ON DUPLICATE KEY UPDATE 
+                    name=VALUES(name), description=VALUES(description), 
+                    active=VALUES(active), max=VALUES(max)";
             $stmnt = $this->db->prepare($query);
 
             $stmnt->bindParam(':code', $sch['code'], \PDO::PARAM_STR);
@@ -57,8 +60,8 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
             $stmnt->bindParam(':max', $sch['max'], \PDO::PARAM_INT);
             $stmnt->execute();
 
-            $this->requirements->bind($sch['code'], $sch['requirements']);
-            $this->questions->bind($sch['code'], $sch['questions']);
+            $this->questions->save([$sch['code'] => $sch['questions']]);
+            $this->requirements->save([$sch['code']=> $sch['requirements']]);
 
             $this->db->commit();
         } catch(Exception $ex){
@@ -68,4 +71,8 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
 
         return $sch['code'];
     } 
+
+    public function delete($sch){
+        
+    }
 }

@@ -3,7 +3,7 @@
 
 $container = $app->getContainer();
 
-$container['authenticator'] = function($c) {
+$container['authenticator'] = function ($c) {
     return new \ScholarshipApi\Authenticator($c);
 };
 
@@ -11,7 +11,11 @@ $container['session'] = function ($c) {
   return new \SlimSession\Helper;
 };
 
-// view renderer
+// view renderers
+/*$container['view'] = function ($c) {
+    $view = new \Slim\Views\Twig
+};*/
+
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
     $templateVars = [

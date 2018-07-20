@@ -6,16 +6,14 @@ use Respect\Validation\Validator as v;
 class FileQuestion extends Question{
     var $filetype;
 
-    function __construct($id, $type, $question, $filetype, $options = []){
-        parent::__construct($id, $type, $question, $options);
+    function __construct($id, $question, $options = []){
+        $this->type = parent::TYPE_FILE;
+        $this->requiredOptions = ['filetype'];
 
-        $this->filetype = $filetype;
+        parent::__construct($id, $question, $options);
     }
 
-    static function DataMap(array $data){
-        $opt = $data['options'];
-        $options = [];
-        return new FileQuestion($data['id'], $data['type'], $data['question'], $opt['filetype'], $options);
+    function getFiletypes(){
+        return $this->getOption('filetype');
     }
-
 }

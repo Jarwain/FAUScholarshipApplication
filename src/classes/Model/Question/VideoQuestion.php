@@ -5,15 +5,10 @@ use Respect\Validation\Validator as v;
 
 class VideoQuestion extends Question{
 
-    function __construct($id, $type, $question, $options = []){
-        parent::__construct($id, $type, $question, $options);
+    function __construct($id, $question, $options = []){
+        $this->type = parent::TYPE_VIDEO;
+        $this->requiredOptions = [];
 
+        parent::__construct($id, $question, $options);
     }
-
-    static function DataMap(array $data){
-        $opt = $data['options'];
-        $options = [];
-        return new FileQuestion($data['id'], $data['type'], $data['question'], $options);
-    }
-
 }

@@ -5,9 +5,7 @@ use Slim\Http\Response;
 $app->group('/api', function() use ($app){
     $app->group('/scholarship', function() use ($app){
         $app->get(      '/[{code}/]',  'ScholarshipApi\Controller\ScholarshipController:get');
-        $app->post(     '/',           'ScholarshipApi\Controller\ScholarshipController:create');
-        $app->post(     '/{code}/',    'ScholarshipApi\Controller\ScholarshipController:update');
-        $app->put(      '/{code}/',    'ScholarshipApi\Controller\ScholarshipController:update');
+        $app->post(     '/[{code}/]',  'ScholarshipApi\Controller\ScholarshipController:save');
         $app->delete(   '/{code}/',    'ScholarshipApi\Controller\ScholarshipController:delete');
     });
 

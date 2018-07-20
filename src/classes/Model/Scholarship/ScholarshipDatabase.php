@@ -5,7 +5,7 @@ use ScholarshipApi\Model\Requirement\RequirementStore;
 use ScholarshipApi\Model\ScholarshipQuestion\ScholarshipQuestionStore;
 
 // DEPRECATED
-class ScholarshipDatabase implements ScholarshipStore{
+abstract class ScholarshipDatabase implements ScholarshipStore{
     var $db;
 
     var $online;
@@ -66,14 +66,14 @@ class ScholarshipDatabase implements ScholarshipStore{
      * @param  array $data Scholarship Data
      * @return String       Scholarship Code
      */
-    function create($data){
+    function save($data){
         switch($data['category']){
             case 1:
-                return $this->online->create($data);
+                return $this->online->save($data);
                 break;
             case 2:
             case 3:
-                return $this->offline->create($data);
+                return $this->offline->save($data);
                 break;
             default:
                 throw new \LogicException("Invalid Category");

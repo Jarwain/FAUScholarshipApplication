@@ -3,23 +3,31 @@ namespace ScholarshipApi\Model;
 
 abstract class AbstractRepository{
     private $local = Null;
-    private $source;
+    private $store;
 
-    function __construct(AbstractStore $source){
-        $this->source = $source;
+    function __construct(AbstractStore $store){
+        $this->store = $store;
+    }
+
+    protected function getStore(){
+        return $this->store;
     }
 
     function getAll(){
-        $this->local = $this->local ?? $this->source->getAll();
+        $this->local = $this->local ?? $this->store->getAll();
         return $this->local;
     }
 
     function get($id){
-        $item = $this->local[$id] ?? $this->source->get($id);
+        $item = $this->local[$id] ?? $this->store->get($id);
         return $item;
     }
 
-    function create($item){
-        return $this->source->create($item);
+    function save($item){
+        return $this->store->save($item);
+    }
+
+    function delete($id){
+        return $this->store->delete($id);
     }
 }

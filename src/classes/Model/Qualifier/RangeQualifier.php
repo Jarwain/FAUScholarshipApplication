@@ -4,29 +4,29 @@ namespace ScholarshipApi\Model\Qualifier;
 use Respect\Validation\Validator as v;
 
 class RangeQualifier extends Qualifier{
-    var $range;
 
-    function __construct($id, $name, $type, $question, $range, $options = []){
-        parent::__construct($id, $name, $type, $question, $options);
-
-        $this->range = $range;
+    function __construct($id, $name, $question, $options = []){
+        $this->type = parent::TYPE_RANGE; 
+        $this->requiredOptions = ['range'];
+        
+        parent::__construct($id, $name, $question, $options);
     }
 
-    static function DataMap(array $data){
-        $opt = $data['options'];
-        $param = $opt['param'];
-        $options = [
-            'step' => $opt['step'] ?? Null
-        ];
-        return new RangeQualifier($data['id'], $data['name'], $data['type'], $data['question'], 
-                                    $param, $options);
+    function getMin(){
+        return $this->getOption('range')[0];
+    }
+    function getMax(){
+        return $this->getOption('range')[1];
+    }
+    function getStep(){
+        return $this->getOption('step');
     }
 
     function renderInput(){
         $out = "
         <div class='form-group'>
             <label class='col-sm-3 col-form-label' for='{$this->getName()}'>{$this->getQuestion()}</label>
-            <input type='range' class='custom-range' min='{$this->range[0]}' max='{$this->range[1]}' step='{$this->getOptions()['step']}' id='{$this->getName()}'>
+            <input type='range' class='custom-range' min='{$this->getMin()}' max='{$this->getMax()}' step='{$this->getStep()}' id='{$this->getName()}'>
         </div>
         ";
         echo $out;
@@ -43,8 +43,8 @@ class RangeQualifier extends Qualifier{
             return $this->options['length_message'];
         }*/
 
-        $start = $valid[0] ?? $this->range[0];
-        $end = $valid[1] ?? $this->range[1];
+        $start = $valid[0] ?? $this->getMin();
+        $end = $valid[1] ?? $this->getMax();
         $validator = v::floatVal()->between($start, $end, True);
 
         try{

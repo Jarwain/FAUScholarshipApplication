@@ -5,12 +5,10 @@ use Respect\Validation\Validator as v;
 
 class BoolQualifier extends Qualifier{
 
-    function __construct($id, $name, $type, $question){
-        parent::__construct($id, $name, $type, $question);
-    }
-
-    static function DataMap(array $data){
-        return new BoolQualifier($data['id'], $data['name'], $data['type'], $data['question']);
+    function __construct($id, $name, $question, $options = []){
+        $this->type = parent::TYPE_BOOL;
+        
+        parent::__construct($id, $name, $question, $options);
     }
 
     function renderInput(){

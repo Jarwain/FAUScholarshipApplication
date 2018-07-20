@@ -4,13 +4,19 @@ namespace ScholarshipApi\Model\ScholarshipQuestion;
 use ScholarshipApi\Model\AbstractRepository;
 
 class ScholarshipQuestionRepository extends AbstractRepository implements ScholarshipQuestionStore{
-    function bind($code, $data){
-        foreach($data as $questionId){
-            $question = [
-                "code" => $code,
-                "question" => $questionId
-            ];
-            $this->create($question);
+    function save($data){
+        foreach($data as $code => $questions){
+            // Delete what exists
+            parent::delete($code);
+            $toSave = [];
+            foreach($questions as $questionId){
+                $toSave[] = [
+                    "code" => $code,
+                    "questionId" => $questionId
+                ];
+            }
+            // Save it all anew
+            parent::save($toSave);
         }
     }
 }

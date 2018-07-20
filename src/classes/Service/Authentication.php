@@ -18,7 +18,7 @@ class Authentication{
             if(password_verify($password, $user->getPassword())){
                 if(password_needs_rehash($user->getPassword(), PASSWORD_DEFAULT)){
                     $user->setPassword($password);
-                    $this->users->update($user);
+                    $this->users->save($user);
                 }
                 $this->log->info("Authorize {$user->getName()}: PASS");
                 return true;

@@ -1,23 +1,26 @@
 <?php
 namespace ScholarshipApi\Model\Qualifier;
 
+
 abstract class Qualifier {
-    var $id;
-    var $name;
-    var $question;
+    use \ScholarshipApi\Model\OptionTrait;
+    public $id;
+    public $name;
+    public $question;
 
-    var $type;
-    var $options;
+    public $type;
+    const TYPE_BOOL = 'bool';
+    const TYPE_RANGE = 'range';
+    const TYPE_SELECT = 'select';
 
-    function __construct($id, $name, $type, $question, $options = []){
+    function __construct($id, $name, $question, $options = []){
         $this->id = $id;
         $this->name = $name;
-        $this->type = $type;
         $this->question = $question;
         $this->options = $options;
-    }
 
-    abstract static function DataMap(array $data);
+        $this->checkRequiredOptions();
+    }
 
     abstract function renderInput();
 
@@ -34,8 +37,5 @@ abstract class Qualifier {
     }
     function getQuestion(){
         return $this->question;
-    }
-    function getOptions(){
-        return $this->options;
     }
 }

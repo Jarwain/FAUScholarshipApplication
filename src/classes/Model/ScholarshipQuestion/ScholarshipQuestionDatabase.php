@@ -33,15 +33,26 @@ class ScholarshipQuestionDatabase implements ScholarshipQuestionStore{
         return $this->factory->initialize($result);
     } 
 
-    function create($data){
+    function save($data){
         $query = "INSERT INTO `scholarship_questions` (`code`,`question`)
             VALUES (:code, :question)";
         $stmnt = $this->db->prepare($query);
 
-        $stmnt->bindParam(':code', $data['code'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':question', $data['question'], \PDO::PARAM_INT);
-        $stmnt->execute();
+        foreach($data as $question){
+            $stmnt->bindParam(':code', $question['code'], \PDO::PARAM_STR);
+            $stmnt->bindParam(':question', $question['questionId'], \PDO::PARAM_INT);
+            $stmnt->execute();
+            $stmnt->closeCursor();
+        }
 
         return $this->db->lastInsertId();
+    }
+
+    function delete($code){
+        $query = "DELETE FROM `scholarship_questions`
+                    WHERE code = :code";
+        $stmnt = $this->db->prepare($query);
+        $stmnt->bindParam(':code', $code, \PDO::PARAM_STR);
+        return $stmnt->execute();
     }
 }

@@ -4,10 +4,17 @@ namespace ScholarshipApi\Model\Requirement;
 use ScholarshipApi\Model\AbstractRepository;
 
 class RequirementRepository extends AbstractRepository implements RequirementStore{
-    function bind($code, $data){
-        foreach($data as $requirement){
-            $requirement['code'] = $code;
-            $this->create($requirement);
+    function save($data){
+        foreach($data as $code => $requirements){
+            // Delete what exists
+            parent::delete($code);
+            $toSave = [];
+            foreach($requirements as $requirement){
+                $requirement['code'] = $code;
+                $toSave[] = $requirement;
+            }
+            // Save it all anew
+            parent::save($toSave);
         }
     }
 }

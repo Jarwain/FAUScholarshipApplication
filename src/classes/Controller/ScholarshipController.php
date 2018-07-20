@@ -18,11 +18,8 @@ class ScholarshipController {
     ?online: if true, return online scholarships. if false, return offline scholarships. if null, return all. 
     */
     public function get(Request $request, Response $response, $args){
-        $query = $request->getQueryParams();
-        $code = $args['code'] ?? NULL;
-        $online = isset($query['online']) ? (bool)$query['online'] : NULL; 
-
         $scholarships = $this->container->get('ScholarshipStore');
+        $code = $args['code'] ?? NULL;
 
         if(is_null($code)){
             $msg = "Get All Scholarships";
@@ -36,20 +33,16 @@ class ScholarshipController {
         return $response->withJson($data);
     }
 
-    public function create(Request $request, Response $response, $args){
-        $body = $request->getParsedBody();
+    public function save(Request $request, Response $response, $args){
         $scholarships = $this->container->get('ScholarshipStore');
+        $body = $request->getParsedBody();
+        $code = $args['code'] ?? NULL;
 
-        $msg = "Create Scholarship " . json_encode($body);
-        $data = $scholarships->create($body);
+        $msg = "Save Scholarship " . json_encode($body);
+        $data = $scholarships->save($body);
 
         $this->container->logger->debug($msg);
         return $response->withJson($data);
-    }
-
-    public function update(Request $request, Response $response, $args){
-        $code = $args['code'] ?? NULL;
-        $body = $request->getParsedBody();    
     }
 
     public function delete(Request $request, Response $response, $args){

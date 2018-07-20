@@ -4,7 +4,7 @@ namespace ScholarshipApi\Model\User;
 class User {
     var $id;
     var $name;
-    var $password;
+    private $password;
 
     function __construct($name, $password){
         $this->id = $id;

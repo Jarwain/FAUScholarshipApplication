@@ -5,6 +5,6 @@ interface AbstractStore{
     function get($id);
     function getAll();
 
-    function create($item);
-    // function update($item);
+    function save($item);
+    function delete($id);
 }

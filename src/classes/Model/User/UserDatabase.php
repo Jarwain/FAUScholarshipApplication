@@ -29,18 +29,19 @@ class UserDatabase implements UserStore{
         }
     }
 
-    public function create($user){
+    public function save($user){
         $query = "INSERT INTO `user` (name, password)
-                    VALUES (:name, :pass)";
+                    VALUES (:name, :pass)
+                    ON DUPLICATE KEY UPDATE password=VALUES(password)";
         $stmnt = $this->db->prepare($query);
         $stmnt->execute([':name' => $user->getName(), ':pass' => $user->getPassword()]);
     }
 
-    public function update($user){
-        $query = "UPDATE `user`
-                    SET password = :pass 
+    public function delete($user){
+        $query = "DELETE FROM `user`
                     WHERE name = :name";
         $stmnt = $this->db->prepare($query);
-        $stmnt->execute([':name' => $user->getName(), ':pass' => $user->getPassword()]);
+        $stmnt->bindParam(':name', $user->getName(), \PDO::PARAM_STR);
+        return $stmnt->execute();
     }
 }

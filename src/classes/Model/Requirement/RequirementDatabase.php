@@ -33,19 +33,29 @@ class RequirementDatabase implements RequirementStore {
         return $this->factory->initialize($result);
     } 
 
-    public function create($data){
-        $valid = json_encode($data['valid']);
-
+    public function save($data){
         $query = "INSERT INTO `scholarship_requirements` (`sch_code`,`category`,`qualifier_id`,`valid`)
-            VALUES (:code, :cat, :qid, :valid)";
+            VALUES (:code, :cat, :qid, :valid)
+            ON DUPLICATE KEY UPDATE valid=VALUES(valid)";
         $stmnt = $this->db->prepare($query);
 
-        $stmnt->bindParam(':code', $data['code'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':cat', $data['category'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':qid', $data['qualifier'], \PDO::PARAM_INT);
-        $stmnt->bindParam(':valid', $valid, \PDO::PARAM_STR);
-        $stmnt->execute();
+        foreach($data as $req){
+            $stmnt->bindParam(':code', $req['code'], \PDO::PARAM_STR);
+            $stmnt->bindParam(':cat', $req['category'], \PDO::PARAM_STR);
+            $stmnt->bindParam(':qid', $req['qualifier'], \PDO::PARAM_INT);
+            $valid = json_encode($req['valid']);
+            $stmnt->bindParam(':valid', $valid, \PDO::PARAM_STR);
+            $stmnt->execute();
+        }
 
         return $this->db->lastInsertId();
+    }
+
+    function delete($code){
+        $query = "DELETE FROM `scholarship_requirements`
+                    WHERE sch_code = :code";
+        $stmnt = $this->db->prepare($query);
+        $stmnt->bindParam(':code', $code, \PDO::PARAM_STR);
+        return $stmnt->execute();
     }
 }
