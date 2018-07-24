@@ -19,8 +19,8 @@ $container['renderer'] = function ($c) {
         'title' => "FAU Scholarship",
         'subtitle' => ""
     ];
-    return new Slim\Views\PhpRenderer($settings['template_path'], $templateVars);
-    //return new ScholarshipApi\Util\BetterRenderer($settings['template_path'], $templateVars);
+    // return new Slim\Views\PhpRenderer($settings['template_path'], $templateVars);
+    return new ScholarshipApi\Util\BetterRenderer($settings['template_path'], $templateVars);
 };
 
 // monolog

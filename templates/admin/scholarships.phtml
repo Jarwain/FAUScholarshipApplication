@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="accordion">
-    <?php foreach($scholarships as $scholarship):?>
+    <?php foreach($data['scholarships'] as $scholarship):?>
       <?php 
         $heading = "heading{$scholarship->getCode()}";
         $collapse = "collapse{$scholarship->getCode()}";
@@ -33,7 +33,7 @@
         <div id="<?=$collapse?>" class="collapse" aria-labelledby="<?=$heading?>">
           <div class="card-body">
             <?=$scholarship->getDescription();?>
-            <a href="<?=$baseUrl?>/admin/scholarship/<?=$scholarship->getCode()?>/" class="card-link">
+            <a href="<?=$data['baseUrl']?>/admin/scholarship/<?=$scholarship->getCode()?>/" class="card-link">
               More Information
             </a>
           </div>

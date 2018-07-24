@@ -1,6 +1,6 @@
 <main role="main" class="container mt-3">
   <h1 class="mb-1">Login</h1>
-  <?php if(isset($attempt) && $attempt > 0): ?>
+  <?php if(isset($data['attempt']) && $data['attempt'] > 0): ?>
     <div class="alert alert-danger mt-3" role="alert">
       Invalid Username/Password.
     </div>
