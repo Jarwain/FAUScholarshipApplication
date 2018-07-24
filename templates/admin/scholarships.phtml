@@ -14,6 +14,7 @@
       <?php 
         $heading = "heading{$scholarship->getCode()}";
         $collapse = "collapse{$scholarship->getCode()}";
+        $url = "{$data['baseUrl']}admin/scholarship/{$scholarship->getCode()}/";
       ?>
       <div class="card <?=$scholarship->getActive() ? 'border-success' : 'border-danger'?>">
         <div class="card-header d-inline-flex justify-content-between" id="<?=$heading?>">
@@ -25,15 +26,15 @@
               </small>
             </button>
           </h5>
-          <button class="btn btn-outline-primary">
+          <a class="btn btn-outline-primary" role="button" href="<?=$url?>edit/">
             Edit
-          </button>
+          </a>
         </div>
 
         <div id="<?=$collapse?>" class="collapse" aria-labelledby="<?=$heading?>">
           <div class="card-body">
             <?=$scholarship->getDescription();?>
-            <a href="<?=$data['baseUrl']?>admin/scholarship/<?=$scholarship->getCode()?>/" class="card-link">
+            <a href="<?=$url?>/" class="card-link">
               More Information
             </a>
           </div>
