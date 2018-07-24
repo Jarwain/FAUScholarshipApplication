@@ -3,7 +3,7 @@ $dbconfig = json_decode(file_get_contents(__DIR__ . '/../settings.json'));
 
 return [
     'settings' => [
-        'baseUrl' => '/scholarship',
+        'baseUrl' => '/scholarship/',
 
         'displayErrorDetails' => true, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
