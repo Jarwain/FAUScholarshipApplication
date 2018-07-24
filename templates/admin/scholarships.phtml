@@ -1,0 +1,44 @@
+<main role="main" class="container">
+  <div class="d-flex justify-content-between flex-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Scholarships</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <button class="btn btn-primary">
+          Add Scholarship
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="accordion">
+    <?php foreach($scholarships as $scholarship):?>
+      <?php 
+        $heading = "heading{$scholarship->getCode()}";
+        $collapse = "collapse{$scholarship->getCode()}";
+      ?>
+      <div class="card <?=$scholarship->getActive() ? 'border-success' : 'border-danger'?>">
+        <div class="card-header d-inline-flex justify-content-between" id="<?=$heading?>">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#<?=$collapse?>" aria-expanded="true" aria-controls="<?=$collapse?>">
+              <?=$scholarship->getName();?>
+              <small class="text-muted">
+                <?=$scholarship->getCode();?>
+              </small>
+            </button>
+          </h5>
+          <button class="btn btn-outline-primary">
+            Edit
+          </button>
+        </div>
+
+        <div id="<?=$collapse?>" class="collapse" aria-labelledby="<?=$heading?>">
+          <div class="card-body">
+            <?=$scholarship->getDescription();?>
+            <a href="<?=$baseUrl?>/admin/scholarship/<?=$scholarship->getCode()?>/" class="card-link">
+              More Information
+            </a>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+</main>

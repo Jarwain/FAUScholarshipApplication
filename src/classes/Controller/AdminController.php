@@ -5,16 +5,18 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use \Interop\Container\ContainerInterface;
 
-use ScholarshipApi\Authenticator;
+use ScholarshipApi\Util\DataBuilder;
 
 class AdminController extends AbstractController{
     protected $renderer;
     protected $session;
+    protected $authenticator;
 
     public function __construct(ContainerInterface $container){
         $this->container = $container;
         $this->renderer = $container->get('renderer');
         $this->session = $container->get('session');
+        $this->authenticator = $container->get('authenticator');
     }
 
     public function login(Request $request, Response $response){
@@ -22,11 +24,9 @@ class AdminController extends AbstractController{
 
         if($request->isPost()){
             $body = $request->getParsedBody();
-            $auth = $this->container->get('AuthenticationService')->authorize($body['name'], $body['password']);
-            if($auth){
-                $this->session['auth'] = [
-                    'user' => $body['name']
-                ];
+
+            $this->authenticator->authenticate($body['name'], $body['password']);
+            if($this->authenticator->isAuthenticated()){
                 $uri = $request->getUri()->getBasePath().'/admin/';
                 return $response->withRedirect($uri, 303);
             } else { // Authentication Fails
@@ -34,40 +34,37 @@ class AdminController extends AbstractController{
             }
         }
 
-        $data = [
-            'subtitle' => "Admin",
-            'styles' => [
-                '/dashboard.css'
-            ],
-            'hideSearch' => true,
-            'hideSignOut' => true,
-            'body' => [
-                'template' => 'admin/login.phtml',
-                'data' => [
-                    'attempt' => $this->session['login_attempt']
-                ]
-            ]
-        ];
-        return $this->renderer->render($response, "admin/admin_layout.phtml", $data);
+        $dataBuilder = new DataBuilder();
+        $dataBuilder->addAttribute('subtitle', 'Admin');
+        $dataBuilder->addPart('body', 'admin/login.phtml', [
+            'attempt' => $this->session['login_attempt']
+        ]);
+
+        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
     }
 
-    public function home(Request $request, Response $response){
-        $data = [
-            'subtitle' => "Admin",
-            'styles' => [
-                '/dashboard.css'
-            ],
-            'sidenav' => [
-                'template' => 'admin/sidenav.phtml',
-                'data' => [
-                ]
-            ],
-            'body' => [
-                'template' => 'admin/index.phtml',
-                'data' => [
-                ]
-            ]
-        ];
-        return $this->renderer->render($response, "admin/admin_layout.phtml", $data);
+    public function logout(Request $request, Response $response){
+        $this->authenticator->revokeAuthentication();
+
+        $dataBuilder = new DataBuilder();
+        $dataBuilder->addAttribute('subtitle', 'Admin');
+        $dataBuilder->addPart('body', 'admin/logout.phtml');
+
+        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+    }
+
+    public function scholarshipList(Request $request, Response $response){
+        $dataBuilder = new DataBuilder();
+        $dataBuilder->addAttribute('subtitle','Admin');
+        $dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
+            'active' => 'scholarships'
+        ]);
+
+        $scholarships = $this->container->get('ScholarshipStore')->getAll();
+        $dataBuilder->addPart('body', 'admin/scholarships.phtml', [
+            'scholarships' => $scholarships
+        ]);
+
+        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
     }
 }

@@ -1,5 +1,5 @@
 <?php
-$dbconfig = json_decode(file_get_contents(__DIR__ . '/../.config/database'));
+$dbconfig = json_decode(file_get_contents(__DIR__ . '/../settings.json'));
 
 return [
     'settings' => [

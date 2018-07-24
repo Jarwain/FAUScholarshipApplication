@@ -1,7 +1,23 @@
 TODO
 =====
+- Rebuild Search
+- Rebuild Scholarship Applications 
+    
 - Build Admin Panel
-- Get Authentication Working
+    Scholarship
+        List
+        Create
+        Edit
+        Delete
+    Application
+        List
+        Decide
+        Delete
+
+I have 13 days.
+Should be done by 08/13. Leaves room for documentation and testing.
+
+
 - Get Logging working
 - New "Year" Generation
 

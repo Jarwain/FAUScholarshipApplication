@@ -36,18 +36,17 @@ class QualifierDatabase implements QualifierStore{
     }
 
     function save($item){
-        $query = "INSERT INTO `scholarship` (`code`,`name`,`description`,`active`,`max`)
-                    VALUES (:code, :name, :description, :active, :max)
+        $query = "INSERT INTO `qualifier` (`name`,`type`,`question`,`options`)
+                    VALUES (:name, :type, :question, :options)
                     ON DUPLICATE KEY UPDATE 
-                        name=VALUES(name), description=VALUES(description), 
-                        active=VALUES(active), max=VALUES(max)";
+                        name=VALUES(name), type=VALUES(type), 
+                        question=VALUES(question), options=VALUES(options)";
         $stmnt = $this->db->prepare($query);
 
-        $stmnt->bindParam(':code', $sch['code'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':name', $sch['name'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':description', $sch['description'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':active', $sch['active'], \PDO::PARAM_INT);
-        $stmnt->bindParam(':max', $sch['max'], \PDO::PARAM_INT);
+        $stmnt->bindParam(':name', $item['name'], \PDO::PARAM_STR);
+        $stmnt->bindParam(':type', $item['type'], \PDO::PARAM_STR);
+        $stmnt->bindParam(':question', $item['question'], \PDO::PARAM_INT);
+        $stmnt->bindParam(':options', $item['options'], \PDO::PARAM_INT);
         $stmnt->execute();
     }
 

@@ -3,10 +3,6 @@
 
 $container = $app->getContainer();
 
-$container['authenticator'] = function ($c) {
-    return new \ScholarshipApi\Authenticator($c);
-};
-
 $container['session'] = function ($c) {
   return new \SlimSession\Helper;
 };
@@ -24,6 +20,7 @@ $container['renderer'] = function ($c) {
         'subtitle' => ""
     ];
     return new Slim\Views\PhpRenderer($settings['template_path'], $templateVars);
+    //return new ScholarshipApi\Util\BetterRenderer($settings['template_path'], $templateVars);
 };
 
 // monolog
