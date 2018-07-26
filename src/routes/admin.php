@@ -9,7 +9,7 @@ $app->group('/admin', function() use ($app){
     // Must be authenticated to access the group below
     $app->group('', function() use ($app){
         $app->get('/','ScholarshipApi\Controller\AdminController:scholarshipList');
-        $app->get('/scholarship/','ScholarshipApi\Controller\AdminController:scholarshipList');
+        $app->get('/scholarship/[{code}/]','ScholarshipApi\Controller\AdminController:scholarshipView');
     })->add(function($req, $res, $next) {
         if($this->authenticator->isAuthenticated()){
             // If Authenticated, do next thing

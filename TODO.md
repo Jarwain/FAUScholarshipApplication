@@ -9,10 +9,27 @@ TODO
         Create
         Edit
         Delete
+    Qualifier
+        List
+        Create
+        Edit
+        Delete
+    Question
+        List
+        Create
+        Edit
+        Delete
+
     Application
         List
         Decide
         Delete
+
+Create Admissions DB on Wednesday||Thursday
+Done with Admin Scholarships by Friday 07/27
+Rebuilt Search & Application by Friday 08/03
+Application Viewer by Friday 08/10
+
 
 I have 13 days.
 Should be done by 08/13. Leaves room for documentation and testing.

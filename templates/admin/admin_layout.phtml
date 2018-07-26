@@ -11,9 +11,9 @@
 
     <!-- Core CSS -->
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous" />
     <!-- Sticky Footer! -->
-    <link href="<?=$data['baseUrl']?>css/sticky_footer.css" rel="stylesheet">    
+    <link href="<?=$data['baseUrl']?>css/sticky_footer.css" rel="stylesheet" />    
 
     <!-- Custom styles for this template -->
     <?php foreach ($data['styles'] as $style): ?>
@@ -22,6 +22,13 @@
 
   </head>
   <body>
+    <!-- <?php
+    if(isset($data['part'])){
+      foreach($data['part'] as $bodyPart){
+        echo $this->fetch($bodyPart['template'], $bodyPart['data']);
+      }
+    }
+    ?> -->
     <?php if(isset($data['part']['navbar'])){
       echo $this->fetch($data['part']['navbar']['template'], $data['part']['navbar']['data']);
     }?>
@@ -31,6 +38,11 @@
         <?= $this->fetch($data['part']['body']['template'], $data['part']['body']['data']); ?>
       </div>
     </div>
+    <!-- <?php if(isset($data['modals'])){
+      foreach($data['modals'] as $modal){
+        echo $this->fetch($modal['template'])
+      }
+    }?> -->
     <footer class="container-fluid">
       <span class="text-muted">Copyright © 2015-2018 FAU Office of Student Financial Aid. All rights reserved.</span>
     </footer>
@@ -41,6 +53,11 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+    <!-- Custom scripts for this template -->
+    <?php foreach ($data['scripts'] as $script): ?>
+    <script src="<?=$data['baseUrl']?>js/<?=$style?>" rel="stylesheet" /> 
+    <?php endforeach; ?>
 
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>

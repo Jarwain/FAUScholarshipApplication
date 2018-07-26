@@ -35,7 +35,7 @@ class AdminController extends AbstractController{
         }
 
         $dataBuilder = new DataBuilder();
-        $dataBuilder->addAttribute('subtitle', 'Admin');
+        $dataBuilder->addAttribute('subtitle', 'panel');
         $dataBuilder->addPart('body', 'admin/login.phtml', [
             'attempt' => $this->session['login_attempt']
         ]);
@@ -47,24 +47,33 @@ class AdminController extends AbstractController{
         $this->authenticator->revokeAuthentication();
 
         $dataBuilder = new DataBuilder();
-        $dataBuilder->addAttribute('subtitle', 'Admin');
+        $dataBuilder->addAttribute('subtitle', 'panel');
         $dataBuilder->addPart('body', 'admin/logout.phtml');
 
         return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
     }
 
-    public function scholarshipList(Request $request, Response $response){
-        $dataBuilder = new DataBuilder();
-        $dataBuilder->addAttribute('subtitle','Admin');
-        $dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
-            'active' => 'scholarships'
-        ]);
+    public function scholarshipView(Request $request, Response $response, $args){
+    	if(isset($args['code'])){
+    		$scholarships = $this->container->get('ScholarshipStore')->get($args['code']);
+    		$dataBuilder = new DataBuilder();
+    		$dataBuilder->addAttribute('subtitle','panel');
+    		$dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
 
-        $scholarships = $this->container->get('ScholarshipStore')->getAll();
-        $dataBuilder->addPart('body', 'admin/scholarships.phtml', [
-            'scholarships' => $scholarships
-        ]);
-
-        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+    		]);
+    		return $this->renderer->render($response, "admin/admin_layout.phtml");
+    	} else {
+	        $scholarships = $this->container->get('ScholarshipStore')->getAll();
+	        
+	        $dataBuilder = new DataBuilder();
+	        $dataBuilder->addAttribute('subtitle','panel');
+	        $dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
+	            'active' => 'scholarships'
+	        ]);
+	        $dataBuilder->addPart('body', 'admin/scholarships.phtml', [
+	            'scholarships' => $scholarships
+	        ]);
+	        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+    	}
     }
 }

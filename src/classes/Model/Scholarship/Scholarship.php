@@ -7,9 +7,6 @@ abstract class Scholarship{
     var $description;
     var $active;
 
-    var $url;
-    var $deadline;
-
     function __construct($code, $name, $description, $active){
         $this->code = $code;
         $this->name = $name;
@@ -31,19 +28,5 @@ abstract class Scholarship{
 
     function getActive(){
         return $this->active;
-    }
-
-    function setUrl($url){
-        $this->url = $url;
-    }
-    function getUrl(){
-        return $this->url;
-    }
-
-    function setDeadline($deadline){
-        $this->deadline = $deadline;
-    }
-    function getDeadline(){
-        return $this->deadline;
     }
 }
