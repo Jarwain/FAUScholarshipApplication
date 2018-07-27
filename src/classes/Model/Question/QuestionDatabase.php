@@ -36,20 +36,19 @@ class QuestionDatabase implements QuestionStore{
     }
 
     function save($item){
-        throw new Exception("Save question not implemented yet");
-        /*$query = "INSERT INTO `question` (`name`,`description`,`active`,`max`)
-                    VALUES (:code, :name, :description, :active, :max)
+        $query = "INSERT INTO `question` (`id`,`question`,`type`,`props`)
+                    VALUES (:id, :question, :type, :props, :max)
                     ON DUPLICATE KEY UPDATE 
-                        name=VALUES(name), description=VALUES(description), 
-                        active=VALUES(active), max=VALUES(max)";
+                        question=VALUES(question), type=VALUES(type), 
+                        props=VALUES(props)";
         $stmnt = $this->db->prepare($query);
 
-        $stmnt->bindParam(':code', $sch['code'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':name', $sch['name'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':description', $sch['description'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':active', $sch['active'], \PDO::PARAM_INT);
-        $stmnt->bindParam(':max', $sch['max'], \PDO::PARAM_INT);
-        $stmnt->execute();*/
+        $stmnt->bindParam(':id', $item['id'], \PDO::PARAM_STR);
+        $stmnt->bindParam(':question', $item['question'], \PDO::PARAM_STR);
+        $stmnt->bindParam(':type', $item['type'], \PDO::PARAM_STR);
+        $props = json_encode($item['props']);
+        $stmnt->bindParam(':props', $props, \PDO::PARAM_INT);
+        $stmnt->execute();
     }
 
     function delete($id){

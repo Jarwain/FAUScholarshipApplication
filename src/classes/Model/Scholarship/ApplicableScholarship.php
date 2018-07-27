@@ -24,7 +24,7 @@ class ApplicableScholarship extends Scholarship{
     }
 
     function addRequirement(Requirement $r){
-        $this->requirements[] = $r;
+        $this->requirements[$r->getCategory()][] = $r;
     }
 
     function setRequirements(array $requirements){

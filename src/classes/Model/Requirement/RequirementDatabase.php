@@ -33,22 +33,21 @@ class RequirementDatabase implements RequirementStore {
         return $this->factory->initialize($result);
     } 
 
-    public function save($data){
+    public function save($item){
         $query = "INSERT INTO `scholarship_requirements` (`sch_code`,`category`,`qualifier_id`,`valid`)
             VALUES (:code, :cat, :qid, :valid)
             ON DUPLICATE KEY UPDATE valid=VALUES(valid)";
         $stmnt = $this->db->prepare($query);
 
-        foreach($data as $req){
+        foreach($item as $req){
             $stmnt->bindParam(':code', $req['code'], \PDO::PARAM_STR);
             $stmnt->bindParam(':cat', $req['category'], \PDO::PARAM_STR);
             $stmnt->bindParam(':qid', $req['qualifier'], \PDO::PARAM_INT);
             $valid = json_encode($req['valid']);
             $stmnt->bindParam(':valid', $valid, \PDO::PARAM_STR);
             $stmnt->execute();
+            $stmnt->closeCursor();
         }
-
-        return $this->db->lastInsertId();
     }
 
     function delete($code){

@@ -7,7 +7,7 @@ class ScholarshipQuestionRepository extends AbstractRepository implements Schola
     function save($data){
         foreach($data as $code => $questions){
             // Delete what exists
-            parent::delete($code);
+            $this->delete($code);
             $toSave = [];
             foreach($questions as $questionId){
                 $toSave[] = [

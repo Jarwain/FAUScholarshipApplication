@@ -36,19 +36,20 @@ class QualifierDatabase implements QualifierStore{
     }
 
     function save($item){
-        throw new Exception("Save qualifier not implemented yet");
-        /*$query = "INSERT INTO `qualifier` (`name`,`type`,`question`,`props`)
-                    VALUES (:name, :type, :question, :props)
+        $query = "INSERT INTO `qualifier` (`id`,`name`,`type`,`question`,`props`)
+                    VALUES (:id, :name, :type, :question, :props)
                     ON DUPLICATE KEY UPDATE 
                         name=VALUES(name), type=VALUES(type), 
                         question=VALUES(question), props=VALUES(props)";
         $stmnt = $this->db->prepare($query);
 
+        $stmnt->bindParam(':id', $item['id'], \PDO::PARAM_STR);
         $stmnt->bindParam(':name', $item['name'], \PDO::PARAM_STR);
         $stmnt->bindParam(':type', $item['type'], \PDO::PARAM_STR);
         $stmnt->bindParam(':question', $item['question'], \PDO::PARAM_INT);
-        $stmnt->bindParam(':props', $item['props'], \PDO::PARAM_INT);
-        $stmnt->execute();*/
+        $props = json_encode($item['props']);
+        $stmnt->bindParam(':props', $props, \PDO::PARAM_INT);
+        $stmnt->execute();
     }
 
     function delete($id){

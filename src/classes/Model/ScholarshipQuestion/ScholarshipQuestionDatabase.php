@@ -44,8 +44,6 @@ class ScholarshipQuestionDatabase implements ScholarshipQuestionStore{
             $stmnt->execute();
             $stmnt->closeCursor();
         }
-
-        return $this->db->lastInsertId();
     }
 
     function delete($code){

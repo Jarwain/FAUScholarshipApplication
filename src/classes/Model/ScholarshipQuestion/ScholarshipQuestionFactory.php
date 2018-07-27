@@ -13,7 +13,7 @@ class ScholarshipQuestionFactory{
     function initialize($data){
         $scholarships = [];
         foreach($data as $q){
-            $scholarships[$q['code']][$q['question']] = $this->questions->get($q['question']);
+            $scholarships[$q['code']][] = $this->questions->get($q['question']);
         }
         return $scholarships;
     }
