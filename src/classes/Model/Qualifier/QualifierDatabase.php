@@ -11,7 +11,7 @@ class QualifierDatabase implements QualifierStore{
     }
 
     function getAll(){
-        $query = "SELECT id, name, type, question, options
+        $query = "SELECT id, name, type, question, props
                     FROM `qualifier`";
         $result = $this->db->query($query)->fetchAll();
         
@@ -19,7 +19,7 @@ class QualifierDatabase implements QualifierStore{
     }
 
     function get($id){
-        $query = "SELECT id, name, type, question, options
+        $query = "SELECT id, name, type, question, props
                     FROM `qualifier` 
                     WHERE id = :id";
         $stmnt = $this->db->prepare($query);
@@ -36,18 +36,19 @@ class QualifierDatabase implements QualifierStore{
     }
 
     function save($item){
-        $query = "INSERT INTO `qualifier` (`name`,`type`,`question`,`options`)
-                    VALUES (:name, :type, :question, :options)
+        throw new Exception("Save qualifier not implemented yet");
+        /*$query = "INSERT INTO `qualifier` (`name`,`type`,`question`,`props`)
+                    VALUES (:name, :type, :question, :props)
                     ON DUPLICATE KEY UPDATE 
                         name=VALUES(name), type=VALUES(type), 
-                        question=VALUES(question), options=VALUES(options)";
+                        question=VALUES(question), props=VALUES(props)";
         $stmnt = $this->db->prepare($query);
 
         $stmnt->bindParam(':name', $item['name'], \PDO::PARAM_STR);
         $stmnt->bindParam(':type', $item['type'], \PDO::PARAM_STR);
         $stmnt->bindParam(':question', $item['question'], \PDO::PARAM_INT);
-        $stmnt->bindParam(':options', $item['options'], \PDO::PARAM_INT);
-        $stmnt->execute();
+        $stmnt->bindParam(':props', $item['props'], \PDO::PARAM_INT);
+        $stmnt->execute();*/
     }
 
     function delete($id){

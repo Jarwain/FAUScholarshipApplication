@@ -11,7 +11,7 @@ class QuestionDatabase implements QuestionStore{
     }
 
     function getAll(){
-        $query = "SELECT id, type, question, options
+        $query = "SELECT id, type, question, props
                     FROM `question`";
         $result = $this->db->query($query)->fetchAll();
         
@@ -19,7 +19,7 @@ class QuestionDatabase implements QuestionStore{
     }
 
     function get($id){
-        $query = "SELECT id, type, question, options
+        $query = "SELECT id, type, question, props
                     FROM `question` 
                     WHERE id = :id";
         $stmnt = $this->db->prepare($query);
@@ -36,7 +36,8 @@ class QuestionDatabase implements QuestionStore{
     }
 
     function save($item){
-        $query = "INSERT INTO `scholarship` (`code`,`name`,`description`,`active`,`max`)
+        throw new Exception("Save question not implemented yet");
+        /*$query = "INSERT INTO `question` (`name`,`description`,`active`,`max`)
                     VALUES (:code, :name, :description, :active, :max)
                     ON DUPLICATE KEY UPDATE 
                         name=VALUES(name), description=VALUES(description), 
@@ -48,7 +49,7 @@ class QuestionDatabase implements QuestionStore{
         $stmnt->bindParam(':description', $sch['description'], \PDO::PARAM_STR);
         $stmnt->bindParam(':active', $sch['active'], \PDO::PARAM_INT);
         $stmnt->bindParam(':max', $sch['max'], \PDO::PARAM_INT);
-        $stmnt->execute();
+        $stmnt->execute();*/
     }
 
     function delete($id){

@@ -6,14 +6,14 @@ use Respect\Validation\Validator as v;
 class FileQuestion extends Question{
     var $filetype;
 
-    function __construct($id, $question, $options = []){
+    function __construct($id, $question, $props = []){
         $this->type = parent::TYPE_FILE;
-        $this->requiredOptions = ['filetype'];
+        $this->setRequiredProps(['filetype']);
 
-        parent::__construct($id, $question, $options);
+        parent::__construct($id, $question, $props);
     }
 
     function getFiletypes(){
-        return $this->getOption('filetype');
+        return $this->getProp('filetype');
     }
 }

@@ -5,18 +5,18 @@ use Respect\Validation\Validator as v;
 
 class EssayQuestion extends Question{
 
-    function __construct($id, $question, $options = []){
+    function __construct($id, $question, $props = []){
         $this->type = parent::TYPE_ESSAY;
-        $this->requiredOptions = ['word_count'];
+        $this->setOptionalProps(['min_words', 'max_words']);
 
-        parent::__construct($id, $question, $options);
+        parent::__construct($id, $question, $props);
     }
 
     function getMinWords(){
-        return $this->getOption('word_count')[0];
+        return $this->getProp('min_words');
     }
 
     function getMaxWords(){
-        return $this->getOption('word_count')[1];
+        return $this->getProp('max_words');
     }
 }

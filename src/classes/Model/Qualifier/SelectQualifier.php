@@ -5,42 +5,20 @@ use Respect\Validation\Validator as v;
 
 class SelectQualifier extends Qualifier{
 
-    function __construct($id, $name, $question, $options = []){
+    function __construct($id, $name, $question, $props = []){
         $this->type = parent::TYPE_SELECT; 
-        $this->requiredOptions = ['haystack'];
+        $this->setRequiredProps(['haystack']);
+        $this->setOptionalProps(['multi']);
 
-        parent::__construct($id, $name, $question, $options);
+        parent::__construct($id, $name, $question, $props);
     }
 
     function getHaystack(){
-        return $this->getOption('haystack');
+        return $this->getProp('haystack');
     }
 
     function isMulti(){
-        return $this->getOption('multi') ?? False;
-    }
-
-    function renderInput(){
-        $out = "
-        <div class='form-group'>
-            <label class='col-sm-3 col-form-label' for='{$this->getName()}'>{$this->getQuestion()}</label>
-            <select ";
-
-        if($this->isMulti()){
-            $out .= 'multiple ';
-        }
-
-        $out .= "class='form-control' id='{$this->getName()}'>";
-
-        foreach($this->haystack as $option){
-            $out .= "<option value='{$option}'>{$option}</option>";
-        }
-
-        $out .=    "</select>
-        </div>
-        ";
-
-        echo $out;
+        return $this->getProp('multi') ?? False;
     }
 
     /**

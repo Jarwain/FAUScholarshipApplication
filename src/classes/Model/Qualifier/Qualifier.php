@@ -1,9 +1,8 @@
 <?php
 namespace ScholarshipApi\Model\Qualifier;
 
-
 abstract class Qualifier {
-    use \ScholarshipApi\Model\OptionTrait;
+    use \ScholarshipApi\Model\PropTrait;
     public $id;
     public $name;
     public $question;
@@ -13,16 +12,17 @@ abstract class Qualifier {
     const TYPE_RANGE = 'range';
     const TYPE_SELECT = 'select';
 
-    function __construct($id, $name, $question, $options = []){
+    private $requiredProps = [];
+    private $optionalProps = [];
+
+    function __construct($id, $name, $question, $props = []){
         $this->id = $id;
         $this->name = $name;
         $this->question = $question;
-        $this->options = $options;
+        $this->setProps($props);
 
-        $this->checkRequiredOptions();
+        $this->checkRequiredProps();
     }
-
-    abstract function renderInput();
 
     abstract function validate($term, $valid = Null);
 

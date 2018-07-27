@@ -2,7 +2,7 @@
 namespace ScholarshipApi\Model\Question;
 
 abstract class Question {
-    use \ScholarshipApi\Model\OptionTrait;
+    use \ScholarshipApi\Model\PropTrait;
     public $id;
     public $question;
 
@@ -11,19 +11,23 @@ abstract class Question {
     const TYPE_FILE = 'file';
     const TYPE_VIDEO = 'video';
 
-    function __construct($id, $question, $options = []){
+    private $requiredProps = [];
+    private $optionalProps = ['required'];
+
+    function __construct($id, $question, $props = []){
         $this->id = $id;
         $this->question = $question;
-        $this->options = $options;
+        $this->setProps($props);
 
-        $this->checkRequiredOptions();
+        $this->checkRequiredProps();
     }
 
     function isRequired(){
-        if(is_null($this->getOption('required')))
-            return false;
+        $required = $this->getProp('required');
+        if(is_null($required))
+            return False;
         else
-            return true;
+            return $required;
     }
 
     function getId(){

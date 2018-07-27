@@ -5,31 +5,22 @@ use Respect\Validation\Validator as v;
 
 class RangeQualifier extends Qualifier{
 
-    function __construct($id, $name, $question, $options = []){
+    function __construct($id, $name, $question, $props = []){
         $this->type = parent::TYPE_RANGE; 
-        $this->requiredOptions = ['range'];
+        $this->setRequiredProps(['range']);
+        $this->setOptionalProps(['step']);
         
-        parent::__construct($id, $name, $question, $options);
+        parent::__construct($id, $name, $question, $props);
     }
 
     function getMin(){
-        return $this->getOption('range')[0];
+        return $this->getProp('range')[0];
     }
     function getMax(){
-        return $this->getOption('range')[1];
+        return $this->getProp('range')[1];
     }
     function getStep(){
-        return $this->getOption('step');
-    }
-
-    function renderInput(){
-        $out = "
-        <div class='form-group'>
-            <label class='col-sm-3 col-form-label' for='{$this->getName()}'>{$this->getQuestion()}</label>
-            <input type='range' class='custom-range' min='{$this->getMin()}' max='{$this->getMax()}' step='{$this->getStep()}' id='{$this->getName()}'>
-        </div>
-        ";
-        echo $out;
+        return $this->getProp('step');
     }
 
     /**

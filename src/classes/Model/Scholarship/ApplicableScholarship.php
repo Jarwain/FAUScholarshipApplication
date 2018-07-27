@@ -24,14 +24,20 @@ class ApplicableScholarship extends Scholarship{
     }
 
     function addRequirement(Requirement $r){
-        $this->requirements[$r->category][$r->qualifier->id] = $r;
+        $this->requirements[] = $r;
     }
 
-    function addRequirements(array $requirements){
+    function setRequirements(array $requirements){
         $this->requirements = $requirements;
     }
+    function getRequirements(){
+        return $this->requirements;
+    }
 
-    function addQuestions(array $questions){
+    function setQuestions(array $questions){
         $this->questions = $questions;   
+    }
+    function getQuestions(){
+        return $this->questions;
     }
 }

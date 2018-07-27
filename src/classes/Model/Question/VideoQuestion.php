@@ -5,10 +5,10 @@ use Respect\Validation\Validator as v;
 
 class VideoQuestion extends Question{
 
-    function __construct($id, $question, $options = []){
+    function __construct($id, $question, $props = []){
         $this->type = parent::TYPE_VIDEO;
-        $this->requiredOptions = [];
+        $this->setRequiredProps([]);
 
-        parent::__construct($id, $question, $options);
+        parent::__construct($id, $question, $props);
     }
 }
