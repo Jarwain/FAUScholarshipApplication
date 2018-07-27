@@ -35,4 +35,8 @@ class Requirement{
     function getQualifierId(){
         return $this->qualifier->getId();
     }
+
+    function getValid(){
+        return $this->valid;
+    }
 }

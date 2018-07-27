@@ -43,7 +43,7 @@ class RequirementDatabase implements RequirementStore {
             $stmnt->bindParam(':code', $req['code'], \PDO::PARAM_STR);
             $stmnt->bindParam(':cat', $req['category'], \PDO::PARAM_STR);
             $stmnt->bindParam(':qid', $req['qualifier'], \PDO::PARAM_INT);
-            $valid = json_encode($req['valid']);
+            $valid = json_encode($req['valid'], JSON_NUMERIC_CHECK);
             $stmnt->bindParam(':valid', $valid, \PDO::PARAM_STR);
             $stmnt->execute();
             $stmnt->closeCursor();

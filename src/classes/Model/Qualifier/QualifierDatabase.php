@@ -47,7 +47,7 @@ class QualifierDatabase implements QualifierStore{
         $stmnt->bindParam(':name', $item['name'], \PDO::PARAM_STR);
         $stmnt->bindParam(':type', $item['type'], \PDO::PARAM_STR);
         $stmnt->bindParam(':question', $item['question'], \PDO::PARAM_INT);
-        $props = json_encode($item['props']);
+        $props = json_encode($item['props'], JSON_NUMERIC_CHECK);
         $stmnt->bindParam(':props', $props, \PDO::PARAM_INT);
         $stmnt->execute();
     }

@@ -46,7 +46,7 @@ class QuestionDatabase implements QuestionStore{
         $stmnt->bindParam(':id', $item['id'], \PDO::PARAM_STR);
         $stmnt->bindParam(':question', $item['question'], \PDO::PARAM_STR);
         $stmnt->bindParam(':type', $item['type'], \PDO::PARAM_STR);
-        $props = json_encode($item['props']);
+        $props = json_encode($item['props'], JSON_NUMERIC_CHECK);
         $stmnt->bindParam(':props', $props, \PDO::PARAM_INT);
         $stmnt->execute();
     }
