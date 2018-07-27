@@ -15,6 +15,12 @@ body {
         <a class="nav-link <?= $data['active'] === 'scholarships' ? 'active' : ''?>" href="<?=$data['baseUrl']?>admin/scholarship/">Scholarships</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link <?= $data['active'] === 'questions' ? 'active' : ''?>" href="<?=$data['baseUrl']?>admin/question/">Questions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <?= $data['active'] === 'qualifiers' ? 'active' : ''?>" href="<?=$data['baseUrl']?>admin/qualifier/">Qualifiers</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link <?= $data['active'] === 'applications' ? 'active' : ''?>" href="<?=$data['baseUrl']?>admin/application/">Applications</a>
       </li>
     </ul>

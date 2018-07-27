@@ -13,9 +13,7 @@ post(
     headers={'Accept': 'application/json'},
     json={
     "active": True,
-    "category": 1,
     "code": "AAA000",
-    "deadline": None,
     "description": "The Richard and Mary Cook Business Scholarship is awarded to an incoming undergraduate freshman or a first year or transfer student, who are business graduates of Northeast High School in Ft. Lauderdale, Florida. Student must have demonstrated need. A completed FAFSA is required to be considered for this scholarship.",
     "max": 100,
     "name": "Richard and Mary Cook Business Scholarship Endowment Fund",
@@ -38,8 +36,7 @@ post(
           "Sophomore"
         ]
       }
-    ],
-    "url": None
+    ]
   }
 )
 
@@ -49,9 +46,7 @@ post(
     headers={'Accept': 'application/json'},
     json={
     "active": True,
-    "category": 1,
     "code": "AAA000",
-    "deadline": None,
     "description": "The Richard and Mary Cook Business Scholarship is awarded to an incoming undergraduate freshman or a first year or transfer student, who are business graduates of Northeast High School in Ft. Lauderdale, Florida. Student must have demonstrated need. A completed FAFSA is required to be considered for this scholarship.",
     "max": 100,
     "name": "Richard and Mary Cook Business Scholarship Endowment Fund",
@@ -80,6 +75,5 @@ post(
         "valid": None
       }
     ],
-    "url": None
   }
 )

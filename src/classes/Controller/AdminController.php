@@ -35,7 +35,7 @@ class AdminController extends AbstractController{
         }
 
         $dataBuilder = new DataBuilder();
-        $dataBuilder->addAttribute('subtitle', 'panel');
+        $dataBuilder->addAttribute('subtitle', 'Panel');
         $dataBuilder->addPart('body', 'admin/login.phtml', [
             'attempt' => $this->session['login_attempt']
         ]);
@@ -47,7 +47,7 @@ class AdminController extends AbstractController{
         $this->authenticator->revokeAuthentication();
 
         $dataBuilder = new DataBuilder();
-        $dataBuilder->addAttribute('subtitle', 'panel');
+        $dataBuilder->addAttribute('subtitle', 'Panel');
         $dataBuilder->addPart('body', 'admin/logout.phtml');
 
         return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
@@ -55,25 +55,76 @@ class AdminController extends AbstractController{
 
     public function scholarshipView(Request $request, Response $response, $args){
     	if(isset($args['code'])){
-    		$scholarships = $this->container->get('ScholarshipStore')->get($args['code']);
+    		// If viewing specific Scholarship
+    		$scholarship = $this->container->get('ScholarshipStore')->get($args['code']);
     		$dataBuilder = new DataBuilder();
-    		$dataBuilder->addAttribute('subtitle','panel');
+    		$dataBuilder->addAttribute('subtitle','Panel');
     		$dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
-
+	            'active' => 'scholarships'
     		]);
-    		return $this->renderer->render($response, "admin/admin_layout.phtml");
+    		$dataBuilder->addPart('body', 'admin/scholarship_item.phtml', [
+	            'scholarship' => $scholarship
+	        ]);
+
+    		return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
     	} else {
+    		// Else list all scholarships
 	        $scholarships = $this->container->get('ScholarshipStore')->getAll();
 	        
 	        $dataBuilder = new DataBuilder();
-	        $dataBuilder->addAttribute('subtitle','panel');
+	        $dataBuilder->addAttribute('subtitle','Panel');
 	        $dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
 	            'active' => 'scholarships'
 	        ]);
-	        $dataBuilder->addPart('body', 'admin/scholarships.phtml', [
+	        $dataBuilder->addPart('body', 'admin/scholarship_list.phtml', [
 	            'scholarships' => $scholarships
 	        ]);
+
 	        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+    	}
+    }
+
+    public function questionView(Request $request, Response $response, $args){
+    	$questions = $this->container->get('QuestionStore')->getAll();
+	        
+        $dataBuilder = new DataBuilder();
+        $dataBuilder->addAttribute('subtitle','Panel');
+        $dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
+            'active' => 'questions'
+        ]);
+        $dataBuilder->addPart('body', 'admin/question_list.phtml', [
+            'questions' => $questions
+        ]);
+
+        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+    }
+
+    public function qualifierView(Request $request, Response $response, $args){
+    	$qualifiers = $this->container->get('QualifierStore')->getAll();
+	        
+        $dataBuilder = new DataBuilder();
+        $dataBuilder->addAttribute('subtitle','Panel');
+        $dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
+            'active' => 'qualifiers'
+        ]);
+        $dataBuilder->addPart('body', 'admin/qualifier_list.phtml', [
+            'qualifiers' => $qualifiers
+        ]);
+
+        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+    }
+
+    public function createItem(Request $request, Response $response, $args){
+    	$itemType = $args['item'] ?? NULL;
+    	switch($itemType){
+    		case "scholarship":
+    			break;
+    		case "question":
+    			break;
+    		case "qualifier":
+    			break;
+    		default:
+    			break;
     	}
     }
 }

@@ -5,11 +5,13 @@ class DataBuilder{
     protected $attr;
     protected $style;
     protected $parts;
+    protected $scripts;
 
-    function __construct(array $attr = [], array $style = [], array $parts = []){
+    function __construct(array $attr = [], array $style = [], array $parts = [], array $scripts = []){
         $this->attr = $attr;
         $this->style = $style;
         $this->parts = $parts;
+        $this->scripts = $scripts;
     }
 
     function addAttribute($name, $value){
@@ -24,6 +26,9 @@ class DataBuilder{
     // $name should NOT have a leading slash Ex: "sticky_footer.css" 
     function addStyle($name){
         $this->style[] = $name;
+    }
+    function addScript($name){
+        $this->script[] = $name;
     }
 
     function addPart($name, $template, $data = []){
@@ -40,4 +45,5 @@ class DataBuilder{
         }
         return $data;
     }
+
 }

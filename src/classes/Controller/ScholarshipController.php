@@ -46,6 +46,8 @@ class ScholarshipController {
     }
 
     public function delete(Request $request, Response $response, $args){
+        // TODO: Don't actually delete the scholarship!!!
+        // Create a `deleted` column, with deletion timestamp
         $code = $args['code'] ?? NULL;
         if(is_null($code)){
 

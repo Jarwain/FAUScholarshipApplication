@@ -16,33 +16,19 @@
     <link href="<?=$data['baseUrl']?>css/sticky_footer.css" rel="stylesheet" />    
 
     <!-- Custom styles for this template -->
-    <?php foreach ($data['styles'] as $style): ?>
-    <link href="<?=$data['baseUrl']?>css/<?=$style?>" rel="stylesheet">    
-    <?php endforeach; ?>
+    <?php if(isset($data['styles'])){
+      foreach ($data['styles'] as $style): ?>
+        <link href="<?=$data['baseUrl']?>css/<?=$style?>" rel="stylesheet">    
+      <?php endforeach; 
+    }?>
 
   </head>
   <body>
-    <!-- <?php
-    if(isset($data['part'])){
+    <?php if(isset($data['part'])){
       foreach($data['part'] as $bodyPart){
         echo $this->fetch($bodyPart['template'], $bodyPart['data']);
       }
-    }
-    ?> -->
-    <?php if(isset($data['part']['navbar'])){
-      echo $this->fetch($data['part']['navbar']['template'], $data['part']['navbar']['data']);
-    }?>
-    
-    <div class="container-fluid">
-      <div class="row">
-        <?= $this->fetch($data['part']['body']['template'], $data['part']['body']['data']); ?>
-      </div>
-    </div>
-    <!-- <?php if(isset($data['modals'])){
-      foreach($data['modals'] as $modal){
-        echo $this->fetch($modal['template'])
-      }
-    }?> -->
+    } ?>
     <footer class="container-fluid">
       <span class="text-muted">Copyright © 2015-2018 FAU Office of Student Financial Aid. All rights reserved.</span>
     </footer>
@@ -55,14 +41,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 
     <!-- Custom scripts for this template -->
-    <?php foreach ($data['scripts'] as $script): ?>
-    <script src="<?=$data['baseUrl']?>js/<?=$style?>" rel="stylesheet" /> 
-    <?php endforeach; ?>
-
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-      feather.replace()
-    </script>
+    <?php if(isset($data['scripts'])){
+      foreach ($data['scripts'] as $script): ?>
+        <script src="<?=$data['baseUrl']?>js/<?=$style?>" rel="stylesheet" /> 
+      <?php endforeach; 
+    }?>
   </body>
 </html>

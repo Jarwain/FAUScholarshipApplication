@@ -1,34 +1,39 @@
 TODO
 =====
+## Meetings
+### 08/01
+### 08/08
+### 08/15
+
+07/30 Build Admissions Database
+08/01 Finish Scholarship Admin 
+08/08 Finish New Search & New Applications
+08/13 Finish Application Viewer
+
 - Rebuild Search
 - Rebuild Scholarship Applications 
     
 - Build Admin Panel
-    Scholarship
-        List
-        Create
-        Edit
-        Delete
     Qualifier
-        List
+        (X)List
         Create
         Edit
-        Delete
+        [Delete]
     Question
-        List
+        (X)List
         Create
         Edit
-        Delete
+        [Delete]
+    Scholarship
+        (X)List
+        Create
+        Edit
+        [Delete]
 
     Application
         List
         Decide
         Delete
-
-Create Admissions DB on Wednesday||Thursday
-Done with Admin Scholarships by Friday 07/27
-Rebuilt Search & Application by Friday 08/03
-Application Viewer by Friday 08/10
 
 
 I have 13 days.

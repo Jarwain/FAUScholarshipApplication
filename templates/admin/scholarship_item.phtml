@@ -1,0 +1,135 @@
+<?php $scholarship = $data['scholarship']; ?>
+<main role="main" class="container">
+  <div class="d-flex justify-content-between flex-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Scholarship
+      <small class="text-muted">
+        <?=$scholarship->getCode();?>
+      </small>
+    </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <a class="btn btn-primary" role="button" href="<?="{$data['baseUrl']}admin/scholarship/{$scholarship->getCode()}/edit/"?>">
+          Edit
+        </a>
+      </div>
+    </div>
+  </div>
+  <h2 class="h3">
+    <?=$scholarship->getName()?>
+  </h2>
+  <div class="row">
+    <div class="col-sm-2 order-12">
+      <dl class="row pt-2 border border-secondary">
+        <dt class="col-4">
+          Active
+        </dt>
+        <dd class="col-8">
+          <?=$scholarship->getActive()?>
+        </dd>
+        <dt class="col-4">
+          Max
+        </dt>
+        <dd class="col-8">
+          <?=$scholarship->getMax()?>
+        </dd>
+      </dl>
+    </div>
+    <div class="col-sm-10 order-1">
+      <h3 class="h4">
+        Description
+      </h3>
+      <p>
+        <?=$scholarship->getDescription()?>
+      </p>
+      <h3 class="h4">
+        Questions
+      </h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Question</th>
+            <th scope="col">Type</th>
+            <th scope="col">Props</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($scholarship->getQuestions() as $id => $question): ?>
+            <tr>
+              <th scope="row"><?=$question->getId()?></th>
+              <td><?=$question->getQuestion()?></td>
+              <td><?=$question->getType()?></td>
+              <td>
+                <?php foreach($question->getProps() as $name => $val):?>
+                  <span class="font-weight-bold"><?=$name?>:</span>
+                  <?=json_encode($val)?>
+                <?php endforeach;?>
+              </td>
+            </tr>
+          <?php endforeach ?>
+        </tbody>
+      </table>
+      <h3 class="h4">
+        Requirements
+      </h3>
+      <?php
+        $requirements = $scholarship->getRequirements();
+        $categories = array_keys($requirements);
+      ?>
+      <ul class="nav nav-tabs" id="requirementTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link disabled">Categories</a>
+        </li>
+        <?php foreach ($categories as $idx => $category): ?>
+          <?php
+            $active = $idx == 0;
+          ?>
+          <li class="nav-item">
+            <a class="nav-link <?=$active ? 'active':''?>" id="tab-<?=$idx?>" data-toggle="tab" href="#category-<?=$idx?>" role="tab" aria-controls="<?=$idx?>" aria-selected="<?=$active ? 'true':'false'?>"><?=$category?></a>
+          </li>
+        <?php endforeach ?>
+      </ul>
+      <div class="tab-content" id="requirementTabContent">
+        <?php foreach ($categories as $idx => $category): ?>
+          <?php
+            $active = $idx == 0;
+          ?>
+          <div class="tab-pane fade <?=$active ? 'active show':''?>" id="category-<?=$idx?>" role="tabpanel" aria-labelledby="tab-<?=$idx?>">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Question</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Props</th>
+                  <th scope="col">Valid</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($requirements[$category] as $requirement): ?>
+                  <?php 
+                  $qualifier = $requirement->getQualifier();
+                  ?>
+                  <tr>
+                    <th scope="row"><?=$qualifier->getId()?></th>
+                    <td><?=$qualifier->getName()?></td>
+                    <td><?=$qualifier->getQuestion()?></td>
+                    <td><?=$qualifier->getType()?></td>
+                    <td>
+                      <?php foreach($qualifier->getProps() as $name => $val):?>
+                        <span class="font-weight-bold"><?=$name?>:</span>
+                        <?=json_encode($val,JSON_NUMERIC_CHECK|JSON_PRETTY_PRINT)?>
+                      <?php endforeach;?>
+                    </td>
+                    <td><?=json_encode($requirement->getValid(),JSON_NUMERIC_CHECK|JSON_PRETTY_PRINT)?></td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
+        <?php endforeach;?>
+      </div>
+    </div>
+  </div>
+</main>
