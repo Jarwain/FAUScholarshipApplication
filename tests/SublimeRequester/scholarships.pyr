@@ -18,25 +18,29 @@ post(
     "max": 100,
     "name": "Richard and Mary Cook Business Scholarship Endowment Fund",
     "questions": [1],
-    "requirements": [
-      {
-        "category": "*",
-        "qualifier": 1,
-        "valid": None
-      },
-      {
-        "category": "*",
-        "qualifier": 2,
-        "valid": None
-      },
-      {
-        "category": "a",
-        "qualifier": 4,
-        "valid": [
-          "Sophomore"
-        ]
-      }
-    ]
+    "requirements": {
+      "*": [
+        {
+          "category": "*",
+          "qualifier": 1,
+          "valid": None
+        },
+        {
+          "category": "*",
+          "qualifier": 2,
+          "valid": None
+        }
+      ],
+      "a": [
+        {
+          "category": "a",
+          "qualifier": 4,
+          "valid": [
+            "Sophomore"
+          ]
+        }
+      ]
+    }
   }
 )
 
@@ -51,29 +55,35 @@ post(
     "max": 100,
     "name": "Richard and Mary Cook Business Scholarship Endowment Fund",
     "questions": [2,3],
-    "requirements": [
-      {
-        "category": "*",
-        "qualifier": 1,
-        "valid": None
-      },
-      {
-        "category": "*",
-        "qualifier": 2,
-        "valid": None
-      },
-      {
-        "category": "a",
-        "qualifier": 4,
-        "valid": [
-          "Freshman"
-        ]
-      },
-      {
-        "category": "b",
-        "qualifier": 9,
-        "valid": None
-      }
-    ],
+    "requirements": {
+      "*": [
+        {
+          "category": "*",
+          "qualifier": 1,
+          "valid": None
+        },
+        {
+          "category": "*",
+          "qualifier": 2,
+          "valid": None
+        }
+      ],
+      "a": [
+        {
+          "category": "a",
+          "qualifier": 4,
+          "valid": [
+            "Freshman"
+          ]
+        }
+      ],
+      "b": [
+        {
+          "category": "b",
+          "qualifier": 9,
+          "valid": None
+        }
+      ],
+    }
   }
 )

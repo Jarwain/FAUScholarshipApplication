@@ -29,7 +29,7 @@ class ScholarshipFactory{
 
     function initialize($data){
         $sch = new ApplicableScholarship(
-            $data['code'], $data['name'], $data['description'], $data['active'], 
+            $data['id'], $data['code'], $data['name'], $data['description'], $data['active'], 
             $data['max']);
         $sch->setRequirements($this->requirements->get($sch->getCode()));
         $sch->setQuestions($this->questions->get($sch->getCode()));

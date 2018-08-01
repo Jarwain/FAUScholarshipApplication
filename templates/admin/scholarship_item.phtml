@@ -76,6 +76,9 @@
         $requirements = $scholarship->getRequirements();
         $categories = array_keys($requirements);
       ?>
+      <?php if(empty($requirements)): ?>
+        <p>This scholarship has no requirements</p>
+      <?php else: ?>
       <ul class="nav nav-tabs" id="requirementTabs" role="tablist">
         <li class="nav-item">
           <a class="nav-link disabled">Categories</a>
@@ -130,6 +133,7 @@
           </div>
         <?php endforeach;?>
       </div>
+      <?php endif;?>
     </div>
   </div>
 </main>

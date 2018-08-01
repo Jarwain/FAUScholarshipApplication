@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <!-- <link rel="icon" href="../../../../favicon.ico"> -->
 
-    <title><?= $data['title'] ?> <?= $data['subtitle'] ?></title>
+    <title>FAU Scholarship Panel</title>
 
     <!-- Core CSS -->
     <!-- Bootstrap -->
@@ -16,7 +16,7 @@
     <link href="<?=$data['baseUrl']?>css/sticky_footer.css" rel="stylesheet" />    
 
     <!-- Custom styles for this template -->
-    <?php if(isset($data['styles'])){
+    <?php if(isset($data['styles']) && !empty($data['styles'])){
       foreach ($data['styles'] as $style): ?>
         <link href="<?=$data['baseUrl']?>css/<?=$style?>" rel="stylesheet">    
       <?php endforeach; 
@@ -24,9 +24,9 @@
 
   </head>
   <body>
-    <?php if(isset($data['part'])){
+    <?php if(isset($data['part']) && !empty($data['part'])){
       foreach($data['part'] as $bodyPart){
-        echo $this->fetch($bodyPart['template'], $bodyPart['data']);
+        echo $this->fetch($bodyPart->getTemplate(), $bodyPart->getData());
       }
     } ?>
     <footer class="container-fluid">
@@ -41,9 +41,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 
     <!-- Custom scripts for this template -->
-    <?php if(isset($data['scripts'])){
+    <?php if(isset($data['scripts']) && !empty($data['scripts'])){
       foreach ($data['scripts'] as $script): ?>
-        <script src="<?=$data['baseUrl']?>js/<?=$style?>" rel="stylesheet" /> 
+        <script src="<?=$data['baseUrl']?>js/<?=$script?>" rel="stylesheet"></script>
       <?php endforeach; 
     }?>
   </body>

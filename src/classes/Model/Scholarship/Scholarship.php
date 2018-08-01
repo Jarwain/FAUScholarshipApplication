@@ -2,12 +2,14 @@
 namespace ScholarshipApi\Model\Scholarship;
 
 abstract class Scholarship{
+    var $id;
     var $code;
     var $name;
     var $description;
     var $active;
 
-    function __construct($code, $name, $description, $active){
+    function __construct($id = NULL, $code, $name, $description, $active){
+        $this->id = $id;
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;

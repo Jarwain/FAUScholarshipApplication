@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"scholarship",
+				"scholarship.active"
+			],
+			[
+				"Vie",
+				"ViewPart〔namespace〕"
+			],
+			[
+				"Auth",
+				"AuthView"
+			],
+			[
+				"array_",
+				"array_merge"
+			],
+			[
+				"PASS",
+				"PASSWORD_DEFAULT〔constant〕"
+			],
+			[
 				"for",
 				"form\tTag"
 			],
@@ -94,10 +114,6 @@
 			[
 				"qual",
 				"qualifier_id"
-			],
-			[
-				"scholarship",
-				"scholarship_requirements"
 			],
 			[
 				"offlin",
@@ -412,59 +428,125 @@
 	"buffers":
 	[
 		{
+			"file": "templates/admin/scholarship_editor.phtml",
+			"settings":
+			{
+				"buffer_size": 2047,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/classes/Model/Requirement/Requirement.php",
+			"settings":
+			{
+				"buffer_size": 836,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/classes/Model/Scholarship/ApplicableScholarship.php",
+			"settings":
+			{
+				"buffer_size": 935,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/classes/Model/Scholarship/ApplicableScholarshipDatabase.php",
+			"settings":
+			{
+				"buffer_size": 2659,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "TODO.md",
+			"settings":
+			{
+				"buffer_size": 1041,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/admin/scholarship_item.phtml",
+			"settings":
+			{
+				"buffer_size": 4845,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/admin/scholarship_list.phtml",
+			"settings":
+			{
+				"buffer_size": 1841,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/admin/question_list.phtml",
+			"settings":
+			{
+				"buffer_size": 1324,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/admin/qualifier_list.phtml",
+			"settings":
+			{
+				"buffer_size": 1452,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tests/SublimeRequester/scholarships.pyr",
+			"settings":
+			{
+				"buffer_size": 2767,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/routes/api.php",
+			"settings":
+			{
+				"buffer_size": 944,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/routes/admin.php",
+			"settings":
+			{
+				"buffer_size": 1225,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "src/classes/Controller/AdminController.php",
 			"settings":
 			{
-				"buffer_size": 1575,
+				"buffer_size": 5636,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/classes/Authenticator.php",
+			"file": "public/js/admin/scholarship_editor.js",
 			"settings":
 			{
-				"buffer_size": 2203,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/classes/Model/User/User.php",
-			"settings":
-			{
-				"buffer_size": 252,
+				"buffer_size": 315,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/classes/Model/Question/Question.php",
-			"settings":
-			{
-				"buffer_size": 633,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/classes/Model/Question/QuestionDatabase.php",
-			"settings":
-			{
-				"buffer_size": 1031,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/app_dependencies.php",
-			"settings":
-			{
-				"buffer_size": 2448,
 				"line_ending": "Windows"
 			}
 		}
@@ -481,23 +563,19 @@
 		"selected_items":
 		[
 			[
-				"status",
-				"Git: Status"
-			],
-			[
 				"add",
 				"Git: Add..."
+			],
+			[
+				"status",
+				"Git: Status"
 			],
 			[
 				"push",
 				"Git: Push"
 			],
 			[
-				"COMMIT",
-				"Git: Commit"
-			],
-			[
-				"ADD",
+				"ad",
 				"Git: Add..."
 			],
 			[
@@ -509,12 +587,36 @@
 				"Git: Commit"
 			],
 			[
-				"unstage",
-				"Git: Reset (unstage) Current File"
+				"git revert",
+				"Git: Show Previous Version of Current File"
+			],
+			[
+				"git rever",
+				"Git: Show Previous Version of Current File"
 			],
 			[
 				"php",
 				"Set Syntax: PHP"
+			],
+			[
+				"stash",
+				"Git: Stash Changes"
+			],
+			[
+				"git reset",
+				"Git: Reset (hard) HEAD"
+			],
+			[
+				"unstage",
+				"Git: Reset (unstage) Current File"
+			],
+			[
+				"COMMIT",
+				"Git: Commit"
+			],
+			[
+				"ADD",
+				"Git: Add..."
 			],
 			[
 				"requester",
@@ -537,10 +639,6 @@
 				"Git: Commit"
 			],
 			[
-				"ad",
-				"Git: Add..."
-			],
-			[
 				"stage",
 				"Git: Reset (unstage) Current File"
 			],
@@ -555,10 +653,6 @@
 			[
 				"statu",
 				"Git: Status"
-			],
-			[
-				"stash",
-				"Git: Stash Changes"
 			],
 			[
 				"dele",
@@ -778,25 +872,125 @@
 		"/C/Users/dto1/Desktop/Projects/scholarship",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Controller",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Question",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Requirement",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Util",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src/routes",
 		"/C/Users/dto1/Desktop/Projects/scholarship/templates",
-		"/C/Users/dto1/Desktop/Projects/scholarship/templates/components",
-		"/C/Users/dto1/Desktop/Projects/scholarship/templates/search"
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/admin",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/search",
+		"/C/Users/dto1/Desktop/Projects/scholarship/tests",
+		"/C/Users/dto1/Desktop/Projects/scholarship/tests/SublimeRequester"
 	],
 	"file_history":
 	[
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Authenticator.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/docs/server.md",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Question/QuestionRepository.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/RangeQualifier.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Util/BetterRenderer.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/View/ViewBuilder.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/admin/navbar.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/View/ViewPart.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/admin/admin_layout.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Util/DataBuilder.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src/dependencies.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/vendor/bryanjhv/slim-session/src/Slim/Middleware/Session.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/vendor/bryanjhv/slim-session/src/SlimSession/Helper.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/templates/search/index.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/Scholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/Qualifier.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Requirement/Requirement.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Requirement/RequirementDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/QualifierDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Question/QuestionDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Requirement/RequirementRepository.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Controller/ScholarshipController.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/ScholarshipQuestion/ScholarshipQuestionDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ApplicableScholarship.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/ScholarshipQuestion/ScholarshipQuestionFactory.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Requirement/RequirementFactory.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Question/Question.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Question/QuestionRepository.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/ScholarshipQuestion/ScholarshipQuestionRepository.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/AbstractStore.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/AbstractRepository.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/routes/api.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/PropTrait.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/QualifierFactory.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Question/QuestionFactory.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Question/EssayQuestion.php",
+		"/C/Users/dto1/Desktop/Projects/misc/wordcounts.json",
+		"/C/Users/dto1/Desktop/Projects/misc/temp.js",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Question/FileQuestion.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Question/VideoQuestion.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/SelectQualifier.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/BoolQualifier.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/admin/logout.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/admin/login.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/app_dependencies.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/admin/scholarship_list.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ScholarshipFactory.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ApplicableScholarshipDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Service/Authentication.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/settings.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/admin/scholarships.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Controller/AdminController.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/middleware.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/settings.json",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.gitignore",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ScholarshipRepository.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Controller/SearchController.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/admin/sidenav.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/admin/topbar.phtml",
 		"/C/Users/dto1/Desktop/Projects/scholarship/templates/components/header.phtml",
 		"/C/Users/dto1/Desktop/Projects/scholarship/templates/components/footer.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/composer.json",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/OptionTrait.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Controller/QuestionController.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Controller/QualifierController.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/User/UserDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/User/User.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/search/index.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/MultiQualifier.php",
+		"/C/Users/dto1/Downloads/scholarship.json",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ScholarshipDatabase.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/routes/admin.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Repository.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Store.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/QualifierRepository.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/QualifierStore.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Question/QuestionStore.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Requirement/RequirementStore.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ScholarshipStore.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/ScholarshipQuestion/ScholarshipQuestionStore.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/User/UserStore.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/admin/index.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/public/css/dashboard.css",
+		"/C/Users/dto1/Desktop/Projects/scholarship/public/css/sticky_footer.css",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/pre-auto-gc",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/post-update",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/post-rewrite",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/post-merge",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/post-receive",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/post-checkout",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/post-commit",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/post-applypatch",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/applypatch-msg",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/commit-msg",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/update",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/sendemail-validate",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/README.sample",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/push-to-checkout",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/pre-receive",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/pre-rebase",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/pre-push",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/pre-commit",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/prepare-commit-msg",
+		"/C/Users/dto1/Desktop/Projects/scholarship/.git/hooks/pre-applypatch",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Middleware/TrailingSlash.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/templates/login.phtml",
+		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Authenticator.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/docs/server.md",
+		"/C/Users/dto1/Desktop/Projects/scholarship/vendor/bryanjhv/slim-session/src/Slim/Middleware/Session.php",
+		"/C/Users/dto1/Desktop/Projects/scholarship/vendor/bryanjhv/slim-session/src/SlimSession/Helper.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/public/web.config",
 		"/C/Users/dto1/Desktop/Projects/scholarship/docs/debug.md",
 		"/C/Users/dto1/Desktop/Projects/scholarship/public/index.php",
@@ -805,117 +999,22 @@
 		"/C/Users/dto1/Desktop/Projects/scholarship/client/src/components/HelloWorld.vue",
 		"/C/Users/dto1/Desktop/Projects/scholarship/client/src/main.js",
 		"/C/Users/dto1/Desktop/Projects/scholarship/server/.gitignore",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/app_dependencies.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src/routes/search.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/routes/api.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/routes/admin.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/tests/SublimeRequester/scholarships.pyr",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Service/SearchService.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Controller/SearchController.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Controller/AbstractController.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src/routes/index.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/README.md",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ScholarshipRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/Scholarship.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ApplicableScholarship.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ApplicableScholarshipDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ScholarshipFactory.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Requirement/Requirement.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Scholarship/ScholarshipDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/AbstractRepository.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/docs/Application Structure.md",
-		"/C/Users/dto1/Desktop/Projects/scholarship/.gitignore",
 		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/SingleQualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/MultiQualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/RangeQualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/BoolQualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Qualifier/Qualifier.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/templates/components/BoolInput.phtml",
-		"/C/Users/dto1/Desktop/Projects/scholarship/templates/login.phtml",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Controller/AdminController.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/docs/REST or Not.md",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Model/Requirement/RequirementDatabase.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/docs/Security.md",
 		"/C/Users/dto1/Desktop/Projects/scholarship/public/.htaccess",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/settings.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/public/css/sticky_footer.css",
 		"/C/Users/dto1/Desktop/Projects/scholarship/templates/index.phtml",
 		"/C/Users/dto1/Desktop/Projects/scholarship/.config/database",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/middleware.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/src/classes/Controller/ScholarshipController.php",
 		"/C/Users/dto1/Desktop/Projects/scholarship/composer.lock",
-		"/C/Users/dto1/Desktop/Projects/scholarship/composer.json",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/AbstractRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/AbstractStore.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/app_dependencies.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/tests/SublimeRequester/scholarships.pyr",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/ScholarshipFactory.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/OnlineScholarshipDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/ScholarshipDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/ScholarshipRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Controller/ScholarshipController.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/routes.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/settings.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Requirement/RequirementFactory.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Requirement/RequirementDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/ScholarshipQuestion/ScholarshipQuestionDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/ScholarshipQuestion/ScholarshipQuestionFactory.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/ScholarshipQuestion/ScholarshipQuestionRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Requirement/RequirementRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Question/QuestionDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Qualifier/QualifierDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/OfflineScholarshipDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Question/QuestionFactory.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Question/QuestionRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Qualifier/QualifierRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Qualifier/QualifierStore.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Question/QuestionStore.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/ScholarshipStore.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/ScholarshipQuestion/ScholarshipQuestionStore.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Requirement/RequirementStore.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/docs/api.md",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Controller/QuestionController.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Requirement/Requirement.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/OnlineScholarship.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Qualifier/QualifierFactory.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Question/Question.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Question/EssayQuestion.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Question/FileQuestion.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Question/VideoQuestion.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Qualifier/Qualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Qualifier/BoolQualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Qualifier/MultiQualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Qualifier/SingleQualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Qualifier/RangeQualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/RequirementRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/RequirementFactory.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/Requirement.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/RequirementDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/RequirementStore.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Repository/DataAccessObject/RequirementDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Controller/QualifierController.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/Scholarship.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/Scholarship/OfflineScholarship.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Entity/Qualifier.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/dependencies.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Repository/QualifierRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Repository/DataAccessObject/QualifierDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Entity/OnlineScholarship.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship_app_1819/verify.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/composer.json",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Repository/DataAccessObject/OfflineScholarshipDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Repository/DataAccessObject/OnlineScholarshipDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Repository/DataAccessObject/ScholarshipDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Service/ScholarshipService.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Repository/ScholarshipRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Repository/QuestionRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Repository/DataAccessObject/QuestionDatabase.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Repository/RequirementRepository.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Entity/EssayQuestion.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Entity/VideoQuestion.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Entity/FileQuestion.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Entity/AbstractScholarship.php",
-		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Entity/OfflineScholarship.php"
+		"/C/Users/dto1/Desktop/Projects/scholarship/Server/src/classes/Model/AbstractRepository.php"
 	],
 	"find":
 	{
@@ -926,6 +1025,7 @@
 		"height": 104.0,
 		"where_history":
 		[
+			"C:\\Users\\dto1\\Desktop\\Projects\\scholarship\\src",
 			"",
 			"C:\\Users\\dto1\\Desktop\\WebApplicationProject\\www\\scholarship",
 			"C:\\Users\\dto1\\Desktop\\WebApplicationProject\\www\\slim_sch_app\\search\\models",
@@ -939,134 +1039,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"question",
-			"type",
-			"start",
-			"{$this",
-			"()}",
-			"{$this",
-			"()}",
-			"{$this",
-			"\"",
-			"$name",
-			"\"",
-			"include_once",
-			"cache",
-			"ADV785",
-			"$data",
-			"$code",
-			"$data",
-			"$sch",
-			"state",
-			"Factory",
-			"null",
-			"category\": \"a",
-			"native american",
-			"$data",
-			"\"a\"",
-			"qualifiers",
-			"Qualifiers",
-			"qualifiers",
-			"$this->factory",
-			"factory",
-			"Requirement",
-			"$q",
-			"qualifiers",
-			"qualifier",
-			"Qualifier",
-			"QualifierController",
-			"Requirement",
-			"id",
-			"qualifiers",
-			"requirements",
-			"Qualifier",
-			"name, ",
-			"qualifiers",
-			"QualifierS",
-			"qualifiers",
-			"Qualifier",
-			"min_word",
-			"min_words",
-			"EssayQuestion",
-			"min",
-			"Qualifier",
-			"qualifier",
-			"Qualifier",
-			"'options'",
-			"$q",
-			"start",
-			"Scholarship\\",
-			"Scholarship",
-			"$c->",
-			"Qualifier\\",
-			"Qualifier",
-			"scholarship",
-			"Scholarship",
-			"form",
-			"Scholarship",
-			"bool",
-			"Bool",
-			"start",
-			"result",
-			"start",
-			"Scholarship",
-			"scholarships",
-			"parameters",
+			"ques",
+			"phtml",
+			"exampleFormControlTextarea1",
+			"questions",
+			"Code",
 			"code",
-			"Factory",
-			"ff",
-			"getAllO",
-			"db",
-			"database",
-			"store",
-			"repo",
-			"scholarships",
-			"Scholarships",
-			"ScholarshipFactory",
-			"scholarshipRepository",
-			"public",
-			"$core",
-			"getAllO",
-			"getAll",
-			"$online",
-			"'online'",
-			"internal",
-			"online",
-			"database",
-			"$",
-			"QualifierDatabase",
-			"null",
-			"Qualifier",
-			"qualifier",
-			"Qualifier",
-			"addRequirements",
-			"param",
-			"[]",
-			"false",
-			"online",
-			"requirements",
-			"api/",
-			"ship\\API\\Model",
-			"null",
-			"$sch",
-			"isInternal",
-			"$scholarship",
-			"scholarship",
+			"Code",
+			"code",
+			"scholarshipCode",
+			"emailHelp",
+			"exampleInputEmail1",
+			"navbarData",
+			"button",
+			"List",
+			"questionList",
+			"View",
+			"button",
+			"_category",
+			"category",
+			"panel",
+			"data",
 			"sch",
-			"OnlineScholarship",
-			"Online",
-			"$id",
+			"code",
+			"active",
+			"description",
+			"name",
+			"save",
+			"options",
+			"getOption",
+			"options",
+			"Options",
+			"options",
+			"Options",
+			"options",
+			"protected",
+			"options",
+			"getOption",
+			"optional",
+			"options",
+			"option",
+			"Option",
+			"option",
+			"Option",
+			"option",
+			"Option",
+			"option",
+			"Option",
+			"Options",
+			"options",
+			"Options",
+			"options",
+			"Options",
+			"option",
+			"Option",
+			"option",
+			"Option",
+			"option",
+			"Option",
+			"option",
+			"Option",
+			"scholarship",
+			"Code",
+			"scholarship",
+			"Scholarship",
+			"question",
+			"Question",
+			"question",
+			"scholarship",
+			"parts",
+			"style",
+			"styles",
+			"'Admin'",
+			"button",
+			"$data['baseUrl']?>/",
+			"$data['baseUrl']?>",
+			"$data['baseUrl']?>/",
+			"$active",
+			"title",
+			"attempt",
+			"$part",
+			"$baseUrl",
+			"One",
+			"AuthenticationService",
+			"body",
+			"components",
+			"$data",
+			"$arr",
+			"template",
+			"var",
+			"sch",
+			"max",
+			"active",
+			"description",
+			"show",
+			"topbar",
+			"protected",
+			"var",
+			"protected",
 			"id",
-			"$sch",
-			"$res",
-			"$sch",
-			"state",
-			"$result",
-			"n.",
-			"online",
-			"DB",
+			"code",
+			"Question::D",
+			"EssayQuestion",
+			"var",
+			"$s",
+			"$data",
+			"name",
+			"data",
+			"questions",
+			"source",
+			"$source",
+			"create(",
+			"save",
+			"create(",
+			"create",
+			"implements .+Store",
+			"implements .*Store",
+			".*Store",
+			"AbstractStore",
+			"Utils",
+			"getHash",
+			"\"user\"",
+			"user",
+			"Question",
 			"db",
-			"DB"
+			":user",
+			"user",
+			"question",
+			"type"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1074,6 +1174,10 @@
 		"regex": false,
 		"replace_history":
 		[
+			"$data['baseUrl']?>",
+			"save(",
+			"implements Store",
+			"Store",
 			"'",
 			"category",
 			"'",
@@ -1091,94 +1195,420 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/classes/Controller/AdminController.php",
+					"file": "templates/admin/scholarship_editor.phtml",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1575,
+						"buffer_size": 2047,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								333,
-								333
+								1592,
+								1592
 							]
 						],
 						"settings":
 						{
-							"SL.49.region_keys":
+							"SL.885.region_keys":
+							[
+								"sublime_linter.protected_regions"
+							],
+							"auto_complete": false,
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 2
+						},
+						"translation.x": 0.0,
+						"translation.y": 405.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/classes/Model/Requirement/Requirement.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 836,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								617,
+								617
+							]
+						],
+						"settings":
+						{
+							"SL.955.region_keys":
+							[
+							],
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/classes/Model/Scholarship/ApplicableScholarship.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 935,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								594,
+								594
+							]
+						],
+						"settings":
+						{
+							"SL.896.region_keys":
 							[
 							],
 							"auto_complete": false,
 							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 90.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "src/classes/Authenticator.php",
+					"buffer": 3,
+					"file": "src/classes/Model/Scholarship/ApplicableScholarshipDatabase.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2203,
+						"buffer_size": 2659,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								340,
-								340
+								1383,
+								1383
 							]
 						],
 						"settings":
 						{
-							"SL.100.region_keys":
+							"SL.957.region_keys":
 							[
 							],
 							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 450.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "TODO.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1041,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								403,
+								403
+							]
+						],
+						"settings":
+						{
+							"SL.325.region_keys":
+							[
+							],
+							"auto_complete": false,
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/Markdown Extended/Syntaxes/Markdown Extended.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "src/classes/Model/User/User.php",
+					"buffer": 5,
+					"file": "templates/admin/scholarship_item.phtml",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 252,
+						"buffer_size": 4845,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								252
+								880,
+								880
 							]
 						],
 						"settings":
 						{
-							"SL.89.region_keys":
+							"SL.612.region_keys":
+							[
+								"sublime_linter.protected_regions"
+							],
+							"auto_complete": false,
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "templates/admin/scholarship_list.phtml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1841,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								433,
+								39
+							]
+						],
+						"settings":
+						{
+							"SL.619.region_keys":
+							[
+								"sublime_linter.protected_regions"
+							],
+							"auto_complete": false,
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "templates/admin/question_list.phtml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1324,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1233,
+								1233
+							]
+						],
+						"settings":
+						{
+							"SL.621.region_keys":
+							[
+								"sublime_linter.protected_regions"
+							],
+							"auto_complete": false,
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 110.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "templates/admin/qualifier_list.phtml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1452,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								363,
+								363
+							]
+						],
+						"settings":
+						{
+							"SL.622.region_keys":
+							[
+							],
+							"auto_complete": false,
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 9,
+					"file": "tests/SublimeRequester/scholarships.pyr",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2767,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1732,
+								1732
+							]
+						],
+						"settings":
+						{
+							"SL.169.region_keys":
+							[
+							],
+							"auto_complete": false,
+							"git_gutter_is_enabled": true,
+							"requester.env_file": null,
+							"requester.env_string": null,
+							"requester.file": "C:\\Users\\dto1\\Desktop\\Projects\\scholarship\\tests\\SublimeRequester\\scholarships.pyr",
+							"syntax": "Packages/Requester/syntax/requester-source.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 675.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "src/routes/api.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 944,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								295,
+								295
+							]
+						],
+						"settings":
+						{
+							"SL.884.region_keys":
+							[
+							],
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "src/routes/admin.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1225,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								709,
+								709
+							]
+						],
+						"settings":
+						{
+							"SL.467.region_keys":
 							[
 								"sublime_linter.protected_regions"
 							],
@@ -1190,62 +1620,69 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 12,
+					"file": "src/classes/Controller/AdminController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 5636,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								603,
+								603
 							]
 						],
 						"settings":
 						{
-							"default_dir": "C:\\Users\\dto1\\Desktop\\Projects\\scholarship\\src\\classes\\Model\\User",
-							"git_gutter_is_enabled": false,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/classes/Model/Question/Question.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 633,
-						"regions":
-						{
-						},
-						"selection":
-						[
+							"SL.493.region_keys":
 							[
-								0,
-								633
-							]
-						],
-						"settings":
-						{
-							"SL.82.region_keys":
-							[
+								"sublime_linter.protected_regions"
 							],
+							"auto_complete": false,
 							"git_gutter_is_enabled": true,
 							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 111.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "public/js/admin/scholarship_editor.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 315,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								191,
+								191
+							]
+						],
+						"settings":
+						{
+							"SL.895.region_keys":
+							[
+							],
+							"auto_complete": false,
+							"auto_name": "",
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1253,76 +1690,7 @@
 					},
 					"stack_index": 6,
 					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "src/classes/Model/Question/QuestionDatabase.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1031,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"SL.83.region_keys":
-							[
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "src/app_dependencies.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2448,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								952,
-								952
-							]
-						],
-						"settings":
-						{
-							"SL.85.region_keys":
-							[
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
 				}
-			]
-		},
-		{
-			"sheets":
-			[
 			]
 		}
 	],
@@ -1359,7 +1727,7 @@
 		"rows":
 		[
 			0.0,
-			0.721405044864,
+			0.528695178491,
 			1.0
 		]
 	},
@@ -1396,7 +1764,7 @@
 	"project": "scholarship.sublime-project",
 	"replace":
 	{
-		"height": 44.0
+		"height": 72.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1434,7 +1802,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 336.0,
+	"side_bar_width": 277.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

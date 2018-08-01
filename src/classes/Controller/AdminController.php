@@ -6,6 +6,8 @@ use Slim\Http\Response;
 use \Interop\Container\ContainerInterface;
 
 use ScholarshipApi\Util\DataBuilder;
+use ScholarshipApi\View\ViewBuilder;
+use ScholarshipApi\View\ViewPart;
 
 class AdminController extends AbstractController{
     protected $renderer;
@@ -14,9 +16,10 @@ class AdminController extends AbstractController{
 
     public function __construct(ContainerInterface $container){
         $this->container = $container;
-        $this->renderer = $container->get('renderer');
         $this->session = $container->get('session');
         $this->authenticator = $container->get('authenticator');
+        
+        $this->renderer = $container->get('renderer');
     }
 
     public function login(Request $request, Response $response){
@@ -34,97 +37,123 @@ class AdminController extends AbstractController{
             }
         }
 
-        $dataBuilder = new DataBuilder();
-        $dataBuilder->addAttribute('subtitle', 'Panel');
-        $dataBuilder->addPart('body', 'admin/login.phtml', [
+
+        $view = new ViewBuilder('admin/admin_layout.phtml');
+		$body = new ViewPart('admin/login.phtml');
+		$body->addAttributes([
             'attempt' => $this->session['login_attempt']
         ]);
+		$view->addPart('body', $body);
 
-        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+		return $view->render($this->renderer, $response);
     }
 
     public function logout(Request $request, Response $response){
         $this->authenticator->revokeAuthentication();
+        $view = new ViewBuilder('admin/admin_layout.phtml');
+		$view->addPart('body', new ViewPart('admin/logout.phtml'));
 
-        $dataBuilder = new DataBuilder();
-        $dataBuilder->addAttribute('subtitle', 'Panel');
-        $dataBuilder->addPart('body', 'admin/logout.phtml');
-
-        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+		return $view->render($this->renderer, $response);
     }
 
     public function scholarshipView(Request $request, Response $response, $args){
+    	$navbar = new ViewPart('admin/navbar.phtml');
+    	$navbar->addAttribute('active','scholarships');
+
+    	$view = new ViewBuilder('admin/admin_layout.phtml');
+    	$view->addPart('navbar', $navbar);
+
     	if(isset($args['code'])){
-    		// If viewing specific Scholarship
-    		$scholarship = $this->container->get('ScholarshipStore')->get($args['code']);
-    		$dataBuilder = new DataBuilder();
-    		$dataBuilder->addAttribute('subtitle','Panel');
-    		$dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
-	            'active' => 'scholarships'
-    		]);
-    		$dataBuilder->addPart('body', 'admin/scholarship_item.phtml', [
-	            'scholarship' => $scholarship
-	        ]);
+	    	$action = $args['action'] ?? NULL;
+			$scholarship = $this->container->get('ScholarshipStore')->get($args['code']);
 
-    		return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+			switch($action){
+				case 'edit':
+					$body = new ViewPart('admin/scholarship_editor.phtml');
+				    $body->addScript('vue.js');
+	    			$body->addScript('admin/scholarship_editor.js');
+	    			$body->addAttribute('questions', $this->container->get('QuestionStore')->getAll());
+	    			$body->addAttribute('qualifiers', $this->container->get('QualifierStore')->getAll());
+					break;
+				case 'view':
+				default:
+			    	// View specific Scholarship
+					$body = new ViewPart('admin/scholarship_item.phtml');
+					break;
+			}
+
+			$body->addAttribute('scholarship', $scholarship);
     	} else {
-    		// Else list all scholarships
+			// List all scholarships
 	        $scholarships = $this->container->get('ScholarshipStore')->getAll();
-	        
-	        $dataBuilder = new DataBuilder();
-	        $dataBuilder->addAttribute('subtitle','Panel');
-	        $dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
-	            'active' => 'scholarships'
-	        ]);
-	        $dataBuilder->addPart('body', 'admin/scholarship_list.phtml', [
-	            'scholarships' => $scholarships
-	        ]);
-
-	        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+	        $body = new ViewPart('admin/scholarship_list.phtml');
+	        $body->addAttribute('scholarships', $scholarships);
     	}
+    	$view->addPart('body', $body);
+	    return $view->render($this->renderer, $response);
     }
 
     public function questionView(Request $request, Response $response, $args){
     	$questions = $this->container->get('QuestionStore')->getAll();
-	        
-        $dataBuilder = new DataBuilder();
-        $dataBuilder->addAttribute('subtitle','Panel');
-        $dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
-            'active' => 'questions'
-        ]);
-        $dataBuilder->addPart('body', 'admin/question_list.phtml', [
-            'questions' => $questions
-        ]);
 
-        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+	    $navbar = new ViewPart('admin/navbar.phtml');
+    	$navbar->addAttribute('active','questions');
+
+    	$body = new ViewPart('admin/question_list.phtml');
+    	$body->addAttribute('questions', $questions);
+
+    	$view = new ViewBuilder('admin/admin_layout.phtml');
+    	$view->addPart('navbar', $navbar);
+    	$view->addPart('body', $body);
+
+        return $view->render($this->renderer, $response);
     }
 
     public function qualifierView(Request $request, Response $response, $args){
     	$qualifiers = $this->container->get('QualifierStore')->getAll();
-	        
-        $dataBuilder = new DataBuilder();
-        $dataBuilder->addAttribute('subtitle','Panel');
-        $dataBuilder->addPart('navbar', 'admin/navbar.phtml', [
-            'active' => 'qualifiers'
-        ]);
-        $dataBuilder->addPart('body', 'admin/qualifier_list.phtml', [
-            'qualifiers' => $qualifiers
-        ]);
+		
+		$navbar = new ViewPart('admin/navbar.phtml');
+    	$navbar->addAttribute('active','qualifiers');
 
-        return $this->renderer->render($response, "admin/admin_layout.phtml", $dataBuilder->getData());
+    	$body = new ViewPart('admin/qualifier_list.phtml');
+    	$body->addAttribute('qualifiers', $qualifiers);
+
+    	$view = new ViewBuilder('admin/admin_layout.phtml');
+    	$view->addPart('navbar', $navbar);
+    	$view->addPart('body', $body);
+
+        return $view->render($this->renderer, $response);
     }
 
     public function createItem(Request $request, Response $response, $args){
     	$itemType = $args['item'] ?? NULL;
+
+    	$navbar = new ViewPart('admin/navbar.phtml');
     	switch($itemType){
     		case "scholarship":
+    			$navbar->addAttribute('active','scholarships');
+    			$body = new ViewPart('admin/scholarship_editor.phtml');
+    			$body->addScript('vue.js');
+    			$body->addScript('admin/scholarship_editor.js');
+    			$body->addAttribute('questions', $this->container->get('QuestionStore')->getAll());
+	    		$body->addAttribute('qualifiers', $this->container->get('QualifierStore')->getAll());
     			break;
     		case "question":
+    			$navbar->addAttribute('active','questions');
+    			$body = new ViewPart('admin/question_editor.js');
     			break;
     		case "qualifier":
+    			$navbar->addAttribute('active','qualifiers');
+    			$body = new ViewPart('admin/qualifier_editor.js');
     			break;
     		default:
+    			throw new \Slim\Exception\NotFoundException($request, $response);
     			break;
     	}
+
+    	$view = new ViewBuilder('admin/admin_layout.phtml');
+    	$view->addPart('navbar', $navbar);
+    	$view->addPart('body', $body);
+    	return $view->render($this->renderer, $response);
     }
 }

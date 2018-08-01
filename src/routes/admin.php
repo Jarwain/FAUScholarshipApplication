@@ -9,9 +9,9 @@ $app->group('/admin', function() use ($app){
     // Must be authenticated to access the group below
     $app->group('', function() use ($app){
         $app->get('/','ScholarshipApi\Controller\AdminController:scholarshipView');
-        $app->get('/scholarship/[{code}/]','ScholarshipApi\Controller\AdminController:scholarshipView');
-        $app->get('/question/[{id}/]','ScholarshipApi\Controller\AdminController:questionView');
-        $app->get('/qualifier/[{id}/]','ScholarshipApi\Controller\AdminController:qualifierView');
+        $app->get('/scholarship/[{code}/[{action}/]]','ScholarshipApi\Controller\AdminController:scholarshipView');
+        $app->get('/question/','ScholarshipApi\Controller\AdminController:questionView');
+        $app->get('/qualifier/','ScholarshipApi\Controller\AdminController:qualifierView');
         $app->get('/create/[{item}/]','ScholarshipApi\Controller\AdminController:createItem');
     })->add(function($req, $res, $next) {
         if($this->authenticator->isAuthenticated()){

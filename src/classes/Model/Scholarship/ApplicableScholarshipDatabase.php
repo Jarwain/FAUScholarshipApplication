@@ -18,7 +18,7 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
     }
 
     function getAll(){
-        $query = "SELECT s.code, s.name, s.description, s.active, s.max
+        $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max
                     FROM `scholarship` s";
         $result = $this->db->query($query)->fetchAll();
 
@@ -26,7 +26,7 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
     }
 
     function get($code){
-        $query = "SELECT s.code, s.name, s.description, s.active, s.max
+        $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max
                     FROM `scholarship` s 
                     WHERE s.code = :code";
         $stmnt = $this->db->prepare($query);
@@ -46,13 +46,14 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
         try{
             $this->db->beginTransaction();
 
-            $query = "INSERT INTO `scholarship` (`code`,`name`,`description`,`active`,`max`)
-                VALUES (:code, :name, :description, :active, :max)
+            $query = "INSERT INTO `scholarship` (`id`,`code`,`name`,`description`,`active`,`max`)
+                VALUES (:id, :code, :name, :description, :active, :max)
                 ON DUPLICATE KEY UPDATE 
-                    name=VALUES(name), description=VALUES(description), 
+                    code=VALUES(code), name=VALUES(name), description=VALUES(description), 
                     active=VALUES(active), max=VALUES(max)";
             $stmnt = $this->db->prepare($query);
 
+            $stmnt->bindParam(':id', $sch['id'], \PDO::PARAM_INT);
             $stmnt->bindParam(':code', $sch['code'], \PDO::PARAM_STR);
             $stmnt->bindParam(':name', $sch['name'], \PDO::PARAM_STR);
             $stmnt->bindParam(':description', $sch['description'], \PDO::PARAM_STR);

@@ -7,17 +7,17 @@ class RangeQualifier extends Qualifier{
 
     function __construct($id, $name, $question, $props = []){
         $this->type = parent::TYPE_RANGE; 
-        $this->setRequiredProps(['range']);
+        $this->setRequiredProps(['min','max']);
         $this->setOptionalProps(['step']);
         
         parent::__construct($id, $name, $question, $props);
     }
 
     function getMin(){
-        return $this->getProp('range')[0];
+        return $this->getProp('min');
     }
     function getMax(){
-        return $this->getProp('range')[1];
+        return $this->getProp('max');
     }
     function getStep(){
         return $this->getProp('step');

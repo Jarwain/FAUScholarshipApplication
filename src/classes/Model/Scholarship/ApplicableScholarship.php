@@ -1,15 +1,14 @@
 <?php
 namespace ScholarshipApi\Model\Scholarship;
 
-// TODO: Rename OnlineScholarship to "ApplicableScholarship" or something that better captures its function
 class ApplicableScholarship extends Scholarship{
     var $max;
 
     var $requirements;
-    var $questions; // TODO
+    var $questions; 
 
-    function __construct($code, $name, $description, $active, $max = 0){
-        parent::__construct($code, $name, $description, $active);
+    function __construct($id = NULL, $code, $name, $description, $active, $max = 0){
+        parent::__construct($id, $code, $name, $description, $active);
 
         $max = $max ?? 0;
         $this->setMax($max);

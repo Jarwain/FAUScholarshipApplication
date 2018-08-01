@@ -5,8 +5,8 @@ TODO
 ### 08/08
 ### 08/15
 
-07/30 Build Admissions Database
-08/01 Finish Scholarship Admin 
+08/03 Finish "NEW SCHOLARSHIP". Make good progress on Application
+08/06 Build Admissions Database By TODAY
 08/08 Finish New Search & New Applications
 08/13 Finish Application Viewer
 
