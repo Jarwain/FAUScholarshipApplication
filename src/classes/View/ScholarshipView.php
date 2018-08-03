@@ -24,8 +24,11 @@ class ScholarshipView {
         $body->addScript('vue.js');
         $body->addScript('admin/scholarship_editor.js');
 		$body->addAttribute('scholarship', $scholarship);
+		$body->addScriptVar('scholarship', $scholarship);
         $body->addAttribute('questions', $questions);
+        $body->addScriptVar('questions', $questions);
         $body->addAttribute('qualifiers', $qualifiers);
+        $body->addScriptVar('qualifiers', $qualifiers);
 
         $view->addPart('body', $body);
         return $view;

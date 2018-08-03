@@ -2,10 +2,10 @@
 $scholarship = $data['scholarship'] ?? Null;
 $questions = $data['questions'];
 $qualifiers = $data['qualifiers'];
-$sch = json_encode($scholarship, JSON_NUMERIC_CHECK);
+/*$sch = json_encode($scholarship, JSON_NUMERIC_CHECK);
 $ques = json_encode($questions, JSON_NUMERIC_CHECK);
 $qual = json_encode($qualifiers, JSON_NUMERIC_CHECK);
-echo "<script>var sch = {$sch} || {}; var questions = {$ques}; var qualifiers = {$qual};</script>";
+echo "<script>var sch = {$sch} || {}; var questions = {$ques}; var qualifiers = {$qual};</script>";*/
 
 $title = !empty($scholarship) ? "Edit Scholarship {$scholarship->getCode()}" : "New Scholarship";
 $form = $data['baseUrl']."admin/scholarship/".(!empty($scholarship) ? $scholarship->getCode():'')."/";
@@ -83,14 +83,9 @@ $form = $data['baseUrl']."admin/scholarship/".(!empty($scholarship) ? $scholarsh
 	            <a class="nav-link" :class="idx == 0 ? 'active':''" :id="`tab-${idx}`" data-toggle="tab" :href="`#category-${idx}`" role="tab" :aria-controls="idx" aria-selected="true">{{cat}}</a>
 	          </li>
 		        <li class="nav-item">
-			        <div class="input-group">
-							  <input type="text" class="form-control form-control-sm" v-model="categoryCursor" placeholder="" aria-label="" aria-describedby="category-button">
-							  <div class="input-group-append">
-							    <button class="btn btn-outline-secondary" type="button" id="category-button" @click="category()">
-							    	{{addOrDeleteCategory ? 'Add' : 'Delete'}} Category
-							    </button>
-							  </div>
-							</div>
+					    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requirementModal" @click="newRequirement()">
+							  Add Requirement
+							</button>
 						</li>
 		      </ul>
 		      <div class="tab-content" id="requirementTabContent">
@@ -104,11 +99,6 @@ $form = $data['baseUrl']."admin/scholarship/".(!empty($scholarship) ? $scholarsh
 	                  <th scope="col">Type</th>
 	                  <th scope="col">Props</th>
 	                  <th scope="col">Valid</th>
-	                  <th scope="col">
-	                  	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requirementModal" @click="newRequirement(cat)">
-											  Add Requirement
-											</button>
-										</th>
 	                </tr>
 	              </thead>
 	              <tbody>
@@ -159,6 +149,7 @@ $form = $data['baseUrl']."admin/scholarship/".(!empty($scholarship) ? $scholarsh
       </div>
       <div class="modal-body">
         <form>
+        	<input type="text" v-model="requirement.category" class="form-control" placeholder="category"/>
 				  <select class="form-control my-2 mr-sm-2" v-model="requirement.qualifier">
 				  	<option disabled value=0>
 				  		Qualifiers

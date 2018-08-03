@@ -23,7 +23,7 @@ const createScholarship = ({
 var editor = new Vue({
 	el: '#editor',
 	data: {
-		scholarship: createScholarship(sch),
+		scholarship: createScholarship(scholarship),
 		questions,
 		qualifiers,
 		categoryCursor: '',
@@ -38,21 +38,21 @@ var editor = new Vue({
 				return a;
 			},[]);
 		},
-		addOrDeleteCategory(){
-			return typeof this.scholarship.requirements[this.categoryCursor] == "undefined" || this.categoryCursor == '';
+		addCategory(){
+			return this.requirementCategories.indexOf(this.categoryCursor) == -1 || this.categoryCursor == '';
 		}
 	},
 	methods: {
 		category(){
-			if(this.addOrDeleteCategory){
+			if(this.addCategory){
 				this.scholarship.requirements[this.categoryCursor] = [];
 			} else {
 				delete this.scholarship.requirements[this.categoryCursor];
 			}
 			this.categoryCursor = '';
 		},
-		newRequirement(cat){
-			modal.newRequirement(cat);
+		newRequirement(){
+			modal.newRequirement();
 		},
 		editRequirement(req){
 			modal.editRequirement(req);
@@ -76,9 +76,9 @@ var modal = new Vue({
 			this.requirement = req;
 			this.requirement.isNew = false;
 		},
-		newRequirement(category){
+		newRequirement(){
 			this.requirement = {
-				category,
+				category: '',
 				qualifier: 0,
 				valid: [],
 			}

@@ -3,7 +3,8 @@ namespace ScholarshipApi\Model\Student;
 
 class Student {
     var $znumber;
-    var $name;
+    var $first_name;
+    var $last_name;
     var $email;
 
     var $qualifications = [];

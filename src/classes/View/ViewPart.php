@@ -8,6 +8,7 @@ class ViewPart {
 	protected $styles;
 	protected $attr;
 	protected $scripts;
+	protected $scriptVar = [];
 
 	public function __construct(string $template, array $attr = null, array $styles = null, array $scripts = null){
 		$this->template = $template;
@@ -31,6 +32,15 @@ class ViewPart {
 			$this->addAttribute($key, $val);
 		}
 		return $this;
+	}
+
+	function addScriptVar(string $key, $val){
+		$this->scriptVar[$key] = $val;
+		return $this;
+	}
+
+	function getScriptVar(){
+		return $this->scriptVar;
 	}
 
 	function addScript(string $script){
