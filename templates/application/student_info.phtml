@@ -1,0 +1,16 @@
+<main role="main" class="container">
+  <div class="d-flex justify-content-between flex-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1>
+      Scholarship Applications: <small class="text-muted"><?=$data['scholarship_year']?></small>
+    </h1>
+  </div>
+  <div>
+    <h2>Student Information</h2>
+    <p>Fill out as much as you can.</p>
+    <form>
+      <?php foreach($data['qualifiers'] as $qualifier){
+        echo $qualifier->renderInput();
+      }?>
+    </form>
+  </div>
+</main>

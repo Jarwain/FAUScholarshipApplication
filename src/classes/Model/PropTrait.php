@@ -14,12 +14,9 @@ trait PropTrait {
     }
 
     function getProp($o){
-        $res = $this->props[$o];
-        if(array_key_exists($o, $this->getProps())){
-            return $this->props[$o];
-        } else {
-            return Null;
-        }
+        return array_key_exists($o, $this->getProps()) 
+            ? $this->props[$o] 
+            : Null;
     }
 
     function getPossibleProps(){

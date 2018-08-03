@@ -49,4 +49,20 @@ class SelectQualifier extends Qualifier{
         }
     }
 
+    function renderInput(){
+        $multi = $this->isMulti() ? 'multiple' : '';
+        $open = <<<OPEN
+        <div class='form-group'>
+          <label class='col-sm-3 col-form-label' for='{$this->getName()}'>{$this->getQuestion()}</label>
+          <select {$multi} class='form-control' id='{$this->getName()}'>
+OPEN;
+        $mid = "";
+        foreach($this->getHaystack() as $option){
+            $mid .="<option value='{$option}'>{$option}</option>";
+        }
+        $close = "
+          </select>
+        </div>";
+        return $open.$mid.$close;
+    }
 }

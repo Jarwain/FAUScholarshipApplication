@@ -1,4 +1,5 @@
 <?php $scholarship = $data['scholarship']; ?>
+<?php print_r($data['test']); ?>
 <main role="main" class="container">
   <div class="d-flex justify-content-between flex-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Scholarship
@@ -73,10 +74,9 @@
         Requirements
       </h3>
       <?php
-        $requirements = $scholarship->getRequirements();
-        $categories = array_keys($requirements);
+        $categories = $scholarship->getRequirementCategories();
       ?>
-      <?php if(empty($requirements)): ?>
+      <?php if(empty($categories)): ?>
         <p>This scholarship has no requirements</p>
       <?php else: ?>
       <ul class="nav nav-tabs" id="requirementTabs" role="tablist">
@@ -110,7 +110,7 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($requirements[$category] as $requirement): ?>
+                <?php foreach ($scholarship->getRequirements($category) as $requirement): ?>
                   <?php 
                   $qualifier = $requirement->getQualifier();
                   ?>

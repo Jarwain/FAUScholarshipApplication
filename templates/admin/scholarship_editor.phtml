@@ -2,11 +2,13 @@
 $scholarship = $data['scholarship'] ?? Null;
 $questions = $data['questions'];
 $qualifiers = $data['qualifiers'];
-$sch = json_encode($scholarship);
-$ques = json_encode($questions);
-$qual = json_encode($qualifiers);
+$sch = json_encode($scholarship, JSON_NUMERIC_CHECK);
+$ques = json_encode($questions, JSON_NUMERIC_CHECK);
+$qual = json_encode($qualifiers, JSON_NUMERIC_CHECK);
 echo "<script>var sch = {$sch} || {}; var questions = {$ques}; var qualifiers = {$qual};</script>";
+
 $title = !empty($scholarship) ? "Edit Scholarship {$scholarship->getCode()}" : "New Scholarship";
+$form = $data['baseUrl']."admin/scholarship/".(!empty($scholarship) ? $scholarship->getCode():'')."/";
 ?>
 <main role="main" class="container" id="editor">
 	<div class="d-flex justify-content-between flex-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -14,7 +16,7 @@ $title = !empty($scholarship) ? "Edit Scholarship {$scholarship->getCode()}" : "
 	    <?=$title?>
 	  </h1>
   </div>
-	<form>
+	<form action="<?=$form?>" method="post">
 		<input type="hidden" id="scholarshipid" name="id" :value="scholarship.id">
 		<div class="form-row">
 			<div class="form-group col-2">
@@ -77,7 +79,7 @@ $title = !empty($scholarship) ? "Edit Scholarship {$scholarship->getCode()}" : "
 		        <li class="nav-item">
 		          <a class="nav-link disabled">Categories</a>
 		        </li>
-	          <li v-for="(reqs, cat, idx) in scholarship.requirements" class="nav-item">
+	          <li v-for="(cat, idx) in requirementCategories" class="nav-item">
 	            <a class="nav-link" :class="idx == 0 ? 'active':''" :id="`tab-${idx}`" data-toggle="tab" :href="`#category-${idx}`" role="tab" :aria-controls="idx" aria-selected="true">{{cat}}</a>
 	          </li>
 		        <li class="nav-item">
@@ -92,10 +94,7 @@ $title = !empty($scholarship) ? "Edit Scholarship {$scholarship->getCode()}" : "
 						</li>
 		      </ul>
 		      <div class="tab-content" id="requirementTabContent">
-	          <div v-for="(reqs, cat, idx) in scholarship.requirements" class="tab-pane fade" :class="idx == 0 ? 'active show':''" :id="`category-${idx}`" role="tabpanel" :aria-labelledby="`tab-${idx}`">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requirementModal" @click="requirementCursor.category = cat">
-						  Add Requirement
-						</button>
+	          <div v-for="(cat, idx) in requirementCategories" class="tab-pane fade" :class="idx == 0 ? 'active show':''" :id="`category-${idx}`" role="tabpanel" :aria-labelledby="`tab-${idx}`">
 	          	<table class="table">
 	              <thead>
 	                <tr>
@@ -105,10 +104,18 @@ $title = !empty($scholarship) ? "Edit Scholarship {$scholarship->getCode()}" : "
 	                  <th scope="col">Type</th>
 	                  <th scope="col">Props</th>
 	                  <th scope="col">Valid</th>
+	                  <th scope="col">
+	                  	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requirementModal" @click="newRequirement(cat)">
+											  Add Requirement
+											</button>
+										</th>
 	                </tr>
 	              </thead>
 	              <tbody>
-		          		<tr v-for="req in reqs">
+		          		<tr v-for="(req, req_idx) in scholarship.requirements" v-if="req.category == cat">
+		          			<input type="hidden" :name="`requirements[${req_idx}][category]`" :value="cat">
+		          			<input type="hidden" :name="`requirements[${req_idx}][qualifier]`" :value="req.qualifier">
+		          			<input type="hidden" :name="`requirements[${req_idx}][valid]`" :value="req.valid">
                     <th scope="row">{{req.qualifier}}</th>
                     <td>{{qualifiers[req.qualifier].name}}</td>
                     <td>{{qualifiers[req.qualifier].question}}</td>
@@ -121,9 +128,14 @@ $title = !empty($scholarship) ? "Edit Scholarship {$scholarship->getCode()}" : "
                     </td>
                     <td>{{req.valid}}</td>
                     <td>
-                    	<button type="button" class="btn btn-primary" @click="initializeRequirementModal(req)" data-toggle="modal" data-target="#requirementModal" >
-						  					Edit
-											</button>
+                    	<div class="btn-group" role="group" aria-label="Requirement Options">
+	                    	<button type="button" class="btn btn-primary" @click="editRequirement(req)" data-toggle="modal" data-target="#requirementModal" >
+							  					Edit
+												</button>
+	                    	<button type="button" class="btn btn-danger" @click="scholarship.requirements.splice(req_idx,1)">
+							  					Delete
+												</button>
+											</div>
 										</td>
                   </tr>
 	              </tbody>
@@ -135,52 +147,52 @@ $title = !empty($scholarship) ? "Edit Scholarship {$scholarship->getCode()}" : "
 		</div>
 	  <button type="submit" class="btn btn-primary">Submit</button>
 	</form>
-	<div class="modal fade" id="requirementModal" tabindex="-1" role="dialog" aria-labelledby="requirementModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="requirementModalLabel">Add Requirement</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        <form>
-					  <select class="form-control my-2 mr-sm-2" v-model="requirementCursor.qualifierId">
-					  	<option disabled value=0>
-					  		Qualifiers
-					  	</option>
-					  	<option v-for="qualifier in qualifiers" :value="qualifier.id">
-					  		{{qualifier.question}}
-					  	</option>
-					  </select>
-					  <template v-if="requirementQualifier && requirementQualifier.type == 'range'">
-					  	<div class="form-group">
-							  <label for="minRange">Minimum: {{requirementCursor.valid[0]}}</label>
-								<input type="range" class="custom-range" v-model="requirementCursor.valid[0]" :min="requirementQualifier.props.min" :max="requirementQualifier.props.max" :step="requirementQualifier.props.step" id="minRange">
-							</div>
-					  	<div class="form-group">
-								<label for="maxRange">Maximum: {{requirementCursor.valid[1]}}</label>
-								<input type="range" class="custom-range" v-model="requirementCursor.valid[1]" :min="requirementQualifier.props.min" :max="requirementQualifier.props.max" :step="requirementQualifier.props.step" id="maxRange">
-							</div>
-						</template>
-						<template v-else-if="requirementQualifier && requirementQualifier.type == 'select'">
-							<div class="form-group">
-							  <label class="my-1 mx-2" >Valid</label>
-							  <select multiple v-model="requirementCursor.valid" class="form-control mr-sm-2">
-							  	<option v-for="hay in requirementQualifier.props.haystack" :value="hay">
-							  		{{hay}}
-							  	</option>
-							  </select>
-							</div>
-						</template>
-					</form>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
 </main>
+<div class="modal fade" id="requirementModal" tabindex="-1" role="dialog" aria-labelledby="requirementModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="requirementModalLabel">Add Requirement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+				  <select class="form-control my-2 mr-sm-2" v-model="requirement.qualifier">
+				  	<option disabled value=0>
+				  		Qualifiers
+				  	</option>
+				  	<option v-for="qualifier in qualifiers" :value="qualifier.id">
+				  		{{qualifier.question}}
+				  	</option>
+				  </select>
+				  <template v-if="requirement.qualifier && requirementQualifier.type == 'range'">
+				  	<div class="form-group">
+						  <label for="minRange">Minimum: {{requirement.valid[0]}}</label>
+							<input type="range" class="custom-range" v-model="requirement.valid[0]" :min="requirementQualifier.props.min" :max="requirementQualifier.props.max" :step="requirementQualifier.props.step" id="minRange">
+						</div>
+				  	<div class="form-group">
+							<label for="maxRange">Maximum: {{requirement.valid[1]}}</label>
+							<input type="range" class="custom-range" v-model="requirement.valid[1]" :min="requirementQualifier.props.min" :max="requirementQualifier.props.max" :step="requirementQualifier.props.step" id="maxRange">
+						</div>
+					</template>
+					<template v-else-if="requirement.qualifier && requirementQualifier.type == 'select'">
+						<div class="form-group">
+						  <label class="my-1 mx-2" >Valid</label>
+						  <select multiple v-model="requirement.valid" class="form-control mr-sm-2">
+						  	<option v-for="hay in requirementQualifier.props.haystack" :value="hay">
+						  		{{hay}}
+						  	</option>
+						  </select>
+						</div>
+					</template>
+				</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveRequirement()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

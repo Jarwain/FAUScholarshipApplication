@@ -18,20 +18,24 @@ class ViewPart {
 
 	function addStyle(string $style){
 		$this->styles[] = $style;
+		return $this;
 	}
 
 	function addAttribute(string $key, $val){
 		$this->attr[$key] = $val;
+		return $this;
 	}
 
 	function addAttributes(array $arr){
 		foreach($arr as $key => $val){
 			$this->addAttribute($key, $val);
 		}
+		return $this;
 	}
 
 	function addScript(string $script){
 		$this->scripts[] = $script;
+		return $this;
 	}
 
 	function getTemplate(){

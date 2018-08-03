@@ -20,7 +20,7 @@ class RequirementFactory{
             if(isset($req['valid']) && is_string($req['valid'])){
                 $req['valid'] = json_decode($req['valid'], true);
             }
-            $requirements[$req['sch_code']][$req['category']][] = new Requirement($req['id'], $req['category'], $req['qualifier'], $req['valid']);
+            $requirements[$req['sch_code']][] = new Requirement($req['id'], $req['category'], $req['qualifier'], $req['valid']);
         }
         return $requirements;
     }

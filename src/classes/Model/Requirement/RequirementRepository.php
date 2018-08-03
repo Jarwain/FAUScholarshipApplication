@@ -9,11 +9,9 @@ class RequirementRepository extends AbstractRepository implements RequirementSto
             // Delete what exists
             $this->delete($code);
             $toSave = [];
-            foreach($categories as $category => $requirements){
-                foreach($requirements as $requirement){
-                    $requirement['code'] = $code;
-                    $toSave[] = $requirement;
-                }
+            foreach($requirements as $requirement){
+                $requirement['code'] = $code;
+                $toSave[] = $requirement;
             }
             // Save it all anew
             parent::save($toSave);

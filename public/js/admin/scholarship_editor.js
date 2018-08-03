@@ -15,10 +15,7 @@ const createScholarship = ({
 	active,
 	max,
 	questions: questions.map(q => q.id),
-	requirements/*: Object.keys(requirements).reduce(function(a, e){
-		a[e] = requirements[e].map((el)=>{el.qualifier = el.qualifier.id; return el;});
-		return a;
-	})*/
+	requirements: requirements.map(r => {r.qualifier = r.qualifier.id; return r;})
 });
 
 
@@ -30,18 +27,19 @@ var editor = new Vue({
 		questions,
 		qualifiers,
 		categoryCursor: '',
-		requirementCursor: {
-			category: '',
-			qualifierId: 0,
-			valid: []
-		}
+		requirement: {}
 	},
 	computed: {
+		requirementCategories(){
+			return this.scholarship.requirements.reduce((a,e)=>{
+				if(a.indexOf(e.category) == -1){
+					a.push(e.category);
+				}
+				return a;
+			},[]);
+		},
 		addOrDeleteCategory(){
 			return typeof this.scholarship.requirements[this.categoryCursor] == "undefined" || this.categoryCursor == '';
-		},
-		requirementQualifier(){
-			return this.qualifiers[this.requirementCursor.qualifierId] || false;
 		}
 	},
 	methods: {
@@ -53,17 +51,44 @@ var editor = new Vue({
 			}
 			this.categoryCursor = '';
 		},
-		initializeRequirementModal(req){
-			this.requirementCursor.qualifierId = req.qualifier.id;
-			this.requirementCursor.valid = req.valid;
-		}/*,
-		addRequirement(){
-			let requirement = {
-				category: this.requirementCursor.category,
-				qualifier: this.requirementCursor.qualifierId,
-				valid: this.requirementCursor.valid
-			};
-			this.scholarship.requirements[this.requirementCursor.category].push(requirement);
-		}*/
+		newRequirement(cat){
+			modal.newRequirement(cat);
+		},
+		editRequirement(req){
+			modal.editRequirement(req);
+		}
 	}
 });
+
+var modal = new Vue({
+	el: "#requirementModal",
+	data: {
+		qualifiers,
+		requirement: {}
+	},
+	computed: {
+		requirementQualifier(){
+			return this.qualifiers[this.requirement.qualifier] || false;
+		}
+	},
+	methods: {
+		editRequirement(req){
+			this.requirement = req;
+			this.requirement.isNew = false;
+		},
+		newRequirement(category){
+			this.requirement = {
+				category,
+				qualifier: 0,
+				valid: [],
+			}
+			this.requirement.isNew = true;
+		},
+		saveRequirement(){
+			if(this.requirement.isNew && this.requirement.qualifier){
+				if(this.requirement.valid == 0) this.requirement.valid = null;
+				editor.scholarship.requirements.push(this.requirement);
+			}
+		}
+	}
+})

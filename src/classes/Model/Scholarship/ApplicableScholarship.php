@@ -29,8 +29,25 @@ class ApplicableScholarship extends Scholarship{
     function setRequirements(array $requirements){
         $this->requirements = $requirements;
     }
-    function getRequirements(){
-        return $this->requirements;
+
+    function getRequirements($category = Null){
+        if(is_null($category)){
+            return $this->requirements;
+        } else{
+            return array_filter($this->requirements, function($e) use ($category){
+                return $e->getCategory() == $category;
+            });
+        }
+    }
+
+    function getRequirementCategories(){
+        return array_reduce($this->getRequirements(), function($a,$e){
+          $cat = $e->getCategory();
+          if(!in_array($cat, $a)){
+            $a[] = $cat;
+          }
+          return $a;
+        }, []);
     }
 
     function setQuestions(array $questions){

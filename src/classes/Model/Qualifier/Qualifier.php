@@ -24,6 +24,8 @@ abstract class Qualifier {
         $this->checkRequiredProps();
     }
 
+    abstract function renderInput();
+
     abstract function validate($term, $valid = Null);
 
     function getId(){

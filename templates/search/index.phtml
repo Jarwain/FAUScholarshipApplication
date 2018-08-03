@@ -5,46 +5,7 @@
   <form method="post">
     <?php
       foreach($qualifiers as $qualifier){
-        $class = get_class($qualifier);
-        switch($class){
-          case ScholarshipApi\Model\Qualifier\BoolQualifier::class: ?>
-            <div class='form-group row'>
-              <label class='col-sm-3 col-form-label' for='<?=$qualifier->getName()?>'><?=$qualifier->getQuestion()?></label>
-              <div class='col-sm-9'>
-                  <div class='form-check form-check-inline'>
-                      <input class='form-check-input' type='radio' name='<?=$qualifier->getName()?>' id='<?=$qualifier->getName()?>true' value='true'>
-                      <label class='form-check-label' for='<?=$qualifier->getName()?>true'>Yes</label>
-                  </div>
-                  <div class='form-check form-check-inline'>
-                      <input class='form-check-input' type='radio' name='<?=$qualifier->getName()?>' id='<?=$qualifier->getName()?>false' value='false'>
-                      <label class='form-check-label' for='<?=$qualifier->getName()?>false'>No</label>
-                  </div>
-              </div>
-            </div>
-            <?php
-            break;
-          case ScholarshipApi\Model\Qualifier\RangeQualifier::class: ?>
-            <div class='form-group'>
-              <label class='col-sm-3 col-form-label' for='<?=$qualifier->getName()?>'><?=$qualifier->getQuestion()?></label>
-              <input type='range' class='custom-range' min='<?=$qualifier->getMin()?>' max='<?=$qualifier->getMax()?>' step='<?=$qualifier->getStep()?>' id='<?=$qualifier->getName()?>'>
-            </div>
-            <?php
-            break;
-          case ScholarshipApi\Model\Qualifier\SelectQualifier::class: ?>
-            <div class='form-group'>
-              <label class='col-sm-3 col-form-label' for='<?=$qualifier->getName()?>'><?=$qualifier->getQuestion()?></label>
-              <select <?php if($qualifier->isMulti()) echo 'multiple'?> class='form-control' id='<?=$qualifier->getName()?>'>
-                <?php
-                foreach($qualifier->getHaystack() as $option){
-                  echo "<option value='{$option}'>{$option}</option>";
-                }
-                ?>
-              </select>
-            </div>
-            <?php
-            break;
-        }
-        // $qualifier->renderInput();
+        echo $qualifier->renderInput();
       }
     ?>
     <button type="submit" class="btn btn-primary">Search</button>

@@ -8,6 +8,8 @@ use \Interop\Container\ContainerInterface;
 use ScholarshipApi\Util\DataBuilder;
 use ScholarshipApi\View\ViewBuilder;
 use ScholarshipApi\View\ViewPart;
+use ScholarshipApi\View\AdminView;
+use ScholarshipApi\View\ScholarshipView;
 
 class AdminController extends AbstractController{
     protected $renderer;
@@ -21,7 +23,7 @@ class AdminController extends AbstractController{
         
         $this->renderer = $container->get('renderer');
     }
-
+    
     public function login(Request $request, Response $response){
         $this->session['login_attempt'] = $this->session['login_attempt'] ?? 0;
 
@@ -36,7 +38,6 @@ class AdminController extends AbstractController{
                 $this->session['login_attempt'] = $this->session['login_attempt'] + 1;
             }
         }
-
 
         $view = new ViewBuilder('admin/admin_layout.phtml');
 		$body = new ViewPart('admin/login.phtml');
@@ -57,53 +58,41 @@ class AdminController extends AbstractController{
     }
 
     public function scholarshipView(Request $request, Response $response, $args){
-    	$navbar = new ViewPart('admin/navbar.phtml');
-    	$navbar->addAttribute('active','scholarships');
+        $view = new ViewBuilder('admin/admin_layout.phtml');
+        $view = AdminView::navbar($view, AdminView::ACTIVE_SCHOLARSHIPS);
 
-    	$view = new ViewBuilder('admin/admin_layout.phtml');
-    	$view->addPart('navbar', $navbar);
+        if(isset($args['code'])){
+            // If only doing one scholarship
+            $scholarship = $this->container->get('ScholarshipStore')->get($args['code']);
+            $questions = $this->container->get('QuestionStore')->getAll();
+            $qualifiers = $this->container->get('QualifierStore')->getAll();
 
-    	if(isset($args['code'])){
-	    	$action = $args['action'] ?? NULL;
-			$scholarship = $this->container->get('ScholarshipStore')->get($args['code']);
-
-			switch($action){
-				case 'edit':
-					$body = new ViewPart('admin/scholarship_editor.phtml');
-				    $body->addScript('vue.js');
-	    			$body->addScript('admin/scholarship_editor.js');
-	    			$body->addAttribute('questions', $this->container->get('QuestionStore')->getAll());
-	    			$body->addAttribute('qualifiers', $this->container->get('QualifierStore')->getAll());
-					break;
-				case 'view':
-				default:
-			    	// View specific Scholarship
-					$body = new ViewPart('admin/scholarship_item.phtml');
-					break;
-			}
-
-			$body->addAttribute('scholarship', $scholarship);
-    	} else {
-			// List all scholarships
-	        $scholarships = $this->container->get('ScholarshipStore')->getAll();
-	        $body = new ViewPart('admin/scholarship_list.phtml');
-	        $body->addAttribute('scholarships', $scholarships);
-    	}
-    	$view->addPart('body', $body);
-	    return $view->render($this->renderer, $response);
+            $action = $args['action'] ?? NULL;
+            switch($action){
+                case 'edit':
+                    $view = ScholarshipView::edit($view, $scholarship, $questions, $qualifiers);
+                    break;
+                case 'view':
+                default:
+                    $view = ScholarshipView::item($view, $scholarship);
+                    break;
+            }
+        } else {
+            // List all scholarships
+            $scholarships = $this->container->get('ScholarshipStore')->getAll();
+            $view = ScholarshipView::list($view, $scholarships);
+        }
+        return $view->render($this->renderer, $response);
     }
 
     public function questionView(Request $request, Response $response, $args){
     	$questions = $this->container->get('QuestionStore')->getAll();
 
-	    $navbar = new ViewPart('admin/navbar.phtml');
-    	$navbar->addAttribute('active','questions');
-
-    	$body = new ViewPart('admin/question_list.phtml');
-    	$body->addAttribute('questions', $questions);
-
     	$view = new ViewBuilder('admin/admin_layout.phtml');
-    	$view->addPart('navbar', $navbar);
+        $view = AdminView::navbar($view, AdminView::ACTIVE_QUESTIONS);
+
+        $body = new ViewPart('admin/question_list.phtml');
+        $body->addAttribute('questions', $questions);
     	$view->addPart('body', $body);
 
         return $view->render($this->renderer, $response);
@@ -112,14 +101,11 @@ class AdminController extends AbstractController{
     public function qualifierView(Request $request, Response $response, $args){
     	$qualifiers = $this->container->get('QualifierStore')->getAll();
 		
-		$navbar = new ViewPart('admin/navbar.phtml');
-    	$navbar->addAttribute('active','qualifiers');
-
-    	$body = new ViewPart('admin/qualifier_list.phtml');
-    	$body->addAttribute('qualifiers', $qualifiers);
-
     	$view = new ViewBuilder('admin/admin_layout.phtml');
-    	$view->addPart('navbar', $navbar);
+        $view = AdminView::navbar($view, AdminView::ACTIVE_QUALIFIERS);
+
+        $body = new ViewPart('admin/qualifier_list.phtml');
+        $body->addAttribute('qualifiers', $qualifiers);
     	$view->addPart('body', $body);
 
         return $view->render($this->renderer, $response);
@@ -128,32 +114,29 @@ class AdminController extends AbstractController{
     public function createItem(Request $request, Response $response, $args){
     	$itemType = $args['item'] ?? NULL;
 
-    	$navbar = new ViewPart('admin/navbar.phtml');
-    	switch($itemType){
-    		case "scholarship":
-    			$navbar->addAttribute('active','scholarships');
-    			$body = new ViewPart('admin/scholarship_editor.phtml');
-    			$body->addScript('vue.js');
-    			$body->addScript('admin/scholarship_editor.js');
-    			$body->addAttribute('questions', $this->container->get('QuestionStore')->getAll());
-	    		$body->addAttribute('qualifiers', $this->container->get('QualifierStore')->getAll());
-    			break;
-    		case "question":
-    			$navbar->addAttribute('active','questions');
-    			$body = new ViewPart('admin/question_editor.js');
-    			break;
-    		case "qualifier":
-    			$navbar->addAttribute('active','qualifiers');
-    			$body = new ViewPart('admin/qualifier_editor.js');
-    			break;
-    		default:
-    			throw new \Slim\Exception\NotFoundException($request, $response);
-    			break;
-    	}
-
     	$view = new ViewBuilder('admin/admin_layout.phtml');
-    	$view->addPart('navbar', $navbar);
-    	$view->addPart('body', $body);
+        switch($itemType){
+            case "scholarship":
+                $view = AdminView::navbar($view, AdminView::ACTIVE_SCHOLARSHIPS);
+                $view = ScholarshipView::create($view, 
+                    $this->container->get('QuestionStore')->getAll(), 
+                    $this->container->get('QualifierStore')->getAll());
+                break;
+            case "question":
+                $view = AdminView::navbar($view, AdminView::ACTIVE_QUESTIONS);
+                $body = new ViewPart('admin/question_editor.js');
+                $view->addPart('body', $body);
+                break;
+            case "qualifier":
+                $view = AdminView::navbar($view, AdminView::ACTIVE_QUALIFIERS);
+                $body = new ViewPart('admin/qualifier_editor.js');
+                $view->addPart('body', $body);
+                break;
+            default:
+                throw new \Slim\Exception\NotFoundException($request, $response);
+                break;
+        }
+
     	return $view->render($this->renderer, $response);
     }
 }

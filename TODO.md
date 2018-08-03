@@ -10,8 +10,9 @@ TODO
 08/08 Finish New Search & New Applications
 08/13 Finish Application Viewer
 
-- Rebuild Search
+- Save Created/Edited Scholarship
 - Rebuild Scholarship Applications 
+- Rebuild Search
     
 - Build Admin Panel
     Qualifier

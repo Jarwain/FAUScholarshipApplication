@@ -1,25 +1,44 @@
 <?php
 namespace ScholarshipApi\View;
 
-use Slim\Http\Response;
-
 class ScholarshipView {
-	static function list($renderer, Response $response, $data){
-		$view = new ViewBuilder($renderer, $response);
-		$view->setLayout('admin/admin_layout.phtml');
+	static function list($view, $scholarships){
+        $body = new ViewPart('admin/scholarship_list.phtml');
+        $body->addAttribute('scholarships', $scholarships);
 
-		$body = new ViewPart('admin/login.phtml');
-		$body->addAttributes($data);
-
-		$view->addPart('body', $body);
-
-		return $view->render();
+        $view->addPart('body', $body);
+		return $view;
 	}
 
-	static function item($renderer, Response $response){
+	static function item($view, $scholarship, $test = null){
+		$body = new ViewPart('admin/scholarship_item.phtml');
+		$body->addAttribute('scholarship', $scholarship);
+		$body->addAttribute('test', $test);
 		
+		$view->addPart('body', $body);
+		return $view;
 	}
 
-	static function edit($renderer, Response $response){
+	static function edit($view, $scholarship, $questions, $qualifiers){
+		$body = new ViewPart('admin/scholarship_editor.phtml');
+        $body->addScript('vue.js');
+        $body->addScript('admin/scholarship_editor.js');
+		$body->addAttribute('scholarship', $scholarship);
+        $body->addAttribute('questions', $questions);
+        $body->addAttribute('qualifiers', $qualifiers);
+
+        $view->addPart('body', $body);
+        return $view;
+	}
+
+	static function create($view, $questions, $qualifiers){
+		$body = new ViewPart('admin/scholarship_editor.phtml');
+        $body->addScript('vue.js');
+        $body->addScript('admin/scholarship_editor.js');
+        $body->addAttribute('questions', $questions);
+        $body->addAttribute('qualifiers', $qualifiers);
+
+        $view->addPart('body', $body);
+        return $view;
 	}
 }

@@ -10,6 +10,7 @@ $app->group('/admin', function() use ($app){
     $app->group('', function() use ($app){
         $app->get('/','ScholarshipApi\Controller\AdminController:scholarshipView');
         $app->get('/scholarship/[{code}/[{action}/]]','ScholarshipApi\Controller\AdminController:scholarshipView');
+        $app->post('/scholarship/[{code}/]','ScholarshipApi\Controller\AdminController:scholarshipView');
         $app->get('/question/','ScholarshipApi\Controller\AdminController:questionView');
         $app->get('/qualifier/','ScholarshipApi\Controller\AdminController:qualifierView');
         $app->get('/create/[{item}/]','ScholarshipApi\Controller\AdminController:createItem');
