@@ -18,7 +18,15 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
     }
 
     function getAll(){
-        $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max
+        // Total is equal to the number of applications submitted for a given scholarship, 
+        // IF application has been accepted or a decision has not been made.
+        // Applications that have been rejected do not count against the total
+        $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max,
+                    ( SELECT COUNT(a.code) FROM `application` a 
+                        WHERE a.code = s.code
+                        AND (a.decision = 1 
+                            OR a.decision IS NULL)
+                        ) as total
                     FROM `scholarship` s";
         $result = $this->db->query($query)->fetchAll();
 
@@ -26,7 +34,12 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
     }
 
     function get($code){
-        $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max
+        $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max,
+                    ( SELECT COUNT(a.code) FROM `application` a 
+                        WHERE a.code = s.code
+                        AND (a.decision = 1 
+                            OR a.decision IS NULL)
+                        ) as total
                     FROM `scholarship` s 
                     WHERE s.code = :code";
         $stmnt = $this->db->prepare($query);

@@ -29,8 +29,8 @@ class ScholarshipFactory{
 
     function initialize($data){
         $sch = new ApplicableScholarship(
-            $data['id'], $data['code'], $data['name'], $data['description'], $data['active'], 
-            $data['max']);
+            $data['id'], $data['code'], $data['name'], $data['description'], 
+            $data['active'], $data['max'], $data['total']);
         $sch->setRequirements($this->requirements->get($sch->getCode()));
         $sch->setQuestions($this->questions->get($sch->getCode()));
         // TODO: Set URL & Deadline based on application details

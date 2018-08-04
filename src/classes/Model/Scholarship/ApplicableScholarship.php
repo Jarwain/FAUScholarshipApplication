@@ -3,15 +3,16 @@ namespace ScholarshipApi\Model\Scholarship;
 
 class ApplicableScholarship extends Scholarship{
     var $max;
+    var $total; // NOTE: Total represents total accepted + undecided. Rejects aren't counted
 
     var $requirements;
     var $questions; 
 
-    function __construct($id = NULL, $code, $name, $description, $active, $max = 0){
+    function __construct($id = NULL, $code, $name, $description, $active, $max = 0, $total = 0){
         parent::__construct($id, $code, $name, $description, $active);
 
-        $max = $max ?? 0;
-        $this->setMax($max);
+        $this->max = $max;
+        $this->total = $total;
     }
 
     function setMax(int $max = 0){
