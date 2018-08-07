@@ -14,9 +14,15 @@ const createStudent = ({
 
 var studentForm = new Vue({
 	el: '#studentForm',
-	data: {
-		student: createStudent(student),
-		qualifiers,
+	components: {
+		QualifierInput: vue.QualifierInput
+	},
+	data(){
+		return {
+			// student: createStudent(student),
+			qualifiers,
+			answers: {}
+		};
 	},
 	computed: {
 		

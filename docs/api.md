@@ -1,5 +1,8 @@
 # Services
 
+# NOTE:
+This may not be relevant. Or be worth building out. 
+
 ## Scholarship Eligibility Search (S)
 /scholarship/api/search?stuff
  - Get Qualifiers

@@ -27,16 +27,13 @@ class ViewBuilder {
 		$data = [];
 		$styles = [];
 		$scripts = [];
-		$scriptVar = [];
 		foreach($this->parts as $name=>$part){
 			$data['part'][$name] = $part;
 			$styles = array_merge($styles, $part->getStyles());
 			$scripts = array_merge($scripts, $part->getScripts());
-			$scriptVar = array_merge($scriptVar, $part->getScriptVar());
 		}
 		$data['styles'] = $styles;
 		$data['scripts'] = $scripts;
-		$data['scriptVar'] = $scriptVar;
 		return $data;
 	}
 

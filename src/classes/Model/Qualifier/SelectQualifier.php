@@ -49,7 +49,7 @@ class SelectQualifier extends Qualifier{
         }
     }
 
-    function renderInput(){
+/*    function renderInput(){
         $multi = $this->isMulti() ? 'multiple' : '';
         $open = <<<OPEN
         <div class='form-group'>
@@ -64,5 +64,5 @@ OPEN;
           </select>
         </div>";
         return $open.$mid.$close;
-    }
+    }*/
 }

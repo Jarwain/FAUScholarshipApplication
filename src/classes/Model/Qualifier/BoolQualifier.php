@@ -32,7 +32,7 @@ class BoolQualifier extends Qualifier{
         return True;
     }
 
-    function renderInput(){
+/*    function renderInput(){
         return <<<EOT
         <div class='form-group row'>
           <label class='col-sm-3 col-form-label' for='{$this->getName()}'>{$this->getQuestion()}</label>
@@ -48,5 +48,5 @@ class BoolQualifier extends Qualifier{
           </div>
         </div>
 EOT;
-    }
+    }*/
 }

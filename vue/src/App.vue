@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import StudentForm from './components/StudentForm.vue';
+import StudentForm from './components/scaffold/StudentForm.vue';
 import ScholarshipSelect from './components/ScholarshipSelect.vue';
 
 export default {

@@ -8,9 +8,18 @@
     <h2>Student Information</h2>
     <p>Fill out as much as you can.</p>
     <form id="studentForm">
-      <?php foreach($data['qualifiers'] as $qualifier){
+      <qualifier-input v-for="qualifier in qualifiers" :key="qualifier.id"
+        :qualifier="qualifier"
+      >
+      </qualifier-input>
+      <?php 
+      /*foreach($data['qualifiers'] as $qualifier){
         echo $qualifier->renderInput();
-      }?>
+      }*/
+      ?>
     </form>
   </div>
 </main>
+<script>
+var qualifiers = <?=json_encode($data['qualifiers'], JSON_NUMERIC_CHECK);?>;
+</script>

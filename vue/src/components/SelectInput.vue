@@ -27,7 +27,7 @@ export default {
 			required: true
 		},
 		value:{
-			default: 0,
+			default: ()=>[],
 			required: true
 		}
 	},

@@ -49,12 +49,12 @@ class RangeQualifier extends Qualifier{
         return True;
     }
 
-    function renderInput(){
+/*    function renderInput(){
         return <<<EOT
         <div class='form-group'>
           <label class='col-sm-3 col-form-label' for='{$this->getName()}'>{$this->getQuestion()}</label>
           <input type='range' class='custom-range' min='{$this->getMin()}' max='{$this->getMax()}' step='{$this->getStep()}' id='{$this->getName()}'>
         </div>
 EOT;
-    }
+    }*/
 }

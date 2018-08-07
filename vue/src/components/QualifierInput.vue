@@ -26,8 +26,7 @@ export default {
 			required: true,
 		},
 		value:{
-			required: true,
-			default: ''
+			required: false
 		}
 	},
 	computed: {
