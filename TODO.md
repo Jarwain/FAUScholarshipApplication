@@ -40,7 +40,7 @@ TODO
 I have 13 days.
 Should be done by 08/13. Leaves room for documentation and testing.
 
-
+- Assistive Technology Friendly
 - Get Logging working
 - New "Year" Generation
 

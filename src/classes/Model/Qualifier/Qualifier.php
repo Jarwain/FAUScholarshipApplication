@@ -13,7 +13,7 @@ abstract class Qualifier {
     const TYPE_SELECT = 'select';
 
     private $requiredProps = [];
-    private $optionalProps = [];
+    private $optionalProps = ['required'];
 
     function __construct($id, $name, $question, $props = []){
         $this->id = $id;

@@ -9,18 +9,15 @@ class Student {
 
     var $qualifications = [];
 
-    function __construct($znumber, $name, $email){
+    function __construct($znumber, $first_name, $last_name, $email){
         $this->znumber = $znumber;
-        $this->name = $name;
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
         $this->email = $email;
     }
 
     function addQualification($qualifierId, $value){
-
+        $this->qualifications[$qualifierId] = $value;
     }
 
-    static  function renderInput(){
-        return <<<START
-START;
-    }
 }

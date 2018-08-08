@@ -1,0 +1,32 @@
+{
+  "name": "scholarship",
+  "version": "1.0.0",
+  "description": "FAU Financial Aid Scholarship",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests",
+    "src": "src/js"
+  },
+  "scripts": {
+    "build": "npx babel src/js --out-dir public/js --watch"
+  },
+  "babel": {
+    "plugins": ["transform-es2015-template-literals"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jarwain/FAUScholarshipApplication.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jarwain/FAUScholarshipApplication/issues"
+  },
+  "homepage": "https://github.com/Jarwain/FAUScholarshipApplication#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-es2015-template-literals": "^6.22.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}

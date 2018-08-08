@@ -3,16 +3,24 @@ namespace ScholarshipApi\Model\Scholarship;
 
 class ApplicableScholarship extends Scholarship{
     var $max;
-    var $total; // NOTE: Total represents total accepted + undecided. Rejects aren't counted
+    var $app_count; // NOTE: app_count represents total accepted + undecided. Rejects aren't counted
 
     var $requirements;
     var $questions; 
 
-    function __construct($id = NULL, $code, $name, $description, $active, $max = 0, $total = 0){
+    function __construct($id = NULL, $code, $name, $description, $active, $max = 0, $app_count = 0){
         parent::__construct($id, $code, $name, $description, $active);
 
         $this->max = $max;
-        $this->total = $total;
+        $this->app_count = $app_count;
+    }
+
+    function isApplicable(){
+        // Scholarship is applicable if it is active AND
+        //  if the max is 0 (there is no max allowed number of applications that may be submitted)
+        //  OR 
+        //  if the number of applications submitted is less than the max allowed
+        return $this->active && ($this->max === 0 || $this->app_count < $this->max);
     }
 
     function setMax(int $max = 0){

@@ -3,7 +3,7 @@ const createStudent = ({
 	first_name = "",
 	last_name = "",
 	email = "",
-	qualifications = {}
+	qualifications = {},
 } = {}) => ({
 	znumber,
 	first_name,
@@ -14,11 +14,16 @@ const createStudent = ({
 
 var studentForm = new Vue({
 	el: '#studentForm',
-	data() {
+	components: {
+		
+	}
+	data(){
 		return {
 			student: createStudent(student),
 			qualifiers
 		};
 	},
-	methods: {}
+	methods: {
+		
+	}
 });

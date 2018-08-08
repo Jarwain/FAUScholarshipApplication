@@ -26,7 +26,7 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
                         WHERE a.code = s.code
                         AND (a.decision = 1 
                             OR a.decision IS NULL)
-                        ) as total
+                        ) as app_count
                     FROM `scholarship` s";
         $result = $this->db->query($query)->fetchAll();
 
