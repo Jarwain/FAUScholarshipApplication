@@ -5,7 +5,8 @@ module.exports = {
     pages: {
         application_form: {
             entry: 'src/application_form.js',
-            filename:'../templates/application_form.phtml'
+            template: '../templates/layout.html',
+            filename:'../templates/vue/application_form.phtml'
         },
         //scholarship_select: 'src/scholarship_select.js',
         app: {
