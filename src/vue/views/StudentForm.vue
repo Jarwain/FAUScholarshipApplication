@@ -37,7 +37,7 @@ import axios from 'axios'
 import QualifierInput from '@/components/QualifierInput.vue';
 
 export default {
-  name: 'ApplicationStudent',
+  name: 'StudentForm',
   components: {
     QualifierInput
   },

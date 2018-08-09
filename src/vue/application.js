@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import App from './views/Application.vue';
+import StudentForm from './views/StudentForm.vue';
 
 Vue.config.productionTip = false;
 
@@ -10,21 +10,20 @@ const router = new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'home',
-			component: Application.vue,
+			name: 'student',
+			component: StudentForm,
 		},
 		{
-			path: '/about',
-			name: 'about',
+			path: '/select',
+			name: 'select',
 			// route level code-splitting
 			// this generates a separate chunk (about.[hash].js) for this route
 			// which is lazy-loaded when the route is visited.
-			component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+			component: () => import(/* webpackChunkName: "about" */ './views/ScholarshipSelect.vue'),
 		},
 	],
 });
 
 new Vue({
 	router,
-	render: h => h(App),
-}).$mount('#app');
+}).$mount('#appl');
