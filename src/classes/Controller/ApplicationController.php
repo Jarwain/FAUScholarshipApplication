@@ -18,6 +18,15 @@ class ApplicationController extends AbstractController{
         $this->renderer = $container->get('renderer');
     }
 
+    public function index(Request $request, Response $response, $args){
+    	$qualifiers = $this->container->get('QualifierStore')->getAll();
+    	$data['obj'] = [
+    		'qualifiers' => $qualifiers
+    	];
+
+    	return $this->renderer->render($response, 'application/index.phtml', $data);
+    }
+
     public function studentForm(Request $request, Response $response){
         $qualifiers = $this->container->get('QualifierStore')->getAllByName();
         if($request->isPost()){

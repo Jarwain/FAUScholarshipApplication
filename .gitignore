@@ -1,12 +1,11 @@
 /vendor/
 /logs/*
 !/logs/README.md
-/.config/
-settings.json
 *.sublime-*
 .DS_Store
 node_modules
 /dist
+settings.json
 
 # local env files
 .env.local

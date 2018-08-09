@@ -3,6 +3,7 @@ html {
   min-height: 100%;
 }
 body {
+	padding-top: 4.5rem;
   padding-bottom: 4.5rem; /* Margin bottom by footer height */
 }
 footer {

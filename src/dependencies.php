@@ -14,11 +14,8 @@ $container['session'] = function ($c) {
 
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
-    $templateVars = [
-        'baseUrl' => $c->get('settings')['baseUrl'],
-        'title' => $c->get('settings')['title'],
-        'scholarship_year' => $c->get('settings')['scholarship_year'],
-    ];
+    $templateVars = $c->get('settings')['templateVars'];
+    
     // return new Slim\Views\PhpRenderer($settings['template_path'], $templateVars);
     return new ScholarshipApi\Util\BetterRenderer($settings['template_path'], $templateVars);
 };

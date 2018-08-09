@@ -1,11 +1,22 @@
 <?php
-$dbconfig = json_decode(file_get_contents(__DIR__ . '/../settings.json'));
+$dbconfig = json_decode(file_get_contents(__DIR__ . '/settings.json'));
+/*
+settings.json example
+{
+    "host": "localhost",
+    "dbname": "dbname",
+    "user": "username",
+    "pass": "pass"
+}
+ */
 
 return [
     'settings' => [
-        'baseUrl' => '/scholarship/',
-        'title' => 'Office of Financial Aid',
-        'scholarship_year' => '2019-2020',
+        'templateVars' => [
+            'baseUrl' => 'scholarship',
+            'title' => 'Office of Financial Aid',
+            'scholarship_year' => '2019-2020'
+        ],
 
         'displayErrorDetails' => true, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
