@@ -1,22 +1,22 @@
 {
   "name": "scholarship",
   "version": "1.0.0",
-  "description": "FAU Financial Aid Scholarship",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --no-clean",
-    "dev": "vue-cli-service build --no-clean --watch",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "vue": "^2.5.16"
+    "vue": "^2.5.16",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.10",
-    "@vue/cli-plugin-eslint": "^3.0.0-rc.10",
+    "@vue/cli-plugin-eslint": "^3.0.0-rc.12",
     "@vue/cli-service": "^3.0.0-rc.10",
+    "@vue/eslint-config-airbnb": "^3.0.0-rc.12",
     "vue-template-compiler": "^2.5.16"
   },
   "eslintConfig": {
@@ -26,9 +26,15 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "@vue/airbnb"
     ],
-    "rules": {},
+    "rules": {
+      "indent": [
+        "error",
+        "tab"
+      ],
+      "no-tabs": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
@@ -42,5 +48,6 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "description": "FAU Financial Aid Scholarship"
 }

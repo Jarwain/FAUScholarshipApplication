@@ -10,42 +10,42 @@
 
 <script>
 export default {
-	name: 'SelectInput',
-	props: {
-		name: {
-			type: String,
-			default: '',
-			required: true,
-		},
-		question: {
-			type: String,
-			default: '',
-			required: true
-		},
-		props: {
-			type: Object,
-			required: true
-		},
-		value:{
-			default: ()=>[],
-			required: true
-		}
-	},
-	computed: {
-		localValue: {
-			get() {
-				return this.value;
-			},
-			set(value) {
-				this.$emit('input', value);
-			},
-		}
-	},
-	data(){
-		return {
-			
-		};
-	},
-}
+  name: 'SelectInput',
+  props: {
+    name: {
+      type: String,
+      default: '',
+      required: true,
+    },
+    question: {
+      type: String,
+      default: '',
+      required: true,
+    },
+    props: {
+      type: Object,
+      required: true,
+    },
+    value: {
+      default: () => [],
+      required: true,
+    },
+  },
+  computed: {
+    localValue: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit('input', value);
+      },
+    },
+  },
+  data() {
+    return {
+
+    };
+  },
+};
 </script>
 

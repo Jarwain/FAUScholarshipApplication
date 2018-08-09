@@ -16,38 +16,38 @@
 
 <script>
 export default {
-	name: 'BoolInput',
-	props: {
-		name: {
-			type: String,
-			default: '',
-			required: true,
-		},
-		question: {
-			type: String,
-			default: '',
-			required: true
-		},
-		value:{
-			required: true,
-			default: ''
-		}
-	},
-	computed: {
-		localValue: {
-			get() {
-				return this.value;
-			},
-			set(value) {
-				this.$emit('input', value);
-			},
-		}
-	},
-	data(){
-		return {
-			
-		};
-	},
-}
+  name: 'BoolInput',
+  props: {
+    name: {
+      type: String,
+      default: '',
+      required: true,
+    },
+    question: {
+      type: String,
+      default: '',
+      required: true,
+    },
+    value: {
+      required: true,
+      default: '',
+    },
+  },
+  computed: {
+    localValue: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit('input', value);
+      },
+    },
+  },
+  data() {
+    return {
+
+    };
+  },
+};
 </script>
 

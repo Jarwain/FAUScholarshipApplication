@@ -37,9 +37,12 @@
     <script>
       var FAUObj = {};
       
-      <?php foreach($data['obj'] as $name => $obj){
-        $json = json_encode($obj, JSON_NUMERIC_CHECK);
-        echo "FAUObj.$name = $json || {};";
+      <?php 
+      if(isset($data['obj'])){
+        foreach($data['obj'] as $name => $obj){
+          $json = json_encode($obj, JSON_NUMERIC_CHECK);
+          echo "FAUObj.$name = $json || {};";
+        }
       }?>
     </script>
 

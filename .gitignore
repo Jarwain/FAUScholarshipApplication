@@ -1,7 +1,6 @@
 /vendor/
 /logs/*
 !/logs/README.md
-*.sublime-*
 .DS_Store
 node_modules
 /dist
@@ -19,6 +18,7 @@ yarn-error.log*
 # Editor directories and files
 .idea
 .vscode
+*.sublime*
 *.suo
 *.ntvs*
 *.njsproj

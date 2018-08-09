@@ -23,53 +23,53 @@
 
 <script>
 export default {
-	name: 'SelectableScholarship',
-	props: {
-		selected: {
-			type: Boolean,
-			required: true,
-			default: false
-		},
-		code: {
-			type: String,
-			required: true,
-		},
-		name: {
-			type: String,
-			required: true,
-		},
-		description: {
-			type: String,
-			required: true,
-		},
-		max: {
-			type: Number,
-			required: true,
-		},
-		questions: {
-			type: Array,
-			required: true
-		},
-		requirements: {
-			type: Array,
-			required: true,
-		}
-	},
-	computed: {
-		localValue: {
-			get() {
-				return this.selected;
-			},
-			set(selected) {
-				this.$emit('input', selected);
-			},
-		}
-	},
-	data(){
-		return {
-			visibleRequirements: false,
-		};
-	},
-}
+  name: 'SelectableScholarship',
+  props: {
+    selected: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    code: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    max: {
+      type: Number,
+      required: true,
+    },
+    questions: {
+      type: Array,
+      required: true,
+    },
+    requirements: {
+      type: Array,
+      required: true,
+    },
+  },
+  computed: {
+    localValue: {
+      get() {
+        return this.selected;
+      },
+      set(selected) {
+        this.$emit('input', selected);
+      },
+    },
+  },
+  data() {
+    return {
+      visibleRequirements: false,
+    };
+  },
+};
 </script>
 

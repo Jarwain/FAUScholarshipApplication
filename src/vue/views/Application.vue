@@ -1,6 +1,6 @@
 <template>
 <div id="app" role="main" class="container">
-  <h2>Student Information</h1>
+  <h2>Student Information</h2>
   <p>Fill out as much as you can.</p>
   <form>
     <div class="form-row">
@@ -25,7 +25,7 @@
     </div>
     <qualifier-input v-for="qualifier in qualifiers" :key="qualifier.id"
       :qualifier="qualifier"
-      v-model="answers[qualifier.id]"
+      v-model="student.qualifications[qualifier.id]"
     >
     </qualifier-input>
   </form>
@@ -33,19 +33,19 @@
 </template>
 
 <script>
-import axios from 'axios';
-import QualifierInput from './components/QualifierInput.vue';
+import axios from 'axios'
+import QualifierInput from '@/components/QualifierInput.vue';
+
 export default {
   name: 'ApplicationStudent',
   components: {
     QualifierInput
   },
-  data(){
+  data() {
     return {
-      qualifiers: window.FAUObj.qualifiers,
-      answers: {}
+      qualifiers: window.FAUobj.qualifiers,
+      student: {},
     };
   },
-}
+};
 </script>
-

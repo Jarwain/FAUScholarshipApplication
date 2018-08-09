@@ -13,37 +13,38 @@
 import BoolInput from './BoolInput.vue';
 import RangeInput from './RangeInput.vue';
 import SelectInput from './SelectInput.vue';
+
 export default {
-	name: 'QualifierInput',
-	components: {
-		BoolInput,
-		RangeInput,
-		SelectInput,
-	},
-	props: {
-		qualifier: {
-			type: Object,
-			required: true,
-		},
-		value:{
-			required: false
-		}
-	},
-	computed: {
-		localValue: {
-			get() {
-				return this.value;
-			},
-			set(value) {
-				this.$emit('input', value);
-			},
-		}
-	},
-	data(){
-		return {
-			
-		};
-	},
-}
+  name: 'QualifierInput',
+  components: {
+    BoolInput,
+    RangeInput,
+    SelectInput,
+  },
+  props: {
+    qualifier: {
+      type: Object,
+      required: true,
+    },
+    value: {
+      required: false,
+    },
+  },
+  computed: {
+    localValue: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit('input', value);
+      },
+    },
+  },
+  data() {
+    return {
+
+    };
+  },
+};
 </script>
 
