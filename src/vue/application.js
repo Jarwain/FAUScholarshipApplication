@@ -1,8 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import StudentForm from './views/StudentForm.vue';
 
 Vue.config.productionTip = false;
+
+Vue.use(Router);
+
+// Generates a separate chunk for this route
+// Which is lazy-loaded
+function loadView(view) {
+	return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
+}
 
 const router = new Router({
 	mode: 'history',
@@ -11,19 +18,16 @@ const router = new Router({
 		{
 			path: '/',
 			name: 'student',
-			component: StudentForm,
+			component: loadView('StudentForm'),
 		},
 		{
 			path: '/select',
 			name: 'select',
-			// route level code-splitting
-			// this generates a separate chunk (about.[hash].js) for this route
-			// which is lazy-loaded when the route is visited.
-			component: () => import(/* webpackChunkName: "about" */ './views/ScholarshipSelect.vue'),
+			component: loadView('ScholarshipSelect'),
 		},
 	],
 });
 
 new Vue({
 	router,
-}).$mount('#appl');
+}).$mount('#app');

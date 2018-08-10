@@ -10,19 +10,16 @@
     <title>Scholarship Application</title>
 
     <!-- Core CSS -->
-    <link href="/<%= BASE_URL %>/css/bootstrap.min.css" rel="stylesheet" />    
-    <link href="/<%= BASE_URL %>/css/sticky_footer.css" rel="stylesheet" />    
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />    
+    <link href="/css/sticky_footer.css" rel="stylesheet" />    
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark shadow">
-      <a href="/<%= BASE_URL %>/application/" class="navbar-brand">
-        <img src="/<%= BASE_URL %>/img/logo-owl-color.svg" height="40px" class="d-inline-block"/>
+      <a href="/application/" class="navbar-brand">
+        <img src="/img/logo-owl-color.svg" height="40px" class="d-inline-block"/>
         <?=$data['title']?>
       </a>
     </nav>
-    <noscript><strong>
-      Please enable Javascript
-    </strong></noscript>
     <main role="main" class="container">
       <div class="d-flex justify-content-between flex-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1>
@@ -36,22 +33,11 @@
     <footer class="container-fluid">
       <span class="text-muted">Copyright © 2015-2018 FAU Office of Student Financial Aid. All rights reserved.</span>
     </footer>
-    <script>
-      var FAUObj = {};
-      
-      <?php 
-      if(isset($data['obj'])){
-        foreach($data['obj'] as $name => $obj){
-          $json = json_encode($obj, JSON_NUMERIC_CHECK);
-          echo "FAUObj.$name = $json || {};";
-        }
-      }?>
-    </script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/<%= BASE_URL %>/js/jquery-3.3.1.slim.min.js"></script>
-    <script src="/<%= BASE_URL %>/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
