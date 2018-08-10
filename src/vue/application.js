@@ -17,7 +17,7 @@ function loadView(view) {
 
 const router = new Router({
 	mode: 'history',
-	base: process.env.BASE_URL,
+	base: `${process.env.BASE_URL}application/`,
 	routes: [
 		{
 			path: '/',
@@ -66,10 +66,8 @@ const store = new Vuex.Store({
 		},
 		toggleSelectedScholarship(state, scholarship) {
 			if (state.selected_scholarships.has(scholarship.code)) {
-				console.log(`delete ${scholarship.code}`);
 				state.selected_scholarships.delete(scholarship.code);
 			} else {
-				console.log(`add ${scholarship.code}`);
 				state.selected_scholarships.set(scholarship.code, scholarship);
 			}
 		},

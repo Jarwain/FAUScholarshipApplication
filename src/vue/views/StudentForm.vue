@@ -71,7 +71,7 @@ export default {
 		QualifierInput,
 	},
 	created() {
-		this.$store.dispatch('getAllQualifiers');
+		// this.$store.dispatch('getAllQualifiers');
 	},
 	computed: {
 		student: {
@@ -83,6 +83,7 @@ export default {
 			},
 		},
 		...mapGetters([
+			'loadingQualifiers',
 			'requiredQualifiers',
 			'optionalQualifiers',
 		]),

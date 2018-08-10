@@ -1,4 +1,5 @@
 const path = require('path');
+const config = require('./src/config.json');
 
 module.exports = {
 	runtimeCompiler: true,
@@ -10,13 +11,15 @@ module.exports = {
 		},
 	},
 	baseUrl: process.env.NODE_ENV === 'production'
-		? "<?=$data['baseUrl']?>"
+		? config.template.baseUrl
 		: '/',
-	/*pages: {
-		application: {
-			entry: 'src/vue/application.js',
-			filename: '../templates/application/index.phtml',
-			template: 'templates/application/layout.html',
-		},
-	},*/
+	pages: process.env.NODE_ENV === 'production'
+		? {
+			application: {
+				entry: 'src/vue/application.js',
+				filename: 'application.phtml',
+				template: 'templates/application/layout.html',
+			},
+		}
+		: undefined,
 };

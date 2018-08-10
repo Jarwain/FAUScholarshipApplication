@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "watch": "vue-cli-service build --watch --mode production",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -36,7 +37,12 @@
       ],
       "no-tabs": "off",
       "eol-last": "off",
-      "no-param-reassign": [2, { "props": false }]
+      "no-param-reassign": [
+        2,
+        {
+          "props": false
+        }
+      ]
     },
     "parserOptions": {
       "parser": "babel-eslint"

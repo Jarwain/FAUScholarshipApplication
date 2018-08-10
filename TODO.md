@@ -1,19 +1,15 @@
 TODO
 =====
-## Meetings
-### 08/01
-### 08/08
-### 08/15
 
-08/03 Finish "NEW SCHOLARSHIP". Make good progress on Application
-08/06 Build Admissions Database By TODAY
-08/08 Finish New Search & New Applications
-08/13 Finish Application Viewer
+- Save Application(s)
+- New Applications + Search
+	- Check if student exists
+	- Submit Application
+	- Loader
+- Application Viewer
+- Build Admissions Database
 
-- Save Created/Edited Scholarship
-- Rebuild Scholarship Applications 
-- Rebuild Search
-    
+- Save Created/Edited Scholarship    
 - Build Admin Panel
     Qualifier
         (X)List
@@ -35,10 +31,6 @@ TODO
         List
         Decide
         Delete
-
-
-I have 13 days.
-Should be done by 08/13. Leaves room for documentation and testing.
 
 - Assistive Technology Friendly
 - Get Logging working
