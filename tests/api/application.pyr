@@ -1,0 +1,17 @@
+get('https://boc22finaid.fau.edu/scholarship/api/student/', headers={'Accept': 'application/json'})
+get('https://boc22finaid.fau.edu/scholarship/api/application/', headers={'Accept': 'application/json'})
+
+post(
+    'https://boc22finaid.fau.edu/scholarship/api/application/',
+    headers={'Accept': 'application/json'},
+    json={
+    "student": {
+    	"znumber": "Z23125226",
+    	"first_name": "Dyllan",
+    	"last_name": "To",
+    	"email": "dto1@fau.edu",
+    	"qualifications": [
+    	]
+    }
+  }
+)
