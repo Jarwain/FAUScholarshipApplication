@@ -1,0 +1,14 @@
+{
+	"isProduction": false,
+	"template": {
+		"baseUrl": "scholarships",
+        "title": "Office",
+        "scholarship_year": "2019-2020"
+	},
+	"db": {
+		"host": "localhost",
+		"dbname": "scholarships",
+		"user": "user",
+		"pass": "pass"
+	}
+}

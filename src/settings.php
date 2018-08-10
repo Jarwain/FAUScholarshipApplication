@@ -1,14 +1,5 @@
 <?php
 $config = json_decode(file_get_contents(__DIR__ . '/config.json'));
-/*
-settings.json example
-{
-    "host": "localhost",
-    "dbname": "dbname",
-    "user": "username",
-    "pass": "pass"
-}
- */
 
 return [
     'settings' => [
