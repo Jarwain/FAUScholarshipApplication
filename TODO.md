@@ -1,14 +1,16 @@
 TODO
 =====
+- Build Admissions Database Locally!
+- Use Admissions Database to test application!
 
 - Save Application(s)
-- New Applications + Search
+- New Applications
 	- Check if student exists
 	- Submit Application
-	- Loader
-- Application Viewer
-- Build Admissions Database
 
+
+- Admin Panel w/Vue
+- Application Viewer
 - Save Created/Edited Scholarship    
 - Build Admin Panel
     Qualifier
