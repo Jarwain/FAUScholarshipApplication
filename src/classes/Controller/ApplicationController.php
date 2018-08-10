@@ -26,4 +26,23 @@ class ApplicationController extends AbstractController{
 
     	return $this->renderer->render($response, '../dist/application.phtml', $data);
     }
+
+    public function save(Request $request, Response $response){
+        $files = $request->getUploadedFiles();
+        /* http://php.net/manual/en/features.file-upload.post-method.php */
+        [
+            'student' => $student, 
+            'scholarships' => $scholarships,
+            'answers' => $answers
+        ] = $request->getParsedBody();
+
+        // Save Student (if not already saved)
+        // Save Files to Database
+        // Assign file id to answer
+        // Turn answers into applications
+        // Save application
+        // Return success or not
+
+        return $response->withJson(["You have successfully submitted applications!", $student, $scholarships, $answers]);
+    }
 }

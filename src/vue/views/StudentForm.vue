@@ -1,5 +1,5 @@
 <template>
-<div id="app" role="main" class="container">
+<div role="main" class="container">
 	<h2>Student Information</h2>
 	<p>Fill out as much as you can.</p>
 	<form>
@@ -71,7 +71,7 @@ export default {
 		QualifierInput,
 	},
 	created() {
-		// this.$store.dispatch('getAllQualifiers');
+		this.$store.dispatch('getAllQualifiers');
 	},
 	computed: {
 		student: {
@@ -83,7 +83,6 @@ export default {
 			},
 		},
 		...mapGetters([
-			'loadingQualifiers',
 			'requiredQualifiers',
 			'optionalQualifiers',
 		]),

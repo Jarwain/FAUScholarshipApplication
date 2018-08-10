@@ -10,8 +10,16 @@ post(
     	"first_name": "Dyllan",
     	"last_name": "To",
     	"email": "dto1@fau.edu",
-    	"qualifications": [
-    	]
-    }
+    	"qualifications": {
+    		"1": True
+    	}
+    },
+	"scholarships": [],
+	"answers": {
+		"1": "asdf",
+		"2": "2", # FILE
+		"3": "Lol ok",
+		"4": "youtube.com/video"
+	}
   }
 )

@@ -10,7 +10,7 @@ $app->group('/api', function() use ($app){
 
     $app->group('/application', function() use ($app){
         // $app->get(      '/[{code}/]',  'ScholarshipApi\Controller\ScholarshipController:get');
-        // $app->post(     '/',  'ScholarshipApi\Controller\ApplicationController:save');
+        $app->post(     '/',  'ScholarshipApi\Controller\ApplicationController:save');
     });
 
     $app->group('/scholarship', function() use ($app){
