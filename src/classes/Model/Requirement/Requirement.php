@@ -1,11 +1,11 @@
 <?php
 namespace ScholarshipApi\Model\Requirement;
 
-class Requirement{
-    var $id;
-    var $category;
-    var $qualifier;
-    var $valid;
+class Requirement implements \JsonSerializable{
+    protected $id;
+    protected $category;
+    protected $qualifier;
+    protected $valid;
 
     // TODO: (maybe)Refactor so that there's $pass and $fail
 
@@ -14,6 +14,16 @@ class Requirement{
         $this->category = $category;
         $this->qualifier = $qualifier;
         $this->valid = $valid;
+    }
+
+
+    function jsonSerialize(){
+        return [
+            'id' => $this->getId(),
+            'category' => $this->getCategory(),
+            'qualifier_id' => $this->getQualifierId(),
+            'valid' => $this->getValid()
+        ];
     }
 
     function validate($term){

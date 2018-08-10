@@ -1,13 +1,13 @@
 <?php
 namespace ScholarshipApi\Model\Qualifier;
 
-abstract class Qualifier {
+abstract class Qualifier implements \JsonSerializable{
     use \ScholarshipApi\Model\PropTrait;
-    public $id;
-    public $name;
-    public $question;
+    protected $id;
+    protected $name;
+    protected $question;
 
-    public $type;
+    protected $type;
     const TYPE_BOOL = 'bool';
     const TYPE_RANGE = 'range';
     const TYPE_SELECT = 'select';
@@ -25,6 +25,17 @@ abstract class Qualifier {
     }
 
     abstract function validate($term, $valid = Null);
+
+    function jsonSerialize(){
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'question' => $this->getQuestion(),
+            'type' => $this->getType(),
+            'possibleProps' => $this->getPossibleProps(),
+            'props' => $this->getProps()
+        ];
+    }
 
     function getId(){
         return $this->id;

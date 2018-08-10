@@ -8,5 +8,7 @@ use \Interop\Container\ContainerInterface;
 abstract class AbstractController {
     protected $container;
 
-	public abstract function __construct(ContainerInterface $container);
+	public function __construct(ContainerInterface $container){
+		$this->container = $container;
+	}
 }

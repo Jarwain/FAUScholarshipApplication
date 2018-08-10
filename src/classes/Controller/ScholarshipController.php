@@ -5,13 +5,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use \Interop\Container\ContainerInterface;
 
-class ScholarshipController {
-    protected $container;
-
-    public function __construct(ContainerInterface $container){
-        $this->container = $container;
-    }
-
+class ScholarshipController extends AbstractController{
     /*
     Default: returns all scholarships full
     If $code is set: returns scholarship with $code. Ignore all other parameters.

@@ -1,6 +1,5 @@
 <?php
-$isProduction = False;
-$dbconfig = json_decode(file_get_contents(__DIR__ . '/settings.json'));
+$config = json_decode(file_get_contents(__DIR__ . '/config.json'));
 /*
 settings.json example
 {
@@ -13,13 +12,8 @@ settings.json example
 
 return [
     'settings' => [
-        'templateVars' => [
-            'baseUrl' => 'scholarship',
-            'title' => 'Office of Financial Aid',
-            'scholarship_year' => '2019-2020'
-        ],
-
-        'displayErrorDetails' => !$isProduction, // set to false in production
+        'templateVars' => (array)$config->template,
+        'displayErrorDetails' => !$config->isProduction, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
 
         // Renderer settings
@@ -36,10 +30,10 @@ return [
 
         // Database Settings
         'db' => [
-            'host' => $dbconfig->host,
-            'dbname' => $dbconfig->dbname,
-            'user' => $dbconfig->user,
-            'pass' => $dbconfig->pass,
+            'host' => $config->db->host,
+            'dbname' => $config->db->dbname,
+            'user' => $config->db->user,
+            'pass' => $config->db->pass,
         ]
     ],
 ];

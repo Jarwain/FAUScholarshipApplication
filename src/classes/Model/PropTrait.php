@@ -2,7 +2,7 @@
 namespace ScholarshipApi\Model;
 
 trait PropTrait {
-    public $props = [];
+    protected $props = [];
 
     function setProps($props){
         if(!is_null($props)){
