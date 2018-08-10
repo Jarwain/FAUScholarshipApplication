@@ -10,16 +10,12 @@ module.exports = {
 			},
 		},
 	},
-	baseUrl: process.env.NODE_ENV === 'production'
-		? config.template.baseUrl
-		: '/',
-	pages: process.env.NODE_ENV === 'production'
-		? {
-			application: {
-				entry: 'src/vue/application.js',
-				filename: 'application.phtml',
-				template: 'templates/application/layout.html',
-			},
-		}
-		: undefined,
+	baseUrl: config.template.baseUrl,
+	pages: {
+		application: {
+			entry: 'src/vue/application.js',
+			filename: 'application.phtml',
+			template: 'templates/application.html',
+		},
+	},
 };
