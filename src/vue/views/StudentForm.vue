@@ -27,31 +27,42 @@
 					v-model="student.email">
 			</div>
 		</div>
-		<qualifier-input v-for="qualifier in Object.values(qualifiers).filter(e=>(e.props.required))"
+		<qualifier-input v-for="qualifier in requiredQualifiers"
 			:key="qualifier.id"
 			:qualifier="qualifier"
 			v-model="student.qualifications[qualifier.id]"
 		>
 		</qualifier-input>
+
 		<div class="card">
-			<div class="card-header">
-				<a data-toggle="collapse" href="">
+			<div class="card card-header">
+				<button class="btn btn-link" type="button"
+					data-toggle="collapse" data-target="#filters"
+					aria-expanded="false" aria-controls="filters">
 					Scholarship Filters
-				</a>
+				</button>
 			</div>
-			<div class="card-body collapsed">
-				test
+			<div class="collapse multi-collapse" id="filters">
+				<div class="card card-body">
+					<qualifier-input v-for="qualifier in optionalQualifiers"
+						:key="qualifier.id"
+						:qualifier="qualifier"
+						v-model="student.qualifications[qualifier.id]"
+					>
+					</qualifier-input>
+				</div>
 			</div>
 		</div>
+
 	</form>
-	<div class="d-flex justify-content-end">
+	<div class="d-flex justify-content-end my-3">
 		<router-link to="/select" class="btn btn-primary">Next</router-link>
 	</div>
 </div>
 </template>
 
 <script>
-import axios from 'axios';
+import { mapGetters } from 'vuex';
 import QualifierInput from '@/components/QualifierInput.vue';
 
 export default {
@@ -60,33 +71,25 @@ export default {
 		QualifierInput,
 	},
 	created() {
-		if (window.FAUobj) {
-			this.qualifiers = window.FAUobj.qualifiers;
-		} else {
-			this.fetchData();
-		}
+		this.$store.dispatch('getAllQualifiers');
+	},
+	computed: {
+		student: {
+			get() {
+				return this.$store.state.student;
+			},
+			set(val) {
+				this.$store.commit('setStudent', val);
+			},
+		},
+		...mapGetters([
+			'requiredQualifiers',
+			'optionalQualifiers',
+		]),
 	},
 	data() {
 		return {
-			qualifiers: {},
-			student: {
-				first_name: '',
-				last_name: '',
-				znumber: '',
-				email: '',
-				qualifications: [],
-			},
 		};
-	},
-	methods: {
-		fetchData() {
-			axios
-				.get(
-					'https://boc22finaid.fau.edu/scholarship/api/qualifier/',
-					{ headers: { Accept: 'application/json' } },
-				)
-				.then((response) => { this.qualifiers = response.data; });
-		},
 	},
 };
 </script>

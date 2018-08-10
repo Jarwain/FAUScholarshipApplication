@@ -1,21 +1,21 @@
 <template>
-	<div class="card mb-4">
-		<div class="card-header">
-			{{name}}
-		</div>
-		<div class="card-body">
-			<p class="card-text">
-				{{description}}
-			</p>
-		</div>
-		<div v-if="requirements.length > 0" class="card-footer text-muted">
-			<a data-toggle="collapse" :href="`#req_${code}`">
-				{{visible_requirements ? 'Hide' : 'View'}} Requirements
+	<div class="card my-2">
+		<div class="card-header d-flex align-items-center justify-content-between">
+			<a class="" data-toggle="collapse" :href="`#sch_${code}`">
+				{{name}}
 			</a>
-			<div class="collapse" :id="`req_${code}`">
-				<p>
-					{{requirements}}
+			<button class="btn " :class="checked ? 'btn-outline-danger' : 'btn-outline-success'" @click="toggle()">
+				{{ checked ? 'Remove' : 'Apply' }}
+			</button>
+		</div>
+		<div class="collapse" :id="`sch_${code}`">
+			<div class="card-body">
+				<p class="card-text">
+					{{description}}
 				</p>
+			</div>
+			<div v-if="requirements.length > 0" class="card-footer text-muted">
+				{{requirements}}
 			</div>
 		</div>
 	</div>
@@ -25,11 +25,6 @@
 export default {
 	name: 'SelectableScholarship',
 	props: {
-		selected: {
-			type: Boolean,
-			required: true,
-			default: false,
-		},
 		code: {
 			type: String,
 			required: true,
@@ -43,7 +38,7 @@ export default {
 			required: true,
 		},
 		max: {
-			type: Number,
+			/*type: Number,*/
 			required: true,
 		},
 		questions: {
@@ -55,20 +50,16 @@ export default {
 			required: true,
 		},
 	},
-	computed: {
-		localValue: {
-			get() {
-				return this.selected;
-			},
-			set(selected) {
-				this.$emit('input', selected);
-			},
-		},
-	},
 	data() {
 		return {
-			visibleRequirements: false,
-		};
+			checked: this.$store.state.selected_scholarships.has(this.code),
+		}
+	},
+	methods: {
+		toggle() {
+			this.checked = !this.checked;
+			this.$store.commit('toggleSelectedScholarship', this.$props);
+		},
 	},
 };
 </script>

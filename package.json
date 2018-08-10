@@ -10,7 +10,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "vue": "^2.5.16",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.10",
@@ -34,7 +35,8 @@
         "tab"
       ],
       "no-tabs": "off",
-      "eol-last": "off"
+      "eol-last": "off",
+      "no-param-reassign": [2, { "props": false }]
     },
     "parserOptions": {
       "parser": "babel-eslint"
