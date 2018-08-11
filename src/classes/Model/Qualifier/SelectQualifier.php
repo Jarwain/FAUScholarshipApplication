@@ -8,7 +8,7 @@ class SelectQualifier extends Qualifier{
     function __construct($id, $name, $question, $props = []){
         $this->type = parent::TYPE_SELECT; 
         $this->setRequiredProps(['haystack']);
-        $this->setOptionalProps(['multi']);
+        $this->setOptionalProps(['multi', 'other']);
 
         parent::__construct($id, $name, $question, $props);
     }
@@ -21,13 +21,23 @@ class SelectQualifier extends Qualifier{
         return $this->getProp('multi') ?? False;
     }
 
+    function otherable(){
+        return $this->getProp('multi') ?? False;
+    }
+
     /**
      * Check if term is in $haystack. 
      * Returns True on success, returns reason on failure
+     * if validating requirement, checks if term is in $valid
      */
     function validate($term, $valid = Null){
         $haystack = $valid ?? $this->getHaystack();
         $validator = v::in($haystack);
+
+        // If they can input a custom value
+        // AND it's not validating a Requirement
+        if($this->otherable() && is_null($valid))
+            return True;
 
         if($this->isMulti()){
             foreach($term as $t){

@@ -1,7 +1,7 @@
 <?php
 namespace ScholarshipApi\Model\Question;
 
-abstract class Question {
+abstract class Question implements \JsonSerializable{
     use \ScholarshipApi\Model\PropTrait;
     public $id;
     public $question;
@@ -12,7 +12,7 @@ abstract class Question {
     const TYPE_VIDEO = 'video';
 
     private $requiredProps = [];
-    private $optionalProps = ['required'];
+    private $optionalProps = ['optional'];
 
     function __construct($id, $question, $props = []){
         $this->id = $id;
@@ -22,12 +22,22 @@ abstract class Question {
         $this->checkRequiredProps();
     }
 
-    function isRequired(){
-        $required = $this->getProp('required');
-        if(is_null($required))
+    function jsonSerialize(){
+        return [
+            'id' => $this->getId(),
+            'question' => $this->getQuestion(),
+            'type' => $this->getType(),
+            'possibleProps' => $this->getPossibleProps(),
+            'props' => $this->getProps()
+        ];
+    }
+
+    function isOptional(){
+        $optional = $this->getProp('optional');
+        if(is_null($optional))
             return False;
         else
-            return $required;
+            return $optional;
     }
 
     function getId(){
