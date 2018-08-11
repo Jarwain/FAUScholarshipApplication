@@ -1,41 +1,19 @@
 import Vue from 'vue';
-import Router from 'vue-router';
 import Vuex from 'vuex';
-import axios from 'axios';
-
+import router from './routers/application';
+import qualifiers from './stores/qualifiers';
+import scholarships from './stores/scholarships';
 
 Vue.config.productionTip = false;
 
-Vue.use(Router);
 Vue.use(Vuex);
 
-// Generates a separate chunk for this route
-// Which is lazy-loaded
-function loadView(view) {
-	return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
-}
-
-const router = new Router({
-	mode: 'history',
-	base: `${process.env.BASE_URL}application/`,
-	routes: [
-		{
-			path: '/',
-			name: 'student',
-			component: loadView('StudentForm'),
-		},
-		{
-			path: '/select',
-			name: 'select',
-			component: loadView('ScholarshipSelect'),
-		},
-	],
-});
-
 const store = new Vuex.Store({
+	modules: {
+		qualifiers,
+		scholarships,
+	},
 	state: {
-		qualifiers: {},
-		scholarships: {},
 		selected_scholarships: new Map(),
 		student: {
 			first_name: '',
@@ -46,21 +24,9 @@ const store = new Vuex.Store({
 		},
 	},
 	getters: {
-		requiredQualifiers(state) {
-			return Object.values(state.qualifiers).filter(e => (e.props.required));
-		},
-		optionalQualifiers(state) {
-			return Object.values(state.qualifiers).filter(e => (!e.props.required));
-		},
 	},
 	mutations: {
 		/* eslint no-param-reassign: [2, { "props": false }] */
-		setQualifiers(state, qualifiers) {
-			state.qualifiers = qualifiers;
-		},
-		setScholarships(state, scholarships) {
-			state.scholarships = scholarships;
-		},
 		setStudent(state, student) {
 			state.student = student;
 		},
@@ -73,30 +39,6 @@ const store = new Vuex.Store({
 		},
 	},
 	actions: {
-		getAllQualifiers({ commit }) {
-			if (window.FAUobj && window.FAUobj.qualifiers) {
-				commit('setQualifiers', window.FAUobj.qualifiers);
-			} else {
-				axios
-					.get(
-						'https://boc22finaid.fau.edu/scholarship/api/qualifier/',
-						{ headers: { Accept: 'application/json' } },
-					)
-					.then((response) => { commit('setQualifiers', response.data); });
-			}
-		},
-		getAllScholarships({ commit }) {
-			if (window.FAUobj && window.FAUobj.scholarships) {
-				commit('setScholarships', window.FAUobj.scholarships);
-			} else {
-				axios
-					.get(
-						'https://boc22finaid.fau.edu/scholarship/api/scholarship/',
-						{ headers: { Accept: 'application/json' } },
-					)
-					.then((response) => { commit('setScholarships', response.data); });
-			}
-		},
 	},
 });
 

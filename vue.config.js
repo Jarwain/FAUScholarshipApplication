@@ -17,5 +17,10 @@ module.exports = {
 			filename: 'application.phtml',
 			template: 'templates/application.html',
 		},
+		admin: {
+			entry: 'src/vue/admin.js',
+			filename: 'admin.phtml',
+			template: 'templates/admin.html',
+		},
 	},
 };
