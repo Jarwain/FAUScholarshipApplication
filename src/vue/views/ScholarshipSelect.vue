@@ -1,6 +1,7 @@
 <template>
 <div>
-	<selectable-scholarship v-for="(scholarship, code) in scholarships" :key="code"
+	<selectable-scholarship
+		v-for="scholarship in scholarships" :key="scholarship.code"
 		v-if="scholarship.active"
 		v-bind="scholarship"
 	>
@@ -22,10 +23,10 @@ export default {
 		SelectableScholarship,
 	},
 	created() {
-		this.$store.dispatch('getAllScholarships');
+		this.$store.dispatch('scholarships/initialize');
 	},
-	computed: mapState([
-		'scholarships',
-	]),
+	computed: mapState({
+		scholarships: state => Array.from(state.scholarships.all.values()),
+	}),
 };
 </script>

@@ -36,17 +36,16 @@
     <footer class="container-fluid">
       <span class="text-muted">Copyright © 2015-2018 FAU Office of Student Financial Aid. All rights reserved.</span>
     </footer>
-    <script>
-      var FAUObj = {};
-      
-      <?php 
-      if(isset($data['obj'])){
+    <?php 
+    if(isset($data['obj'])) {
+      echo "<script>var FAUObj = {};";
+
         foreach($data['obj'] as $name => $obj){
           $json = json_encode($obj, JSON_NUMERIC_CHECK);
           echo "FAUObj.$name = $json || {};";
         }
-      }?>
-    </script>
+      echo "</script>";
+    }; ?> 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

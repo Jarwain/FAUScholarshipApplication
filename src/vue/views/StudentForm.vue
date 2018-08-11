@@ -27,7 +27,7 @@
 					v-model="student.email">
 			</div>
 		</div>
-		<qualifier-input v-for="qualifier in requiredQualifiers"
+		<qualifier-input v-for="qualifier in required"
 			:key="qualifier.id"
 			:qualifier="qualifier"
 			v-model="student.qualifications[qualifier.id]"
@@ -44,7 +44,7 @@
 			</div>
 			<div class="collapse multi-collapse" id="filters">
 				<div class="card card-body">
-					<qualifier-input v-for="qualifier in optionalQualifiers"
+					<qualifier-input v-for="qualifier in optional"
 						:key="qualifier.id"
 						:qualifier="qualifier"
 						v-model="student.qualifications[qualifier.id]"
@@ -71,7 +71,7 @@ export default {
 		QualifierInput,
 	},
 	created() {
-		this.$store.dispatch('getAllQualifiers');
+		this.$store.dispatch('qualifiers/initialize');
 	},
 	computed: {
 		student: {
@@ -82,9 +82,9 @@ export default {
 				this.$store.commit('setStudent', val);
 			},
 		},
-		...mapGetters([
-			'requiredQualifiers',
-			'optionalQualifiers',
+		...mapGetters('qualifiers/', [
+			'required',
+			'optional',
 		]),
 	},
 	data() {
