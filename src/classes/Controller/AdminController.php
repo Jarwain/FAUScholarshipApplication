@@ -23,6 +23,15 @@ class AdminController extends AbstractController{
         
         $this->renderer = $container->get('renderer');
     }
+
+    public function index(Request $request, Response $response, $args){
+        /*$qualifiers = $this->container->get('QualifierStore')->getAll();
+        $data['obj'] = [
+            'qualifiers' => $qualifiers
+        ];*/
+
+        return $this->renderer->render($response, '../dist/admin.phtml');
+    }
     
     public function login(Request $request, Response $response){
         $this->session['login_attempt'] = $this->session['login_attempt'] ?? 0;

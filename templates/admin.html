@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+
+    <title>Scholarship Application</title>
+
+    <!-- Core CSS -->
+    <link href="<%= BASE_URL %>css/bootstrap.min.css" rel="stylesheet" />    
+    <link href="<%= BASE_URL %>css/sticky_footer.css" rel="stylesheet" />    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark shadow">
+      <a class="navbar-brand" href="<%= BASE_URL %>admin/">
+        <img src="<%= BASE_URL %>img/logo-owl-color.svg" height="40px" class="d-inline-block"/>
+        <?=$data['title']?>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link <?= $data['active'] === 'scholarships' ? 'active' : ''?>" href="<%= BASE_URL %>admin/scholarship/">Scholarships</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <?= $data['active'] === 'questions' ? 'active' : ''?>" href="<%= BASE_URL %>admin/question/">Questions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <?= $data['active'] === 'qualifiers' ? 'active' : ''?>" href="<%= BASE_URL %>admin/qualifier/">Qualifiers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <?= $data['active'] === 'applications' ? 'active' : ''?>" href="<%= BASE_URL %>admin/application/">Applications</a>
+          </li>
+        </ul>
+      </div>
+      <a class="btn btn-outline-secondary" href="<%= BASE_URL %>admin/logout/" role="button">Sign Out</a>
+    </nav>
+    <noscript><strong>
+      Please enable Javascript
+    </strong></noscript>
+    <main role="main" class="container">
+      <div class="d-flex justify-content-between flex-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1>
+          Scholarship Applications <small class="text-muted"><?=$data['scholarship_year']?></small>
+        </h1>
+      </div>
+      <div id="app">
+        <router-view></router-view>
+      </div>
+    </main>
+    <footer class="container-fluid">
+      <span class="text-muted">Copyright © 2015-2018 FAU Office of Student Financial Aid. All rights reserved.</span>
+    </footer>
+    <?php 
+    if(isset($data['obj'])) {
+      echo "<script>var FAUObj = {};";
+
+        foreach($data['obj'] as $name => $obj){
+          $json = json_encode($obj, JSON_NUMERIC_CHECK);
+          echo "FAUObj.$name = $json || {};";
+        }
+      echo "</script>";
+    }; ?> 
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="<%= BASE_URL %>js/jquery-3.3.1.min.js"></script>
+    <script src="<%= BASE_URL %>js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
