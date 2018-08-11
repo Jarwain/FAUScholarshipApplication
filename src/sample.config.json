@@ -1,5 +1,6 @@
 {
 	"isProduction": false,
+	"uri": "https://localhost:8080/scholarships/",
 	"template": {
 		"baseUrl": "scholarships",
         "title": "Office",
