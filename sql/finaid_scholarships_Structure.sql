@@ -3,11 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 01, 2018 at 12:17 PM
+-- Generation Time: Aug 10, 2018 at 08:16 PM
 -- Server version: 5.7.10-log
 -- PHP Version: 5.6.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -30,7 +32,7 @@ CREATE TABLE `application` (
   `id` int(11) NOT NULL,
   `znumber` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `decision` int(11) DEFAULT NULL
+  `decision` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -125,7 +127,7 @@ CREATE TABLE `scholarship_questions` (
 CREATE TABLE `scholarship_requirements` (
   `id` int(11) NOT NULL,
   `sch_code` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL,
   `qualifier_id` int(11) NOT NULL,
   `valid` varchar(4096) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -138,7 +140,8 @@ CREATE TABLE `scholarship_requirements` (
 
 CREATE TABLE `student` (
   `znumber` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -292,27 +295,27 @@ ALTER TABLE `file`
 -- AUTO_INCREMENT for table `qualifier`
 --
 ALTER TABLE `qualifier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `scholarship`
 --
 ALTER TABLE `scholarship`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT for table `scholarship_questions`
 --
 ALTER TABLE `scholarship_questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 --
 -- AUTO_INCREMENT for table `scholarship_requirements`
 --
 ALTER TABLE `scholarship_requirements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
 --
 -- AUTO_INCREMENT for table `student_file`
 --
@@ -322,7 +325,7 @@ ALTER TABLE `student_file`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
@@ -368,6 +371,7 @@ ALTER TABLE `student_file`
 ALTER TABLE `student_qualifiers`
   ADD CONSTRAINT `student_qualifiers_ibfk_1` FOREIGN KEY (`znumber`) REFERENCES `student` (`znumber`),
   ADD CONSTRAINT `student_qualifiers_ibfk_2` FOREIGN KEY (`qualifier_id`) REFERENCES `qualifier` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
