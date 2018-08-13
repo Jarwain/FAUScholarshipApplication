@@ -30,6 +30,9 @@ class ApplicationController extends AbstractController{
     public function save(Request $request, Response $response){
         $students = $this->container->get('StudentStore');
         $fileStore = $this->container->get('FileStore');
+        $scholarshipStore = $this->container->get('ScholarshipStore');
+        $applicationStore = $this->container->get('ApplicationStore');
+
         $files = $request->getUploadedFiles();
         /* http://php.net/manual/en/features.file-upload.post-method.php */
         [
@@ -52,9 +55,20 @@ class ApplicationController extends AbstractController{
             $answers[$question] = $fileStore->save($file);
         }
 
-        // Save Student (if not already saved)
-        // Save Files to Database
-        // Assign file id to answer
+        foreach($scholarships as $code){
+            $sch = $scholarshipStore->get($code);
+            $application = [
+                'znumber' => $student['znumber'],
+                'code' => $code,
+                'answers' => []
+            ];
+            foreach($sch->getQuestions() as $question){
+                $application['answers'][] = $answers[$question->getId()];
+            }
+            $applicationStore->save($application);
+        }
+
+        
         // Turn answers into applications
         // Save application
         // Return success or not
