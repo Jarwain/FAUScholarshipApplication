@@ -1,7 +1,8 @@
 import axios from 'axios';
 import config from '../config.json';
 
-const uri = `${config.uri}api/`;
+const base = config.template.baseUrl ? `${config.template.baseUrl}/` : '';
+const uri = `${config.api}${base}api/`;
 
 const getQualifiers = (cb) => {
 	axios

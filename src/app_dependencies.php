@@ -13,6 +13,17 @@ $container['authenticator'] = function($c) {
     }
 };
 
+$container['StudentStore'] = function ($c) {
+    try {
+        $database = new ScholarshipApi\Model\Student\StudentDatabase($c->get('db'));
+        $repo = new ScholarshipApi\Model\Student\StudentRepository($database);
+        $repo->getAll();
+        return $repo;
+    } catch (\Exception $ex) {
+        $c->get('logger')->addError($ex);
+    }
+};
+
 $container['QuestionStore'] = function ($c) {
     try {
         $database = new ScholarshipApi\Model\Question\QuestionDatabase($c->get('db'));

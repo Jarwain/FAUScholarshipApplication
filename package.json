@@ -42,7 +42,8 @@
         {
           "props": false
         }
-      ]
+      ],
+      "linebreak-style": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"

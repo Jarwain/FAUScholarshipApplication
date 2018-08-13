@@ -14,7 +14,7 @@ const store = new Vuex.Store({
 		scholarships,
 	},
 	state: {
-		selected_scholarships: new Map(),
+		selected_scholarships: [],
 		student: {
 			first_name: '',
 			last_name: '',
@@ -30,11 +30,12 @@ const store = new Vuex.Store({
 		setStudent(state, student) {
 			state.student = student;
 		},
-		toggleSelectedScholarship(state, scholarship) {
-			if (state.selected_scholarships.has(scholarship.code)) {
-				state.selected_scholarships.delete(scholarship.code);
+		toggleSelectedScholarship(state, code) {
+			const sch = state.selected_scholarships.indexOf(code);
+			if (sch === -1) {
+				state.selected_scholarships.push(code);
 			} else {
-				state.selected_scholarships.set(scholarship.code, scholarship);
+				state.selected_scholarships.splice(sch, 1);
 			}
 		},
 	},

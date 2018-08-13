@@ -17,21 +17,14 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark shadow">
       <a href="<%= BASE_URL %>application/" class="navbar-brand">
         <img src="<%= BASE_URL %>img/logo-owl-color.svg" height="40px" class="d-inline-block"/>
-        <?=$data['title']?>
+        <?=$data['title']?>: <?=$data['scholarship_year']?> Scholarship Applications
       </a>
     </nav>
     <noscript><strong>
       Please enable Javascript
     </strong></noscript>
-    <main role="main" class="container">
-      <div class="d-flex justify-content-between flex-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1>
-          Scholarship Applications <small class="text-muted"><?=$data['scholarship_year']?></small>
-        </h1>
-      </div>
-      <div id="app">
-        <router-view></router-view>
-      </div>
+    <main id="app" role="main" class="container">
+      <router-view></router-view>
     </main>
     <footer class="container-fluid">
       <span class="text-muted">Copyright © 2015-2018 FAU Office of Student Financial Aid. All rights reserved.</span>

@@ -23,6 +23,11 @@ const router = new Router({
 			name: 'select',
 			component: loadView('ScholarshipSelect'),
 		},
+		{
+			path: '/apply',
+			name: 'apply',
+			component: loadView('ScholarshipApply'),
+		},
 		/* { TODO: 404
 			path: '*',
 		}, */

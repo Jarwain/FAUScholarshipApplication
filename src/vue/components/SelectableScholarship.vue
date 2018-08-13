@@ -5,7 +5,7 @@
 				{{name}}
 			</a>
 			<button class="btn " :class="checked ? 'btn-outline-danger' : 'btn-outline-success'" @click="toggle()">
-				{{ checked ? 'Remove' : 'Apply' }}
+				{{checked ? 'Remove' : 'Apply'}}
 			</button>
 		</div>
 		<div class="collapse" :id="`sch_${code}`">
@@ -38,7 +38,7 @@ export default {
 			required: true,
 		},
 		max: {
-			/*type: Number,*/
+			/* type: Number, */
 			required: true,
 		},
 		questions: {
@@ -52,13 +52,13 @@ export default {
 	},
 	data() {
 		return {
-			checked: this.$store.state.selected_scholarships.has(this.code),
+			checked: this.$store.state.selected_scholarships.indexOf(this.code) !== -1,
 		}
 	},
 	methods: {
 		toggle() {
 			this.checked = !this.checked;
-			this.$store.commit('toggleSelectedScholarship', this.$props);
+			this.$store.commit('toggleSelectedScholarship', this.code);
 		},
 	},
 };
