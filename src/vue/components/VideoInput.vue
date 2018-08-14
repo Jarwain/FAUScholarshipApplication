@@ -1,5 +1,5 @@
 <template>
-	<div class='form-group row'>
+	<div class='form-group'>
 		<label>{{question}}</label>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">

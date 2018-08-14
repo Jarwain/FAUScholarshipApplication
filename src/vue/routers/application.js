@@ -28,6 +28,11 @@ const router = new Router({
 			name: 'apply',
 			component: loadView('ScholarshipApply'),
 		},
+		{
+			path: '/verify',
+			name: 'verify',
+			component: loadView('VerifyApplication'),
+		},
 		/* { TODO: 404
 			path: '*',
 		}, */

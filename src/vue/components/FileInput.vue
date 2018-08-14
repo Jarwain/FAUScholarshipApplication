@@ -1,5 +1,5 @@
 <template>
-<div class='form-group row'>
+<div class='form-group'>
     <label>{{question}}</label>
     <input type="hidden" v-model="localValue">
     <input type="file" class="form-control-file"

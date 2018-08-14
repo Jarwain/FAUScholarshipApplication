@@ -53,7 +53,7 @@ export default {
 	data() {
 		return {
 			checked: this.$store.state.selected_scholarships.indexOf(this.code) !== -1,
-		}
+		};
 	},
 	methods: {
 		toggle() {

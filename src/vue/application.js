@@ -37,8 +37,10 @@ const store = new Vuex.Store({
 			const sch = state.selected_scholarships.indexOf(code);
 			if (sch === -1) {
 				state.selected_scholarships.push(code);
+				state.answers[code] = {};
 			} else {
 				state.selected_scholarships.splice(sch, 1);
+				delete state.answers[code];
 			}
 		},
 	},

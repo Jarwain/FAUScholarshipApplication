@@ -1,17 +1,19 @@
 <template>
-<div role="main" class="container">
+<div>
 	<div class="d-flex justify-content-between flex-nowrap
 		align-items-center pt-3 pb-0 mb-3 border-bottom">
 		<h1 class="mb-0">
 			Scholarship Selection
 		</h1>
-		<router-link to="/" class="btn btn-secondary">
-			Back
-		</router-link>
-		<router-link to="/apply" class="btn btn-primary">
-			Next
-			<span class="badge badge-light">{{selected.length}}</span>
-		</router-link>
+		<div>
+			<router-link to="/" class="btn btn-secondary mr-3">
+				Back
+			</router-link>
+			<router-link to="/apply" class="btn btn-primary">
+				Next
+				<span class="badge badge-light">{{selected.length}}</span>
+			</router-link>
+		</div>
 	</div>
 	<p>Select the scholarships you wish to apply for.</p>
 	<selectable-scholarship

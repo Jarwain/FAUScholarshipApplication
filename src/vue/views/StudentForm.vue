@@ -1,10 +1,10 @@
 <template>
-<div role="main" class="container">
+<div>
 	<div class="d-flex justify-content-between flex-nowrap
 		align-items-center pt-3 pb-0 mb-3 border-bottom">
-        <h1 class="mb-0">
-          Student Information
-        </h1>
+    <h1 class="mb-0">
+      Student Information
+    </h1>
 		<router-link to="/select" class="btn btn-primary">Next</router-link>
 	</div>
 	<p>Fill out as much as you can.</p>
