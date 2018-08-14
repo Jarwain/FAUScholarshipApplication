@@ -7,7 +7,7 @@ class VideoQuestion extends Question{
 
     function __construct($id, $question, $props = []){
         $this->type = parent::TYPE_VIDEO;
-        $this->setRequiredProps([]);
+        $this->setOptionalProps(['minLength', 'maxLength']);
 
         parent::__construct($id, $question, $props);
     }
