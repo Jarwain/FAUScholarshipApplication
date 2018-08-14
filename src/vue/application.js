@@ -20,13 +20,16 @@ const store = new Vuex.Store({
 			last_name: '',
 			znumber: '',
 			email: '',
-			qualifications: [],
+			qualifications: {},
 		},
+		answers: {},
 	},
 	getters: {
 	},
 	mutations: {
-		/* eslint no-param-reassign: [2, { "props": false }] */
+		setAnswer(state, answers) {
+			state.answers = answers;
+		},
 		setStudent(state, student) {
 			state.student = student;
 		},

@@ -1,6 +1,6 @@
 <template>
 <div role="main" class="container">
-	<div class="d-flex justify-content-between flex-nowrap 
+	<div class="d-flex justify-content-between flex-nowrap
 		align-items-center pt-3 pb-0 mb-3 border-bottom">
         <h1 class="mb-0">
           Student Information
@@ -8,7 +8,7 @@
 		<router-link to="/select" class="btn btn-primary">Next</router-link>
 	</div>
 	<p>Fill out as much as you can.</p>
-	<form>
+	<form class="mb-4">
 		<div class="form-row">
 			<div class="form-group col">
 				<label for="first_name">First Name</label>
@@ -60,9 +60,6 @@
 			</div>
 		</div>
 	</form>
-	<div class="d-flex justify-content-end my-3">
-		<router-link to="/select" class="btn btn-primary">Next</router-link>
-	</div>
 </div>
 </template>
 
