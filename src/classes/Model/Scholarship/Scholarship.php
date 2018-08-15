@@ -16,6 +16,8 @@ abstract class Scholarship{
         $this->active = (bool) $active;
     }
 
+    abstract static function DataMap($data);
+
     function getCode(){
         return $this->code;
     }

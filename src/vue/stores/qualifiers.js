@@ -22,8 +22,8 @@ export default {
 	},
 	actions: {
 		initialize({ commit }) {
-			if (window.FAUobj && window.FAUobj.qualifiers) {
-				commit('set', window.FAUobj.qualifiers);
+			if (window.FAUObj && window.FAUObj.qualifiers) {
+				commit('set', window.FAUObj.qualifiers);
 			} else {
 				ScholarshipApi.getQualifiers((qualifiers) => {
 					commit('set', qualifiers);

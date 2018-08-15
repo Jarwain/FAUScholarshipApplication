@@ -17,8 +17,8 @@ export default {
 	},
 	actions: {
 		initialize({ commit }) {
-			if (window.FAUobj && window.FAUobj.scholarships) {
-				commit('set', window.FAUobj.scholarships);
+			if (window.FAUObj && window.FAUObj.scholarships) {
+				commit('set', window.FAUObj.scholarships);
 			} else {
 				ScholarshipApi.getScholarships((scholarships) => {
 					commit('set', scholarships);

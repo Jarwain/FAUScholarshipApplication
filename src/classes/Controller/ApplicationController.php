@@ -37,8 +37,7 @@ class ApplicationController extends AbstractController{
         /* http://php.net/manual/en/features.file-upload.post-method.php */
         [
             'student' => $student, 
-            'scholarships' => $scholarships,
-            'answers' => $answers
+            'applications' => $applications
         ] = $request->getParsedBody();
 
         try {

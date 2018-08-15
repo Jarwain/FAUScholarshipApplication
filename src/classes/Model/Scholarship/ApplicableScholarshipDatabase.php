@@ -21,7 +21,7 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
         // Total is equal to the number of applications submitted for a given scholarship, 
         // IF application has been accepted or a decision has not been made.
         // Applications that have been rejected do not count against the total
-        $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max,
+        $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max, s.open, s.close,
                     ( SELECT COUNT(a.code) FROM `application` a 
                         WHERE a.code = s.code
                         AND (a.decision = 1 
@@ -34,7 +34,7 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
     }
 
     function get($code){
-        $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max,
+        $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max, s.open, s.close,
                     ( SELECT COUNT(a.code) FROM `application` a 
                         WHERE a.code = s.code
                         AND (a.decision = 1 
@@ -48,7 +48,7 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
         $stmnt->execute();
         $result = $stmnt->fetch();
 
-        if(is_null($result)){
+        if(is_null($result) || !$result){
             throw new \OutOfBoundsException ("Scholarship '$code' doesn't exist.");
         }
 
