@@ -22,13 +22,13 @@ const store = new Vuex.Store({
 			email: '',
 			qualifications: {},
 		},
-		answers: {},
+		applications: {},
 	},
 	getters: {
 	},
 	mutations: {
-		setAnswer(state, answers) {
-			state.answers = answers;
+		setApplication(state, applications) {
+			state.applications = applications;
 		},
 		setStudent(state, student) {
 			state.student = student;
@@ -37,10 +37,10 @@ const store = new Vuex.Store({
 			const sch = state.selected_scholarships.indexOf(code);
 			if (sch === -1) {
 				state.selected_scholarships.push(code);
-				state.answers[code] = {};
+				state.applications[code] = {};
 			} else {
 				state.selected_scholarships.splice(sch, 1);
-				delete state.answers[code];
+				delete state.applications[code];
 			}
 		},
 	},

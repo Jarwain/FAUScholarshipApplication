@@ -1,16 +1,18 @@
 TODO
 =====
-- Build Admissions Database Locally!
-- Use Admissions Database to test application!
+UNIT TESTS PLS
 
 - Save Application(s)
 - New Applications
 	- Check if student exists
 	- Submit Application
 
-
 - Admin Panel w/Vue
 - Application Viewer
+- Get Logging working
+- For database `save` and `delete`, use actual Objects instead of arrays
+- Assistive Technology Friendly
+
 - Save Created/Edited Scholarship    
 - Build Admin Panel
     Qualifier
@@ -34,11 +36,8 @@ TODO
         Decide
         Delete
 
-- Assistive Technology Friendly
-- Get Logging working
-- New "Year" Generation
 
-- For database `save` and `delete`, use actual Objects instead of arrays
+- New "Year" Generation
 - Validate that Scholarship Requirement is `valid` before saving
 - Implement Scholarship Deactivation
 - Implement Scholarship Deletion

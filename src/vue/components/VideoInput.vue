@@ -6,7 +6,7 @@
 				<span class="input-group-text" id="basic-addon3">https://youtu.be/</span>
 			</div>
 			<input type="text" class="form-control" placeholder="uqBStEIVF8o"
-				v-model="localValue">
+				 v-model="localValue">
 			<div class="input-group-append">
 				<button class="btn btn-outline-secondary" type="button"
 					@click="showVideo = !showVideo">

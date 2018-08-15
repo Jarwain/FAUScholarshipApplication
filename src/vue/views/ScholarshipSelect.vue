@@ -16,6 +16,26 @@
 		</div>
 	</div>
 	<p>Select the scholarships you wish to apply for.</p>
+	<nav aria-label="Scholarship Pagination">
+		<ul class="pagination justify-content-center">
+			<li class="page-item" :class="{ disabled: page === 1}">
+				<a class="page-link" @click="page--">
+					<span aria-hidden="true">&laquo;</span>
+					<span class="sr-only">Previous</span>
+				</a>
+			</li>
+			<li v-for="i in numPages" :key="i"
+				class="page-item" :class="{ active: page === i}">
+				<a class="page-link" @click="page = i">{{i}}</a>
+			</li>
+			<li class="page-item" :class="{ disabled: page === numPages}">
+				<a class="page-link" @click="page++">
+					<span aria-hidden="true">&raquo;</span>
+					<span class="sr-only">Next</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
 	<selectable-scholarship
 		v-for="scholarship in scholarships.slice((page-1)*numPerPage,page*numPerPage)"
 		:key="scholarship.code"
@@ -65,8 +85,7 @@ export default {
 			return Math.ceil(this.scholarships.length / this.numPerPage);
 		},
 		...mapState({
-			scholarships: state => Array.from(state.scholarships.all.values())
-				.filter(e => e.active && e.app_count < e.max),
+			scholarships: state => Array.from(state.scholarships.all.values()),
 			selected: state => state.selected_scholarships,
 		}),
 	},

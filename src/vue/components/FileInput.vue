@@ -1,9 +1,9 @@
 <template>
 <div class='form-group'>
     <label>{{question}}</label>
-    <input type="hidden" v-model="localValue">
+    <input type="hidden" v-model="filename">
     <input type="file" class="form-control-file"
-			:required="!props.optional" @change="getFilename">
+			:required="!props.optional" @change="handleFile">
 </div>
 </template>
 
@@ -38,13 +38,15 @@ export default {
 		},
 	},
 	methods: {
-		getFilename(event) {
-			this.localValue = event.target.files[0].name;
+		handleFile(event) {
+			const file = event.target.files[0];
+			this.$emit('input', file);
+			this.filename = file ? file.name : '';
 		},
 	},
 	data() {
 		return {
-
+			filename: '',
 		};
 	},
 };

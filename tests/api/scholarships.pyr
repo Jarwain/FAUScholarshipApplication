@@ -1,5 +1,6 @@
 get('https://localhost:8080/api/qualifier/', headers={'Accept': 'application/json'})
 # Scholarships
+get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?applicable=1', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/SFA020/', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/FAKE/', headers={'Accept': 'application/json'})

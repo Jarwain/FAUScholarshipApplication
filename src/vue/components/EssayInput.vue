@@ -2,7 +2,7 @@
 	<div class='form-group'>
     <label>{{question}}</label>
     <textarea class="form-control" rows="3"
-			:required="!props.optional" v-model="localValue">
+    	:required="!props.optional" v-model="localValue">
     </textarea>
 	</div>
 </template>

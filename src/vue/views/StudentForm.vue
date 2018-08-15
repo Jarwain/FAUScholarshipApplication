@@ -9,30 +9,6 @@
 	</div>
 	<p>Fill out as much as you can.</p>
 	<form class="mb-4">
-		<div class="form-row">
-			<div class="form-group col">
-				<label for="first_name">First Name</label>
-				<input type="text" class="form-control" name="first_name" placeholder="First name" required
-					v-model="student.first_name">
-			</div>
-			<div class="form-group col">
-				<label for="last_name">Last Name</label>
-				<input type="text" class="form-control" name="last_name" placeholder="Last name" required
-					v-model="student.last_name">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="form-group col">
-				<label for="znumber">Z-number</label>
-				<input type="text" class="form-control" name="znumber" placeholder="Z12345678" required
-					v-model="student.znumber">
-			</div>
-			<div class="form-group col">
-				<label for="email">Email address</label>
-				<input type="email" class="form-control" name="email" placeholder="name@fau.edu" required
-					v-model="student.email">
-			</div>
-		</div>
 		<qualifier-input v-for="qualifier in required"
 			:key="qualifier.id"
 			:qualifier="qualifier"
@@ -72,9 +48,6 @@ export default {
 	components: {
 		QualifierInput,
 	},
-	created() {
-		this.$store.dispatch('qualifiers/initialize');
-	},
 	computed: {
 		student: {
 			get() {
@@ -92,6 +65,9 @@ export default {
 	data() {
 		return {
 		};
+	},
+	created() {
+		this.$store.dispatch('qualifiers/initialize');
 	},
 };
 </script>
