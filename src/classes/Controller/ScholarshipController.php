@@ -9,18 +9,18 @@ class ScholarshipController extends AbstractController{
     /*
     Default: returns all scholarships full
     If $code is set: returns scholarship with $code. Ignore all other parameters.
-    ?applicable: if true, return all applicable scholarships
+    ?active: if true, return all active scholarships
     ?online: if true, return online scholarships. if false, return offline scholarships. if null, return all. 
     */
     public function get(Request $request, Response $response, $args){
         $scholarships = $this->container->get('ScholarshipStore');
         $code = $args['code'] ?? NULL;
-        $applicable = $request->getQueryParam('applicable');
+        $active = $request->getQueryParam('active');
 
         if(is_null($code)){
-            if($applicable){
-                $msg = "Get Applicable Scholarships";
-                $data = $scholarships->getApplicable();
+            if($active){
+                $msg = "Get Active Scholarships";
+                $data = $scholarships->getActive();
             } else {
                 $msg = "Get All Scholarships";
                 $data = $scholarships->getAll();

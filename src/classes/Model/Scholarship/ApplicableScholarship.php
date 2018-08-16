@@ -25,19 +25,21 @@ class ApplicableScholarship extends Scholarship{
             $data['active'], $data['open'], $data['close'], $data['max'], $data['app_count']);
     }
 
+    /* 
+    Scholarship is applicable if it is active 
+        AND
+    ---    
+    if the max is 0 (there is no max allowed number of applications that may be submitted)
+        OR 
+    if the number of applications submitted is less than the max allowed
+    ---
+        AND
+    ---
+    if open is unset or today > open
+    AND
+    close is unset or today < clo
+    */
     function isApplicable(){
-        // Scholarship is applicable if it is active 
-        //      AND
-        //  ---    
-        //  if the max is 0 (there is no max allowed number of applications that may be submitted)
-        //      OR 
-        //  if the number of applications submitted is less than the max allowed
-        //  ---
-        //      AND
-        //  ---
-        //  if open is unset or today > open
-        //  AND
-        //  close is unset or today < clo
         $app_total_reached = $this->max === 0 || $this->app_count < $this->max;
 
         $today = time();

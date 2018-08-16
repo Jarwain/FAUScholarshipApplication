@@ -15,7 +15,7 @@ const getQualifiers = (cb) => {
 const getScholarships = (cb) => {
 	axios
 		.get(
-			`${uri}scholarship/?applicable=1`,
+			`${uri}scholarship/?active=1`,
 			{ headers: { Accept: 'application/json' } },
 		)
 		.then((response) => { cb(response.data); });
