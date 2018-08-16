@@ -4,7 +4,8 @@
 			<a class="" data-toggle="collapse" :href="`#sch_${code}`">
 				{{name}}
 			</a>
-			<button class="btn " :class="checked ? 'btn-outline-danger' : 'btn-outline-success'" @click="toggle()">
+			<button class="btn"
+			:class="checked ? 'btn-outline-danger' : 'btn-outline-success'" @click="toggle">
 				{{checked ? 'Remove' : 'Apply'}}
 			</button>
 		</div>

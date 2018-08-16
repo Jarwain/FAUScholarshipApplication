@@ -15,7 +15,7 @@ export default {
 					return a;
 				}, {}),
 			})),
-		qualifying: (state, getters, rootState, rootGetters) => {
+		/*qualifying: (state, getters, rootState, rootGetters) => {
 			const scholarships = getters.categorizedRequirements;
 			const qualifiers = rootState.qualifiers.all;
 			const qualifications = rootGetters.getQualifications;
@@ -48,7 +48,7 @@ export default {
 				return result && wildcard ? [[...p, scholarship], f] : [p, [...f, scholarship]];
 			}, [[], []]);
 			return { pass, fail };
-		},
+		},*/
 	},
 	mutations: {
 		/* eslint no-param-reassign: [2, { "props": false }] */

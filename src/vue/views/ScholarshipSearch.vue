@@ -5,14 +5,15 @@
     <h1 class="mb-0">
       Scholarship Search
     </h1>
-		<router-link to="/select" class="btn btn-primary">Search</router-link>
+	<router-link to="/list" class="btn btn-primary">Search</router-link>
 	</div>
 	<p>Fill out as much as you can.</p>
 	<form class="mb-4">
 		<qualifier-input v-for="qualifier in qualifiers"
 			:key="qualifier.id"
 			:qualifier="qualifier"
-			v-model="qualifications[qualifier.id]"
+			v-model="student.qualifications[qualifier.id]"
+			@input="updateStudent"
 		>
 		</qualifier-input>
 
@@ -48,16 +49,14 @@ export default {
 	components: {
 		QualifierInput,
 	},
-	computed: {
-		qualifications: {
-			get() {
-				return this.$store.state.qualifications;
-			},
-			set(val) {
-				this.$store.commit('setQualifications', val);
-			},
+	methods: {
+		updateStudent() {
+			this.$store.commit('setStudent', this.student);
 		},
+	},
+	computed: {
 		...mapState({
+			student: 'student',
 			qualifiers: state => Array.from(state.qualifiers.all.values()),
 		}),
 	},

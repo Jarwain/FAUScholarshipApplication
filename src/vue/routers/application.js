@@ -20,9 +20,9 @@ const router = new Router({
 			component: loadView('ScholarshipSearch'),
 		},
 		{
-			path: '/list',
+			path: '/',
+			alias: '/list',
 			name: 'list',
-			alias: '/',
 			component: loadView('ScholarshipList'),
 		},
 		{
@@ -31,16 +31,18 @@ const router = new Router({
 			component: loadView('ScholarshipApply'),
 			beforeEnter: (to, from, next) => {
 				// If no applications have been selected
-				// console.log(store);
-				if (Object.keys(store.state.selected_scholarships).length !== 0) {
-					next();
+				console.log(store.state.selected_scholarships);
+				if (store.state.selected_scholarships.length === 0) {
+					next({ name: 'list' });
 				}
-				next(false);
+				next();
 			},
 		},
-		/* { TODO: 404
+		{
 			path: '*',
-		}, */
+			name: '404',
+			redirect: { name: 'list' },
+		},
 	],
 });
 

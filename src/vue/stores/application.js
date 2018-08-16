@@ -17,14 +17,11 @@ const store = new Vuex.Store({
 			last_name: '',
 			znumber: '',
 			email: '',
+			qualifications: {},
 		},
-		qualifications: {},
 		applications: {},
 	},
 	getters: {
-		getQualifications(state) {
-			return state.student.qualifications;
-		},
 	},
 	mutations: {
 		setApplication(state, applications) {
@@ -32,9 +29,6 @@ const store = new Vuex.Store({
 		},
 		setStudent(state, student) {
 			state.student = student;
-		},
-		setQualifications(state, qualifications) {
-			state.qualifications = qualifications;
 		},
 		toggleSelectedScholarship(state, code) {
 			const sch = state.selected_scholarships.indexOf(code);
