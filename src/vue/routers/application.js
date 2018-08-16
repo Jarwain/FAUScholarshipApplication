@@ -12,17 +12,18 @@ function loadView(view) {
 
 const router = new Router({
 	mode: 'history',
-	base: `${process.env.BASE_URL}application/`,
+	base: `${process.env.BASE_URL}`,
 	routes: [
 		{
-			path: '/',
+			path: '/search',
 			name: 'search',
 			component: loadView('ScholarshipSearch'),
 		},
 		{
-			path: '/select',
-			name: 'select',
-			component: loadView('ScholarshipSelect'),
+			path: '/list',
+			name: 'list',
+			alias: '/',
+			component: loadView('ScholarshipList'),
 		},
 		{
 			path: '/apply',
@@ -31,7 +32,7 @@ const router = new Router({
 			beforeEnter: (to, from, next) => {
 				// If no applications have been selected
 				// console.log(store);
-				if (Object.keys(store.state.applications).length !== 0) {
+				if (Object.keys(store.state.selected_scholarships).length !== 0) {
 					next();
 				}
 				next(false);
