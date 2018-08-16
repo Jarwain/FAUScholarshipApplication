@@ -5,14 +5,14 @@
     <h1 class="mb-0">
       Scholarship Search
     </h1>
-		<router-link to="/select" class="btn btn-primary">Next</router-link>
+		<router-link to="/select" class="btn btn-primary">Search</router-link>
 	</div>
 	<p>Fill out as much as you can.</p>
 	<form class="mb-4">
 		<qualifier-input v-for="qualifier in qualifiers"
 			:key="qualifier.id"
 			:qualifier="qualifier"
-			v-model="student.qualifications[qualifier.id]"
+			v-model="qualifications[qualifier.id]"
 		>
 		</qualifier-input>
 
@@ -44,17 +44,17 @@ import { mapState } from 'vuex';
 import QualifierInput from '@/components/QualifierInput.vue';
 
 export default {
-	name: 'StudentForm',
+	name: 'ScholarshipSearch',
 	components: {
 		QualifierInput,
 	},
 	computed: {
-		student: {
+		qualifications: {
 			get() {
-				return this.$store.state.student;
+				return this.$store.state.qualifications;
 			},
 			set(val) {
-				this.$store.commit('setStudent', val);
+				this.$store.commit('setQualifications', val);
 			},
 		},
 		...mapState({

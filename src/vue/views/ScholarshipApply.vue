@@ -58,7 +58,7 @@
 						<qualifier-input v-for="qualifier in qualifiers"
 							:key="qualifier.id"
 							:qualifier="qualifier"
-							v-model="student.qualifications[qualifier.id]"
+							v-model="qualifications[qualifier.id]"
 						>
 						</qualifier-input>
 					</div>
@@ -140,6 +140,14 @@ export default {
 			},
 			set(val) {
 				this.$store.commit('setStudent', val);
+			},
+		},
+		qualifications: {
+			get() {
+				return this.$store.state.qualifications;
+			},
+			set(val) {
+				this.$store.commit('setQualifications', val);
 			},
 		},
 	},
