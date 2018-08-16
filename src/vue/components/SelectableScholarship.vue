@@ -14,7 +14,7 @@
 					{{description}}
 				</p>
 			</div>
-			<div v-if="requirements.length > 0" class="card-footer text-muted">
+			<div v-if="requirements" class="card-footer text-muted">
 				{{requirements}}
 			</div>
 		</div>
@@ -46,7 +46,6 @@ export default {
 			required: true,
 		},
 		requirements: {
-			type: Array,
 			required: true,
 		},
 	},

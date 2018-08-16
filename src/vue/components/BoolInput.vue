@@ -33,7 +33,7 @@ export default {
 			default: '',
 		},
 		props: {
-			type: Object,
+			// type: Object,
 			default: () => {},
 		},
 	},

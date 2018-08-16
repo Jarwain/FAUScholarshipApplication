@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from '@/stores/application';
 
 Vue.use(Router);
 
@@ -15,8 +16,8 @@ const router = new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'student',
-			component: loadView('StudentForm'),
+			name: 'search',
+			component: loadView('ScholarshipSearch'),
 		},
 		{
 			path: '/select',
@@ -27,11 +28,14 @@ const router = new Router({
 			path: '/apply',
 			name: 'apply',
 			component: loadView('ScholarshipApply'),
-		},
-		{
-			path: '/verify',
-			name: 'verify',
-			component: loadView('VerifyApplication'),
+			beforeEnter: (to, from, next) => {
+				// If no applications have been selected
+				// console.log(store);
+				if (Object.keys(store.state.applications).length !== 0) {
+					next();
+				}
+				next(false);
+			},
 		},
 		/* { TODO: 404
 			path: '*',

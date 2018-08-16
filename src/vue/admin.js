@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import router from './routers/admin';
-import qualifiers from './stores/qualifiers';
-import scholarships from './stores/scholarships';
+import router from '@/routers/admin';
+import qualifiers from '@/stores/modules/qualifiers';
+import scholarships from '@/stores/modules/scholarships';
 
 Vue.config.productionTip = false;
 

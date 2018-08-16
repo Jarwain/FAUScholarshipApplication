@@ -14,6 +14,11 @@ post(
     		"1": True
     	}
     },
+    "applications": {
+        "SFA123": {
+        
+        }
+    }
 	"scholarships": [],
 	"answers": {
 		"1": "asdf",
