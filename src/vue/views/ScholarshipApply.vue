@@ -14,7 +14,10 @@
 			</button>
 		</div>
 	</div>
-	<p>The application does not save. You may need to reselect your file attachment if you navigate away from this page. Please ensure all information on this page is correct.</p>
+	<p>
+		Do not navigate away from this page. The application does not save. <br/>
+		Please ensure all information on this page is correct before submitting.
+	</p>
 	<form>
 		<div class="accordion mb-3" id="applicationAccordion">
 			<div class="card">
@@ -47,9 +50,9 @@
 							<div class="form-group col">
 								<label for="znumber">Z-number</label>
 								<div class="input-group mb-3">
-								  <div class="input-group-prepend">
-								    <span class="input-group-text">Z</span>
-								  </div>
+									<div class="input-group-prepend">
+										<span class="input-group-text">Z</span>
+									</div>
 									<input type="text" class="form-control" name="znumber" placeholder="12345678" required
 										v-model="student.znumber" @input="updateStudent">
 								</div>
@@ -117,12 +120,63 @@
 			</div>
 		</div>
 	</form>
-<!-- 	<question-input v-for="question in scholarships.get(code).questions"
-		:key="question.id"
-		:question="question"
-		v-model="applications[question.id]"
-	>
-	</question-input> -->
+	<!-- Submission -->
+	<div class="modal fade" id="submitModal" tabindex="-1" role="dialog"
+	aria-labelledby="submitModalTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="submitModalTitle">Submit Application</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" v-if="submit === false">
+					Submitting Application...
+				</div>
+				<div class="modal-body" v-if="submit === null">
+					<h6>Information Release Authorization</h6>
+					<p>
+						In compliance with the Federal Family Educational Rights and Privacy Act of 1974, Florida Atlantic University (FAU) may not release personally identifiable information from education records without the consent of the student.
+					</p>
+					<p>
+						With this scholarship application, the following information will be released to the Financial Aid Scholarship Committee members:
+					</p>
+					<ul>
+						<li>Grade Point Average (GPA)</li>
+						<li>FAU Student ID # (Z#)</li>
+					</ul>
+					<div v-if="hasVideo">
+						<h6>Photo/Video Release Authorization</h6>
+						<p>
+							I hereby authorize Florida Atlantic University (University) and those acting pursuant to its authority to: (i) record my likeness and/or voice on a video, audio, photographic, digital, electronic or any other medium; (ii) use my name and biographical material in connection with such recordings; and (iii) use, reproduce, exhibit, and/or distribute my name, biographical material, and such recordings in any medium (e.g., print publications, video, internet, etc.) for promotional, advertising, educational, and/or other lawful purposes. I release and waive any claims or rights of compensation or ownership regarding such uses and understand that all such recordings shall remain the property of the University.
+						</p>
+						<div class="radio">
+							<label>
+								<input type="radio" v-model="student.videoAuth" @input="updateStudent" name="videoAuth" value="0">
+								I (Parent/guardian of the student) acknowledge that I understand and agree to the statements above.
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" v-model="student.videoAuth" @input="updateStudent" name="videoAuth" value="1">
+								I certify that I am 18 years of age or older and that I understand and agree to the statements above.
+							</label>
+						</div>
+					</div>
+					<p>
+						By clicking Submit, you agree that all information on this page is correct. <br>
+						Inaccurate information <em>will</em> make you ineligible for consideration for your scholarship. <br>
+						You will not be able to make any changes to your scholarship application after submission.
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" @click="submitHandler">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </template>
 
@@ -143,23 +197,26 @@ export default {
 		};
 	},
 	methods: {
+		submitHandler() {
+			this.$store.dispatch('submitApplication');
+		},
 		backHandler() {
-			if(this.isFirstCollapse){
-				router.push({ name: 'list' });
+			if (this.isFirstCollapse) {
+				this.$router.push({ name: 'list' });
 			} else {
-				this.currentCollapse--;
-				$(this.collapses[this.currentCollapse]).collapse('toggle');
-			}
-		}
-		nextHandler() {
-			if(this.isLastCollapse){
-				// Submission Verification
-			} else {
-				this.currentCollapse++;
-				$(this.collapses[this.currentCollapse]).collapse('toggle');
+				this.currentCollapse -= 1;
+				window.$(this.collapses[this.currentCollapse]).collapse('toggle');
 			}
 		},
-		updateApplication(code, question_id, event) {
+		nextHandler() {
+			if (this.isLastCollapse) {
+				window.$('#submitModal').modal('show');
+			} else {
+				this.currentCollapse += 1;
+				window.$(this.collapses[this.currentCollapse]).collapse('toggle');
+			}
+		},
+		updateApplication() {
 			this.$store.commit('setApplication', this.applications);
 		},
 		updateStudent() {
@@ -171,31 +228,28 @@ export default {
 			return this.currentCollapse === 0;
 		},
 		isLastCollapse() {
-			return this.currentCollapse === this.collapses.length - 1
+			return this.currentCollapse === this.collapses.length - 1;
 		},
 		collapses() {
-			let scholarshipIDs = this.selected.map(e => `#collapse${e}`);
+			const scholarshipIDs = this.selected.map(e => `#collapse${e}`);
 			return ['#studentBody', ...scholarshipIDs];
 		},
 		...mapState({
-			selected: state => state.selected_scholarships,
-			scholarships: state => state.scholarships.all,
 			qualifiers: state => Array.from(state.qualifiers.all.values()),
-			applications: state => state.applications,
+			scholarships: state => state.scholarships.all,
+			applications: 'applications',
+			selected: 'selected_scholarships',
+			submit: 'submit',
 		}),
 		...mapGetters('qualifiers', [
 			'required',
 			'optional',
 		]),
-		questions() {
-			return this.selected.reduce((a, e) => {
-				this.scholarships.get(e).questions.forEach((question) => {
-					if (!(question in a)) {
-						a[question.id] = question;
-					}
-				});
-				return a;
-			}, {});
+		hasVideo() {
+			return this.selected.reduce((a, code) =>
+				(a || this.scholarships.get(code).questions.reduce((b, question) =>
+					(b || question.type === 'video'), false)
+				), false);
 		},
 		student: {
 			get() {

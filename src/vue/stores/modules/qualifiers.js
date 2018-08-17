@@ -60,12 +60,13 @@ export default {
 	actions: {
 		initialize({ state, commit }) {
 			if (state.loading) {
-				if (window.FAUObj && window.FAUObj.qualifiers && false) {
+				if (window.FAUObj && window.FAUObj.qualifiers) {
 					commit('set', window.FAUObj.qualifiers);
 				} else {
-					ScholarshipApi.getQualifiers((qualifiers) => {
-						commit('set', qualifiers);
-					});
+					ScholarshipApi.getItem('qualifiers')
+						.then((data) => {
+							commit('set', data);
+						});
 				}
 			}
 		},

@@ -30,8 +30,6 @@ const router = new Router({
 			name: 'apply',
 			component: loadView('ScholarshipApply'),
 			beforeEnter: (to, from, next) => {
-				// If no applications have been selected
-				console.log(store.state.selected_scholarships);
 				if (store.state.selected_scholarships.length === 0) {
 					next({ name: 'list' });
 				}

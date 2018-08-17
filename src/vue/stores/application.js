@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import api from '@/api';
 import qualifiers from '@/stores/modules/qualifiers';
 import scholarships from '@/stores/modules/scholarships';
 
@@ -18,12 +19,17 @@ const store = new Vuex.Store({
 			znumber: '',
 			email: '',
 			qualifications: {},
+			videoAuth: null,
 		},
 		applications: {},
+		submit: null,
 	},
 	getters: {
 	},
 	mutations: {
+		setSubmit(state, submit) {
+			state.submit = submit;
+		},
 		setApplication(state, applications) {
 			state.applications = applications;
 		},
@@ -42,6 +48,10 @@ const store = new Vuex.Store({
 		},
 	},
 	actions: {
+		submitApplication({ commit, state }) {
+			const submit = { status: false };
+			commit('setSubmit', submit);
+		},
 	},
 });
 

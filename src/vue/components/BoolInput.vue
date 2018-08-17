@@ -3,11 +3,13 @@
 		<label class='col-sm-3 col-form-label' :for='name'>{{question}}</label>
 		<div class='col-sm-9'>
 			<div class='form-check form-check-inline'>
-				<input v-model="localValue" class='form-check-input' type='radio' :name='name' value='true'>
+				<input class='form-check-input' type='radio'
+				v-model="localValue" :name='name' value='true'>
 				<label class='form-check-label' :for='name'>Yes</label>
 			</div>
 			<div class='form-check form-check-inline'>
-				<input v-model="localValue" class='form-check-input' type='radio' :name='name' value='false'>
+				<input class='form-check-input' type='radio'
+				v-model="localValue" :name='name' value='false'>
 				<label class='form-check-label' :for='name'>No</label>
 			</div>
 		</div>

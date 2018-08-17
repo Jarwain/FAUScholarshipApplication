@@ -63,9 +63,11 @@ export default {
 				if (window.FAUObj && window.FAUObj.scholarships) {
 					commit('set', window.FAUObj.scholarships);
 				} else {
-					ScholarshipApi.getScholarships((scholarships) => {
-						commit('set', scholarships);
-					});
+					ScholarshipApi.getItem('scholarships')
+						.then((data) => {
+							console.log(data)
+							commit('set', data);
+						});
 				}
 			}
 		},
