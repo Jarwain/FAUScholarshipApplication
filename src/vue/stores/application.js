@@ -51,8 +51,10 @@ const store = new Vuex.Store({
 		submitAnswers({ commit, state }) {
 			const submit = { status: false };
 			commit('setSubmit', submit);
+			const student = { ...state.student };
+			student.znumber = `Z${student.znumber}`;
 			const answers = {
-				student: state.student,
+				student,
 				answers: state.answers,
 			};
 			api.submitAnswers(answers).then((response) => {
