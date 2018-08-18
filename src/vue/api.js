@@ -24,7 +24,6 @@ const get = (item) => {
 
 const submitAnswers = (app) => {
 	const data = objectToFormData(app);
-	console.log(data);
 	const request = axios;
 	return request.post('http://localhost:8080/api/application/', data);
 };

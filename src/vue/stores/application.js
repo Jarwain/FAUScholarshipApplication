@@ -56,7 +56,7 @@ const store = new Vuex.Store({
 				answers: state.answers,
 			};
 			api.submitAnswers(answers).then((response) => {
-				console.log(response);
+				// TODO: Handle Application Submission Resposne
 			});
 		},
 	},
