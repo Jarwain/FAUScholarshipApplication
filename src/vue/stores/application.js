@@ -21,7 +21,7 @@ const store = new Vuex.Store({
 			qualifications: {},
 			videoAuth: null,
 		},
-		applications: {},
+		answers: {},
 		submit: null,
 	},
 	getters: {
@@ -30,8 +30,8 @@ const store = new Vuex.Store({
 		setSubmit(state, submit) {
 			state.submit = submit;
 		},
-		setApplication(state, applications) {
-			state.applications = applications;
+		setAnswers(state, answers) {
+			state.answers = answers;
 		},
 		setStudent(state, student) {
 			state.student = student;
@@ -40,17 +40,24 @@ const store = new Vuex.Store({
 			const sch = state.selected_scholarships.indexOf(code);
 			if (sch === -1) {
 				state.selected_scholarships.push(code);
-				state.applications[code] = {};
+				state.answers[code] = {};
 			} else {
 				state.selected_scholarships.splice(sch, 1);
-				delete state.applications[code];
+				delete state.answers[code];
 			}
 		},
 	},
 	actions: {
-		submitApplication({ commit, state }) {
+		submitAnswers({ commit, state }) {
 			const submit = { status: false };
 			commit('setSubmit', submit);
+			const answers = {
+				student: state.student,
+				answers: state.answers,
+			};
+			api.submitAnswers(answers).then((response) => {
+				console.log(response);
+			});
 		},
 	},
 });

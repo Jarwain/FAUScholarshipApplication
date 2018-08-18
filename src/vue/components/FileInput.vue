@@ -28,14 +28,6 @@ export default {
 		},
 	},
 	computed: {
-		localValue: {
-			get() {
-				return this.value;
-			},
-			set(value) {
-				this.$emit('input', value);
-			},
-		},
 	},
 	methods: {
 		handleFile(event) {

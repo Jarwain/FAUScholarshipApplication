@@ -10,7 +10,9 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
     var $requirements;
     var $questions;
 
-    function __construct(\PDO $db, RequirementStore $requirements, ScholarshipQuestionStore $questions){
+    function __construct(\PDO $db, 
+        RequirementStore $requirements, 
+        ScholarshipQuestionStore $questions){
         $this->db = $db;
         $this->factory = new ScholarshipFactory($requirements, $questions);
         $this->requirements = $requirements;
@@ -78,7 +80,7 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
             $this->requirements->save([$sch['code']=> $sch['requirements']]);
 
             $this->db->commit();
-        } catch(Exception $ex){
+        } catch(\Exception $ex){
             $this->db->rollBack();
             throw $ex;
         }

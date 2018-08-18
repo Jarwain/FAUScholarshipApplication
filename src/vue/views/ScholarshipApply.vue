@@ -111,8 +111,8 @@
 							:key="code+question.id"
 							:question="question"
 							:code="code"
-							v-model="applications[code][question.id]"
-							@input="updateApplication"
+							v-model="answers[code][question.id]"
+							@input="updateAnswers"
 						>
 						</question-input>
 					</div>
@@ -126,7 +126,7 @@
 		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="submitModalTitle">Submit Application</h5>
+					<h4 class="modal-title" id="submitModalTitle">Submit Application</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -135,7 +135,7 @@
 					Submitting Application...
 				</div>
 				<div class="modal-body" v-if="submit === null">
-					<h6>Information Release Authorization</h6>
+					<h5>Information Release Authorization</h5>
 					<p>
 						In compliance with the Federal Family Educational Rights and Privacy Act of 1974, Florida Atlantic University (FAU) may not release personally identifiable information from education records without the consent of the student.
 					</p>
@@ -147,7 +147,7 @@
 						<li>FAU Student ID # (Z#)</li>
 					</ul>
 					<div v-if="hasVideo">
-						<h6>Photo/Video Release Authorization</h6>
+						<h5>Photo/Video Release Authorization</h5>
 						<p>
 							I hereby authorize Florida Atlantic University (University) and those acting pursuant to its authority to: (i) record my likeness and/or voice on a video, audio, photographic, digital, electronic or any other medium; (ii) use my name and biographical material in connection with such recordings; and (iii) use, reproduce, exhibit, and/or distribute my name, biographical material, and such recordings in any medium (e.g., print publications, video, internet, etc.) for promotional, advertising, educational, and/or other lawful purposes. I release and waive any claims or rights of compensation or ownership regarding such uses and understand that all such recordings shall remain the property of the University.
 						</p>
@@ -198,7 +198,7 @@ export default {
 	},
 	methods: {
 		submitHandler() {
-			this.$store.dispatch('submitApplication');
+			this.$store.dispatch('submitAnswers');
 		},
 		backHandler() {
 			if (this.isFirstCollapse) {
@@ -216,8 +216,8 @@ export default {
 				window.$(this.collapses[this.currentCollapse]).collapse('toggle');
 			}
 		},
-		updateApplication() {
-			this.$store.commit('setApplication', this.applications);
+		updateAnswers() {
+			this.$store.commit('setAnswers', this.answers);
 		},
 		updateStudent() {
 			this.$store.commit('setStudent', this.student);
@@ -237,7 +237,7 @@ export default {
 		...mapState({
 			qualifiers: state => Array.from(state.qualifiers.all.values()),
 			scholarships: state => state.scholarships.all,
-			applications: 'applications',
+			answers: 'answers',
 			selected: 'selected_scholarships',
 			submit: 'submit',
 		}),

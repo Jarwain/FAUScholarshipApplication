@@ -2,29 +2,21 @@ get('https://boc22finaid.fau.edu/scholarship/api/student/', headers={'Accept': '
 get('https://boc22finaid.fau.edu/scholarship/api/application/', headers={'Accept': 'application/json'})
 
 post(
-    'https://boc22finaid.fau.edu/scholarship/api/application/',
-    headers={'Accept': 'application/json'},
-    json={
-    "student": {
-    	"znumber": "Z23125226",
-    	"first_name": "Dyllan",
-    	"last_name": "To",
-    	"email": "dto1@fau.edu",
-    	"qualifications": {
-    		"1": True
-    	}
-    },
-    "applications": {
-        "SFA123": {
-        
-        }
-    }
-	"scholarships": [],
-	"answers": {
-		"1": "asdf",
-		"2": "2", # FILE
-		"3": "Lol ok",
-		"4": "youtube.com/video"
+	'http://localhost:8080/api/application/',
+	headers={'Accept': 'application/json'},
+	json={
+	  "student": {},
+	  "applications": {
+			"ADV786": {
+			  "1": "Hello World!",
+			  "15": {}
+			},
+			"ADV996": {
+			  "1": "Hello!"
+			},
+			"BUSSCH": {
+			  "1": "This is an essay"
+			}
+	  }
 	}
-  }
 )

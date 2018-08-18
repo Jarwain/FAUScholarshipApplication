@@ -1,42 +1,32 @@
 import axios from 'axios';
+import objectToFormData from 'object-to-formdata';
 import config from '../config.json';
 
-const baseUrl = `${config.api}api/`;
-const getItem = (item) => {
-	let request = axios;
+const instance = axios.create({
+	baseURL: `${config.api}api/`,
+});
+
+const get = (item) => {
+	let request = instance;
 
 	switch (item) {
 	case 'qualifiers':
-		request = request.get(baseUrl + 'qualifier/');
+		request = request.get('qualifier/');
 		break;
 	case 'scholarships':
-		request = request.get(baseUrl + 'scholarship/?active=1');
+		request = request.get('scholarship/?active=1');
 		break;
 	default:
 		break;
 	}
-	return request.then((response) => {
-		console.log(response);
-		return response.data;
-	});
+	return request.then(response => response.data);
 };
 
-/*const getQualifiers = (cb) => {
-	return axios
-		.get(
-			`${uri}qualifier/`,
-			{ headers: { Accept: 'application/json' } },
-		)
-		.then((response) => { cb(response.data); });
+const submitAnswers = (app) => {
+	const data = objectToFormData(app);
+	console.log(data);
+	const request = axios;
+	return request.post('http://localhost:8080/api/application/', data);
 };
 
-const getScholarships = (cb) => {
-	return axios
-		.get(
-			`${uri}scholarship/?active=1`,
-			{ headers: { Accept: 'application/json' } },
-		)
-		.then((response) => { cb(response.data); });
-};*/
-
-export default { getItem/*, getQualifiers, getScholarships*/ };
+export default { get, submitAnswers };

@@ -8,9 +8,8 @@ class File {
 	var $data;
 	var $size;
 	var $created;
-	var $znumber;
 
-	function __construct($id = Null, $znumber, $name, $md5, $data, $size, $created = Null){
+	function __construct($id = Null, $name, $md5, $data, $size, $created = Null){
 
 	}
 }

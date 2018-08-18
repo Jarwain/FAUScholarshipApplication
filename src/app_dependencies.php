@@ -17,7 +17,16 @@ $container['ApplicationStore'] = function ($c) {
     try {
         $database = new ScholarshipApi\Model\Application\ApplicationDatabase($c->get('db'));
         $repo = new ScholarshipApi\Model\Application\ApplicationRepository($database);
-        $repo->getAll();
+        return $repo;
+    } catch (\Exception $ex) {
+        $c->get('logger')->addError($ex);
+    }
+};
+
+$container['FileStore'] = function ($c) {
+    try {
+        $database = new ScholarshipApi\Model\File\FileDatabase($c->get('db'));
+        $repo = new ScholarshipApi\Model\File\FileRepository($database);
         return $repo;
     } catch (\Exception $ex) {
         $c->get('logger')->addError($ex);
@@ -28,7 +37,6 @@ $container['StudentStore'] = function ($c) {
     try {
         $database = new ScholarshipApi\Model\Student\StudentDatabase($c->get('db'));
         $repo = new ScholarshipApi\Model\Student\StudentRepository($database);
-        $repo->getAll();
         return $repo;
     } catch (\Exception $ex) {
         $c->get('logger')->addError($ex);

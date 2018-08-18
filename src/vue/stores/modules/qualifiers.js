@@ -60,10 +60,10 @@ export default {
 	actions: {
 		initialize({ state, commit }) {
 			if (state.loading) {
-				if (window.FAUObj && window.FAUObj.qualifiers) {
+				if (window.FAUObj && window.FAUObj.qualifiers && false) {
 					commit('set', window.FAUObj.qualifiers);
 				} else {
-					ScholarshipApi.getItem('qualifiers')
+					ScholarshipApi.get('qualifiers')
 						.then((data) => {
 							commit('set', data);
 						});

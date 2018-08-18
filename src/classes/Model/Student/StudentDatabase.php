@@ -32,7 +32,7 @@ class StudentDatabase implements StudentStore{
             throw new \OutOfBoundsException ("Student '$znumber' doesn't exist.");
         }
 
-        return $this->factory->initialize($result);
+        return $result; // $this->factory->initialize($result);
     }
 
     function save($item){

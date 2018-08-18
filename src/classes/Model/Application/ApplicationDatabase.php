@@ -9,11 +9,12 @@ class ApplicationDatabase implements ApplicationStore{
 	}
 
 	function getAll(){
-		throw \BadMethodCallException("Pls don't get all files");
+		throw new \BadMethodCallException("Pls don't get all files");
 	}
 
 	function get($id){
-		$query = "SELECT id, name, md5, data, size, created, znumber
+		throw new Exception("Get Application not implemented yet");
+        $query = "SELECT id, name, md5, data, size, created, znumber
                     FROM `file` 
                     WHERE id = :id";
         $stmnt = $this->db->prepare();
@@ -24,28 +25,40 @@ class ApplicationDatabase implements ApplicationStore{
         return $result;
    	}
 
-	function getIdByMd5($md5){
-		$query = "SELECT id
-                    FROM `file` 
-                    WHERE md5 = :md5";
-        $stmnt = $this->db->prepare();
-        $stmnt->bindParam(':md5', $md5, \PDO::PARAM_STR);
-        $stmnt->execute();
-        return $stmnt->fetch();
-	}
-
 	function save($item){
-		$query = "INSERT IGNORE INTO `file` (name, md5, data, size, znumber)
-					VALUES (:name, :md5, :data, :size, :znumber)";
-        $stmnt = $this->db->prepare($query);
-        
-        $stmnt->bindParam(':name', $item['name'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':znumber', $item['znumber'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':md5', $item['md5'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':data', $item['data'], \PDO::PARAM_INT);
-        $stmnt->bindParam(':size', $item['size'], \PDO::PARAM_INT);
-        $stmnt->execute();
+        try {
+            $this->db->beginTransaction();
+            $query = "INSERT INTO `application` (znumber, code)
+                        VALUES (:znumber, :code)";
+            $stmnt = $this->db->prepare($query);
+            
+            $stmnt->bindParam(':znumber', $item['znumber'], \PDO::PARAM_STR);
+            $stmnt->bindParam(':code', $item['code'], \PDO::PARAM_STR);
+            $stmnt->execute();
 
-        return $this->getIdByMd5($item['md5']);
+            $id = $this->db->lastInsertId();
+            
+            /* Save Application Answers */
+            $answerQuery = "INSERT INTO `application_answers` 
+                (application_id, question_id, answer)
+                VALUES (:id, :question, :answer)";
+            $answerStmnt = $this->db->prepare($answerQuery);
+            foreach ($item['answers'] as $question => $answer) {
+                $answerStmnt->bindParam(':id', $id, \PDO::PARAM_INT);
+                $answerStmnt->bindParam(':question', $question, \PDO::PARAM_INT);
+                $answerStmnt->bindParam(':answer', $answer, \PDO::PARAM_INT);
+                $answerStmnt->execute();
+                $answerStmnt->closeCursor();
+            }
+
+            $this->db->commit();
+        } catch (\Exception $ex) {
+            $this->db->rollback();
+            throw $ex;
+        }
 	}
+
+    function delete($item){
+        throw new Exception("Application Delete not implemented yet", 1);
+    }
 }
