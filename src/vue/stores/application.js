@@ -34,7 +34,7 @@ const studentConstraints = {
 		email: true,
 		format: {
 			pattern: /.*fau\.edu$/,
-			message: 'should end in fau.edu',
+			message: 'should be your fau.edu address',
 		},
 	},
 };
@@ -96,6 +96,9 @@ const store = new Vuex.Store({
 		},
 	},
 	actions: {
+		// _.debounce is a lodash function
+		// It prevents an action from firing "too much"
+		// Sprinkle it anywhere that has a lot of (asynchronous?) calls
 		updateStudent: _.debounce((context, item) => {
 			context.commit('setStudent', item);
 			const invalid = { ...context.state.invalid };
@@ -118,7 +121,10 @@ const store = new Vuex.Store({
 				answers: state.answers,
 			};
 			api.submitAnswers(answers).then((response) => {
+				console.log(response.data);
 				commit('setResult', response.data);
+			}).catch((response) => {
+				console.log(response);
 			});
 		},
 	},

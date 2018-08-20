@@ -16,14 +16,14 @@
 		</div>
 	</div>
 	<p>Select the scholarships you wish to apply for.</p>
-	<ul class="nav nav-pills nav-fill">
+	<!-- <ul class="nav nav-pills nav-fill">
 		<li class="nav-item">
 			<a class="nav-link active" href="#">All</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="#">Search Results</a>
 		</li>
-	</ul>
+	</ul> -->
 	<selectable-scholarship
 		v-for="scholarship in scholarships.slice((page-1)*numPerPage,page*numPerPage)"
 		:key="scholarship.code"

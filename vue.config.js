@@ -1,5 +1,5 @@
 const path = require('path');
-const config = require('./src/config.json');
+const config = require('./config.json');
 
 module.exports = {
 	runtimeCompiler: true,

@@ -1,25 +1,29 @@
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "M. Brenn Green Freshman Award ",
+  "code": "1",
+  "max": 0,
   "description": "FTIC Merit Award. $4,000 awarded over four years.",
   "questions": [1],
   "requirements": [
     {
       "category": "*",
       "qualifier": 3,
-      "valid": ['anthropology', 'criminal justice', 'economics', 'geography', 'health administration', 'political science', 'social work', 'sociology']
+      "valid": ['Anthropology', 'Criminal Justice', 'Economics', 'Geography', 'Health Administration', 'Political Science', 'Social Work', 'Sociology']
     }
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "Depan International Freshman Scholarship",
+  "code": "2",
+  "max": 0,
   "description": "FTIC Merit Award. $8,000 awarded over four years. International students ONLY. Admission to FAU and community service or high school involvement required.",
   "questions": [1],
   "requirements": [
@@ -35,21 +39,25 @@ post(
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "Martin Luther King Jr. Award",
+  "code": "3",
+  "max": 0,
   "description": "FTIC Merit Award. $12,000 awarded over four years. Must demonstrate financial need as determined by the Office of Financial Aid.",
   "questions": [1],
   "requirements": []
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "Fanjul Academic and Community Excellence Award",
+  "code": "4",
+  "max": 0,
   "description": "FTIC Merit Award. $10,000 awarded over four years. Students must be from Pahokee, Clewiston or Glades Central High schools.",
   "questions": [1],
   "requirements": [
@@ -66,11 +74,13 @@ post(
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "Bank of America Florida’s Community Scholars Program",
+  "code": "5",
+  "max": 0,
   "description": "FTIC Merit Award. $12,000 awarded over four years. Must demonstrate financial need as determined by the Office of Financial Aid.",
   "questions": [1],
   "requirements": [
@@ -82,11 +92,13 @@ post(
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "Depan International Transfer Scholarship $2,000 (per year)",
+  "code": "6",
+  "max": 0,
   "description": "Transfer Merit Award. International students ONLY. Admission to FAU and community service or high school involvement required.",
   "questions": [1],
   "requirements": [
@@ -102,11 +114,13 @@ post(
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "Depan Transfer Scholarship Indian River Community College",
+  "code": "7",
+  "max": 0,
   "description": "Transfer Merit Award. $2,000 awarded per year. Students transferring to FAU from Indian River State College. Recognition through Honors Program participation or identification as a State College Scholar.",
   "questions": [1],
   "requirements": [
@@ -118,11 +132,13 @@ post(
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "Phi Theta Kappa Scholarship",
+  "code": "8",
+  "max": 0,
   "description": "Transfer Merit Award. $3,500 awarded per year. Eligible students are graduates of the Honors Program or member in the Phi Theta Kappa chapter at a Florida College System institution. A letter of recommendation from an Honors or PTK advisor is required. The scholarship is renewable for up to five semesters.",
   "questions": [1, 2],
   "requirements": [
@@ -134,11 +150,13 @@ post(
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "Community College Scholars Award",
+  "code": "9",
+  "max": 0,
   "description": "Transfer Merit Award. $3,000 awarded per year. A minimum 3.0 GPA and letter of recommendation from a Florida College System institution advisor are required.",
   "questions": [1, 2],
   "requirements": [
@@ -150,11 +168,13 @@ post(
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "M. Brenn Green Transfer Award",
+  "code": "10",
+  "max": 0,
   "description": "Transfer Merit Award. $1,000 awarded per year. ",
   "questions": [1],
   "requirements": [
@@ -171,11 +191,13 @@ post(
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "All Academic Team Award",
+  "code": "11",
+  "max": 0,
   "description": "Transfer Merit Award. $3,000 awarded per year. Must be members of the Florida College System All-Academic Team and must notify Admissions by June 1.",
   "questions": [1],
   "requirements": [
@@ -187,11 +209,13 @@ post(
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "Brain Bowl Award",
+  "code": "12",
+  "max": 0,
   "description": "Transfer Merit Award. $2,250 awarded per year. Student must be on the winning brain bowl team and notify Admissions by June 1.",
   "questions": [1],
   "requirements": [
@@ -203,11 +227,13 @@ post(
   ]
 })
 post(
-    'http://localhost:8080/api/scholarship/',
+    'https://boc22finaid.fau.edu/admissions/api/scholarship/',
     headers={'Accept': 'application/json'},
     json={
   "active": True,
   "name": "Transfer Educational Achievement Award",
+  "code": "13",
+  "max": 0,
   "description": "Transfer Merit Award. $3,000 awarded per year. Must demonstrate financial need as determined by the Office of Financial Aid.",
   "questions": [1],
   "requirements": [

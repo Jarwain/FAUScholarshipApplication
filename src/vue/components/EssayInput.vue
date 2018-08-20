@@ -6,8 +6,8 @@
 	:class="{'is-invalid':invalid, 'is-valid':!invalid && invalid != null}">
     </textarea>
     <div v-if="invalid" class="invalid-feedback">
-				{{ invalid[0] }}
-			</div>
+		{{ invalid[0] }}
+	</div>
 </div>
 </template>
 

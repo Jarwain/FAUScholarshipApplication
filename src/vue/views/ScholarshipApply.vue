@@ -87,7 +87,7 @@
 							<div class="form-group col">
 								<label for="email">Email address</label>
 								<input type="email" class="form-control"
-								name="email" placeholder="name@fau.edu" required
+								name="email" placeholder="JDoe2018@fau.edu" required
 								v-model="student.email" @input="updateStudent(student)"
 								:class="{
 									'is-invalid':invalid.student && invalid.student.email,
@@ -140,10 +140,14 @@
 							{{scholarships.get(code).name}}
 						</button>
 					</h5>
-					<button class="btn btn-danger" type="button"
-						@click="currentCollapse = 0; $store.commit('toggleSelectedScholarship', code)">
-							Remove
-						</button>
+					<button class="btn btn-danger" type="button" v-if="removeCursor != code"
+					@click="removeCursor = code">
+						Remove
+					</button>
+					<div class="btn-group" role="group" v-if="removeCursor == code">
+					  <button type="button" class="btn btn-outline-primary" @click="removeCursor = null">No Wait</button>
+					  <button type="button" class="btn btn-warning" @click="removeScholarship(code)">I'm Sure</button>
+					</div>
 				</div>
 				<div :id="`collapse${code}`" class="collapse"
 					:aria-labelledby="`heading${code}`" data-parent="#applicationAccordion">
@@ -229,7 +233,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" 
+					<button type="button" class="btn btn-primary"
 					v-if="!submit" @click="submitHandler">
 						Submit
 					</button>
@@ -254,9 +258,15 @@ export default {
 	data() {
 		return {
 			currentCollapse: 0,
+			removeCursor: null,
 		};
 	},
 	methods: {
+		removeScholarship(code) {
+			this.currentCollapse -= 1;
+			this.removeCursor = null;
+			this.$store.commit('toggleSelectedScholarship', code);
+		},
 		submitHandler() {
 			this.$store.dispatch('submitAnswers');
 		},

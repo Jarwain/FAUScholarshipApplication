@@ -5,8 +5,16 @@
 				{{name}}
 			</a>
 			<button class="btn"
-			:class="checked ? 'btn-outline-danger' : 'btn-outline-success'" @click="toggle">
+			v-if="applicable"
+			:class="checked ? 'btn-outline-danger' : 'btn-outline-success'"
+			@click="toggle">
 				{{checked ? 'Remove' : 'Apply'}}
+			</button>
+			<button class="btn btn-secondary"
+			v-if="!applicable"
+			disabled
+			:class="checked ? 'btn-outline-danger' : 'btn-outline-success'">
+				Closed
 			</button>
 		</div>
 		<div class="collapse" :id="`sch_${code}`">
@@ -48,6 +56,10 @@ export default {
 		},
 		requirements: {
 			required: true,
+		},
+		applicable: {
+			type: Boolean,
+			required: false,
 		},
 	},
 	data() {

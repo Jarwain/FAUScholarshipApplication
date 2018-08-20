@@ -32,7 +32,6 @@ abstract class Qualifier implements \JsonSerializable{
             'name' => $this->getName(),
             'question' => $this->getQuestion(),
             'type' => $this->getType(),
-            'possibleProps' => $this->getPossibleProps(),
             'props' => $this->getProps()
         ];
     }

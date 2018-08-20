@@ -1,5 +1,5 @@
 <template>
-	<component :is="component"  v-bind="qualifier"
+	<component :is="component"  v-bind="question"
 		v-model="localValue" :invalid="invalid">
 	</component>
 		<!-- <essay-input v-if="question.type == 'essay'" v-bind="question" v-model="localValue">
@@ -70,7 +70,7 @@ export default {
 					throw new Error('Unknown Question Type in QuestionInput');
 				}
 				this.invalid = validate.single(val, constraint) || false;
-				if (!this.invalid) {
+				if (this.invalid != null) {
 					this.$emit('valid');
 				}
 			},
@@ -78,7 +78,7 @@ export default {
 	},
 	data() {
 		return {
-
+			invalid: null,
 		};
 	},
 };

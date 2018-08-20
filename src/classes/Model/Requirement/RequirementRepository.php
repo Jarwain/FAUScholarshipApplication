@@ -5,7 +5,7 @@ use ScholarshipApi\Model\AbstractRepository;
 
 class RequirementRepository extends AbstractRepository implements RequirementStore{
     function save($data){
-        foreach($data as $code => $categories){
+        foreach($data as $code => $requirements){
             // Delete what exists
             $this->delete($code);
             $toSave = [];

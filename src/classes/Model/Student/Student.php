@@ -8,10 +8,11 @@ class Student {
     var $first_name;
     var $last_name;
     var $email;
+    var $videoAuth;
 
     var $qualifications = [];
 
-    function __construct($znumber, $first_name, $last_name, $email){
+    function __construct($znumber, $first_name, $last_name, $email, $videoAuth = null){
         $this->znumber = $znumber;
         $this->first_name = $first_name;
         $this->last_name = $last_name;
@@ -19,17 +20,8 @@ class Student {
     }
 
     static function DataMap($data) {
-        $error = [];
-        foreach($data as $key => $val){
-            if(empty($val)){
-                $error[] = "Student missing $key";
-            }
-        }
-        if(!empty($error)){
-            throw new ValidationException("Student Info Error", $error);
-        }
         $student = new Student($data['znumber'], $data['first_name'], 
-            $data['last_name'], $data['email']);
+            $data['last_name'], $data['email'], $data['videoAuth']);
 
         return $student;
     }

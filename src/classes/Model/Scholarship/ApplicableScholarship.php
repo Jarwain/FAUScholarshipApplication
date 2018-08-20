@@ -1,7 +1,7 @@
 <?php
 namespace ScholarshipApi\Model\Scholarship;
 
-class ApplicableScholarship extends Scholarship{
+class ApplicableScholarship extends Scholarship implements \JsonSerializable{
     var $max;
     var $app_count; // NOTE: app_count represents total accepted + undecided. Rejects aren't counted
 
@@ -23,6 +23,24 @@ class ApplicableScholarship extends Scholarship{
     static function DataMap($data){
         return new ApplicableScholarship($data['id'], $data['code'], $data['name'], $data['description'], 
             $data['active'], $data['open'], $data['close'], $data['max'], $data['app_count']);
+    }
+
+    function jsonSerialize(){
+        return [
+            "id" => (int) $this->id,
+            "code" => $this->code,
+            "name" => $this->name,
+            "description" => $this->description,
+            "active" => $this->active,
+            "open" => $this->open,
+            "close" => $this->close,
+            "max" => (int) $this->max,
+            "app_count" => (int) $this->app_count,
+            "questions" => $this->getQuestions(),
+            "requirements" => $this->getRequirements(),
+            "requirement_categories" => $this->getRequirementCategories(),
+            "applicable" => $this->isApplicable(),
+        ];
     }
 
     /* 
