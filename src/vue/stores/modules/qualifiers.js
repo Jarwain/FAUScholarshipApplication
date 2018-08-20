@@ -38,12 +38,20 @@ export default {
 		set(state, qualifiers) {
 			state.loading = false;
 			const thing = Object.values(qualifiers).reduce((a, e) => {
+				e.constraint = {
+					presence: e.props.required ?
+						{ allowEmpty: false } : false,
+				};
 				switch (e.type) {
 				case 'bool':
 					e.validate = validateBool;
 					break;
 				case 'range':
 					e.validate = validateRange;
+					e.constraint.numericality = {
+						greaterThanOrEqualTo: e.props.min,
+						lessThanOrEqualTo: e.props.max,
+					};
 					break;
 				case 'select':
 					e.validate = validateSelect;

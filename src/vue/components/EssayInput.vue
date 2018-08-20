@@ -1,10 +1,14 @@
 <template>
-	<div class='form-group'>
+<div class='form-group'>
     <label>{{question}}</label>
     <textarea class="form-control" rows="3"
-    	:required="!props.optional" v-model="localValue">
+	:required="!props.optional" v-model="localValue"
+	:class="{'is-invalid':invalid, 'is-valid':!invalid && invalid != null}">
     </textarea>
-	</div>
+    <div v-if="invalid" class="invalid-feedback">
+				{{ invalid[0] }}
+			</div>
+</div>
 </template>
 
 <script>
@@ -21,11 +25,18 @@ export default {
 		},
 		props: {
 			type: Object,
-			default: () => {},
+			default: () => ({
+				min_words: null,
+				max_words: null,
+			}),
 		},
 		value: {
 			required: true,
 			default: '',
+		},
+		invalid: {
+			required: false,
+			default: null,
 		},
 	},
 	computed: {

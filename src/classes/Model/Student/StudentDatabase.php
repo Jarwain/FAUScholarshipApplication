@@ -40,10 +40,10 @@ class StudentDatabase implements StudentStore{
                     VALUES (:znumber, :first_name, :last_name, :email)";
         $stmnt = $this->db->prepare($query);
 
-        $stmnt->bindParam(':znumber', $item['znumber'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':first_name', $item['first_name'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':last_name', $item['last_name'], \PDO::PARAM_STR);
-        $stmnt->bindParam(':email', $item['email'], \PDO::PARAM_INT);
+        $stmnt->bindParam(':znumber', $student->znumber, \PDO::PARAM_STR);
+        $stmnt->bindParam(':first_name', $student->first_name, \PDO::PARAM_STR);
+        $stmnt->bindParam(':last_name', $student->last_name, \PDO::PARAM_STR);
+        $stmnt->bindParam(':email', $student->email, \PDO::PARAM_INT);
         $stmnt->execute();
     }
 

@@ -1,24 +1,28 @@
 <template>
-	<div class='form-group'>
-		<label>{{question}}</label>
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon3">https://youtu.be/</span>
-			</div>
-			<input type="text" class="form-control" placeholder="uqBStEIVF8o"
-				 v-model="localValue">
-			<div class="input-group-append">
-				<button class="btn btn-outline-secondary" type="button"
-					@click="showVideo = !showVideo">
-					Test
-				</button>
-			</div>
+<div class='form-group'>
+	<label>{{question}}</label>
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text" id="basic-addon3">https://youtu.be/</span>
 		</div>
-		<iframe width="560" height="315" frameborder="0" :hidden="!showVideo"
-			allow="autoplay; encrypted-media" allowfullscreen
-			:src="`https://www.youtube-nocookie.com/embed/${localValue}?rel=0`"
-		></iframe>
+		<input type="text" class="form-control" placeholder="uqBStEIVF8o"
+		v-model="localValue"
+		:class="{'is-invalid':invalid, 'is-valid':!invalid && invalid != null}">
+		<div class="input-group-append">
+			<button class="btn btn-outline-secondary" type="button"
+				@click="showVideo = !showVideo">
+				Test
+			</button>
+		</div>
+		<div v-if="invalid" class="invalid-feedback">
+			{{ invalid[0] }}
+		</div>
 	</div>
+	<iframe width="560" height="315" frameborder="0" :hidden="!showVideo"
+		allow="autoplay; encrypted-media" allowfullscreen
+		:src="`https://www.youtube-nocookie.com/embed/${localValue}?rel=0`"
+	></iframe>
+</div>
 </template>
 
 <script>

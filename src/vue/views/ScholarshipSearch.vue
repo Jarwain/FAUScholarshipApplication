@@ -9,11 +9,21 @@
 	</div>
 	<p>Fill out as much as you can.</p>
 	<form class="mb-4">
+		<div class="form-row">
+			<label for="znumber">Z-number</label>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text">Z</span>
+				</div>
+				<input type="text" class="form-control" name="znumber" placeholder="12345678" required
+					v-model="student.znumber" @input="updateStudent">
+			</div>
+		</div>
 		<qualifier-input v-for="qualifier in qualifiers"
 			:key="qualifier.id"
 			:qualifier="qualifier"
-			v-model="student.qualifications[qualifier.id]"
-			@input="updateStudent"
+			v-model="qualifications[qualifier.id]"
+			@input="updateQualifications"
 		>
 		</qualifier-input>
 
@@ -30,7 +40,7 @@
 					<qualifier-input v-for="qualifier in optional"
 						:key="qualifier.id"
 						:qualifier="qualifier"
-						v-model="student.qualifications[qualifier.id]"
+						v-model="qualifications[qualifier.id]"
 					>
 					</qualifier-input>
 				</div>
@@ -41,7 +51,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import QualifierInput from '@/components/QualifierInput.vue';
 
 export default {
@@ -50,12 +60,14 @@ export default {
 		QualifierInput,
 	},
 	methods: {
-		updateStudent() {
-			this.$store.commit('setStudent', this.student);
-		},
+		...mapActions([
+			'updateQualifications',
+			'updateStudent',
+		]),
 	},
 	computed: {
 		...mapState({
+			qualifications: 'qualifications',
 			student: 'student',
 			qualifiers: state => Array.from(state.qualifiers.all.values()),
 		}),

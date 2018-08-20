@@ -1,11 +1,15 @@
 <template>
 	<div class='form-group'>
 		<label class='col col-form-label' :for="name">{{question}}</label>
-		<select v-model="localValue" :multiple="props['multi']" class='form-control'>
+		<select v-model="localValue" :multiple="props['multi']" class='form-control'
+		:class="{'is-invalid':invalid, 'is-valid':!invalid && invalid != null}">
 			<option v-if="!props['multi']" disabled selected value>{{question}}</option>
 			<option v-for="option in props['haystack']" :key='option'
 				:value='option'>{{option}}</option>";
 		</select>
+		<div v-if="invalid" class="invalid-feedback">
+			{{ invalid[0] }}
+		</div>
 	</div>
 </template>
 
@@ -30,6 +34,10 @@ export default {
 		value: {
 			required: true,
 		},
+		invalid: {
+			required: false,
+			default: null,
+		},
 	},
 	computed: {
 		localValue: {
@@ -43,7 +51,6 @@ export default {
 	},
 	data() {
 		return {
-
 		};
 	},
 };

@@ -37,13 +37,31 @@
 						<div class="form-row">
 							<div class="form-group col">
 								<label for="first_name">First Name</label>
-								<input type="text" class="form-control" name="first_name" placeholder="First name" required
-									v-model="student.first_name" @input="updateStudent">
+								<input type="text" class="form-control" name="first_name"
+								placeholder="First name" required
+								v-model="student.first_name" @input="updateStudent(student)"
+								:class="{
+									'is-invalid':invalid.student && invalid.student.first_name,
+									'is-valid':invalid.student != null && !invalid.student.first_name,
+								}">
+								<div v-if="invalid.student && invalid.student.first_name"
+								class="invalid-feedback">
+									{{ invalid.student.first_name[0] }}
+								</div>
 							</div>
 							<div class="form-group col">
 								<label for="last_name">Last Name</label>
-								<input type="text" class="form-control" name="last_name" placeholder="Last name" required
-									v-model="student.last_name" @input="updateStudent">
+								<input type="text" class="form-control" name="last_name"
+								placeholder="Last name" required
+								v-model="student.last_name" @input="updateStudent(student)"
+								:class="{
+									'is-invalid':invalid.student && invalid.student.last_name,
+									'is-valid':invalid.student != null && !invalid.student.last_name,
+								}">
+								<div v-if="invalid.student && invalid.student.last_name"
+								class="invalid-feedback">
+									{{ invalid.student.last_name[0] }}
+								</div>
 							</div>
 						</div>
 						<div class="form-row">
@@ -53,21 +71,39 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text">Z</span>
 									</div>
-									<input type="text" class="form-control" name="znumber" placeholder="12345678" required
-										v-model="student.znumber" @input="updateStudent">
+									<input type="text" class="form-control" name="znumber"
+									placeholder="12345678" required
+									v-model="student.znumber" @input="updateStudent(student)"
+									:class="{
+										'is-invalid':invalid.student && invalid.student.znumber,
+										'is-valid':invalid.student != null && !invalid.student.znumber,
+									}">
+									<div v-if="invalid.student && invalid.student.znumber"
+									class="invalid-feedback">
+										{{ invalid.student.znumber[0] }}
+									</div>
 								</div>
 							</div>
 							<div class="form-group col">
 								<label for="email">Email address</label>
-								<input type="email" class="form-control" name="email" placeholder="name@fau.edu" required
-									v-model="student.email" @input="updateStudent">
+								<input type="email" class="form-control"
+								name="email" placeholder="name@fau.edu" required
+								v-model="student.email" @input="updateStudent(student)"
+								:class="{
+									'is-invalid':invalid.student && invalid.student.email,
+									'is-valid':invalid.student != null && !invalid.student.email,
+								}">
+								<div v-if="invalid.student && invalid.student.email"
+								class="invalid-feedback">
+									{{ invalid.student.email[0] }}
+								</div>
 							</div>
 						</div>
 						<qualifier-input v-for="qualifier in required"
 							:key="qualifier.id"
 							:qualifier="qualifier"
-							v-model="student.qualifications[qualifier.id]"
-							@input="updateStudent"
+							v-model="qualifications[qualifier.id]"
+							@valid="updateQualifications(qualifications)"
 						>
 						</qualifier-input>
 						<div class="card">
@@ -83,8 +119,8 @@
 									<qualifier-input v-for="qualifier in optional"
 										:key="qualifier.id"
 										:qualifier="qualifier"
-										v-model="student.qualifications[qualifier.id]"
-										@input="updateStudent"
+										v-model="qualifications[qualifier.id]"
+										@valid="updateQualifications(qualifications)"
 									>
 									</qualifier-input>
 								</div>
@@ -94,7 +130,8 @@
 				</div>
 			</div>
 			<div class="card" v-for="(code, idx) in selected" :key="code">
-				<div class="card-header" :id="`heading${code}`">
+				<div class="card-header d-flex justify-content-between"
+				:id="`heading${code}`">
 					<h5 class="mb-0">
 						<button class="btn btn-link collapsed"
 						type="button" @click="currentCollapse = idx + 1" data-toggle="collapse"
@@ -103,6 +140,10 @@
 							{{scholarships.get(code).name}}
 						</button>
 					</h5>
+					<button class="btn btn-danger" type="button"
+						@click="currentCollapse = 0; $store.commit('toggleSelectedScholarship', code)">
+							Remove
+						</button>
 				</div>
 				<div :id="`collapse${code}`" class="collapse"
 					:aria-labelledby="`heading${code}`" data-parent="#applicationAccordion">
@@ -112,7 +153,7 @@
 							:question="question"
 							:code="code"
 							v-model="answers[code][question.id]"
-							@input="updateAnswers"
+							@valid="updateAnswers(answers)"
 						>
 						</question-input>
 					</div>
@@ -131,10 +172,24 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" v-if="submit === false">
-					Submitting Application...
+				<div class="modal-body" v-if="result">
+					<h5 class="text-center">
+						{{ result.status }}
+					</h5>
+					<p  v-for="(value, key) in result.message" :key="key">
+						<strong v-if="!Number.isInteger(key)">
+							{{ key }}:
+						</strong>
+						{{ value }}
+					</p>
 				</div>
-				<div class="modal-body" v-if="submit === null">
+				<div class="modal-body" v-if="submit && !result">
+					<h5 class="text-center">
+						Submitting Application... <br/>
+						<font-awesome-icon icon="spinner" />
+					</h5>
+				</div>
+				<div class="modal-body" v-if="!submit">
 					<h5>Information Release Authorization</h5>
 					<p>
 						In compliance with the Federal Family Educational Rights and Privacy Act of 1974, Florida Atlantic University (FAU) may not release personally identifiable information from education records without the consent of the student.
@@ -153,13 +208,15 @@
 						</p>
 						<div class="radio">
 							<label>
-								<input type="radio" v-model="student.videoAuth" @input="updateStudent" name="videoAuth" value="0">
+								<input type="radio" name="videoAuth" value="0"
+								v-model="student.videoAuth" @input="updateStudent(student)">
 								I (Parent/guardian of the student) acknowledge that I understand and agree to the statements above.
 							</label>
 						</div>
 						<div class="radio">
 							<label>
-								<input type="radio" v-model="student.videoAuth" @input="updateStudent" name="videoAuth" value="1">
+								<input type="radio" name="videoAuth" value="1"
+								v-model="student.videoAuth" @input="updateStudent(student)">
 								I certify that I am 18 years of age or older and that I understand and agree to the statements above.
 							</label>
 						</div>
@@ -172,7 +229,10 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" @click="submitHandler">Submit</button>
+					<button type="button" class="btn btn-primary" 
+					v-if="!submit" @click="submitHandler">
+						Submit
+					</button>
 				</div>
 			</div>
 		</div>
@@ -181,7 +241,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import QuestionInput from '@/components/QuestionInput.vue';
 import QualifierInput from '@/components/QualifierInput.vue';
 
@@ -209,21 +269,26 @@ export default {
 			}
 		},
 		nextHandler() {
-			if (this.isLastCollapse) {
+			if (this.isLastCollapse && this.valid) {
 				window.$('#submitModal').modal('show');
 			} else {
 				this.currentCollapse += 1;
 				window.$(this.collapses[this.currentCollapse]).collapse('toggle');
 			}
 		},
-		updateAnswers() {
-			this.$store.commit('setAnswers', this.answers);
-		},
-		updateStudent() {
-			this.$store.commit('setStudent', this.student);
-		},
+		...mapActions([
+			'updateStudent',
+			'updateAnswers',
+			'updateQualifications',
+		]),
 	},
 	computed: {
+		valid() {
+			if (this.invalid.student && this.qualifications.invalid) {
+				return false;
+			}
+			return true;
+		},
 		isFirstCollapse() {
 			return this.currentCollapse === 0;
 		},
@@ -237,9 +302,13 @@ export default {
 		...mapState({
 			qualifiers: state => Array.from(state.qualifiers.all.values()),
 			scholarships: state => state.scholarships.all,
-			answers: 'answers',
 			selected: 'selected_scholarships',
+			qualifications: 'qualifications',
+			answers: 'answers',
+			student: 'student',
+			invalid: 'invalid',
 			submit: 'submit',
+			result: 'result',
 		}),
 		...mapGetters('qualifiers', [
 			'required',
@@ -251,17 +320,44 @@ export default {
 					(b || question.type === 'video'), false)
 				), false);
 		},
-		student: {
-			get() {
-				return this.$store.state.student;
-			},
-			set(val) {
-				this.$store.commit('setStudent', val);
-			},
-		},
 	},
 	created() {
 		this.$store.dispatch('qualifiers/initialize');
 	},
 };
 </script>
+
+<style>
+.fa-spinner {
+	-webkit-animation-name: spin;
+    -webkit-animation-duration: 500ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 500ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 500ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+
+    animation-name: spin;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+</style>

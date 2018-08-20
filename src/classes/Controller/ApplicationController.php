@@ -7,6 +7,9 @@ use \Interop\Container\ContainerInterface;
 
 use ScholarshipApi\View\ViewBuilder;
 use ScholarshipApi\View\ApplicationView;
+use ScholarshipApi\Model\Student\Student;
+use ScholarshipApi\Util\ValidationException;
+
 
 class ApplicationController extends AbstractController{
     protected $session;
@@ -32,52 +35,68 @@ class ApplicationController extends AbstractController{
         $students = $this->container->get('StudentStore');
         $fileStore = $this->container->get('FileStore');
         $applicationStore = $this->container->get('ApplicationStore');
-
-        [
-            'student' => $student, 
-            'answers' => $answers
-        ] = $request->getParsedBody();
-
         try {
-            $students->get($student['znumber']);
-        } catch(\OutOfBoundsException $e) {
-            // If Student does not exist...
-            $students->save($student);
-        }
+            [
+                'student' => $student, 
+                'answers' => $answers
+            ] = $request->getParsedBody();
 
-        /* http://php.net/manual/en/features.file-upload.post-method.php */
-        ['answers' => $files] = $request->getUploadedFiles();
-        // Save File and store ID as answer
-        foreach($files as $code => $answer){
-            foreach($answer as $question => $file){
-                $item['znumber'] = $student['znumber'];
-                $fileData = $file->getStream()->getContents();
-                $item['file'] = [
-                    'name' => $file->getClientFilename(),
-                    'size' => $file->getSize(),
-                    'data' => $fileData,
-                    'md5' => md5($fileData),
+            if(empty($answers)){
+                throw new ValidationException("No Applications To Submit");
+            }
+            try {
+                $students->get($student['znumber']);
+            } catch(\OutOfBoundsException $e) {
+                $student = Student::DataMap($student);
+                // If Student does not exist...
+                $students->save($student);
+            }
+
+            /* http://php.net/manual/en/features.file-upload.post-method.php */
+            ['answers' => $files] = $request->getUploadedFiles();
+            // Save File and store ID as answer
+            foreach($files as $code => $answer){
+                foreach($answer as $question => $file){
+                    $item['znumber'] = $student['znumber'];
+                    $fileData = $file->getStream()->getContents();
+                    $item['file'] = [
+                        'name' => $file->getClientFilename(),
+                        'size' => $file->getSize(),
+                        'data' => $fileData,
+                        'md5' => md5($fileData),
+                    ];
+
+                    $answers[$code][$question] = $fileStore->save($item);
+                }
+            }
+
+            // Turn answers into application, and save it
+            foreach($answers as $code => $answer){
+                $application = [
+                    'znumber' => $student['znumber'],
+                    'code' => $code,
+                    'answers' => $answer,
                 ];
-
-                $answers[$code][$question] = $fileStore->save($item);
+                try{
+                    // Todo: Validate that application has all required answers
+                    $applicationStore->save($application);
+                    $result[$code] = [
+                        'success' => true,
+                        'message' => "Success!",
+                    ];
+                } catch(\Exception $ex) {
+                    $result[$code] = [
+                        'success' => false,
+                        'message' => $ex->getMessage(),
+                    ];
+                }
             }
+        } catch(\Exception $ex) {
+            $result['status'] = $ex->getMessage();
+            $result['message'] = $ex->getParts();
+            return $response->withJson($result);
         }
-
-        // Turn answers into application, and save it
-        foreach($answers as $code => $answer){
-            $application = [
-                'znumber' => $student['znumber'],
-                'code' => $code,
-                'answers' => $answer,
-            ];
-            try{
-                $applicationStore->save($application);
-                $result[$code] = "Success!";
-            } catch(\Exception $ex) {
-                $result[$code] = $ex->getMessage();
-            }
-        }
-
-        return $response->withJson([$result, $student, $answers]);
+        $result['status'] = "Complete!";
+        return $response->withJson($result);
     }
 }
