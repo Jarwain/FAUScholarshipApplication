@@ -10,7 +10,7 @@ module.exports = {
 			},
 		},
 	},
-	baseUrl: config.template.baseUrl,
+	baseUrl: config.baseUrl,
 	pages: {
 		application: {
 			entry: 'src/vue/application.js',

@@ -3,13 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 10, 2018 at 08:16 PM
+-- Generation Time: Aug 20, 2018 at 01:00 PM
 -- Server version: 5.7.10-log
 -- PHP Version: 5.6.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -32,7 +30,8 @@ CREATE TABLE `application` (
   `id` int(11) NOT NULL,
   `znumber` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `decision` tinyint(1) DEFAULT NULL
+  `decision` tinyint(1) DEFAULT NULL,
+  `submitted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -45,8 +44,7 @@ CREATE TABLE `application_answers` (
   `id` int(11) NOT NULL,
   `application_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
-  `response` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `submitted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `answer` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -103,6 +101,8 @@ CREATE TABLE `scholarship` (
   `name` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
+  `open` datetime DEFAULT NULL,
+  `close` datetime DEFAULT NULL,
   `max` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -153,17 +153,17 @@ CREATE TABLE `student` (
 
 CREATE TABLE `student_file` (
   `id` int(11) NOT NULL,
-  `fileID` int(11) NOT NULL,
+  `file_id` int(11) NOT NULL,
   `znumber` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_qualifiers`
+-- Table structure for table `student_qualifier`
 --
 
-CREATE TABLE `student_qualifiers` (
+CREATE TABLE `student_qualifier` (
   `znumber` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
   `qualifier_id` int(11) NOT NULL,
   `value` varchar(4096) COLLATE utf8mb4_unicode_ci NOT NULL
@@ -206,7 +206,7 @@ ALTER TABLE `application_answers`
 --
 ALTER TABLE `file`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `md5` (`md5`);
+  ADD UNIQUE KEY `md5` (`md5`) USING BTREE;
 
 --
 -- Indexes for table `qualifier`
@@ -254,13 +254,13 @@ ALTER TABLE `student`
 --
 ALTER TABLE `student_file`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `fileID` (`fileID`,`znumber`),
+  ADD UNIQUE KEY `file_id` (`file_id`,`znumber`),
   ADD KEY `znumber` (`znumber`);
 
 --
--- Indexes for table `student_qualifiers`
+-- Indexes for table `student_qualifier`
 --
-ALTER TABLE `student_qualifiers`
+ALTER TABLE `student_qualifier`
   ADD PRIMARY KEY (`znumber`),
   ADD UNIQUE KEY `znumber` (`znumber`,`qualifier_id`),
   ADD KEY `qualifier` (`qualifier_id`);
@@ -349,7 +349,7 @@ ALTER TABLE `application_answers`
 --
 ALTER TABLE `scholarship_questions`
   ADD CONSTRAINT `scholarship_questions_ibfk_1` FOREIGN KEY (`code`) REFERENCES `scholarship` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `scholarship_questions_ibfk_2` FOREIGN KEY (`question`) REFERENCES `question` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `scholarship_questions_ibfk_2` FOREIGN KEY (`question`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `scholarship_requirements`
@@ -362,16 +362,15 @@ ALTER TABLE `scholarship_requirements`
 -- Constraints for table `student_file`
 --
 ALTER TABLE `student_file`
-  ADD CONSTRAINT `student_file_ibfk_1` FOREIGN KEY (`znumber`) REFERENCES `student` (`znumber`),
-  ADD CONSTRAINT `student_file_ibfk_2` FOREIGN KEY (`fileID`) REFERENCES `file` (`id`);
+  ADD CONSTRAINT `student_file_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `file` (`id`),
+  ADD CONSTRAINT `student_file_ibfk_2` FOREIGN KEY (`znumber`) REFERENCES `student` (`znumber`) ON DELETE CASCADE;
 
 --
--- Constraints for table `student_qualifiers`
+-- Constraints for table `student_qualifier`
 --
-ALTER TABLE `student_qualifiers`
-  ADD CONSTRAINT `student_qualifiers_ibfk_1` FOREIGN KEY (`znumber`) REFERENCES `student` (`znumber`),
-  ADD CONSTRAINT `student_qualifiers_ibfk_2` FOREIGN KEY (`qualifier_id`) REFERENCES `qualifier` (`id`);
-COMMIT;
+ALTER TABLE `student_qualifier`
+  ADD CONSTRAINT `student_qualifier_ibfk_1` FOREIGN KEY (`znumber`) REFERENCES `student` (`znumber`),
+  ADD CONSTRAINT `student_qualifier_ibfk_2` FOREIGN KEY (`qualifier_id`) REFERENCES `qualifier` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
