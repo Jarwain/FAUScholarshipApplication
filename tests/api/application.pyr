@@ -1,6 +1,8 @@
 get('https://boc22finaid.fau.edu/scholarship/api/student/', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/application/', headers={'Accept': 'application/json'})
 
+
+# TODO: Write a better application test including a file!
 post(
 	'http://localhost:8080/api/application/',
 	headers={'Accept': 'application/json'},
