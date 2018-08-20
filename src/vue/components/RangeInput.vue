@@ -49,7 +49,7 @@ export default {
 	computed: {
 		localValue: {
 			get() {
-				return this.value || (this.props.max + this.props.min) / 2;
+				return this.value;
 			},
 			set(value) {
 				this.$emit('input', +value);
