@@ -1,9 +1,8 @@
 import axios from 'axios';
 import objectToFormData from 'object-to-formdata';
-import config from '../../config.json';
 
 const instance = axios.create({
-	baseURL: `${config.api}api/`,
+	baseURL: window.FAUObj.apiUrl,
 });
 
 const get = (item) => {

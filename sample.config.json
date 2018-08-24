@@ -1,7 +1,7 @@
 {
 	"isProduction": false,
-	"api": "https://localhost:8080/scholarships/",
 	"template": {
+		"api": "https://localhost:8080/scholarships/api/",
 		"baseUrl": "scholarships",
         "title": "Office",
         "scholarship_year": "2019-2020"

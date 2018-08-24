@@ -31,13 +31,8 @@
     </footer>
     <?php 
     if(isset($data['obj'])) {
-      echo "<script>var FAUObj = {};";
-
-        foreach($data['obj'] as $name => $obj){
-          $json = json_encode($obj, JSON_NUMERIC_CHECK);
-          echo "FAUObj.$name = $json || {};";
-        }
-      echo "</script>";
+      $json = json_encode($data['obj'], JSON_NUMERIC_CHECK);
+      echo "<script>var FAUObj = $json || {};FAUObj.apiUrl = '{$data['api']}';</script>";
     }; ?> 
 
     <!-- Bootstrap core JavaScript
