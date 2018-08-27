@@ -7,14 +7,6 @@ export default {
 		all: new Map(),
 	},
 	getters: {
-		categorizedRequirements: state => Array.from(state.all.values())
-		.map(scholarship =>	({
-			...scholarship,
-			requirements: scholarship.requirements.reduce((a, e) => {
-				a[e.category] = a[e.category] ? [...a[e.category], e] : [e];
-				return a;
-			}, {}),
-		})),
 	},
 	mutations: {
 		/* eslint no-param-reassign: [2, { "props": false }] */

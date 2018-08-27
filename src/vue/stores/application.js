@@ -1,10 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import validate from 'validate.js';
 import api from '@/api';
 import qualifiers from '@/stores/modules/qualifiers';
 import scholarships from '@/stores/modules/scholarships';
-import _ from 'lodash';
 
 Vue.use(Vuex);
 
@@ -26,6 +24,7 @@ const studentConstraints = {
 		length: {
 			is: 8,
 		},
+		numericality: true,
 	},
 	email: {
 		presence: {
@@ -47,28 +46,21 @@ const store = new Vuex.Store({
 	state: {
 		selected_scholarships: [],
 		student: {
-			first_name: '',
-			last_name: '',
-			znumber: '',
-			email: '',
+			first_name: null,
+			last_name: null,
+			znumber: null,
+			email: null,
 			videoAuth: null,
 		},
 		qualifications: {},
 		answers: {},
-		invalid: {
-			student: null,
-			qualifications: false,
-			answers: false,
-		},
 		submit: false,
 		result: false,
+		studentConstraints,
 	},
 	getters: {
 	},
 	mutations: {
-		setInvalid(state, invalid) {
-			state.invalid = invalid;
-		},
 		setSubmit(state, submit) {
 			state.submit = submit;
 		},
@@ -88,7 +80,7 @@ const store = new Vuex.Store({
 			const sch = state.selected_scholarships.indexOf(code);
 			if (sch === -1) {
 				state.selected_scholarships.push(code);
-				state.answers[code] = {};
+				Vue.set(state.answers, code, {});
 			} else {
 				state.selected_scholarships.splice(sch, 1);
 				delete state.answers[code];
@@ -99,12 +91,9 @@ const store = new Vuex.Store({
 		// _.debounce is a lodash function
 		// It prevents an action from firing "too much"
 		// Sprinkle it anywhere that has a lot of (asynchronous?) calls
-		updateStudent: _.debounce((context, item) => {
+		updateStudent: (context, item) => {
 			context.commit('setStudent', item);
-			const invalid = { ...context.state.invalid };
-			invalid.student = validate(item, studentConstraints) || false;
-			context.commit('setInvalid', invalid);
-		}, 1000),
+		},
 		updateAnswers(context, item) {
 			context.commit('setAnswers', item);
 		},

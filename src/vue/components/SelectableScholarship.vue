@@ -6,14 +6,13 @@
 			</a>
 			<button class="btn"
 			v-if="applicable"
-			:class="checked ? 'btn-outline-danger' : 'btn-outline-success'"
+			:class="[checked ? 'btn-outline-danger' : 'btn-outline-success']"
 			@click="toggle">
-				{{checked ? 'Remove' : 'Apply'}}
+				{{checked ? "Remove" : "Apply"}}
 			</button>
 			<button class="btn btn-secondary"
 			v-if="!applicable"
-			disabled
-			:class="checked ? 'btn-outline-danger' : 'btn-outline-success'">
+			disabled>
 				Closed
 			</button>
 		</div>
@@ -61,16 +60,18 @@ export default {
 			type: Boolean,
 			required: false,
 		},
+		checked: {
+			type: Boolean,
+			required: true,
+		},
 	},
 	data() {
 		return {
-			checked: this.$store.state.selected_scholarships.indexOf(this.code) !== -1,
 		};
 	},
 	methods: {
 		toggle() {
-			this.checked = !this.checked;
-			this.$store.commit('toggleSelectedScholarship', this.code);
+			this.$emit('toggle');
 		},
 	},
 };

@@ -1,6 +1,6 @@
 <template>
 	<component :is="component"  v-bind="question"
-		v-model="localValue" :invalid="invalid">
+	v-model="localValue" @valid="$emit('valid',$event)">
 	</component>
 		<!-- <essay-input v-if="question.type == 'essay'" v-bind="question" v-model="localValue">
 		</essay-input>
@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import validate from 'validate.js';
 import EssayInput from './EssayInput.vue';
 import FileInput from './FileInput.vue';
 import VideoInput from './VideoInput.vue';
@@ -51,34 +50,11 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', value);
-				let val = value;
-				let constraint = {
-					presence: this.question.optional ? false : { allowEmpty: false },
-				};
-				switch (this.question.type) {
-				case 'essay':
-					// constraint = {};
-					break;
-				case 'file':
-					// constraint = {};
-					val = val ? val.name : '';
-					break;
-				case 'video':
-					// constraint = {};
-					break;
-				default:
-					throw new Error('Unknown Question Type in QuestionInput');
-				}
-				this.invalid = validate.single(val, constraint) || false;
-				if (this.invalid != null) {
-					this.$emit('valid');
-				}
 			},
 		},
 	},
 	data() {
 		return {
-			invalid: null,
 		};
 	},
 };

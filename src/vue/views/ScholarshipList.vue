@@ -9,7 +9,8 @@
 			<router-link to="/search" class="btn btn-secondary mr-3">
 				Search
 			</router-link>
-			<router-link to="/apply" class="btn btn-primary">
+			<router-link to="/apply" class="btn btn-primary"
+			:class="{disabled: !selected.length}">
 				Apply
 				<span class="badge badge-light">{{selected.length}}</span>
 			</router-link>
@@ -28,6 +29,8 @@
 		v-for="scholarship in scholarships.slice((page-1)*numPerPage,page*numPerPage)"
 		:key="scholarship.code"
 		v-bind="scholarship"
+		:checked="selected.indexOf(scholarship.code) !== -1"
+		@toggle="$store.commit('toggleSelectedScholarship', scholarship.code);"
 	>
 	</selectable-scholarship>
 	<nav aria-label="Scholarship Pagination">
@@ -59,7 +62,7 @@ import { mapState, mapGetters } from 'vuex';
 import SelectableScholarship from '@/components/SelectableScholarship.vue';
 
 export default {
-	name: 'ScholarshipSelect',
+	name: 'ScholarshipList',
 	components: {
 		SelectableScholarship,
 	},

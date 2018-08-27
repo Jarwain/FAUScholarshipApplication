@@ -1,20 +1,20 @@
 <template>
-	<div class='form-group row'>
+	<div class='form-group'>
 		<label class='col-sm-3 col-form-label' :for='name'>{{question}}</label>
 		<div class='col-sm-9'>
 			<div class='form-check form-check-inline'>
 				<input class='form-check-input' type='radio'
 				v-model="localValue" :name='name' value='true'
-				:class="{'is-invalid':invalid, 'is-valid':!invalid && invalid != null}">
+				:class="{[invalid ? 'is-invalid' : 'is-valid']: localValue}">
 				<label class='form-check-label' :for='name'>Yes</label>
 			</div>
 			<div class='form-check form-check-inline'>
 				<input class='form-check-input' type='radio'
 				v-model="localValue" :name='name' value='false'
-				:class="{'is-invalid':invalid, 'is-valid':!invalid}">
+				:class="{[invalid ? 'is-invalid' : 'is-valid']: localValue}">
 				<label class='form-check-label' :for='name'>No</label>
 				<div v-if="invalid" class="invalid-feedback">
-					{{ invalid[0] }}
+					{{name}} {{ invalid[0] }}
 				</div>
 			</div>
 		</div>
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import validate from 'validate.js';
+
 export default {
 	name: 'BoolInput',
 	props: {
@@ -43,9 +45,17 @@ export default {
 			// type: Object,
 			default: () => {},
 		},
-		invalid: {
+		constraints: {
 			required: false,
 			default: null,
+		},
+	},
+	methods: {
+		validate() {
+			if (this.constraints) {
+				this.invalid = validate.single(this.localValue, this.constraints);
+			}
+			this.$emit('valid', !this.invalid);
 		},
 	},
 	computed: {
@@ -55,11 +65,13 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', value);
+				this.validate();
 			},
 		},
 	},
 	data() {
 		return {
+			invalid: false,
 		};
 	},
 };

@@ -27,7 +27,6 @@ abstract class Question implements \JsonSerializable{
             'id' => $this->getId(),
             'question' => $this->getQuestion(),
             'type' => $this->getType(),
-            'possibleProps' => $this->getPossibleProps(),
             'props' => $this->getProps()
         ];
     }

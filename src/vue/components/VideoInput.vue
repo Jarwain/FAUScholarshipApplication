@@ -6,11 +6,11 @@
 			<span class="input-group-text" id="basic-addon3">https://youtu.be/</span>
 		</div>
 		<input type="text" class="form-control" placeholder="uqBStEIVF8o"
-		v-model="localValue"
-		:class="{'is-invalid':invalid, 'is-valid':!invalid && invalid != null}">
+		v-model="localValue" @blur="onBlur"
+		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused}">
 		<div class="input-group-append">
 			<button class="btn btn-outline-secondary" type="button"
-				@click="showVideo = !showVideo">
+			@click="showVideo = !showVideo">
 				Test
 			</button>
 		</div>
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import validate from 'validate.js';
+
 export default {
 	name: 'VideoInput',
 	props: {
@@ -45,6 +47,10 @@ export default {
 			required: true,
 			default: '',
 		},
+		constraints: {
+			required: false,
+			default: () => {},
+		},
 	},
 	computed: {
 		localValue: {
@@ -55,9 +61,28 @@ export default {
 				this.$emit('input', value);
 			},
 		},
+		constraint() {
+			const constraints = Object.assign({
+				presence: this.props.optional ?
+					false : { allowEmpty: false },
+			}, this.constraints);
+			return constraints;
+		},
+	},
+	methods: {
+		onBlur() {
+			this.beenFocused = true;
+			this.validate();
+		},
+		validate() {
+			this.invalid = validate.single(this.localValue, this.constraint);
+			this.$emit('valid', !this.invalid);
+		},
 	},
 	data() {
 		return {
+			invalid: null,
+			beenFocused: false,
 			showVideo: false,
 		};
 	},

@@ -35,75 +35,43 @@
 					aria-labelledby="studentHeader" data-parent="#applicationAccordion">
 					<div class="card-body">
 						<div class="form-row">
-							<div class="form-group col">
-								<label for="first_name">First Name</label>
-								<input type="text" class="form-control" name="first_name"
-								placeholder="First name" required
+							<text-input class="col" type="text"
+								question="First Name" name="first_name"
+								:constraints="studentConstraints.first_name"
 								v-model="student.first_name" @input="updateStudent(student)"
-								:class="{
-									'is-invalid':invalid.student && invalid.student.first_name,
-									'is-valid':invalid.student != null && !invalid.student.first_name,
-								}">
-								<div v-if="invalid.student && invalid.student.first_name"
-								class="invalid-feedback">
-									{{ invalid.student.first_name[0] }}
-								</div>
-							</div>
-							<div class="form-group col">
-								<label for="last_name">Last Name</label>
-								<input type="text" class="form-control" name="last_name"
-								placeholder="Last name" required
+								@valid="valid.student.first_name = $event"
+							>
+							</text-input>
+							<text-input class="col" type="text"
+								question="Last Name" name="last_name"
+								:constraints="studentConstraints.last_name"
 								v-model="student.last_name" @input="updateStudent(student)"
-								:class="{
-									'is-invalid':invalid.student && invalid.student.last_name,
-									'is-valid':invalid.student != null && !invalid.student.last_name,
-								}">
-								<div v-if="invalid.student && invalid.student.last_name"
-								class="invalid-feedback">
-									{{ invalid.student.last_name[0] }}
-								</div>
-							</div>
+								@valid="valid.student.last_name = $event"
+							>
+							</text-input>
 						</div>
 						<div class="form-row">
-							<div class="form-group col">
-								<label for="znumber">Z-number</label>
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text">Z</span>
-									</div>
-									<input type="text" class="form-control" name="znumber"
-									placeholder="12345678" required
-									v-model="student.znumber" @input="updateStudent(student)"
-									:class="{
-										'is-invalid':invalid.student && invalid.student.znumber,
-										'is-valid':invalid.student != null && !invalid.student.znumber,
-									}">
-									<div v-if="invalid.student && invalid.student.znumber"
-									class="invalid-feedback">
-										{{ invalid.student.znumber[0] }}
-									</div>
-								</div>
-							</div>
-							<div class="form-group col">
-								<label for="email">Email address</label>
-								<input type="email" class="form-control"
-								name="email" placeholder="JDoe2018@fau.edu" required
+							<text-input class="col" type="text" prepend="Z"
+								question="Z-number" placeholder="12345678" name="znumber"
+								:constraints="studentConstraints.znumber"
+								v-model="student.znumber" @input="updateStudent(student)"
+								@valid="valid.student.znumber = $event"
+							>
+							</text-input>
+							<text-input class="col" type="email"
+								question="Email Address" placeholder="jdoe2018@fau.edu" name="email"
+								:constraints="studentConstraints.email"
 								v-model="student.email" @input="updateStudent(student)"
-								:class="{
-									'is-invalid':invalid.student && invalid.student.email,
-									'is-valid':invalid.student != null && !invalid.student.email,
-								}">
-								<div v-if="invalid.student && invalid.student.email"
-								class="invalid-feedback">
-									{{ invalid.student.email[0] }}
-								</div>
-							</div>
+								@valid="valid.student.email = $event"
+							>
+							</text-input>
 						</div>
 						<qualifier-input v-for="qualifier in required"
 							:key="qualifier.id"
 							:qualifier="qualifier"
 							v-model="qualifications[qualifier.id]"
-							@valid="updateQualifications(qualifications)"
+							@input="updateQualifications(qualifications)"
+							@valid="valid.qualifications[qualifier.id] = $event"
 						>
 						</qualifier-input>
 						<div class="card">
@@ -120,7 +88,8 @@
 										:key="qualifier.id"
 										:qualifier="qualifier"
 										v-model="qualifications[qualifier.id]"
-										@valid="updateQualifications(qualifications)"
+										@input="updateQualifications(qualifications)"
+										@valid="valid.qualifications[qualifier.id] = $event"
 									>
 									</qualifier-input>
 								</div>
@@ -145,19 +114,24 @@
 						Remove
 					</button>
 					<div class="btn-group" role="group" v-if="removeCursor == code">
-					  <button type="button" class="btn btn-outline-primary" @click="removeCursor = null">No Wait</button>
-					  <button type="button" class="btn btn-warning" @click="removeScholarship(code)">I'm Sure</button>
+						<button type="button" class="btn btn-outline-primary" @click="removeCursor = null">
+							No Wait
+						</button>
+						<button type="button" class="btn btn-warning" @click="removeScholarship(code)">
+							I'm Sure
+						</button>
 					</div>
 				</div>
 				<div :id="`collapse${code}`" class="collapse"
-					:aria-labelledby="`heading${code}`" data-parent="#applicationAccordion">
+				:aria-labelledby="`heading${code}`" data-parent="#applicationAccordion">
 					<div class="card-body">
 						<question-input v-for="question in scholarships.get(code).questions"
-							:key="code+question.id"
+							:key="question.id"
 							:question="question"
 							:code="code"
 							v-model="answers[code][question.id]"
-							@valid="updateAnswers(answers)"
+							@input="updateAnswers(answers)"
+							@valid="valid.answers[code+question.id] = $event"
 						>
 						</question-input>
 					</div>
@@ -248,17 +222,24 @@
 import { mapState, mapGetters, mapActions } from 'vuex';
 import QuestionInput from '@/components/QuestionInput.vue';
 import QualifierInput from '@/components/QualifierInput.vue';
+import TextInput from '@/components/TextInput.vue';
 
 export default {
 	name: 'ScholarshipApply',
 	components: {
 		QuestionInput,
 		QualifierInput,
+		TextInput,
 	},
 	data() {
 		return {
 			currentCollapse: 0,
 			removeCursor: null,
+			valid: {
+				student: {},
+				qualifications: {},
+				answers: {},
+			},
 		};
 	},
 	methods: {
@@ -290,14 +271,15 @@ export default {
 			'updateStudent',
 			'updateAnswers',
 			'updateQualifications',
+			'updateInvalid',
 		]),
 	},
 	computed: {
-		valid() {
-			if (this.invalid.student && this.qualifications.invalid) {
-				return false;
-			}
-			return true;
+		isValid() {
+			const student = Object.values(this.valid.student).reduce((a, e) =>
+				(!a ? a : e), true); // If all values are true
+
+			return student;
 		},
 		isFirstCollapse() {
 			return this.currentCollapse === 0;
@@ -316,7 +298,7 @@ export default {
 			qualifications: 'qualifications',
 			answers: 'answers',
 			student: 'student',
-			invalid: 'invalid',
+			studentConstraints: 'studentConstraints',
 			submit: 'submit',
 			result: 'result',
 		}),
@@ -340,34 +322,34 @@ export default {
 <style>
 .fa-spinner {
 	-webkit-animation-name: spin;
-    -webkit-animation-duration: 500ms;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    -moz-animation-name: spin;
-    -moz-animation-duration: 500ms;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-timing-function: linear;
-    -ms-animation-name: spin;
-    -ms-animation-duration: 500ms;
-    -ms-animation-iteration-count: infinite;
-    -ms-animation-timing-function: linear;
+		-webkit-animation-duration: 500ms;
+		-webkit-animation-iteration-count: infinite;
+		-webkit-animation-timing-function: linear;
+		-moz-animation-name: spin;
+		-moz-animation-duration: 500ms;
+		-moz-animation-iteration-count: infinite;
+		-moz-animation-timing-function: linear;
+		-ms-animation-name: spin;
+		-ms-animation-duration: 500ms;
+		-ms-animation-iteration-count: infinite;
+		-ms-animation-timing-function: linear;
 
-    animation-name: spin;
-    animation-duration: 500ms;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+		animation-name: spin;
+		animation-duration: 500ms;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
 }
 
 @-moz-keyframes spin {
-    from { -moz-transform: rotate(0deg); }
-    to { -moz-transform: rotate(360deg); }
+		from { -moz-transform: rotate(0deg); }
+		to { -moz-transform: rotate(360deg); }
 }
 @-webkit-keyframes spin {
-    from { -webkit-transform: rotate(0deg); }
-    to { -webkit-transform: rotate(360deg); }
+		from { -webkit-transform: rotate(0deg); }
+		to { -webkit-transform: rotate(360deg); }
 }
 @keyframes spin {
-    from {transform:rotate(0deg);}
-    to {transform:rotate(360deg);}
+		from {transform:rotate(0deg);}
+		to {transform:rotate(360deg);}
 }
 </style>

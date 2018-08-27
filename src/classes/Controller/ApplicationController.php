@@ -22,9 +22,9 @@ class ApplicationController extends AbstractController{
     }
 
     public function index(Request $request, Response $response, $args){
-    	$qualifiers = $this->container->get('QualifierStore')->getAll();
     	$data['obj'] = [
-    		'qualifiers' => $qualifiers
+    		'qualifiers' => $this->container->get('QualifierStore')->getAll(),
+            'scholarships' => $this->container->get('ScholarshipStore')->getActive(),
     	];
 
     	return $this->renderer->render($response, '../dist/application.phtml', $data);

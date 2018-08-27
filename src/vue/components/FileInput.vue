@@ -3,15 +3,17 @@
     <label>{{question}}</label>
     <input type="hidden" v-model="filename">
     <input type="file" class="form-control-file"
-		:required="!props.optional" @change="handleFile"
-		:class="{'is-invalid':invalid, 'is-valid':!invalid && invalid != null}">
+		@change="handleFile" @blur="onBlur"
+		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused}">
 	<div v-if="invalid" class="invalid-feedback">
-		{{ invalid[0] }}
+		Upload {{ invalid[0] }}
 	</div>
 </div>
 </template>
 
 <script>
+import validate from 'validate.js';
+
 export default {
 	name: 'FileInput',
 	props: {
@@ -26,25 +28,53 @@ export default {
 		props: {
 			type: Object,
 			default: () => ({
-				filetype: 'pdf',
+				filetype: null,
 			}),
 		},
 		value: {
 			required: false,
 		},
+		constraints: {
+			required: false,
+			default: () => {},
+		},
 	},
 	computed: {
+		constraint() {
+			const constraints = Object.assign({
+				presence: this.props.optional ?
+					false : { allowEmpty: false },
+				format: {
+					pattern: this.props.filetype ?
+						`.*(${this.props.filetype})$` : false,
+					message: 'has invalid filetype',
+				},
+			}, this.constraints);
+			return constraints;
+		},
+		filename() {
+			return this.value ? this.value.name : '';
+		},
 	},
 	methods: {
 		handleFile(event) {
 			const file = event.target.files[0];
 			this.$emit('input', file);
-			this.filename = file ? file.name : '';
+			this.validate();
+		},
+		onBlur() {
+			this.beenFocused = true;
+			this.validate();
+		},
+		validate() {
+			this.invalid = validate.single(this.filename, this.constraint);
+			this.$emit('valid', !this.invalid);
 		},
 	},
 	data() {
 		return {
-			filename: '',
+			invalid: null,
+			beenFocused: false,
 		};
 	},
 };

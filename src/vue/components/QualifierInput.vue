@@ -1,6 +1,6 @@
 <template>
-	<component :is="component"  v-bind="qualifier"
-		v-model="localValue" :invalid="invalid">
+	<component :is="component"  v-bind="qualifier" :class="formClass"
+	v-model="localValue" @valid="$emit('valid',$event)">
 	</component>
 		<!-- <bool-input v-if="qualifier.type == 'bool'" v-bind="qualifier"
 		v-model="localValue" :invalid="invalid">
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import validate from 'validate.js';
 import BoolInput from './BoolInput.vue';
 import RangeInput from './RangeInput.vue';
 import SelectInput from './SelectInput.vue';
@@ -36,6 +35,12 @@ export default {
 		},
 	},
 	computed: {
+		formClass() {
+			if (this.qualifier.type === 'bool') {
+				return { row: this.qualifier.type === 'bool' };
+			}
+			return {};
+		},
 		component() {
 			switch (this.qualifier.type) {
 			case 'bool':
@@ -54,16 +59,11 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', value);
-				this.invalid = validate.single(value, this.qualifier.constraint) || false;
-				if (!this.invalid) {
-					this.$emit('valid');
-				}
 			},
 		},
 	},
 	data() {
 		return {
-			invalid: null,
 		};
 	},
 };

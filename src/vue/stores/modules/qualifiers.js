@@ -38,7 +38,7 @@ export default {
 		set(state, qualifiers) {
 			state.loading = false;
 			const thing = Object.values(qualifiers).reduce((a, e) => {
-				e.constraint = {
+				e.constraints = {
 					presence: e.props.required ?
 						{ allowEmpty: false } : false,
 				};
@@ -48,7 +48,7 @@ export default {
 					break;
 				case 'range':
 					e.validate = validateRange;
-					e.constraint.numericality = {
+					e.constraints.numericality = {
 						greaterThanOrEqualTo: e.props.min,
 						lessThanOrEqualTo: e.props.max,
 					};

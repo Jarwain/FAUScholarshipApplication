@@ -31,7 +31,7 @@ const router = new Router({
 			component: loadView('ScholarshipApply'),
 			beforeEnter: (to, from, next) => {
 				if (store.state.selected_scholarships.length === 0) {
-					next({ name: 'list' });
+					next({ path: '/list' });
 				}
 				next();
 			},
