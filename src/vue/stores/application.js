@@ -48,10 +48,10 @@ const store = new Vuex.Store({
 	state: {
 		selected_scholarships: [],
 		student: {
-			first_name: null,
-			last_name: null,
-			znumber: null,
-			email: null,
+			first_name: false,
+			last_name: false,
+			znumber: false,
+			email: false,
 			videoAuth: null,
 		},
 		qualifications: {},

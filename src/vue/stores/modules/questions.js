@@ -14,10 +14,14 @@ export default {
 	mutations: {
 		set(state, questions) {
 			state.loading = false;
-			const thing = Object.values(questions).reduce((a, e) => {
+			state.all = new Map();
+			Object.values(questions).forEach((e) => {
 				e.constraints = {
 					presence: e.props.optional ?
-						false : { allowEmpty: false },
+						false : {
+							allowEmpty: false,
+							message: 'is required',
+						},
 				};
 				switch (e.type) {
 				case 'essay':
@@ -41,10 +45,8 @@ export default {
 				default:
 					break;
 				}
-				a[e.id] = e;
-				return a;
-			}, {});
-			state.all = new Map(Object.entries(thing));
+				state.all.set(e.id, e);
+			});
 		},
 	},
 	actions: {

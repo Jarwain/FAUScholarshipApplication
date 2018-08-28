@@ -37,7 +37,8 @@ export default {
 	mutations: {
 		set(state, qualifiers) {
 			state.loading = false;
-			const thing = Object.values(qualifiers).reduce((a, e) => {
+			state.all = new Map();
+			Object.values(qualifiers).forEach((e) => {
 				e.constraints = {
 					presence: e.props.required ?
 						{ allowEmpty: false } : false,
@@ -59,10 +60,8 @@ export default {
 				default:
 					break;
 				}
-				a[e.id] = e;
-				return a;
-			}, {});
-			state.all = new Map(Object.entries(thing));
+				state.all.set(e.id, e);
+			});
 		},
 	},
 	actions: {

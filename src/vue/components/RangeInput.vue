@@ -9,7 +9,8 @@
 				{{name}} {{ invalid[0] }}
 			</div>
 		</div>
-		<input v-model="localValue" type='range' class='custom-range'
+		<input type='range' class='custom-range'
+		v-model="localValue" @blur="onBlur"
 		:min="props['min']" :max="props['max']" :step="props['step']">
 	</div>
 </template>
