@@ -28,10 +28,10 @@ export default {
 	},
 	getters: {
 		required(state) {
-			return Array.from(state.all.values()).filter(e => (e.props.required));
+			return Array.from(state.all.values()).filter(e => e.props.required);
 		},
 		optional(state) {
-			return Array.from(state.all.values()).filter(e => (!e.props.required));
+			return Array.from(state.all.values()).filter(e => !e.props.required);
 		},
 	},
 	mutations: {
@@ -68,7 +68,7 @@ export default {
 	actions: {
 		initialize({ state, commit }) {
 			if (state.loading) {
-				if (window.FAUObj && window.FAUObj.qualifiers && false) {
+				if (window.FAUObj && window.FAUObj.qualifiers) {
 					commit('set', window.FAUObj.qualifiers);
 				} else {
 					ScholarshipApi.get('qualifiers')

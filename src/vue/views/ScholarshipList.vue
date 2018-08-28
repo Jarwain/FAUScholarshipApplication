@@ -85,6 +85,7 @@ export default {
 		}),
 	},
 	created() {
+		this.$store.dispatch('questions/initialize');
 		this.$store.dispatch('qualifiers/initialize');
 		this.$store.dispatch('scholarships/initialize');
 	},

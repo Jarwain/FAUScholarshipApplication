@@ -9,6 +9,9 @@ const get = (item) => {
 	let request = instance;
 
 	switch (item) {
+	case 'questions':
+		request = request.get('question/');
+		break;
 	case 'qualifiers':
 		request = request.get('qualifier/');
 		break;

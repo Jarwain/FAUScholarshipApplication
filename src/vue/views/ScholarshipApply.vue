@@ -6,12 +6,17 @@
 			Scholarship Application
 		</h1>
 		<div>
-			<button @click="backHandler" class="btn btn-secondary mr-3">
-				{{isFirstCollapse ? 'Scholarship List' : 'Back'}}
-			</button>
-			<button @click="nextHandler" class="btn btn-primary">
-				{{isLastCollapse ? 'Submit' : 'Next'}}
-			</button>
+			<router-link :to="{ name: 'list' }" class="btn btn-secondary mr-3">
+				Scholarship List
+			</router-link>
+			<div class="btn-group" role="group">
+				<button v-if="!isFirstCollapse" @click="backHandler" class="btn btn-secondary">
+					Back
+				</button>
+				<button @click="nextHandler" class="btn btn-primary">
+					{{isLastCollapse ? 'Submit' : 'Next'}}
+				</button>
+			</div>
 		</div>
 	</div>
 	<p>
@@ -21,7 +26,7 @@
 	<form>
 		<div class="accordion mb-3" id="applicationAccordion">
 			<div class="card">
-				<div class="card-header" id="studentHeader">
+				<div class="card-header d-flex justify-content-between" id="studentHeader">
 					<h5 class="mb-0">
 						<button class="btn btn-link" @click="currentCollapse = 0"
 							type="button" data-toggle="collapse"
@@ -30,6 +35,9 @@
 							Student Information
 						</button>
 					</h5>
+					<button v-if="isFirstCollapse" @click="nextHandler" class="btn btn-primary">
+						Next
+					</button>
 				</div>
 				<div id="studentBody" class="collapse show"
 					aria-labelledby="studentHeader" data-parent="#applicationAccordion">
@@ -109,11 +117,19 @@
 							{{scholarships.get(code).name}}
 						</button>
 					</h5>
-					<button class="btn btn-danger" type="button" v-if="removeCursor != code"
+					<div class="btn-group" role="group" v-if="currentCollapse == idx + 1">
+						<button @click="backHandler" class="btn btn-secondary">
+							Back
+						</button>
+						<button @click="nextHandler" class="btn btn-primary">
+							{{isLastCollapse ? 'Submit' : 'Next'}}
+						</button>
+					</div>
+					<button class="btn btn-danger" type="button" v-else-if="removeCursor != code"
 					@click="removeCursor = code">
 						Remove
 					</button>
-					<div class="btn-group" role="group" v-if="removeCursor == code">
+					<div class="btn-group" role="group" v-else-if="removeCursor == code">
 						<button type="button" class="btn btn-outline-primary" @click="removeCursor = null">
 							No Wait
 						</button>
@@ -125,13 +141,13 @@
 				<div :id="`collapse${code}`" class="collapse"
 				:aria-labelledby="`heading${code}`" data-parent="#applicationAccordion">
 					<div class="card-body">
-						<question-input v-for="question in scholarships.get(code).questions"
-							:key="question.id"
-							:question="question"
+						<question-input v-for="question_id in scholarships.get(code).questions"
+							:key="question_id"
+							:question="questions.get(question_id.toString())"
 							:code="code"
-							v-model="answers[code][question.id]"
+							v-model="answers[code][question_id]"
 							@input="updateAnswers(answers)"
-							@valid="valid.answers[code+question.id] = $event"
+							@valid="valid.answers[code+question_id] = $event"
 						>
 						</question-input>
 					</div>
@@ -252,12 +268,8 @@ export default {
 			this.$store.dispatch('submitAnswers');
 		},
 		backHandler() {
-			if (this.isFirstCollapse) {
-				this.$router.push({ name: 'list' });
-			} else {
-				this.currentCollapse -= 1;
-				window.$(this.collapses[this.currentCollapse]).collapse('toggle');
-			}
+			this.currentCollapse -= this.currentCollapse ? 1 : 0;
+			window.$(this.collapses[this.currentCollapse]).collapse('toggle');
 		},
 		nextHandler() {
 			if (this.isLastCollapse && this.valid) {
@@ -292,8 +304,8 @@ export default {
 			return ['#studentBody', ...scholarshipIDs];
 		},
 		...mapState({
-			qualifiers: state => Array.from(state.qualifiers.all.values()),
 			scholarships: state => state.scholarships.all,
+			questions: state => state.questions.all,
 			selected: 'selected_scholarships',
 			qualifications: 'qualifications',
 			answers: 'answers',
@@ -306,15 +318,15 @@ export default {
 			'required',
 			'optional',
 		]),
+		...mapGetters('questions', [
+			'video',
+		]),
 		hasVideo() {
 			return this.selected.reduce((a, code) =>
 				(a || this.scholarships.get(code).questions.reduce((b, question) =>
 					(b || question.type === 'video'), false)
 				), false);
 		},
-	},
-	created() {
-		this.$store.dispatch('qualifiers/initialize');
 	},
 };
 </script>

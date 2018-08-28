@@ -22,7 +22,10 @@ class ApplicationController extends AbstractController{
     }
 
     public function index(Request $request, Response $response, $args){
-    	$data['obj'] = [
+    	// Objects will be passed into JavaScript as
+        // FAUObj.$name
+        $data['obj'] = [
+            'questions' => $this->container->get('QuestionStore')->getAll(),
     		'qualifiers' => $this->container->get('QualifierStore')->getAll(),
             'scholarships' => $this->container->get('ScholarshipStore')->getActive(),
     	];

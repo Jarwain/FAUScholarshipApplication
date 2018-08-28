@@ -30,7 +30,7 @@ class ScholarshipFactory{
     function initialize($data){
         $sch = ApplicableScholarship::DataMap($data);
         $sch->setRequirements($this->requirements->get($sch->getCode()));
-        $sch->setQuestions($this->questions->get($sch->getCode()));
+        $sch->setQuestions(array_column($this->questions->get($sch->getCode()), 'id'));
         // TODO: Set URL & Deadline based on application details
         return $sch;
     }

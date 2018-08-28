@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import api from '@/api';
+import questions from '@/stores/modules/questions';
 import qualifiers from '@/stores/modules/qualifiers';
 import scholarships from '@/stores/modules/scholarships';
 
@@ -40,6 +41,7 @@ const studentConstraints = {
 
 const store = new Vuex.Store({
 	modules: {
+		questions,
 		qualifiers,
 		scholarships,
 	},

@@ -75,7 +75,7 @@ export default {
 			this.validate();
 		},
 		validate() {
-			this.invalid = validate.single(this.localValue, this.constraint);
+			this.invalid = validate.single(this.localValue, this.constraints);
 			this.$emit('valid', !this.invalid);
 		},
 	},
