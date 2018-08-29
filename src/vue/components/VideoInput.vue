@@ -66,8 +66,7 @@ export default {
 				return this.value;
 			},
 			set(val) {
-				const parsed = this.youtube_parser(val); 
-				const value = parsed ? parsed || val;
+				const value = this.youtube_parser(val) || val;
 				this.showVideo = true;
 				this.$emit('input', value);
 				this.validate(value);
