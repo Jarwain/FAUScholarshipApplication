@@ -342,10 +342,9 @@ export default {
 			'video',
 		]),
 		hasVideo() {
-			return this.selected.reduce((a, code) =>
-				(a || this.scholarships.get(code).questions.reduce((b, question) =>
-					(b || question.type === 'video'), false)
-				), false);
+			return this.selected
+				.some(code => this.scholarships.get(code).questions
+					.some(q => this.questions.get(q).type === 'video'));
 		},
 	},
 	created() {

@@ -35,16 +35,19 @@ class StudentDatabase implements StudentStore{
     }
 
     function save($student){
-        $query = "INSERT INTO `student` (`znumber`,`first_name`,`last_name`,`email`, `videoAuth`)
+        $query = "INSERT INTO `student` 
+            (`znumber`,`first_name`,`last_name`,`email`, `videoAuth`)
             VALUES (:znumber, :first_name, :last_name, :email, :video)
-            ON DUPLICATE KEY UPDATE videoAuth=VALUES(videoAuth)";
+            ON DUPLICATE KEY UPDATE 
+            first_name=VALUES(first_name), last_name=VALUES(last_name), 
+            email=VALUES(email), videoAuth=VALUES(videoAuth)";
         $stmnt = $this->db->prepare($query);
 
         $stmnt->bindParam(':znumber', $student->znumber, \PDO::PARAM_STR);
         $stmnt->bindParam(':first_name', $student->first_name, \PDO::PARAM_STR);
         $stmnt->bindParam(':last_name', $student->last_name, \PDO::PARAM_STR);
         $stmnt->bindParam(':email', $student->email, \PDO::PARAM_INT);
-        $stmnt->bindParam(':video', $videoAuth, \PDO::PARAM_BOOL);
+        $stmnt->bindParam(':video', $student->videoAuth, \PDO::PARAM_BOOL);
         $stmnt->execute();
     }
 

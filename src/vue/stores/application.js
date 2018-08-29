@@ -112,7 +112,7 @@ const store = new Vuex.Store({
 			const student = { ...state.student };
 			student.znumber = `Z${student.znumber}`;
 			student.qualifications = state.qualifications;
-			// if (student.videoAuth === null) delete student.videoAuth;
+			if (student.videoAuth === null) delete student.videoAuth;
 			const answers = {
 				student,
 				answers: state.answers,
