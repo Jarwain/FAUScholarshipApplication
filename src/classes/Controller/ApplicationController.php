@@ -45,61 +45,75 @@ class ApplicationController extends AbstractController{
             ] = $request->getParsedBody();
 
             if(empty($answers)){
-                throw new ValidationException("No Applications To Submit");
+                throw new Exception("No Applications To Submit");
             }
-            try {
-                $students->get($student['znumber']);
-            } catch(\OutOfBoundsException $e) {
+
+            $savedStudent = $students->get($student['znumber']);
+            // If Student does not exist...
+            if(is_null($savedStudent)){
                 $student = Student::DataMap($student);
-                // If Student does not exist...
                 $students->save($student);
+            } else {
+            // Student Exists
+                // Student has videoAuth set
+                if(isset($student['videoAuth'])){
+                    // Update saved student
+                    $savedStudent->videoAuth = $student['videoAuth'];
+                    $students->save($savedStudent);
+                }
+                // If student has changed any qualifiers/qualifications
+                // It's not saved.
+                $student = $savedStudent;
             }
 
-            /* http://php.net/manual/en/features.file-upload.post-method.php */
-            ['answers' => $files] = $request->getUploadedFiles();
-            // Save File and store ID as answer
-            foreach($files as $code => $answer){
-                foreach($answer as $question => $file){
-                    $item['znumber'] = $student['znumber'];
-                    $fileData = $file->getStream()->getContents();
-                    $item['file'] = [
-                        'name' => $file->getClientFilename(),
-                        'size' => $file->getSize(),
-                        'data' => $fileData,
-                        'md5' => md5($fileData),
-                    ];
-
-                    $answers[$code][$question] = $fileStore->save($item);
+            $filesUploaded = $request->getUploadedFiles();
+            if($filesUploaded){
+                /* http://php.net/manual/en/features.file-upload.post-method.php */
+                ['answers' => $files] = $filesUploaded;
+                // Save File and store ID as answer
+                foreach($files as $code => $answer){
+                    foreach($answer as $question => $file){
+                        $item['znumber'] = $student->znumber;
+                        $fileData = $file->getStream()->getContents();
+                        $item['file'] = [
+                            'name' => $file->getClientFilename(),
+                            'size' => $file->getSize(),
+                            'data' => $fileData,
+                            'md5' => md5($fileData),
+                        ];
+    
+                        $answers[$code][$question] = $fileStore->save($item);
+                    }
                 }
             }
 
             // Turn answers into application, and save it
             foreach($answers as $code => $answer){
                 $application = [
-                    'znumber' => $student['znumber'],
+                    'znumber' => $student->znumber,
                     'code' => $code,
                     'answers' => $answer,
                 ];
                 try{
                     // Todo: Validate that application has all required answers
                     $applicationStore->save($application);
-                    $result[$code] = [
-                        'success' => true,
+                    $result['message'][$code] = [
+                        'status' => true,
                         'message' => "Success!",
                     ];
                 } catch(\Exception $ex) {
-                    $result[$code] = [
-                        'success' => false,
+                    $result['message'][$code] = [
+                        'status' => false,
                         'message' => $ex->getMessage(),
                     ];
                 }
             }
         } catch(\Exception $ex) {
-            $result['status'] = $ex->getMessage();
-            $result['message'] = $ex->getParts();
+            $result['status'] = false;
+            $result['message'] = $ex->getMessage();
             return $response->withJson($result);
         }
-        $result['status'] = "Complete!";
+        $result['status'] = true;
         return $response->withJson($result);
     }
 }

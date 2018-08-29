@@ -7,19 +7,18 @@ class StudentDatabase implements StudentStore{
 
     function __construct(\PDO $db){
         $this->db = $db;
-        // $this->factory = new StudentFactory();
     }
 
     function getAll(){
-        $query = "SELECT znumber, first_name, last_name, email
+        $query = "SELECT znumber, first_name, last_name, email, videoAuth
                     FROM `student`";
         $result = $this->db->query($query)->fetchAll();
         
-        return $this->factory->bulkInitialize($result);
+        return array_map(Student::DataMap, $result);;
     }
 
     function get($znumber){
-        $query = "SELECT znumber, first_name, last_name, email
+        $query = "SELECT znumber, first_name, last_name, email, videoAuth
                     FROM `student`
                     WHERE znumber = :znumber";
         $stmnt = $this->db->prepare($query);
@@ -29,21 +28,23 @@ class StudentDatabase implements StudentStore{
         $result = $stmnt->fetch();
 
         if(is_null($result) || !$result){
-            throw new \OutOfBoundsException ("Student '$znumber' doesn't exist.");
+            return Null;
         }
 
-        return $result; // $this->factory->initialize($result);
+        return Student::DataMap($result);
     }
 
-    function save($item){
-        $query = "INSERT IGNORE INTO `student` (`znumber`,`first_name`,`last_name`,`email`)
-                    VALUES (:znumber, :first_name, :last_name, :email)";
+    function save($student){
+        $query = "INSERT INTO `student` (`znumber`,`first_name`,`last_name`,`email`, `videoAuth`)
+            VALUES (:znumber, :first_name, :last_name, :email, :video)
+            ON DUPLICATE KEY UPDATE videoAuth=VALUES(videoAuth)";
         $stmnt = $this->db->prepare($query);
 
         $stmnt->bindParam(':znumber', $student->znumber, \PDO::PARAM_STR);
         $stmnt->bindParam(':first_name', $student->first_name, \PDO::PARAM_STR);
         $stmnt->bindParam(':last_name', $student->last_name, \PDO::PARAM_STR);
         $stmnt->bindParam(':email', $student->email, \PDO::PARAM_INT);
+        $stmnt->bindParam(':video', $videoAuth, \PDO::PARAM_BOOL);
         $stmnt->execute();
     }
 

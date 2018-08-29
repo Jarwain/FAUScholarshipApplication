@@ -52,6 +52,13 @@ class ApplicationDatabase implements ApplicationStore{
             }
 
             $this->db->commit();
+        } catch (\PDOException $ex) {
+            $this->db->rollback();
+            [$code, $err] = $ex->errorInfo;
+            if($code == 23000 && $err == 1062)
+                throw new \Exception("Application already exists.");
+            throw new \Exception($ex->getMessage());
+
         } catch (\Exception $ex) {
             $this->db->rollback();
             throw $ex;

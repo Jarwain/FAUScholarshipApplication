@@ -59,6 +59,11 @@ const store = new Vuex.Store({
 		submit: false,
 		result: false,
 		studentConstraints,
+		invalid: {
+			student: {},
+			qualifications: {},
+			answers: {},
+		},
 	},
 	getters: {
 	},
@@ -107,15 +112,18 @@ const store = new Vuex.Store({
 			const student = { ...state.student };
 			student.znumber = `Z${student.znumber}`;
 			student.qualifications = state.qualifications;
+			// if (student.videoAuth === null) delete student.videoAuth;
 			const answers = {
 				student,
 				answers: state.answers,
 			};
-			api.submitAnswers(answers).then((response) => {
-				console.log(response.data);
-				commit('setResult', response.data);
-			}).catch((response) => {
-				console.log(response);
+			console.log(answers);
+			api.submitAnswers(answers).then((data) => {
+				console.log(data);
+				commit('setResult', data);
+			}).catch((data) => {
+				console.log(data);
+				commit('setResult', data);
 			});
 		},
 	},

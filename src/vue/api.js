@@ -27,7 +27,7 @@ const get = (item) => {
 const submitAnswers = (app) => {
 	const data = objectToFormData(app);
 	const request = instance;
-	return request.post('application/', data);
+	return request.post('application/', data).then(response => response.data);
 };
 
 export default { get, submitAnswers };

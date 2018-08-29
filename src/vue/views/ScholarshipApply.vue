@@ -6,6 +6,9 @@
 			Scholarship Application
 		</h1>
 		<div>
+			<button @click="trigger" class="btn btn-secondary">
+					Triggertest
+				</button>
 			<router-link :to="{ name: 'list' }" class="btn btn-secondary mr-3">
 				Scholarship List
 			</router-link>
@@ -23,138 +26,137 @@
 		Do not navigate away from this page. The application does not save. <br/>
 		Please ensure all information on this page is correct before submitting.
 	</p>
-	<form>
-		<div class="accordion mb-3" id="applicationAccordion">
-			<div class="card">
-				<div class="card-header d-flex justify-content-between" id="studentHeader">
-					<h5 class="mb-0">
-						<button class="btn btn-link" @click="currentCollapse = 0"
-							type="button" data-toggle="collapse"
-							:data-target="`#studentBody`"
-							aria-expanded="true" aria-controls="studentBody">
-							Student Information
-						</button>
-					</h5>
-					<button v-if="isFirstCollapse" @click="nextHandler" class="btn btn-primary">
-						Next
+	<div class="accordion mb-3" id="applicationAccordion">
+		<div class="card">
+			<div class="card-header d-flex justify-content-between" id="studentHeader">
+				<h5 class="mb-0">
+					<button class="btn btn-link" @click="currentCollapse = 0"
+						type="button" data-toggle="collapse"
+						data-target="#studentBody"
+						aria-expanded="true" aria-controls="studentBody">
+						Student Information
 					</button>
-				</div>
-				<div id="studentBody" class="collapse show"
-					aria-labelledby="studentHeader" data-parent="#applicationAccordion">
-					<div class="card-body">
-						<div class="form-row">
-							<text-input class="col" type="text"
-								question="First Name" name="first_name"
-								:constraints="studentConstraints.first_name"
-								v-model="student.first_name" @input="updateStudent(student)"
-								@valid="valid.student.first_name = $event"
-							>
-							</text-input>
-							<text-input class="col" type="text"
-								question="Last Name" name="last_name"
-								:constraints="studentConstraints.last_name"
-								v-model="student.last_name" @input="updateStudent(student)"
-								@valid="valid.student.last_name = $event"
-							>
-							</text-input>
-						</div>
-						<div class="form-row">
-							<text-input class="col" type="text" prepend="Z"
-								question="Z-number" placeholder="12345678" name="znumber"
-								:constraints="studentConstraints.znumber"
-								v-model="student.znumber" @input="updateStudent(student)"
-								@valid="valid.student.znumber = $event"
-							>
-							</text-input>
-							<text-input class="col" type="email"
-								question="Email Address" placeholder="jdoe2018@fau.edu" name="email"
-								:constraints="studentConstraints.email"
-								v-model="student.email" @input="updateStudent(student)"
-								@valid="valid.student.email = $event"
-							>
-							</text-input>
-						</div>
-						<qualifier-input v-for="qualifier in required"
-							:key="qualifier.id"
-							:qualifier="qualifier"
-							v-model="qualifications[qualifier.id]"
-							@input="updateQualifications(qualifications)"
-							@valid="valid.qualifications[qualifier.id] = $event"
-						>
-						</qualifier-input>
-						<div class="card">
-							<div class="card card-header">
-								<button class="btn btn-link" type="button"
-									data-toggle="collapse" data-target="#filters"
-									aria-expanded="false" aria-controls="filters">
-									Optional Qualifications
-								</button>
-							</div>
-							<div class="collapse multi-collapse" id="filters">
-								<div class="card card-body">
-									<qualifier-input v-for="qualifier in optional"
-										:key="qualifier.id"
-										:qualifier="qualifier"
-										v-model="qualifications[qualifier.id]"
-										@input="updateQualifications(qualifications)"
-										@valid="valid.qualifications[qualifier.id] = $event"
-									>
-									</qualifier-input>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				</h5>
+				<button v-if="isFirstCollapse" @click="nextHandler" class="btn btn-primary">
+					Next
+				</button>
 			</div>
-			<div class="card" v-for="(code, idx) in selected" :key="code">
-				<div class="card-header d-flex justify-content-between"
-				:id="`heading${code}`">
-					<h5 class="mb-0">
-						<button class="btn btn-link collapsed"
-						type="button" @click="currentCollapse = idx + 1" data-toggle="collapse"
-						:data-target="`#collapse${code}`"
-						aria-expanded="false" aria-controls="`collapse${code}`">
-							{{scholarships.get(code).name}}
-						</button>
-					</h5>
-					<div class="btn-group" role="group" v-if="currentCollapse == idx + 1">
-						<button @click="backHandler" class="btn btn-secondary">
-							Back
-						</button>
-						<button @click="nextHandler" class="btn btn-primary">
-							{{isLastCollapse ? 'Submit' : 'Next'}}
-						</button>
-					</div>
-					<button class="btn btn-danger" type="button" v-else-if="removeCursor != code"
-					@click="removeCursor = code">
-						Remove
-					</button>
-					<div class="btn-group" role="group" v-else-if="removeCursor == code">
-						<button type="button" class="btn btn-outline-primary" @click="removeCursor = null">
-							No Wait
-						</button>
-						<button type="button" class="btn btn-warning" @click="removeScholarship(code)">
-							I'm Sure
-						</button>
-					</div>
-				</div>
-				<div :id="`collapse${code}`" class="collapse"
-				:aria-labelledby="`heading${code}`" data-parent="#applicationAccordion">
-					<div class="card-body">
-						<question-input v-for="question_id in scholarships.get(code).questions"
-							:key="question_id"
-							:question="questions.get(question_id.toString())"
-							:code="code"
-							v-model="answers[code][question_id]"
-							@input="updateAnswers(answers)"
-							@valid="valid.answers[code+question_id] = $event"
+			<div id="studentBody" class="collapse show"
+				aria-labelledby="studentHeader" data-parent="#applicationAccordion">
+				<div class="card-body">
+					<div class="form-row">
+						<text-input class="col" type="text"
+							question="First Name" name="first_name"
+							:constraints="studentConstraints.first_name"
+							v-model="student.first_name" @input="updateStudent(student)"
+							@valid="valid.student.first_name = $event"
 						>
-						</question-input>
+						</text-input>
+						<text-input class="col" type="text"
+							question="Last Name" name="last_name"
+							:constraints="studentConstraints.last_name"
+							v-model="student.last_name" @input="updateStudent(student)"
+							@valid="valid.student.last_name = $event"
+						>
+						</text-input>
+					</div>
+					<div class="form-row">
+						<text-input class="col" type="text" prepend="Z"
+							question="Z-number" placeholder="12345678" name="znumber"
+							:constraints="studentConstraints.znumber"
+							v-model="student.znumber" @input="updateStudent(student)"
+							@valid="valid.student.znumber = $event"
+						>
+						</text-input>
+						<text-input class="col" type="email"
+							question="Email Address" placeholder="jdoe2018@fau.edu" name="email"
+							:constraints="studentConstraints.email"
+							v-model="student.email" @input="updateStudent(student)"
+							@valid="valid.student.email = $event"
+						>
+						</text-input>
+					</div>
+					<qualifier-input v-for="qualifier in required"
+						:key="qualifier.id"
+						:qualifier="qualifier"
+						v-model="qualifications[qualifier.id]"
+						@input="updateQualifications(qualifications)"
+						@valid="valid.qualifications[qualifier.id] = $event"
+					>
+					</qualifier-input>
+					<div class="card">
+						<div class="card card-header">
+							<button class="btn btn-link" type="button"
+								data-toggle="collapse" data-target="#filters"
+								aria-expanded="false" aria-controls="filters">
+								Optional Qualifications
+							</button>
+						</div>
+						<div class="collapse multi-collapse" id="filters">
+							<div class="card card-body">
+								<qualifier-input v-for="qualifier in optional"
+									:key="qualifier.id"
+									:qualifier="qualifier"
+									v-model="qualifications[qualifier.id]"
+									@input="updateQualifications(qualifications)"
+									@valid="valid.qualifications[qualifier.id] = $event"
+								>
+								</qualifier-input>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</form>
+		<div class="card" v-for="(code, idx) in selected" :key="code">
+			<div class="card-header d-flex justify-content-between"
+			:id="`heading${code}`">
+				<h5 class="mb-0">
+					<button class="btn btn-link collapsed"
+					type="button" @click="currentCollapse = idx + 1" data-toggle="collapse"
+					:data-target="`#collapse${code}`"
+					aria-expanded="false" aria-controls="`collapse${code}`">
+						{{scholarships.get(code).name}}
+					</button>
+				</h5>
+				<div class="btn-group" role="group" v-if="currentCollapse == idx + 1">
+					<button @click="backHandler" class="btn btn-secondary">
+						Back
+					</button>
+					<button @click="nextHandler" class="btn btn-primary">
+						{{isLastCollapse ? 'Submit' : 'Next'}}
+					</button>
+				</div>
+				<button class="btn btn-danger" type="button"
+				v-else-if="currentCollapse <= idx && removeCursor != code"
+				@click="removeCursor = code">
+					Remove
+				</button>
+				<div class="btn-group" role="group" v-else-if="removeCursor == code">
+					<button type="button" class="btn btn-outline-primary" @click="removeCursor = null">
+						No Wait
+					</button>
+					<button type="button" class="btn btn-warning" @click="removeScholarship(code)">
+						I'm Sure
+					</button>
+				</div>
+			</div>
+			<div :id="`collapse${code}`" class="collapse"
+			:aria-labelledby="`heading${code}`" data-parent="#applicationAccordion">
+				<div class="card-body">
+					<question-input v-for="question_id in scholarships.get(code).questions"
+						:key="question_id"
+						:question="questions.get(question_id)"
+						:code="code"
+						v-model="answers[code][question_id]"
+						@input="updateAnswers(answers)"
+						@valid="valid.answers[code+question_id] = $event"
+					>
+					</question-input>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- Submission -->
 	<div class="modal fade" id="submitModal" tabindex="-1" role="dialog"
 	aria-labelledby="submitModalTitle" aria-hidden="true">
@@ -166,24 +168,37 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" v-if="result">
-					<h5 class="text-center">
-						{{ result.status }}
-					</h5>
-					<p  v-for="(value, key) in result.message" :key="key">
-						<strong v-if="!Number.isInteger(key)">
-							{{ key }}:
-						</strong>
-						{{ value }}
-					</p>
-				</div>
-				<div class="modal-body" v-if="submit && !result">
-					<h5 class="text-center">
-						Submitting Application... <br/>
-						<font-awesome-icon icon="spinner" />
-					</h5>
-				</div>
-				<div class="modal-body" v-if="!submit">
+				<template v-if="submit">
+					<div class="modal-body" v-if="!result">
+						<h5 class="text-center">
+							Submitting... <br/>
+							<font-awesome-icon icon="spinner" />
+						</h5>
+					</div>
+					<div class="modal-body" v-else-if="!result.status">
+						<h5>
+							Error!
+						</h5>
+						<p>
+							{{result.message}}
+						</p>
+					</div>
+					<div class="modal-body" v-else>
+						<h5>
+							Applications Submitted:
+						</h5>
+						<p>
+							<span v-for="(value, key) in result.message" :key="key"
+						:class="[value.status ? 'text-success' : 'text-danger']">
+								<strong>
+									{{ scholarships.get(key).name }}:
+								</strong>
+								{{ value.message }} <br/>
+							</span>
+						</p>
+					</div>
+				</template>
+				<div class="modal-body" v-else>
 					<h5>Information Release Authorization</h5>
 					<p>
 						In compliance with the Federal Family Educational Rights and Privacy Act of 1974, Florida Atlantic University (FAU) may not release personally identifiable information from education records without the consent of the student.
@@ -224,7 +239,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary"
-					v-if="!submit" @click="submitHandler">
+					@click="submitHandler">
 						Submit
 					</button>
 				</div>
@@ -259,6 +274,11 @@ export default {
 		};
 	},
 	methods: {
+		trigger() {
+			console.log('triggering');
+			window.$('input').blur();
+			console.log('triggering');
+		},
 		removeScholarship(code) {
 			this.currentCollapse -= 1;
 			this.removeCursor = null;
@@ -288,9 +308,9 @@ export default {
 	},
 	computed: {
 		isValid() {
-			const student = Object.values(this.valid.student).reduce((a, e) =>
+			let student = Object.values(this.valid.student).reduce((a, e) =>
 				(!a ? a : e), true); // If all values are true
-
+			student = student === null ? true : student;
 			return student;
 		},
 		isFirstCollapse() {
@@ -327,6 +347,20 @@ export default {
 					(b || question.type === 'video'), false)
 				), false);
 		},
+	},
+	created() {
+		this.valid.student = JSON.parse(JSON.stringify(this.student));
+		this.valid.qualifications = this.required.reduce((a, e) => {
+			a[e.id] = false;
+			return a;
+		}, {});
+		this.valid.answers = this.selected.reduce((a, e) => {
+			a[e] = {};
+			this.scholarships.get(e).questions.forEach((q) => {
+				a[e][q] = this.questions.get(q).props.optional === true;
+			});
+			return a;
+		}, {});
 	},
 };
 </script>

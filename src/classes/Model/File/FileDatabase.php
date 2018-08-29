@@ -31,7 +31,9 @@ class FileDatabase implements FileStore{
         $stmnt = $this->db->prepare($query);
         $stmnt->bindParam(':md5', $md5, \PDO::PARAM_STR);
         $stmnt->execute();
-        return $stmnt->fetch();
+
+        $result = $stmnt->fetch()['id'];
+        return $result;
 	}
 
 	function save($item){
