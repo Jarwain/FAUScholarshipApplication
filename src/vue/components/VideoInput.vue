@@ -11,17 +11,25 @@
 		<div class="input-group-append">
 			<button class="btn btn-outline-secondary" type="button"
 			@click="showVideo = !showVideo">
-				Test
+				{{showVideo ? 'Hide' : 'Show'}}
 			</button>
+			<!-- <button class="btn btn-secondary" type="button">
+				<font-awesome-icon icon="question-circle" />
+			</button> -->
 		</div>
 		<div v-if="invalid" class="invalid-feedback">
 			{{ invalid[0] }}
 		</div>
 	</div>
-	<iframe width="560" height="315" frameborder="0" :hidden="!showVideo"
-		allow="autoplay; encrypted-media" allowfullscreen
-		:src="`https://www.youtube-nocookie.com/embed/${localValue}?rel=0`"
-	></iframe>
+	<div :hidden="!showVideo">
+		<p>
+			Make sure your video appears below before submitting the application
+		</p>
+		<iframe width="560" height="315" frameborder="0"
+			allow="autoplay; encrypted-media" allowfullscreen
+			:src="`https://www.youtube-nocookie.com/embed/${localValue}?rel=0`"
+		></iframe>
+	</div>
 </div>
 </template>
 
@@ -57,7 +65,10 @@ export default {
 			get() {
 				return this.value;
 			},
-			set(value) {
+			set(val) {
+				const parsed = this.youtube_parser(val); 
+				const value = parsed ? parsed || val;
+				this.showVideo = true;
 				this.$emit('input', value);
 				this.validate(value);
 			},
@@ -72,6 +83,11 @@ export default {
 			const value = val || this.localValue;
 			this.invalid = validate.single(value, this.constraints);
 			this.$emit('valid', !this.invalid);
+		},
+		youtube_parser(url) {
+			const regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#&?]*).*/;
+			const match = url.match(regExp);
+			return (match && match[1]) ? match[1] : false;
 		},
 	},
 	data() {
