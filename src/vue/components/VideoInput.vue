@@ -59,20 +59,13 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', value);
+				this.validate();
 			},
-		},
-		constraint() {
-			const constraints = Object.assign({
-				presence: this.props.optional ?
-					false : { allowEmpty: false },
-			}, this.constraints);
-			return constraints;
 		},
 	},
 	methods: {
 		onBlur() {
 			this.beenFocused = true;
-			this.validate();
 		},
 		validate() {
 			this.invalid = validate.single(this.localValue, this.constraints);

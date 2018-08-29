@@ -40,18 +40,6 @@ export default {
 		},
 	},
 	computed: {
-		constraint() {
-			const constraints = Object.assign({
-				presence: this.props.optional ?
-					false : { allowEmpty: false },
-				format: {
-					pattern: this.props.filetype ?
-						`.*(${this.props.filetype})$` : false,
-					message: 'has invalid filetype',
-				},
-			}, this.constraints);
-			return constraints;
-		},
 		filename() {
 			return this.value ? this.value.name : '';
 		},
@@ -61,10 +49,10 @@ export default {
 			const file = event.target.files[0];
 			this.$emit('input', file);
 			this.validate();
+			this.beenFocused = true;
 		},
 		onBlur() {
 			this.beenFocused = true;
-			this.validate();
 		},
 		validate() {
 			this.invalid = validate.single(this.filename, this.constraints);

@@ -53,7 +53,6 @@ export default {
 	methods: {
 		onBlur() {
 			this.beenFocused = true;
-			this.validate();
 		},
 		validate() {
 			if (this.constraints) {
@@ -69,6 +68,7 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', +value);
+				this.validate();
 			},
 		},
 	},

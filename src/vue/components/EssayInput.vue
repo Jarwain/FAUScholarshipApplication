@@ -49,30 +49,18 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', value);
+				this.validate();
 			},
 		},
 		wordCount() {
-			return this.localValue.split(/\s+/g).filter(e => e).length;
-		},
-		constraint() {
-			const constraints = Object.assign({
-				presence: this.props.optional ?
-					false : { allowEmpty: false },
-				length: {
-					minimum: this.props.min_words,
-					maximum: this.props.max_words,
-					tooShort: 'must be at least %{count} words',
-					tooLong: 'cannot be more than %{count} words',
-					tokenizer: value => value.split(/\s+/g),
-				},
-			}, this.constraints);
-			return constraints;
+			const count = this.localValue.split(/\s+/g);
+
+			return count[count.length - 1] ? count.length : count.length - 1;
 		},
 	},
 	methods: {
 		onBlur() {
 			this.beenFocused = true;
-			this.validate();
 		},
 		validate() {
 			this.invalid = validate.single(this.localValue, this.constraints);
