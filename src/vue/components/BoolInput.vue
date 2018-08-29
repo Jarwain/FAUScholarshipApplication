@@ -47,14 +47,12 @@ export default {
 		},
 		constraints: {
 			required: false,
-			default: null,
+			default: () => {},
 		},
 	},
 	methods: {
 		validate() {
-			if (this.constraints) {
-				this.invalid = validate.single(this.localValue, this.constraints);
-			}
+			this.invalid = validate.single(this.localValue, this.constraints);
 			this.$emit('valid', !this.invalid);
 		},
 	},

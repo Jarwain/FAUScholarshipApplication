@@ -47,17 +47,17 @@ export default {
 		},
 		constraints: {
 			required: false,
-			default: null,
+			default: () => {},
 		},
 	},
 	methods: {
 		onBlur() {
 			this.beenFocused = true;
+			this.validate();
 		},
-		validate() {
-			if (this.constraints) {
-				this.invalid = validate.single(this.localValue, this.constraints);
-			}
+		validate(val = null) {
+			const value = val || this.localValue;
+			this.invalid = validate.single(value, this.constraints);
 			this.$emit('valid', !this.invalid);
 		},
 	},
@@ -68,7 +68,7 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', +value);
-				this.validate();
+				this.validate(value);
 			},
 		},
 	},

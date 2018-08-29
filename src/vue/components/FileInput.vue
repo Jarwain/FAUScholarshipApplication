@@ -48,11 +48,10 @@ export default {
 		handleFile(event) {
 			const file = event.target.files[0];
 			this.$emit('input', file);
-			this.validate();
-			this.beenFocused = true;
 		},
 		onBlur() {
 			this.beenFocused = true;
+			this.validate();
 		},
 		validate() {
 			this.invalid = validate.single(this.filename, this.constraints);
