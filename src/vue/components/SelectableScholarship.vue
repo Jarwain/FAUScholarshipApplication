@@ -5,16 +5,17 @@
 				{{name}}
 			</a>
 			<button class="btn"
-			v-if="applicable"
+			v-if="!not_applicable"
 			:class="[checked ? 'btn-outline-danger' : 'btn-outline-success']"
 			@click="toggle">
 				{{checked ? "Remove" : "Apply"}}
 			</button>
-			<button class="btn btn-secondary"
-			v-if="!applicable"
-			disabled>
-				Closed
-			</button>
+			<span v-if="not_applicable" class="d-inline-block" tabindex="0"
+			data-toggle="tooltip" :title="not_applicable[0]">
+				<button class="btn btn-secondary" disabled>
+					Closed
+				</button>
+			</span>
 		</div>
 		<div class="collapse" :id="`sch_${code}`">
 			<div class="card-body">
@@ -56,8 +57,7 @@ export default {
 		requirements: {
 			required: true,
 		},
-		applicable: {
-			type: Boolean,
+		not_applicable: {
 			required: false,
 		},
 		checked: {

@@ -10,6 +10,8 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
     var $open;
     var $close;
 
+    var $studentApplied = false;
+
     function __construct($id = NULL, $code, $name, $description, $active,
         $open = False, $close = False, $max = 0, $app_count = 0){
         parent::__construct($id, $code, $name, $description, $active);
@@ -32,14 +34,14 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
             "name" => $this->name,
             "description" => $this->description,
             "active" => $this->active,
-            "open" => $this->open,
-            "close" => $this->close,
+            "open" => date("F j, Y h:i A", $this->open),
+            "close" => date("F j, Y h:i A", $this->close),
             "max" => (int) $this->max,
             "app_count" => (int) $this->app_count,
             "questions" => $this->getQuestions(),
             "requirements" => $this->getRequirements(),
             "requirement_categories" => $this->getRequirementCategories(),
-            "applicable" => $this->isApplicable(),
+            "not_applicable" => $this->notApplicable(),
         ];
     }
 
@@ -57,13 +59,36 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
     AND
     close is unset or today < clo
     */
-    function isApplicable(){
-        $app_total_reached = $this->max === 0 || $this->app_count < $this->max;
+    function notApplicable(){
+        $result = false;
 
         $today = time();
-        $onTime = (!$this->open || $today > $this->open) && (!$this->close || $today < $this->close);
+        if($this->open && $today < $this->open){
+            $result[] = "Scholarship Applications open on "
+                            .date("F j, Y h:i A", $this->open);
+        }
+        if($this->close && $today > $this->close){
+            $result[] = "Scholarship Applications closed on "
+                            .date("F j, Y h:i A", $this->close);
+        }
 
-        return $this->active && $app_total_reached && $onTime;
+        if($this->max !== 0 && $this->app_count >= $this->max){
+            $result[] = "Total number of applications has been reached";
+        }
+
+        if($this->studentApplied){
+            $result[] = "You have already applied for this scholarship";
+        }
+
+        if(!$this->active){
+            $result[] = "Scholarship is inactive";
+        }
+
+        return $result;
+    }
+
+    function setStudentApplied(){
+        $this->studentApplied = true;
     }
 
     function setMax(int $max = 0){
