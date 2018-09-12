@@ -8,17 +8,15 @@
 		<input :type="type" class="form-control" :name="name"
 		:placeholder="placeholder ? placeholder : question"
 		v-model="localValue" @blur="onBlur"
-		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused}">
+		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused || validated}">
 		<div v-if="invalid"	class="invalid-feedback">
-			{{name}} {{ invalid[0] }}
+			{{ invalid[0] }}
 		</div>
 	</div>
 </div>
 </template>
 
 <script>
-import validate from 'validate.js';
-
 export default {
 	name: 'TextInput',
 	props: {
@@ -46,10 +44,14 @@ export default {
 			type: String,
 			required: false,
 		},
-		constraints: {
-			type: Object,
+		validated: {
+			type: Boolean,
 			required: false,
-			default: () => {},
+			default: false,
+		},
+		invalid: {
+			type: Array,
+			required: false,
 		},
 	},
 	computed: {
@@ -59,24 +61,16 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', value);
-				this.validate(value);
 			},
 		},
 	},
 	methods: {
 		onBlur() {
 			this.beenFocused = true;
-			this.validate();
-		},
-		validate(val = null) {
-			const value = val || this.localValue;
-			this.invalid = validate.single(value, this.constraints);
-			this.$emit('valid', !this.invalid);
 		},
 	},
 	data() {
 		return {
-			invalid: null,
 			beenFocused: false,
 		};
 	},

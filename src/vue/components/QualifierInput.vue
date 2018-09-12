@@ -1,16 +1,7 @@
 <template>
-	<component :is="component"  v-bind="qualifier" :class="formClass"
-	v-model="localValue" @valid="$emit('valid',$event)">
+	<component :is="component"  v-bind="qualifier"
+	v-model="localValue" :invalid="invalid" :validated="validated">
 	</component>
-		<!-- <bool-input v-if="qualifier.type == 'bool'" v-bind="qualifier"
-		v-model="localValue" :invalid="invalid">
-		</bool-input>
-		<range-input v-if="qualifier.type == 'range'" v-bind="qualifier"
-		v-model="localValue" :invalid="invalid">
-		</range-input>
-		<select-input v-if="qualifier.type == 'select'" v-bind="qualifier"
-		v-model="localValue" :invalid="invalid">
-		</select-input> -->
 </template>
 
 <script>
@@ -33,14 +24,17 @@ export default {
 		value: {
 			required: false,
 		},
+		validated: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		invalid: {
+			type: Array,
+			required: false,
+		},
 	},
 	computed: {
-		formClass() {
-			if (this.qualifier.type === 'bool') {
-				return { row: this.qualifier.type === 'bool' };
-			}
-			return {};
-		},
 		component() {
 			switch (this.qualifier.type) {
 			case 'bool':

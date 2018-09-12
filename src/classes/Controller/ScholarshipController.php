@@ -15,15 +15,22 @@ class ScholarshipController extends AbstractController{
     public function get(Request $request, Response $response, $args){
         $scholarships = $this->container->get('ScholarshipStore');
         $code = $args['code'] ?? NULL;
-        $active = $request->getQueryParam('active');
 
         if(is_null($code)){
-            if($active){
+            $active = $request->getQueryParam('active');
+            $search = $request->getQueryParam('search');
+            if($active) {
                 $msg = "Get Active Scholarships";
                 $data = $scholarships->getActive();
             } else {
                 $msg = "Get All Scholarships";
                 $data = $scholarships->getAll();
+            }
+            if($search) {
+                $searchService = $this->container->get('SearchService');
+                $query = $request->getQueryParams();
+                $msg .= ". SEARCH: ".json_encode($query);
+                $data = $searchService->searchScholarships($data, $query);
             }
         } else {
             $msg = "Get Scholarship $code";

@@ -9,7 +9,7 @@ class ApplicationDatabase implements ApplicationStore{
 	}
 
 	function getAll(){
-		throw new \BadMethodCallException("Pls don't get all files");
+		throw new \BadMethodCallException("Pls don't get all Applications");
 	}
 
 	function get($id){
@@ -24,6 +24,21 @@ class ApplicationDatabase implements ApplicationStore{
 
         return $result;
    	}
+
+    function getByZnumber($znumber){
+        $query = "SELECT a.id, a.znumber, a.code, a.decision, a.submitted, aa.question_id, aa.answer
+                    FROM `application` a
+                    WHERE znumber = :znumber
+                    LEFT JOIN `application_answers` aa
+                    ON a.id = aa.application_id";
+        $stmnt = $this->db->prepare($query);
+
+        $stmnt->bindParam(':znumber', $znumber, \PDO::PARAM_STR);
+        $stmnt->execute();
+
+        $result = $stmnt->fetchAll();
+        return $result;
+    }
 
 	function save($item){
         try {

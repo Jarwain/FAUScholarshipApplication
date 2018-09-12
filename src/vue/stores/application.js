@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import api from '@/api';
+import validate from 'validate.js';
+import debounce from 'lodash/debounce';
 import questions from '@/stores/modules/questions';
 import qualifiers from '@/stores/modules/qualifiers';
 import scholarships from '@/stores/modules/scholarships';
@@ -22,10 +24,12 @@ const studentConstraints = {
 		presence: {
 			allowEmpty: false,
 		},
+		numericality: {
+			notValid: 'should be a number',
+		},
 		length: {
 			is: 8,
 		},
-		numericality: true,
 	},
 	email: {
 		presence: {
@@ -48,19 +52,20 @@ const store = new Vuex.Store({
 	state: {
 		selected_scholarships: [],
 		student: {
-			first_name: false,
-			last_name: false,
-			znumber: false,
-			email: false,
+			first_name: '',
+			last_name: '',
+			znumber: '',
+			email: '',
 			videoAuth: null,
 		},
+		search: false,
 		qualifications: {},
 		answers: {},
 		submit: false,
 		result: false,
 		studentConstraints,
 		invalid: {
-			student: {},
+			student: [],
 			qualifications: {},
 			answers: {},
 		},
@@ -68,6 +73,12 @@ const store = new Vuex.Store({
 	getters: {
 	},
 	mutations: {
+		search(state) {
+			state.search = true;
+		},
+		setInvalid(state, invalid) {
+			state.invalid = invalid;
+		},
 		setSubmit(state, submit) {
 			state.submit = submit;
 		},
@@ -88,25 +99,72 @@ const store = new Vuex.Store({
 			if (sch === -1) {
 				state.selected_scholarships.push(code);
 				Vue.set(state.answers, code, {});
+				Vue.set(state.invalid.answers, code, {});
 			} else {
 				state.selected_scholarships.splice(sch, 1);
-				delete state.answers[code];
+				Vue.delete(state.answers, code);
+				Vue.delete(state.invalid.answers, code);
 			}
 		},
 	},
 	actions: {
-		// _.debounce is a lodash function
-		// It prevents an action from firing "too much"
-		// Sprinkle it anywhere that has a lot of (asynchronous?) calls
-		updateStudent: (context, item) => {
+		updateInvalid: debounce(({
+			state: {
+				invalid,
+				student,
+				qualifications,
+				answers,
+				questions: { all: allQuestions },
+				scholarships: { all: allScholarships },
+				selected_scholarships: selected,
+			},
+			getters: {
+				'qualifiers/constraints': qualifierConstraints,
+			},
+			commit,
+		}) => {
+			// Validate Student
+			invalid.student = validate(student, studentConstraints) || false;
+			// Validate Qualifiers
+			invalid.qualifications = validate(qualifications, qualifierConstraints) || false;
+			// Validate Answers
+			selected.forEach((code) => {
+				allScholarships.get(code).questions.forEach((q) => {
+					const question = allQuestions.get(q);
+					let answer = answers[code][q];
+					// TODO: Add File validator to actually validate files
+					if (question.type === 'file' && answer) {
+						answer = answer.name;
+					}
+					const valid = validate.single(answer, question.constraints);
+					if (valid) {
+						Vue.set(
+							invalid.answers[code],
+							q,
+							validate.single(answer, question.constraints),
+						);
+					} else {
+						Vue.delete(invalid.answers[code], q);
+					}
+				});
+				if (Object.keys(invalid.answers[code]).length === 0) {
+					Vue.set(invalid.answers, code, false);
+				}
+			});
+			commit('setInvalid', invalid);
+		}, 100, { trailing: true }),
+		updateStudent: debounce((context, item) => {
 			context.commit('setStudent', item);
-		},
-		updateAnswers(context, item) {
+			context.dispatch('updateInvalid');
+		}, 50, { trailing: true }),
+		updateAnswers: debounce((context, item) => {
 			context.commit('setAnswers', item);
-		},
-		updateQualifications(context, item) {
+			context.dispatch('updateInvalid');
+		}, 50, { trailing: true }),
+		updateQualifications: debounce((context, item) => {
 			context.commit('setQualifications', item);
-		},
+			context.dispatch('updateInvalid');
+		}, 50, { trailing: true }),
 		submitAnswers({ commit, state }) {
 			commit('setSubmit', true);
 			const student = { ...state.student };

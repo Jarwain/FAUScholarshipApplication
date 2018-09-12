@@ -1,24 +1,24 @@
 <template>
-	<div class='form-group'>
+	<fieldset class='form-group row'>
 		<label class='col-sm-3 col-form-label' :for='name'>{{question}}</label>
 		<div class='col-sm-9'>
 			<div class='form-check form-check-inline'>
 				<input class='form-check-input' type='radio'
 				v-model="localValue" :name='name' value='true'
-				:class="{[invalid ? 'is-invalid' : 'is-valid']: localValue}">
+				:class="{[invalid ? 'is-invalid' : 'is-valid']: validated}">
 				<label class='form-check-label' :for='name'>Yes</label>
 			</div>
 			<div class='form-check form-check-inline'>
 				<input class='form-check-input' type='radio'
 				v-model="localValue" :name='name' value='false'
-				:class="{[invalid ? 'is-invalid' : 'is-valid']: localValue}">
+				:class="{[invalid ? 'is-invalid' : 'is-valid']: validated}">
 				<label class='form-check-label' :for='name'>No</label>
 				<div v-if="invalid" class="invalid-feedback">
-					{{name}} {{ invalid[0] }}
+					{{ invalid[0] }}
 				</div>
 			</div>
 		</div>
-	</div>
+	</fieldset>
 </template>
 
 <script>
@@ -45,15 +45,14 @@ export default {
 			// type: Object,
 			default: () => {},
 		},
-		constraints: {
+		validated: {
+			type: Boolean,
 			required: false,
-			default: () => {},
+			default: false,
 		},
-	},
-	methods: {
-		validate() {
-			this.invalid = validate.single(this.localValue, this.constraints);
-			this.$emit('valid', !this.invalid);
+		invalid: {
+			type: Array,
+			required: false,
 		},
 	},
 	computed: {
@@ -63,13 +62,11 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', value);
-				this.validate();
 			},
 		},
 	},
 	data() {
 		return {
-			invalid: false,
 		};
 	},
 };

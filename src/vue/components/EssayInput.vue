@@ -2,8 +2,8 @@
 <div class='form-group'>
     <label>{{question}}</label>
     <textarea class="form-control" rows="3"
-		v-model="localValue" @blur="onBlur"
-		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused}">
+		v-model="localValue" @blur="beenFocused = true"
+		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused || validated}">
     </textarea>
     <label>Word Count: {{wordCount}}{{props.max_words ? `/${props.max_words}`:''}}</label>
     <div v-if="invalid" class="invalid-feedback">
@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import validate from 'validate.js';
-
 export default {
 	name: 'EssayInput',
 	props: {
@@ -37,9 +35,14 @@ export default {
 			required: true,
 			default: '',
 		},
-		constraints: {
+		validated: {
+			type: Boolean,
 			required: false,
-			default: () => {},
+			default: false,
+		},
+		invalid: {
+			type: Array,
+			required: false,
 		},
 	},
 	computed: {
@@ -49,27 +52,15 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', value);
-				this.validate();
 			},
 		},
 		wordCount() {
 			const count = this.localValue.split(/\s+/g);
-
 			return count[count.length - 1] ? count.length : count.length - 1;
-		},
-	},
-	methods: {
-		onBlur() {
-			this.beenFocused = true;
-		},
-		validate() {
-			this.invalid = validate.single(this.localValue, this.constraints);
-			this.$emit('valid', !this.invalid);
 		},
 	},
 	data() {
 		return {
-			invalid: null,
 			beenFocused: false,
 		};
 	},

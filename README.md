@@ -7,8 +7,8 @@ Pull the repository via git. Run `npm i` and `php composer.phar i` to ensure all
 
 - dist (*)
 - src (*)
+- templates (*)
 - logs
-- templates
 - vendor
 
 (*) If it's not a fresh install, just copy these folders over

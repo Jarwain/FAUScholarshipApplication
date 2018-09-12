@@ -2,11 +2,7 @@ TODO
 =====
 UNIT TESTS PLS
 
-- Move Validation back into store, onInput.
-- Save Application(s)
-- New Applications
-	- Check if student exists
-	- Submit Application
+
 
 - Admin Panel w/Vue
 - Application Viewer

@@ -1,4 +1,5 @@
 get('http://localhost:8080/api/scholarship/', headers={'Accept': 'application/json'})
+get('http://localhost:8080/api/question/', headers={'Accept': 'application/json'})
 # Scholarships
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/?applicable=1', headers={'Accept': 'application/json'})
 get('https://boc22finaid.fau.edu/scholarship/api/scholarship/', headers={'Accept': 'application/json'})

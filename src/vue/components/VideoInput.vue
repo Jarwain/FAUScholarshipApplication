@@ -6,8 +6,8 @@
 			<span class="input-group-text" id="basic-addon3">https://youtu.be/</span>
 		</div>
 		<input type="text" class="form-control" placeholder="uqBStEIVF8o"
-		v-model="localValue" @blur="onBlur"
-		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused}">
+		v-model="localValue" @blur="beenFocused = true"
+		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused || validated}">
 		<div class="input-group-append">
 			<button class="btn btn-outline-secondary" type="button"
 			@click="showVideo = !showVideo">
@@ -34,8 +34,6 @@
 </template>
 
 <script>
-import validate from 'validate.js';
-
 export default {
 	name: 'VideoInput',
 	props: {
@@ -55,9 +53,14 @@ export default {
 			required: true,
 			default: '',
 		},
-		constraints: {
+		validated: {
+			type: Boolean,
 			required: false,
-			default: () => {},
+			default: false,
+		},
+		invalid: {
+			type: Array,
+			required: false,
 		},
 	},
 	computed: {
@@ -67,22 +70,12 @@ export default {
 			},
 			set(val) {
 				const value = this.youtube_parser(val) || val;
-				this.showVideo = true;
 				this.$emit('input', value);
-				this.validate(value);
+				this.showVideo = true;
 			},
 		},
 	},
 	methods: {
-		onBlur() {
-			this.beenFocused = true;
-			this.validate();
-		},
-		validate(val = null) {
-			const value = val || this.localValue;
-			this.invalid = validate.single(value, this.constraints);
-			this.$emit('valid', !this.invalid);
-		},
 		youtube_parser(url) {
 			const regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#&?]*).*/;
 			const match = url.match(regExp);
@@ -91,7 +84,6 @@ export default {
 	},
 	data() {
 		return {
-			invalid: null,
 			beenFocused: false,
 			showVideo: false,
 		};

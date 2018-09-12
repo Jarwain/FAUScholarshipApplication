@@ -14,7 +14,6 @@ export default {
 	mutations: {
 		set(state, questions) {
 			state.loading = false;
-			state.all = new Map();
 			Object.values(questions).forEach((e) => {
 				e.constraints = {
 					presence: e.props.optional ?

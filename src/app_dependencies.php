@@ -13,6 +13,12 @@ $container['authenticator'] = function($c) {
     }
 };
 
+$container['SearchService'] = function($c) {
+    $qualifiers = $c->get('QualifierStore');
+    $applications = $c->get('ApplicationStore');
+    return new ScholarshipApi\Service\SearchService($qualifiers, $applications);
+};
+
 $container['ApplicationStore'] = function ($c) {
     try {
         $database = new ScholarshipApi\Model\Application\ApplicationDatabase($c->get('db'));

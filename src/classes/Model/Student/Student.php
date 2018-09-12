@@ -21,7 +21,7 @@ class Student {
 
     static function DataMap($data) {
         $student = new Student($data['znumber'], $data['first_name'], 
-            $data['last_name'], $data['email'], $data['videoAuth']);
+            $data['last_name'], $data['email'], $data['videoAuth'] ?? NULL);
         return $student;
     }
 

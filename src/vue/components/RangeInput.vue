@@ -1,23 +1,21 @@
 <template>
-	<div class='form-group'>
+	<div class="form-group">
 		<div class="custom-control-inline">
-			<label class='col-auto col-form-label' :for='name'>{{question}}</label>
-			<input class="form-control col-3" type="text"
-			v-model="localValue" @blur="onBlur"
-			:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused}">
+			<label class="col-auto col-form-label" :for="name">{{question}}</label>
+			<input class="form-control col-3" type="text" :name="name"
+			v-model="localValue" @blur="beenFocused = true"
+			:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused || validated}">
 			<div v-if="invalid" class="invalid-feedback">
-				{{name}} {{ invalid[0] }}
+				{{ invalid[0] }}
 			</div>
 		</div>
-		<input type='range' class='custom-range'
-		v-model="localValue" @blur="onBlur"
+		<input type="range" class="custom-range"
+		v-model="localValue" @blur="beenFocused = true"
 		:min="props['min']" :max="props['max']" :step="props['step']">
 	</div>
 </template>
 
 <script>
-import validate from 'validate.js';
-
 export default {
 	name: 'RangeInput',
 	props: {
@@ -45,20 +43,14 @@ export default {
 			required: true,
 			default: 0,
 		},
-		constraints: {
+		validated: {
+			type: Boolean,
 			required: false,
-			default: () => {},
+			default: false,
 		},
-	},
-	methods: {
-		onBlur() {
-			this.beenFocused = true;
-			this.validate();
-		},
-		validate(val = null) {
-			const value = val || this.localValue;
-			this.invalid = validate.single(value, this.constraints);
-			this.$emit('valid', !this.invalid);
+		invalid: {
+			type: Array,
+			required: false,
 		},
 	},
 	computed: {
@@ -68,13 +60,11 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', +value);
-				this.validate(value);
 			},
 		},
 	},
 	data() {
 		return {
-			invalid: null,
 			beenFocused: false,
 		};
 	},

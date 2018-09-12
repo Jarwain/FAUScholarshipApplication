@@ -33,11 +33,17 @@ export default {
 		optional(state) {
 			return Array.from(state.all.values()).filter(e => !e.props.required);
 		},
+		constraints(state) {
+			const constraints = {};
+			state.all.forEach((e) => {
+				constraints[e.name] = e.constraints;
+			});
+			return constraints;
+		},
 	},
 	mutations: {
 		set(state, qualifiers) {
 			state.loading = false;
-			state.all = new Map();
 			Object.values(qualifiers).forEach((e) => {
 				e.constraints = {
 					presence: e.props.required ?

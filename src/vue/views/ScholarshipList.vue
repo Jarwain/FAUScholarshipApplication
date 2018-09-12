@@ -80,14 +80,18 @@ export default {
 			// qualifying: 'scholarships/qualifying',
 		}),
 		...mapState({
+			search: 'search',
 			selected: state => state.selected_scholarships,
 			scholarships: state => Array.from(state.scholarships.all.values()),
 		}),
 	},
 	created() {
+		if (this.$route.query.search) {
+			this.$store.commit('search');
+		}
 		this.$store.dispatch('questions/initialize');
 		this.$store.dispatch('qualifiers/initialize');
-		this.$store.dispatch('scholarships/initialize');
+		this.$store.dispatch('scholarships/initialize', this.$route.query);
 	},
 };
 </script>

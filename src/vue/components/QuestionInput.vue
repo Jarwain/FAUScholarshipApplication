@@ -1,13 +1,7 @@
 <template>
 	<component :is="component"  v-bind="question"
-	v-model="localValue" @valid="$emit('valid',$event)">
+	v-model="localValue" :invalid="invalid" :validated="validated">
 	</component>
-		<!-- <essay-input v-if="question.type == 'essay'" v-bind="question" v-model="localValue">
-		</essay-input>
-		<file-input v-if="question.type == 'file'" v-bind="question" v-model="localValue">
-		</file-input>
-		<video-input v-if="question.type == 'video'" v-bind="question" v-model="localValue">
-		</video-input> -->
 </template>
 
 <script>
@@ -28,6 +22,15 @@ export default {
 			required: true,
 		},
 		value: {
+			required: false,
+		},
+		validated: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		invalid: {
+			type: Array,
 			required: false,
 		},
 	},

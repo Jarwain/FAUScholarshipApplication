@@ -5,24 +5,29 @@ use ScholarshipApi\Repository\QualifierRepository;
 use ScholarshipApi\Repository\RequirementRepository;
 
 class SearchService{
-    var $qualifierRepository;
+    var $qualifiers;
+    var $applications;
  
-    function __construct(&$container){
-        $this->qualifierRepository = new QualifierRepository($container->db);
-    }
-
-    function getQualifiers(){
-        return $this->qualifierRepository->getAll();
+    function __construct($qualifiers, $applications){
+        $this->qualifiers = $qualifiers;
+        $this->applications = $applications;
     }
 
     function searchScholarships($params){
-        $result = [];
-        $qualifiers = $this->getQualifiers();
-        // array_reduce to ensure All are true
+        $result = $this->validateQualification($params);;
+        
         // Follow up with Requirement validation
-        foreach ($params as $key => $value) { 
-            $result[$key] = $qualifiers[$key]->validate($value);
-        }
+        
         return $result;
+    }
+
+    function validateQualifications($params) {
+        foreach ($params as $key => $value) { 
+            if($key == 'znumber') {
+                $apps = $this->applications->getByZnumber($value);
+            } else if(in_array($key, $qualifiers)) {
+                $result[$key] = $qualifiers[$key]->validate($value);
+            }
+        }
     }
 }

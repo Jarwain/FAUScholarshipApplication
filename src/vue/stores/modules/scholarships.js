@@ -11,16 +11,19 @@ export default {
 	mutations: {
 		set(state, scholarships) {
 			state.loading = false;
+			console.log(scholarships)
 			state.all = new Map(Object.entries(scholarships));
 		},
 	},
 	actions: {
-		initialize({ state, commit }) {
+		initialize({ state, commit }, query = null) {
 			if (state.loading) {
-				if (window.FAUObj && window.FAUObj.scholarships) {
+				if (window.FAUObj && window.FAUObj.scholarships && !query) {
 					commit('set', window.FAUObj.scholarships);
 				} else {
-					ScholarshipApi.get('scholarships')
+					const q = query || {};
+					q.active = true;
+					ScholarshipApi.get('scholarships', q)
 						.then((data) => {
 							commit('set', data);
 						});

@@ -15,7 +15,7 @@ abstract class Question implements \JsonSerializable{
     private $optionalProps = ['optional'];
 
     function __construct($id, $question, $props = []){
-        $this->id = $id;
+        $this->id = (int) $id;
         $this->question = $question;
         $this->setProps($props);
 

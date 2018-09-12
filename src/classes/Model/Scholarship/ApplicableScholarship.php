@@ -11,6 +11,7 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
     var $close;
 
     var $studentApplied = false;
+    var $studentQualifies = null;
 
     function __construct($id = NULL, $code, $name, $description, $active,
         $open = False, $close = False, $max = 0, $app_count = 0){
@@ -28,7 +29,7 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
     }
 
     function jsonSerialize(){
-        return [
+        $result = [
             "id" => (int) $this->id,
             "code" => $this->code,
             "name" => $this->name,
@@ -43,6 +44,11 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
             "requirement_categories" => $this->getRequirementCategories(),
             "not_applicable" => $this->notApplicable(),
         ];
+
+        if(!is_null($this->studentQualifies)){
+            $result['qualifies'] = $this->studentQualifies;
+        }
+        return $result;
     }
 
     /* 
@@ -89,6 +95,10 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
 
     function setStudentApplied(){
         $this->studentApplied = true;
+    }
+
+    function setStudentQualifies(bool $q){
+        $this->studentQualifies = $q;
     }
 
     function setMax(int $max = 0){

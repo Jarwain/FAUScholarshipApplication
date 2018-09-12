@@ -1,22 +1,20 @@
 <template>
 	<div class='form-group'>
 		<label class='col col-form-label' :for="name">{{question}}</label>
-		<select v-model="localValue" :multiple="props['multi']" class='form-control'
-		@blur="onBlur"
-		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused}">
+		<select class='form-control' :name="name"
+		v-model="localValue" :multiple="props['multi']" @blur="beenFocused = true"
+		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused || validated}">
 			<option v-if="!props['multi']" disabled selected value>{{question}}</option>
 			<option v-for="option in props['haystack']" :key='option'
 				:value='option'>{{option}}</option>";
 		</select>
 		<div v-if="invalid" class="invalid-feedback">
-			{{name}} {{ invalid[0] }}
+			{{ invalid[0] }}
 		</div>
 	</div>
 </template>
 
 <script>
-import validate from 'validate.js';
-
 export default {
 	name: 'SelectInput',
 	props: {
@@ -37,20 +35,14 @@ export default {
 		value: {
 			required: true,
 		},
-		constraints: {
+		validated: {
+			type: Boolean,
 			required: false,
-			default: () => {},
+			default: false,
 		},
-	},
-	methods: {
-		onBlur() {
-			this.beenFocused = true;
-			this.validate();
-		},
-		validate(val = null) {
-			const value = val || this.localValue;
-			this.invalid = validate.single(value, this.constraints);
-			this.$emit('valid', !this.invalid);
+		invalid: {
+			type: Array,
+			required: false,
 		},
 	},
 	computed: {
@@ -60,13 +52,11 @@ export default {
 			},
 			set(value) {
 				this.$emit('input', value);
-				this.validate(value);
 			},
 		},
 	},
 	data() {
 		return {
-			invalid: null,
 			beenFocused: false,
 		};
 	},

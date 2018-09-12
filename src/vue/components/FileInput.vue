@@ -3,8 +3,8 @@
     <label>{{question}}</label>
     <input type="hidden" v-model="filename">
     <input type="file" class="form-control-file"
-		@change="handleFile" @blur="onBlur"
-		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused}">
+		@change="handleFile" @blur="beenFocused = true"
+		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused || validated}">
 	<div v-if="invalid" class="invalid-feedback">
 		Upload {{ invalid[0] }}
 	</div>
@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import validate from 'validate.js';
-
 export default {
 	name: 'FileInput',
 	props: {
@@ -34,9 +32,14 @@ export default {
 		value: {
 			required: false,
 		},
-		constraints: {
+		validated: {
+			type: Boolean,
 			required: false,
-			default: () => {},
+			default: false,
+		},
+		invalid: {
+			type: Array,
+			required: false,
 		},
 	},
 	computed: {
@@ -49,18 +52,9 @@ export default {
 			const file = event.target.files[0];
 			this.$emit('input', file);
 		},
-		onBlur() {
-			this.beenFocused = true;
-			this.validate();
-		},
-		validate() {
-			this.invalid = validate.single(this.filename, this.constraints);
-			this.$emit('valid', !this.invalid);
-		},
 	},
 	data() {
 		return {
-			invalid: null,
 			beenFocused: false,
 		};
 	},

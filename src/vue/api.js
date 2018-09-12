@@ -5,18 +5,18 @@ const instance = axios.create({
 	baseURL: window.FAUObj.apiUrl,
 });
 
-const get = (item) => {
+const get = (item, params = null) => {
 	let request = instance;
 
 	switch (item) {
 	case 'questions':
-		request = request.get('question/');
+		request = request.get('question/', { params });
 		break;
 	case 'qualifiers':
-		request = request.get('qualifier/');
+		request = request.get('qualifier/', { params });
 		break;
 	case 'scholarships':
-		request = request.get('scholarship/?active=1');
+		request = request.get('scholarship/', { params });
 		break;
 	default:
 		break;

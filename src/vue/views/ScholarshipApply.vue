@@ -6,9 +6,6 @@
 			Scholarship Application
 		</h1>
 		<div>
-			<button @click="trigger" class="btn btn-secondary">
-					Triggertest
-				</button>
 			<router-link :to="{ name: 'list' }" class="btn btn-secondary mr-3">
 				Scholarship List
 			</router-link>
@@ -27,8 +24,15 @@
 		Please ensure all information on this page is correct before submitting.
 	</p>
 	<div class="accordion mb-3" id="applicationAccordion">
-		<div class="card">
-			<div class="card-header d-flex justify-content-between" id="studentHeader">
+		<div class="card"
+		:class="{[invalid.student || invalid.qualifications ?
+			'border-danger' : 'border-success']: validated.student}"
+		>
+			<div id="studentHeader"
+			class="card-header d-flex justify-content-between"
+			:class="{[invalid.student || invalid.qualifications ?
+				'border-danger' : 'border-success']: validated.student}"
+			>
 				<h5 class="mb-0">
 					<button class="btn btn-link" @click="currentCollapse = 0"
 						type="button" data-toggle="collapse"
@@ -47,41 +51,34 @@
 					<div class="form-row">
 						<text-input class="col" type="text"
 							question="First Name" name="first_name"
-							:constraints="studentConstraints.first_name"
 							v-model="student.first_name" @input="updateStudent(student)"
-							@valid="valid.student.first_name = $event"
-						>
+							:invalid="invalid.student.first_name" :validated="validated.student">
 						</text-input>
 						<text-input class="col" type="text"
-							question="Last Name" name="last_name"
-							:constraints="studentConstraints.last_name"
-							v-model="student.last_name" @input="updateStudent(student)"
-							@valid="valid.student.last_name = $event"
-						>
+						question="Last Name" name="last_name"
+						v-model="student.last_name" @input="updateStudent(student)"
+						:invalid="invalid.student.last_name" :validated="validated.student">
 						</text-input>
 					</div>
 					<div class="form-row">
 						<text-input class="col" type="text" prepend="Z"
-							question="Z-number" placeholder="12345678" name="znumber"
-							:constraints="studentConstraints.znumber"
-							v-model="student.znumber" @input="updateStudent(student)"
-							@valid="valid.student.znumber = $event"
-						>
+						question="Z-number" placeholder="12345678" name="znumber"
+						v-model="student.znumber" @input="updateStudent(student)"
+						:invalid="invalid.student.znumber" :validated="validated.student">
 						</text-input>
 						<text-input class="col" type="email"
-							question="Email Address" placeholder="jdoe2018@fau.edu" name="email"
-							:constraints="studentConstraints.email"
-							v-model="student.email" @input="updateStudent(student)"
-							@valid="valid.student.email = $event"
-						>
+						question="Email Address" placeholder="jdoe2018@fau.edu" name="email"
+						v-model="student.email" @input="updateStudent(student)"
+						:invalid="invalid.student.email" :validated="validated.student">
 						</text-input>
 					</div>
 					<qualifier-input v-for="qualifier in required"
 						:key="qualifier.id"
 						:qualifier="qualifier"
-						v-model="qualifications[qualifier.id]"
+						v-model="qualifications[qualifier.name]"
 						@input="updateQualifications(qualifications)"
-						@valid="valid.qualifications[qualifier.id] = $event"
+						:invalid="invalid.qualifications[qualifier.name]"
+						:validated="validated.student"
 					>
 					</qualifier-input>
 					<div class="card">
@@ -97,9 +94,10 @@
 								<qualifier-input v-for="qualifier in optional"
 									:key="qualifier.id"
 									:qualifier="qualifier"
-									v-model="qualifications[qualifier.id]"
+									v-model="qualifications[qualifier.name]"
 									@input="updateQualifications(qualifications)"
-									@valid="valid.qualifications[qualifier.id] = $event"
+									:invalid="invalid.qualifications[qualifier.name]"
+									:validated="validated.student"
 								>
 								</qualifier-input>
 							</div>
@@ -108,9 +106,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="card" v-for="(code, idx) in selected" :key="code">
-			<div class="card-header d-flex justify-content-between"
-			:id="`heading${code}`">
+		<div class="card" v-for="(code, idx) in selected" :key="code"
+		:class="{[invalid.answers[code] ?
+			'border-danger' : 'border-success']: validated.answers[code]}"
+		>
+			<div :id="`heading${code}`"
+			class="card-header d-flex justify-content-between"
+			:class="{[invalid.answers[code] ?
+				'border-danger' : 'border-success']: validated.answers[code]}"
+			>
 				<h5 class="mb-0">
 					<button class="btn btn-link collapsed"
 					type="button" @click="currentCollapse = idx + 1" data-toggle="collapse"
@@ -150,7 +154,8 @@
 						:code="code"
 						v-model="answers[code][question_id]"
 						@input="updateAnswers(answers)"
-						@valid="valid.answers[code+question_id] = $event"
+						:invalid="invalid.answers[code][question_id]"
+						:validated="validated.answers[code]"
 					>
 					</question-input>
 				</div>
@@ -215,20 +220,29 @@
 						<p>
 							I hereby authorize Florida Atlantic University (University) and those acting pursuant to its authority to: (i) record my likeness and/or voice on a video, audio, photographic, digital, electronic or any other medium; (ii) use my name and biographical material in connection with such recordings; and (iii) use, reproduce, exhibit, and/or distribute my name, biographical material, and such recordings in any medium (e.g., print publications, video, internet, etc.) for promotional, advertising, educational, and/or other lawful purposes. I release and waive any claims or rights of compensation or ownership regarding such uses and understand that all such recordings shall remain the property of the University.
 						</p>
-						<div class="radio">
-							<label>
-								<input type="radio" name="videoAuth" value="0"
+						<fieldset class="form-group">
+							<div class="form-check">
+								<input class="form-check-input" type="radio"
+								name="videoAuth" value="0" required
+								:class="{[student.videoAuth === null ? 'is-invalid' : 'is-valid']: authRequired}"
 								v-model="student.videoAuth" @input="updateStudent(student)">
-								I (Parent/guardian of the student) acknowledge that I understand and agree to the statements above.
-							</label>
-						</div>
-						<div class="radio">
-							<label>
-								<input type="radio" name="videoAuth" value="1"
+								<label>
+									I (Parent/guardian of the student) acknowledge that I understand and agree to the statements above.
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio"
+								name="videoAuth" value="1" required
+								:class="{[student.videoAuth === null ? 'is-invalid' : 'is-valid']: authRequired}"
 								v-model="student.videoAuth" @input="updateStudent(student)">
-								I certify that I am 18 years of age or older and that I understand and agree to the statements above.
-							</label>
-						</div>
+								<label>
+									I certify that I am 18 years of age or older and that I understand and agree to the statements above.
+								</label>
+								<div v-if="authRequired" class="invalid-feedback">
+									Authorization is required.
+								</div>
+							</div>
+						</fieldset>
 					</div>
 					<p>
 						By clicking Submit, you agree that all information on this page is correct. <br>
@@ -266,18 +280,19 @@ export default {
 		return {
 			currentCollapse: 0,
 			removeCursor: null,
-			valid: {
-				student: {},
-				qualifications: {},
+			validated: {
+				student: false,
 				answers: {},
 			},
+			authRequired: false,
 		};
 	},
 	methods: {
-		trigger() {
-			console.log('triggering');
-			window.$('input').blur();
-			console.log('triggering');
+		showAllValidation() {
+			this.validated.student = true;
+			Object.keys(this.validated.answers).forEach((e) => {
+				this.validated.answers[e] = true;
+			});
 		},
 		removeScholarship(code) {
 			this.currentCollapse -= 1;
@@ -285,18 +300,35 @@ export default {
 			this.$store.commit('toggleSelectedScholarship', code);
 		},
 		submitHandler() {
-			this.$store.dispatch('submitAnswers');
+			if (this.hasVideo && this.student.videoAuth === null) {
+				this.authRequired = true;
+			} else {
+				this.$store.dispatch('submitAnswers');
+			}
 		},
 		backHandler() {
 			this.currentCollapse -= this.currentCollapse ? 1 : 0;
 			window.$(this.collapses[this.currentCollapse]).collapse('toggle');
 		},
 		nextHandler() {
-			if (this.isLastCollapse && this.valid) {
-				window.$('#submitModal').modal('show');
+			if (this.isFirstCollapse) {
+				// Show Student Validation
+				this.validated.student = true;
 			} else {
+				// Show Scholarship Validation
+				const code = this.selected[this.currentCollapse - 1];
+				this.validated.answers[code] = true;
+			}
+			// Move Student into next section
+			if (!this.isLastCollapse) {
 				this.currentCollapse += 1;
 				window.$(this.collapses[this.currentCollapse]).collapse('toggle');
+			} else {
+				// Try to submit!
+				this.showAllValidation();
+				if (this.isValid) {
+					window.$('#submitModal').modal('show');
+				}
 			}
 		},
 		...mapActions([
@@ -308,10 +340,9 @@ export default {
 	},
 	computed: {
 		isValid() {
-			let student = Object.values(this.valid.student).reduce((a, e) =>
-				(!a ? a : e), true); // If all values are true
-			student = student === null ? true : student;
-			return student;
+			return !this.invalid.student
+				&& !this.invalid.qualifications
+				&& Object.values(this.invalid.answers).every(e => !e);
 		},
 		isFirstCollapse() {
 			return this.currentCollapse === 0;
@@ -333,33 +364,26 @@ export default {
 			studentConstraints: 'studentConstraints',
 			submit: 'submit',
 			result: 'result',
+			invalid: 'invalid',
 		}),
 		...mapGetters('qualifiers', [
 			'required',
 			'optional',
 		]),
-		...mapGetters('questions', [
+		/*...mapGetters('questions', [
 			'video',
-		]),
+		]),*/
 		hasVideo() {
-			return this.selected
+			return /*this.selected
 				.some(code => this.scholarships.get(code).questions
-					.some(q => this.questions.get(q).type === 'video'));
+					.some(q => this.questions.get(q).type === 'video'));*/
 		},
 	},
 	created() {
-		this.valid.student = JSON.parse(JSON.stringify(this.student));
-		this.valid.qualifications = this.required.reduce((a, e) => {
-			a[e.id] = false;
-			return a;
-		}, {});
-		this.valid.answers = this.selected.reduce((a, e) => {
-			a[e] = {};
-			this.scholarships.get(e).questions.forEach((q) => {
-				a[e][q] = this.questions.get(q).props.optional === true;
-			});
-			return a;
-		}, {});
+		this.$store.dispatch('updateInvalid');
+		this.selected.forEach((e) => {
+			this.$set(this.validated.answers, e, false);
+		});
 	},
 };
 </script>
