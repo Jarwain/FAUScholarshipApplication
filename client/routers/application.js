@@ -12,7 +12,7 @@ function loadView(view) {
 
 const router = new Router({
 	mode: 'history',
-	base: `${process.env.BASE_URL}`,
+	base: window.FAUObj.baseUrl, // `${process.env.BASE_URL}`,
 	routes: [
 		{
 			path: '/search',

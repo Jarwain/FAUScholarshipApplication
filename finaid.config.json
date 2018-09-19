@@ -1,0 +1,15 @@
+{
+	"isProduction": false,
+	"template": {
+		"api": "https://boc22finaid.fau.edu/scholarship/api/",
+		"baseUrl": "/scholarship",
+        "title": "Office of Financial Aid",
+        "scholarship_year": "2019-2020"
+	},
+	"db": {
+		"host": "localhost",
+		"dbname": "finaid_scholarships",
+		"user": "schapp",
+		"pass": "$chapp"
+	}
+}

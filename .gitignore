@@ -5,6 +5,7 @@
 node_modules
 /dist
 config.json
+/public/dist/*
 
 # local env files
 .env.local

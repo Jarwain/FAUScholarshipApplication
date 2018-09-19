@@ -78,7 +78,7 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
                             .date("F j, Y h:i A", $this->close);
         }
 
-        if($this->max !== 0 && $this->app_count >= $this->max){
+        if($this->max != 0 && $this->app_count >= $this->max){
             $result[] = "Total number of applications has been reached";
         }
 

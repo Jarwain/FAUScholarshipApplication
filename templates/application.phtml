@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+
+    <title>Scholarship Application</title>
+
+    <!-- Core CSS -->
+    <link href="<?= $data['baseUrl'] ?>/css/bootstrap.min.css" rel="stylesheet" />    
+    <link href="<?= $data['baseUrl'] ?>/css/sticky_footer.css" rel="stylesheet" />    
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark shadow">
+      <a href="<?= $data['baseUrl'] ?>/application/" class="navbar-brand">
+        <img src="<?= $data['baseUrl'] ?>/img/logo-owl-color.svg" height="40px" class="d-inline-block"/>
+        <?=$data['title']?>: <?=$data['scholarship_year']?> Scholarship Applications
+      </a>
+    </nav>
+    <noscript><strong>
+      Please enable Javascript
+    </strong></noscript>
+    <main id="app" role="main" class="container">
+      <router-view></router-view>
+    </main>
+    <footer class="container-fluid">
+      <span class="text-muted">Copyright © 2015-2018 FAU Office of Student Financial Aid. All rights reserved.</span>
+    </footer>
+    <?php 
+    if(isset($data['obj'])) {
+      $json = json_encode($data['obj'], JSON_NUMERIC_CHECK);
+      echo "<script>var FAUObj = $json || {};FAUObj.apiUrl = '{$data['api']}';FAUObj.baseUrl = '{$data['baseUrl']}';</script>";
+    }; ?> 
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="<?= $data['baseUrl'] ?>/js/jquery-3.3.1.min.js"></script>
+    <script src="<?= $data['baseUrl'] ?>/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= $data['baseUrl'] ?>/js/vue.min.js"></script>
+    <script src="<?= $data['baseUrl'] ?>/dist/application.umd.js"></script>
+  </body>
+</html>

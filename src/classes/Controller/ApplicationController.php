@@ -30,7 +30,7 @@ class ApplicationController extends AbstractController{
             'scholarships' => $this->container->get('ScholarshipStore')->getActive(),
     	];
 
-    	return $this->renderer->render($response, '../dist/application.phtml', $data);
+    	return $this->renderer->render($response, 'application.phtml', $data);
     }
 
     // TODO: Refactor

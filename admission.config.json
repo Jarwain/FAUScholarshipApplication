@@ -1,0 +1,15 @@
+{
+	"isProduction": false,
+	"template": {
+		"api": "https://boc22finaid.fau.edu/admissions/api/",
+		"baseUrl": "/admissions",
+        "title": "Office of Admissions",
+        "scholarship_year": "2019-2020"
+	},
+	"db": {
+		"host": "localhost",
+		"dbname": "admission_scholarships",
+		"user": "schapp",
+		"pass": "$chapp"
+	}
+}
