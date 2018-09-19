@@ -22,13 +22,13 @@ Assuming the Domain Name is "boc22finaid.fau.edu"
 
 If the scholarship application will be served from the root directory: 
 ```json
-"api": "https://boc22finaid.fau.edu/",
+"api": "https://boc22finaid.fau.edu/api/",
 "baseUrl": "/"
 ```
 
 If the scholarship application will be served from a subfolder named 'scholarship': 
 ```json
-"api": "https://boc22finaid.fau.edu/scholarship/",
+"api": "https://boc22finaid.fau.edu/scholarship/api/",
 "baseUrl": "scholarship"
 ```
 

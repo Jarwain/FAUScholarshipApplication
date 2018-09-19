@@ -86,12 +86,16 @@ export default {
 		}),
 	},
 	created() {
-		if (this.$route.query.search) {
+		const { query } = this.$route;
+		if (query.search) {
 			this.$store.commit('search');
+			if (query.znumber && query.znumber.toUpperCase()[0] !== 'Z') {
+				query.znumber = 'Z'.concat(query.znumber);
+			}
 		}
 		this.$store.dispatch('questions/initialize');
 		this.$store.dispatch('qualifiers/initialize');
-		this.$store.dispatch('scholarships/initialize', this.$route.query);
+		this.$store.dispatch('scholarships/initialize', query);
 	},
 };
 </script>

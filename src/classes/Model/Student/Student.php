@@ -25,8 +25,8 @@ class Student {
         return $student;
     }
 
-    function addQualification($qualifierId, $value){
-        $this->qualifications[$qualifierId] = $value;
+    function addQualification($qualifier, $value){
+        $this->qualifications[$qualifier] = $value;
     }
 
 }

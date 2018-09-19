@@ -28,7 +28,7 @@ class ScholarshipController extends AbstractController{
             }
             if($search) {
                 $searchService = $this->container->get('SearchService');
-                $query = $request->getQueryParams();
+                $query = array_filter($request->getQueryParams());
                 $msg .= ". SEARCH: ".json_encode($query);
                 $data = $searchService->searchScholarships($data, $query);
             }

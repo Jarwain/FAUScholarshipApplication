@@ -11,7 +11,6 @@ export default {
 	mutations: {
 		set(state, scholarships) {
 			state.loading = false;
-			console.log(scholarships)
 			state.all = new Map(Object.entries(scholarships));
 		},
 	},

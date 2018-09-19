@@ -28,9 +28,9 @@ class ApplicationDatabase implements ApplicationStore{
     function getByZnumber($znumber){
         $query = "SELECT a.id, a.znumber, a.code, a.decision, a.submitted, aa.question_id, aa.answer
                     FROM `application` a
-                    WHERE znumber = :znumber
                     LEFT JOIN `application_answers` aa
-                    ON a.id = aa.application_id";
+                    ON a.id = aa.application_id
+                    WHERE a.znumber = :znumber";
         $stmnt = $this->db->prepare($query);
 
         $stmnt->bindParam(':znumber', $znumber, \PDO::PARAM_STR);

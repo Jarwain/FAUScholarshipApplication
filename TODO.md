@@ -3,6 +3,10 @@ TODO
 UNIT TESTS PLS
 
 
+- Instead of Search working by an endpoint call that pulls all scholarships
+    call a Search endpoint
+        return list of codes
+
 
 - Admin Panel w/Vue
 - Application Viewer

@@ -10,7 +10,7 @@
 				Skip
 			</a>
 			<button name="search" value="true" class="btn btn-primary"
-			:disabled="!hasQuery" @click="onClick">
+			:disabled="!hasQuery">
 				Search
 			</button>
 		</div>
@@ -69,10 +69,6 @@ export default {
 			'updateStudent',
 			'updateQualifications',
 		]),
-		onClick() {
-			this.$set(this.student, 'znumber', `Z${this.student.znumber}`);
-			this.updateStudent(this.student);
-		},
 	},
 	computed: {
 		...mapState({

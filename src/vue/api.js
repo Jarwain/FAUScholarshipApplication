@@ -21,7 +21,8 @@ const get = (item, params = null) => {
 	default:
 		break;
 	}
-	return request.then(response => response.data);
+	return request.catch((err) => { console.log(err.response); })
+		.then(response => response.data);
 };
 
 const submitAnswers = (app) => {
