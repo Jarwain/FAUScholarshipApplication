@@ -131,7 +131,7 @@
 					</button>
 				</h5>
 				<button class="btn btn-danger" type="button"
-				v-else-if="currentCollapse <= idx && removeCursor != code"
+				v-if="currentCollapse <= idx && removeCursor != code"
 				@click="removeCursor = code">
 					Remove
 				</button>
