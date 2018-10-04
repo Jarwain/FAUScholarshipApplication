@@ -11,12 +11,12 @@
 			</router-link>
 			<router-link to="/apply" class="btn btn-primary"
 			:class="{disabled: !selected.length}">
-				Apply
+				Continue
 				<span class="badge badge-light">{{selected.length}}</span>
 			</router-link>
 		</div>
 	</div>
-	<p>Select the scholarships you wish to apply for.</p>
+	<p>Click the scholarship name to read more about it. Press 'Apply' to select the scholarships you wish to apply for, then press continue. </p>
 	<!-- <ul class="nav nav-pills nav-fill">
 		<li class="nav-item">
 			<a class="nav-link active" href="#">All</a>

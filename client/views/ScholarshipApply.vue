@@ -39,11 +39,13 @@
 						data-target="#studentBody"
 						aria-expanded="true" aria-controls="studentBody">
 						Student Information
+						<span v-if="validated.student" class="badge"
+						:class="[invalid.student || invalid.qualifications ?
+							'badge-danger' : 'badge-success']">
+							{{invalid.student || invalid.qualifications ? 'Error' : 'Valid'}}
+						</span>
 					</button>
 				</h5>
-				<button v-if="isFirstCollapse" @click="nextHandler" class="btn btn-primary">
-					Next
-				</button>
 			</div>
 			<div id="studentBody" class="collapse show"
 				aria-labelledby="studentHeader" data-parent="#applicationAccordion">
@@ -121,16 +123,13 @@
 					:data-target="`#collapse${code}`"
 					aria-expanded="false" aria-controls="`collapse${code}`">
 						{{scholarships.get(code).name}}
+						<span v-if="validated.answers[code]" class="badge"
+						:class="[invalid.answers[code] ?
+							'badge-danger' : 'badge-success']">
+							{{invalid.answers[code] ? 'Error' : 'Valid'}}
+						</span>
 					</button>
 				</h5>
-				<div class="btn-group" role="group" v-if="currentCollapse == idx + 1">
-					<button @click="backHandler" class="btn btn-secondary">
-						Back
-					</button>
-					<button @click="nextHandler" class="btn btn-primary">
-						{{isLastCollapse ? 'Submit' : 'Next'}}
-					</button>
-				</div>
 				<button class="btn btn-danger" type="button"
 				v-else-if="currentCollapse <= idx && removeCursor != code"
 				@click="removeCursor = code">
@@ -310,7 +309,7 @@ export default {
 			this.currentCollapse -= this.currentCollapse ? 1 : 0;
 			window.$(this.collapses[this.currentCollapse]).collapse('toggle');
 		},
-		nextHandler() {
+		nextHandler(event) {
 			if (this.isFirstCollapse) {
 				// Show Student Validation
 				this.validated.student = true;
@@ -328,6 +327,8 @@ export default {
 				this.showAllValidation();
 				if (this.isValid) {
 					window.$('#submitModal').modal('show');
+				} else {
+					event.target.classList.toggle('headShake');
 				}
 			}
 		},
@@ -370,13 +371,13 @@ export default {
 			'required',
 			'optional',
 		]),
-		/*...mapGetters('questions', [
+		...mapGetters('questions', [
 			'video',
-		]),*/
+		]),
 		hasVideo() {
-			return /*this.selected
+			return this.selected
 				.some(code => this.scholarships.get(code).questions
-					.some(q => this.questions.get(q).type === 'video'));*/
+					.some(q => this.questions.get(q).type === 'video'));
 		},
 	},
 	created() {
@@ -420,5 +421,81 @@ export default {
 @keyframes spin {
 		from {transform:rotate(0deg);}
 		to {transform:rotate(360deg);}
+}
+
+@-webkit-keyframes headShake {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  6.5% {
+    -webkit-transform: translateX(-6px) rotateY(-9deg);
+    transform: translateX(-6px) rotateY(-9deg);
+  }
+
+  18.5% {
+    -webkit-transform: translateX(5px) rotateY(7deg);
+    transform: translateX(5px) rotateY(7deg);
+  }
+
+  31.5% {
+    -webkit-transform: translateX(-3px) rotateY(-5deg);
+    transform: translateX(-3px) rotateY(-5deg);
+  }
+
+  43.5% {
+    -webkit-transform: translateX(2px) rotateY(3deg);
+    transform: translateX(2px) rotateY(3deg);
+  }
+
+  50% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes headShake {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  6.5% {
+    -webkit-transform: translateX(-6px) rotateY(-9deg);
+    transform: translateX(-6px) rotateY(-9deg);
+  }
+
+  18.5% {
+    -webkit-transform: translateX(5px) rotateY(7deg);
+    transform: translateX(5px) rotateY(7deg);
+  }
+
+  31.5% {
+    -webkit-transform: translateX(-3px) rotateY(-5deg);
+    transform: translateX(-3px) rotateY(-5deg);
+  }
+
+  43.5% {
+    -webkit-transform: translateX(2px) rotateY(3deg);
+    transform: translateX(2px) rotateY(3deg);
+  }
+
+  50% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+.headShake {
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-name: headShake;
+  animation-name: headShake;
+
+   -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+animation-fill-mode: both;
 }
 </style>
