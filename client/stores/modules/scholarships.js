@@ -7,6 +7,12 @@ export default {
 		all: new Map(),
 	},
 	getters: {
+		eligible(state) {
+			return Array.from(state.all.values()).filter(e => e.eligible);
+		},
+		ineligible(state) {
+			return Array.from(state.all.values()).filter(e => !e.eligible);
+		},
 	},
 	mutations: {
 		set(state, scholarships) {

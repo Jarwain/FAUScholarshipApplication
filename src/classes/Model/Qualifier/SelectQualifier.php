@@ -20,10 +20,10 @@ class SelectQualifier extends Qualifier{
     function isMulti(){
         return $this->getProp('multi') ?? False;
     }
-
+/*
     function otherable(){
         return $this->getProp('multi') ?? False;
-    }
+    }*/
 
     /**
      * Check if term is in $haystack. 
@@ -33,10 +33,13 @@ class SelectQualifier extends Qualifier{
     function validate($term, $valid = Null){
         $haystack = $valid ?? $this->getHaystack();
         $validator = v::in($haystack);
-
+        /*
         // If they can input a custom value
         // AND it's not validating a Requirement
         if($this->otherable() && is_null($valid))
+            return True;
+        */
+        if(in_array('*', $haystack))
             return True;
 
         if($this->isMulti()){
@@ -47,7 +50,12 @@ class SelectQualifier extends Qualifier{
             }
             return json_encode($term)." not in ".json_encode($haystack);
         } else {
-            try{
+            if($validator->validate($term)){
+                return True;
+            }
+            return $term." not in ".json_encode($haystack);
+            
+            /*try{
                 $validator->assert($term);
             } catch(NestedValidationException $e) {
                 return $e->getMessages();
@@ -55,7 +63,7 @@ class SelectQualifier extends Qualifier{
                 return $e->getMessage();
             }
 
-            return True;
+            return True;*/
         }
     }
 

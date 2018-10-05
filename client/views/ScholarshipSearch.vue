@@ -21,7 +21,7 @@
 	v-model="student.znumber" @input="updateStudent(student)"
 	:invalid="invalid.student.znumber">
 	</text-input>
-	<qualifier-input v-for="qualifier in required"
+	<qualifier-input v-for="qualifier in qualifiers"
 		:key="qualifier.id"
 		:qualifier="qualifier"
 		v-model="qualifications[qualifier.name]"
@@ -29,32 +29,11 @@
 		:invalid="invalid.qualifications[qualifier.name]"
 	>
 	</qualifier-input>
-	<div class="card">
-		<div class="card card-header">
-			<button class="btn btn-link" type="button"
-				data-toggle="collapse" data-target="#filters"
-				aria-expanded="false" aria-controls="filters">
-				Optional Qualifications
-			</button>
-		</div>
-		<div class="collapse multi-collapse" id="filters">
-			<div class="card card-body">
-				<qualifier-input v-for="qualifier in optional"
-					:key="qualifier.id"
-					:qualifier="qualifier"
-					v-model="qualifications[qualifier.name]"
-					@input="updateQualifications(qualifications)"
-					:invalid="invalid.qualifications[qualifier.name]"
-				>
-				</qualifier-input>
-			</div>
-		</div>
-	</div>
 </form>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import QualifierInput from '@/components/QualifierInput.vue';
 import TextInput from '@/components/TextInput.vue';
 
@@ -72,14 +51,11 @@ export default {
 	},
 	computed: {
 		...mapState({
+			qualifiers: state => Array.from(state.qualifiers.all.values()),
 			qualifications: 'qualifications',
 			student: 'student',
 			invalid: 'invalid',
 		}),
-		...mapGetters('qualifiers', [
-			'required',
-			'optional',
-		]),
 		hasQuery() {
 			return this.student.znumber
 				|| Object.keys(this.qualifications).length;

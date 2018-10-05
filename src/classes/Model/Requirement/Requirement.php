@@ -26,8 +26,8 @@ class Requirement implements \JsonSerializable{
         ];
     }
 
-    function validate($term){
-        return $this->qualifier->validate($term, $this->valid);
+    function validate($value){
+        return $this->qualifier->validate($value, $this->valid);
     }
 
     function getId(){

@@ -20,8 +20,8 @@ const router = new Router({
 			component: loadView('ScholarshipSearch'),
 		},
 		{
-			path: '/',
-			alias: '/list',
+			path: '/list',
+			alias: '/',
 			name: 'list',
 			component: loadView('ScholarshipList'),
 		},

@@ -1,7 +1,7 @@
 <template>
 	<div class='form-group'>
 		<label class='col col-form-label' :for="name">{{question}}</label>
-		<select class='form-control' :name="name"
+		<select class='form-control' :name="name + (props['multi']?'[]':'')"
 		v-model="localValue" :multiple="props['multi']" @blur="beenFocused = true"
 		:class="{[invalid ? 'is-invalid' : 'is-valid']: beenFocused || validated}">
 			<option v-if="!props['multi']" disabled selected value>{{question}}</option>

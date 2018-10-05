@@ -25,8 +25,19 @@ class Student {
         return $student;
     }
 
-    function addQualification($qualifier, $value){
+    function addQualification($qualifier, $value) {
         $this->qualifications[$qualifier] = $value;
     }
 
+    function hasRequirements($requirements) {
+        foreach($requirements as $requirement){
+            $qualifier_id = $requirement->getQualifierId();
+            $qualifications = $this->qualifications;
+            if(!array_key_exists($qualifier_id, $qualifications) 
+                || $requirement->validate($qualifications[$qualifier_id]) !== True){
+                return False;
+            }
+        }
+        return True;
+    }
 }

@@ -17,16 +17,21 @@
 		</div>
 	</div>
 	<p>Click the scholarship name to read more about it. Press 'Apply' to select the scholarships you wish to apply for, then press continue. </p>
-	<!-- <ul class="nav nav-pills nav-fill">
+	<p v-if="search">Eligible scholarships may have extra requirements. Eligibility does not guarantee acceptance. </p>
+	<ul v-if="search" class="nav nav-pills nav-fill">
 		<li class="nav-item">
-			<a class="nav-link active" href="#">All</a>
+			<a class="nav-link" :class="{active: activeList == 0}"
+			@click="setActiveList(0)" href="#">All</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#">Search Results</a>
+			<a class="nav-link" :class="{active: activeList == 1}" @click="setActiveList(1)" href="#">Eligible</a>
 		</li>
-	</ul> -->
+		<li class="nav-item">
+			<a class="nav-link" :class="{active: activeList == 2}" @click="setActiveList(2)" href="#">Ineligible</a>
+		</li>
+	</ul>
 	<selectable-scholarship
-		v-for="scholarship in scholarships.slice((page-1)*numPerPage,page*numPerPage)"
+		v-for="scholarship in scholarshipList.slice((page-1)*numPerPage,page*numPerPage)"
 		:key="scholarship.code"
 		v-bind="scholarship"
 		:checked="selected.indexOf(scholarship.code) !== -1"
@@ -70,14 +75,32 @@ export default {
 		return {
 			page: 1,
 			numPerPage: 10,
+			activeList: 0,
 		};
 	},
+	methods: {
+		setActiveList(val) {
+			this.activeList = val;
+			this.page = 1;
+		},
+	},
 	computed: {
+		scholarshipList() {
+			switch (this.activeList) {
+			case 1:
+				return this.eligible;
+			case 2:
+				return this.ineligible;
+			default:
+				return this.scholarships;
+			}
+		},
 		numPages() {
-			return Math.ceil(this.scholarships.length / this.numPerPage);
+			return Math.ceil(this.scholarshipList.length / this.numPerPage);
 		},
 		...mapGetters({
-			// qualifying: 'scholarships/qualifying',
+			eligible: 'scholarships/eligible',
+			ineligible: 'scholarships/ineligible',
 		}),
 		...mapState({
 			search: 'search',
@@ -88,7 +111,10 @@ export default {
 	created() {
 		const { query } = this.$route;
 		if (query.search) {
-			this.$store.commit('search');
+			if (!query.znumber
+				|| Object.values(query).filter(e => e).length > 2) {
+				this.$store.commit('search');
+			}
 			if (query.znumber && query.znumber.toUpperCase()[0] !== 'Z') {
 				query.znumber = 'Z'.concat(query.znumber);
 			}

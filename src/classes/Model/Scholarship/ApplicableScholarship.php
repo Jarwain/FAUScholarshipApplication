@@ -1,6 +1,7 @@
 <?php
 namespace ScholarshipApi\Model\Scholarship;
 
+use ScholarshipApi\Model\Student\Student;
 class ApplicableScholarship extends Scholarship implements \JsonSerializable{
     var $max;
     var $app_count; // NOTE: app_count represents total accepted + undecided. Rejects aren't counted
@@ -11,7 +12,7 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
     var $close;
 
     var $studentApplied = false;
-    var $studentQualifies = null;
+    var $studentEligibility = null;
 
     function __construct($id = NULL, $code, $name, $description, $active,
         $open = False, $close = False, $max = 0, $app_count = 0){
@@ -45,8 +46,8 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
             "not_applicable" => $this->notApplicable(),
         ];
 
-        if(!is_null($this->studentQualifies)){
-            $result['qualifies'] = $this->studentQualifies;
+        if(!is_null($this->studentEligibility)){
+            $result['eligible'] = $this->studentEligibility;
         }
         return $result;
     }
@@ -93,14 +94,6 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
         return $result;
     }
 
-    function setStudentApplied(){
-        $this->studentApplied = true;
-    }
-
-    function setStudentQualifies(bool $q){
-        $this->studentQualifies = $q;
-    }
-
     function setMax(int $max = 0){
         $this->max = $max;
     }
@@ -142,5 +135,42 @@ class ApplicableScholarship extends Scholarship implements \JsonSerializable{
     }
     function getQuestions(){
         return $this->questions;
+    }
+
+    function setStudentApplied(){
+        $this->studentApplied = true;
+    }
+
+    function setEligibility(bool $b){
+        $this->studentEligibility = $b;
+    }
+
+    function checkEligibility(Student $student){
+        $categories = $this->getRequirementCategories();
+        $categoryCount = count($categories);
+
+        if(!$categoryCount) return True;
+        if($categoryCount == 1) return $student->hasRequirements($this->getRequirements());
+
+        // Is there a wildcard category?
+        $wildcard = array_search('*', $categories);
+        // If so
+        if($wildcard !== False){
+            // If the student passes the wildcard
+            if($student->hasRequirements($this->getRequirements('*'))){
+                unset($categories[$wildcard]);
+            } else {
+                return False;
+            }
+        }
+
+        foreach($categories as $category){
+            // if at least one category passes
+            if($student->hasRequirements($this->getRequirements($category))){
+                return True;
+            }
+        }
+
+        return False;
     }
 }

@@ -26,10 +26,10 @@ class SearchService{
         return $result;
     }
 
-
     function searchScholarships($data, $params){
-        if($params['znumber']) {
-            $apps = $this->applications->getByZnumber($params['znumber']);
+        $znumber = $params['znumber'] ?? NULL;
+        if($znumber) {
+            $apps = $this->applications->getByZnumber($znumber);
             $codes = array_column($apps, 'code');
             foreach($codes as $code){
                 $data[$code]->setStudentApplied();
@@ -38,34 +38,22 @@ class SearchService{
         $result = $this->validateQualifications($params);
         // If there exist qualifications
         if(!empty($result)){
-            $qualifications = [];
-            foreach($result as $key=>$val){
+            $student = new Student($znumber, Null, Null, Null);
+            $qualifiers = $this->qualifiers->getAllByName();
+            foreach($result as $qualifier => $val){
+                // Only use valid qualifications
                 if($val === True){
-                    $qualifications[$key] = $params[$key];
+                    $id = $qualifiers[$qualifier]->getId();
+                    $student->addQualification($id, $params[$qualifier]);
                 }
             }
+
             foreach($data as $scholarship){
-                $qualifies = $this->studentQualifies($qualifications, $scholarship);
-                $scholarship->setStudentQualifies($qualifies);
+                $eligible = $scholarship->checkEligibility($student);
+                $scholarship->setEligibility($eligible);
             }
         }
         
         return $data;
-    }
-
-    function studentQualifies($qualifications, $scholarship){
-        $categories = $scholarship->getRequirementCategories();
-        $categoryCount = count($categories);
-        
-        if(!$categoryCount) return True;
-        
-        $results = [];
-        foreach($categories as $category){
-            $results[$category] = studentPassesRequirements($qualifications, $scholarship->getRequirements($category));
-        }
-    }
-
-    function studentPassesRequirements($qualifications, $requirements) {
-
     }
 }
