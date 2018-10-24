@@ -24,12 +24,11 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
         // IF application has been accepted or a decision has not been made.
         // Applications that have been rejected do not count against the total
         $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max, s.open, s.close,
-                    ( SELECT COUNT(a.code) FROM `application` a 
-                        WHERE a.code = s.code
-                        AND (a.decision = 1 
-                            OR a.decision IS NULL)
-                        ) as app_count
-                    FROM `scholarship` s";
+                    COUNT(a.code) as app_count
+                    FROM `scholarship` s
+                    LEFT JOIN `application` a ON a.code = s.code
+                    WHERE a.decision = 1 OR a.decision IS NULL 
+                    GROUP BY s.code";
         $result = $this->db->query($query)->fetchAll();
 
         return $this->factory->bulkInitialize($result);
@@ -37,13 +36,12 @@ class ApplicableScholarshipDatabase implements ScholarshipStore{
 
     function get($code){
         $query = "SELECT s.id, s.code, s.name, s.description, s.active, s.max, s.open, s.close,
-                    ( SELECT COUNT(a.code) FROM `application` a 
-                        WHERE a.code = s.code
-                        AND (a.decision = 1 
-                            OR a.decision IS NULL)
-                        ) as app_count
-                    FROM `scholarship` s 
-                    WHERE s.code = :code";
+                    COUNT(a.code) as app_count
+                    FROM `scholarship` s
+                    LEFT JOIN `application` a ON a.code = s.code
+                    WHERE (a.decision = 1 OR a.decision IS NULL)
+                        AND s.code = :code
+                    GROUP BY s.code";
         $stmnt = $this->db->prepare($query);
 
         $stmnt->bindParam(':code', $code, \PDO::PARAM_STR);
